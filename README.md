@@ -50,7 +50,9 @@ sudo steamos-readonly disable && echo "keyserver hkps://keyserver.ubuntu.com" >>
 ```sh
 sudo cd Download https://archlinux.org/packages/core/any/archlinux-keyring/download && sudo pacman -U archlinux-keyring-20220713-2-any.pkg.tar.zst
 ```
-# <p align="center">`REBOOT-NOW-REBOOT-NOW-REBOOT-NOW-REBOOT-NOW-REBOOT`</p>
+# <p align="center">`REBOOT-NOW`</p>
+# <p align="center">`REBOOT-NOW`</p>
+# <p align="center">`REBOOT-NOW`</p>
 # STEAMOS-BRTFS
 ### ■ INSTALL & RUN
 > **CONVERTS FILESYSTEM FROM EXT4 TO BTRFS**
@@ -72,7 +74,9 @@ sudo cd Download https://archlinux.org/packages/core/any/archlinux-keyring/downl
 ```sh
 t="$(mktemp -d)" && curl -sSL https://gitlab.com/popsulfr/steamos-btrfs/-/archive/main/steamos-btrfs-main.tar.gz | tar -xzf - -C "$t" --strip-components=1 && "$t/install.sh" && rm -rf "$t"
 ```
-# <p align="center">`REBOOT-NOW-REBOOT-NOW-REBOOT-NOW-REBOOT-NOW-REBOOT`</p>
+# <p align="center">`REBOOT-NOW`</p>
+# <p align="center">`REBOOT-NOW`</p>
+# <p align="center">`REBOOT-NOW`</p>
 # CRYOUTILITIES
 ### ■ INSTALL & RUN
 ###### COPY/ PASTE
@@ -89,7 +93,9 @@ StartupNotify=false" >> InstallCryoUtilities.desktop && sudo gtk-launch EmuDeck.
 ```sh
 CHOSE RECOMMENDED SETTINGS
 ```
-# <p align="center">`REBOOT-NOW-REBOOT-NOW-REBOOT-NOW-REBOOT-NOW-REBOOT`</p>
+# <p align="center">`REBOOT-NOW`</p>
+# <p align="center">`REBOOT-NOW`</p>
+# <p align="center">`REBOOT-NOW`</p>
 # INSTALLING EMULATORS USING EMUDECK
 ### ■ DOWNLOAD & INSTALL
 ###### COPY/ PASTE
@@ -158,4 +164,6 @@ sudo cd Desktop && sudo wget -q https://github.com/SteamDeckHomebrew/decky-insta
 ```sh
 git clone https://github.com/ValShaped/rwfus.git && cd rwfus && ./rwfus -iI
 ```
-# <p align="center">`REBOOT-NOW-REBOOT-NOW-REBOOT-NOW-REBOOT-NOW-REBOOT`</p>
+# <p align="center">`REBOOT-NOW`</p>
+# <p align="center">`REBOOT-NOW`</p>
+# <p align="center">`REBOOT-NOW`</p>
