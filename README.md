@@ -1,6 +1,6 @@
 # <p align="center"> THE DEFINITIVE GUIDE </p>
 # <p align="center"><img src="https://raw.githubusercontent.com/bluntwizard/steam_deck_dub_edition/f9e102fc2dec0f986433a9f33ff7bbbb05cb9d6d/Steam_Deck_colored_logo.svg" alt="alt text" width="25%" height="25%"><img src="https://github.com/bluntwizard/steam_deck_dub_edition/blob/main/dub_edition.png?raw=true" alt="alt text" width="20%" height="20%"> EDITION </p>
-###### <p align="center">"Throw some D's on that bitch"</p>
+###### <p align="center">"THROW SOME D'S ON THAT BITCH."</p>
 > **THIS GUIDE IS INTENDED AS A DEFINITIVE START GUIDE REGARDING VARIOUS AVENUES OF INTEREST ON THE STEAM DECK.**
 > 
 > **FROM BUILDING PACKAGES AND RETAINING THEM BETWEEN UPDATES, TO EMULATION AND SOFTWARE MODIFICATIONS/ PLUGINS.**
@@ -19,7 +19,7 @@ HEROIC LAUNCHER
 ```
 
 ### ■ SET ADMIN PASSWORD WITHIN KONSOLE/ TERMINAL EMULATOR
-###### COPY/PASTE
+###### COPY/ PASTE
 ```sh
 passwd
 ```
@@ -27,11 +27,11 @@ passwd
 ENTER NEW ADMIN PASSWORD
 ```
 ### ■ WRITE ACCESS & INSTALLING BUILD DEPENDENCIES
-> **DISABLES READONLY**
+> **DISABLES READONLY.**
 > 
->**DOWNLOAD, POPULATE, AND REFRESH KEYS FROM UBUNTU'S KEYSERVER**
+>**DOWNLOAD, POPULATE, & REFRESH KEYS FROM UBUNTU'S KEYSERVER.**
 > 
->**[GCC/ CLANG/ GLIBC/ MAKE - MAY BE REDUNDANT]**
+>**[GCC/ CLANG/ GLIBC/ MAKE - MAY BE REDUNDANT.]**
 
 ###### COPY/ PASTE
 ```sh
@@ -42,7 +42,7 @@ sudo steamos-readonly disable && echo "keyserver hkps://keyserver.ubuntu.com" >>
 >
 > **THIS IS BECAUSE THE CORE ARCHLINUX-KEYRING IS OUT OF DATE. PACMAN/GNUPG WILL SHOW THAT ANY PACKAGE YOU ARE TRYING TO INSTALL IS OUT OF DATE, CORRUPT, OR OF MARGINAL TRUST.**
 >
-> **CHANGING REPOS TO OFFICIAL ARCH WOULD FIX THIS, BUT THAT WOULD CHANGE THE KERNEL AND OTHER CORE PACKAGES.**
+> **CHANGING REPOS TO OFFICIAL ARCH WOULD FIX THIS, BUT THAT WOULD CHANGE THE KERNEL & OTHER CORE PACKAGES.**
 >
 > **WE COULD TURN OFF PGP VERIFICATION, BUT THIS IS INSECURE.**
 >
@@ -56,21 +56,21 @@ sudo cd Download https://archlinux.org/packages/core/any/archlinux-keyring/downl
 # <p align="center">`REBOOT-NOW`</p>
 # <p align="center">`REBOOT-NOW`</p>
 # STEAMOS-BRTFS
-### ■ INSTALL & RUN
-> **CONVERTS FILESYSTEM FROM EXT4 TO BTRFS**
+> **CONVERTS FILESYSTEM FROM EXT4 TO BTRFS.**
 > 
-> **CAN INCREASE STORAGE UP TO 33%**
+> **CAN INCREASE STORAGE UP TO 33%.**
 > 
-> **[PERSONAL EXPERIENCE - MILEAGE MY VARY WITH FILE TYPE AND SIZE]**
+> **[PERSONAL EXPERIENCE - MILEAGE MY VARY WITH FILE TYPE AND SIZE.]**
 
+### ■ INSTALL & RUN
 ##### -REQUIREMENTS
-> **AT LEAST 20% FREE SPACE**
+> **AT LEAST 20% FREE SPACE.**
 > 
-> **CHOSE ALL AVAILABLE OPTIONS**
+> **CHOSE ALL AVAILABLE OPTIONS.**
 > 
-> **REBOOT WHEN PROMPTED**
+> **REBOOT WHEN PROMPTED.**
 > 
-> **PROCESS CAN TAKE UP TO 30 MINUTES**
+> **PROCESS CAN TAKE UP TO 30 MINUTES.**
 
 ###### COPY/ PASTE
 ```sh
@@ -80,6 +80,8 @@ t="$(mktemp -d)" && curl -sSL https://gitlab.com/popsulfr/steamos-btrfs/-/archiv
 # <p align="center">`REBOOT-NOW`</p>
 # <p align="center">`REBOOT-NOW`</p>
 # CRYOUTILITIES
+> **CYROUTILITIES IS A COLLECTION OF SCRIPTS & UTILITIES TO IMPROVE PERFORMANCE & MANAGE STORAGE ON THE STEAM DECK.**
+
 ### ■ INSTALL & RUN
 ###### COPY/ PASTE
 ```sh
@@ -98,13 +100,40 @@ CHOSE RECOMMENDED SETTINGS
 # <p align="center">`REBOOT-NOW`</p>
 # <p align="center">`REBOOT-NOW`</p>
 # <p align="center">`REBOOT-NOW`</p>
-# INSTALLING EMULATORS USING EMUDECK
-### ■ DOWNLOAD & INSTALL
+# EMUDECK
+> **INSTALLS EMULATORS FROM THE DISCOVER STORE & OFFICIAL REPOSITORIES.**
+>
+> **CREATES ~/Emulation DIRECTORY WITH FOLDERS FOR BIOS ROMS.**
+>
+> **PROVIDES GENERIC STEAM INPUT PROFILES FOR EMULATORS.**
+>
+> **PRE-OPTIMIZES EMULATORS, ALLOWS THE USER TO CHANGE THESE SETTINGS.**
+
+
+> **INCLUDES `STEAM ROM MANAGER`.**
+>
+> **`STEAM ROM MANAGER` EASILY ADDS YOUR NON-STEAM GAMES TO YOUR STEAM LIBRARY.**
+>
+> **`STEAM ROM MANAGER` AUTOMATICALLY CREATES COLLECTIONS FOR EACH CONSOLE IN YOUR LIBRARY.**
+>
+> **`STEAM ROM MANAGER` AUTOMATICALLY FETCHES ARTWORK FOR GAMES.**
+
+### ■ INSTALLATION
 ###### COPY/ PASTE
 ```sh
 sudo cd Desktop && sudo wget -q https://www.emudeck.com/EmuDeck.desktop -O ~/Desktop/EmuDeck.desktop && sudo gtk-launch EmuDeck.desktop
 ```
-### ■ REPLACING YUZU WITH EARLY ACCESS BUILD & ENABLING AUTO UPDATE
+### ■ SETUP
+> **CHOSE MANUAL SETUP.**
+> 
+> **SELECT ALL EMULATORS LISTED.**
+> 
+> **CHANGE ANY OTHER WANTED SETTINGS.**
+
+# YUZU
+> **NINTENDO SWITCH EMULATOR.**
+
+### ■ REPLACING WITH EARLY ACCESS & ENABLING AUTO UPDATE
 ###### COPY/ PASTE
 ```sh
 curl -s https://api.github.com/repos/pineappleEA/pineapple-src/releases/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/Applications/yuzu.AppImage -i - &&  awk -v prepend="<curl -s https://api.github.com/repos/pineappleEA/pineapple-src/releases/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/Applications/yuzu.AppImage -i ->" 'NR==2{print prepend $0;next};1' $HOME/Emulation/tools/launchers/yuzu.sh
@@ -122,20 +151,27 @@ copy paste beneath bin/bash
 
     curl -s https://api.github.com/repos/pineappleEA/pineapple-src/releases/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/Applications/yuzu.AppImage -i -
 ```
-### ■ ADDING XENIA
+# XENIA
+> **MICROSOFT XBOX 360 EMULATOR.**
+
+### ■ INSTALLATION
 ```sh
 START 'EMUDECK'
 SELECT 'MANAGE EMULATORS'
 SELECT & INSTALL 'XENIA'
 ```
 ### ■ REPLACING XENIA
-> **CURRENT XENIA BUILDS CRASH ON STEAM DECK WHEN LOADING XBLA TITLES**
+> **CURRENT XENIA BUILDS CRASH ON STEAM DECK WHEN LOADING XBLA TITLES.**
 
 ###### COPY/ PASTE
  ```sh
  sudo wget -q https://github.com/xenia-canary/xenia-canary/releases/tag/190cef9 -O ~/emulation/roms/xbox360/xenia_canary.exe 
 ```
 ### ■ UNLOCK FULL XBLA GAME ACCESS
+> **BY DEFAULT XENIA REPORTS NO LICENSE FOR XBLA TITLES.**
+>
+> **NO LICENSE WILL CAUSE XBLA TITLES TO START IN DEMO MODE/ NOT AT ALL.***
+
 ###### COPY/ PASTE
 ```sh
 awk '{gsub(/license_mask = 0/, "license_mask = 1"); print}' xenia-canary.config.toml > xenia-canary.config.toml
@@ -155,12 +191,18 @@ awk '{gsub(/license_mask = 0/, "license_mask = 1"); print}' xenia-canary.config.
         license_mask = 1
 ```
 # DECKY LOADER
+> **HOMEBREW PLUGIN LAUNCHER FOR THE STEAM DECK.**
+>
+> **CAN BE USED TO STYLIZE MENUS, CHANGE SYSTEM SOUNDS, ADJUST SCREEN SATURATION, CHANGE ADDITIONAL SYSTEM SETTINGS, AND MUCH MORE.**
+
 ##### ■ INSTALLATION
 ###### COPY/ PASTE
 ```sh
 sudo cd Desktop && sudo wget -q https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/decky_installer.desktop && sudo gtk-launch decky_installer.desktop
 ```
-# RWFUS
+# RWFUS: READ-WRITE OVERLAY FILESYSTEM
+> **RWFUS COVERS THE /usr/ DIRECTORY [AND SOME OTHERS] ALLOWING PACMAN TO BE INITIALIZED WITHOUT LOSING PACKAGES WHEN THE NEXT UPDATE COMES OUT.**
+
 ##### ■ INSTALLATION
 ###### COPY/ PASTE
 ```sh
