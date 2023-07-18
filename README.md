@@ -11,7 +11,7 @@
 # TABLE OF CONTENTS
 | SECTION | DISCRIPTION |
 | ------ | ------ |
-|[DECKY LOADER PLUGINS](https://github.com/bluntwizard/steam_deck_dub_edition/edit/main/README.md#decky-loader-plugins)||
+|[DECKY LOADER PLUGINS](#decky-loader-plugins)||
 |||
 |||
 |||
