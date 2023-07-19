@@ -3,15 +3,14 @@
 # <p align="center"><img src="https://raw.githubusercontent.com/bluntwizard/steam_deck_dub_edition/f9e102fc2dec0f986433a9f33ff7bbbb05cb9d6d/Steam_Deck_colored_logo.svg" alt="alt text" width="25%" height="25%"><img src="https://github.com/bluntwizard/steam_deck_dub_edition/blob/main/dub_edition.png?raw=true" alt="alt text" width="20%" height="20%"> EDITION </p>
 ###### <p align="center">"THROW SOME D'S ON THAT BITCH."</p>
 #
-> **THIS GUIDE IS INTENDED AS A DEFINITIVE START GUIDE REGARDING VARIOUS AVENUES OF INTEREST ON THE STEAM DECK.**
+>##### **THIS GUIDE IS INTENDED AS A DEFINITIVE START GUIDE REGARDING VARIOUS AVENUES OF INTEREST ON THE STEAM DECK.**
 > 
-> **FROM BUILDING PACKAGES AND RETAINING THEM BETWEEN UPDATES, TO EMULATION AND SOFTWARE MODIFICATIONS/ PLUGINS.**
+>##### **FROM BUILDING PACKAGES AND RETAINING THEM BETWEEN UPDATES, TO EMULATION AND SOFTWARE MODIFICATIONS/ PLUGINS.**
 > 
 > #### *`⚠︎⚠︎⚠︎ ROUGHLY INTENDED AS A STEP-BY-STEP GUIDE. ⚠︎⚠︎⚠︎`*
 >
 > ## **`IF YOU FEEL THERE IS SOMETHING MISSING, PLEASE MAKE A COMMIT.`**
-#
-
+------
 | TABLE OF CONTENTS | 
 | ------ | 
 |[**SECTION I** : GETTING STARTED]()|
@@ -75,7 +74,7 @@ sudo echo "keyserver hkps://keyserver.ubuntu.com" >> /etc/pacman.d/gnupg/gpg.con
 ```sh
 sudo cd Download https://archlinux.org/packages/core/any/archlinux-keyring/download && sudo pacman -U archlinux-keyring-20220713-2-any.pkg.tar.zst
 ```
-## PACMAN IS NOW READY, USER CAN BUILD PACKAGES FROM SOURCE, AND PACKAGES WILL NOT BE WIPED ON NEXT UPDATE.
+## `PACMAN IS NOW READY, USER CAN BUILD PACKAGES FROM SOURCE, AND PACKAGES WILL NOT BE WIPED ON NEXT UPDATE.`
 
 ## YAY
 ### INSTALLATION
