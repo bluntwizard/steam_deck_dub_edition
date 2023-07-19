@@ -29,7 +29,9 @@ PEAZIP
 JDOWNLOADER
 HEROIC LAUNCHER
 ```
-### ■ SET ADMIN PASSWORD WITHIN KONSOLE/ TERMINAL EMULATOR
+# SECTION 1
+> **ROOT ACCESS, RETAINING APPS BETWEEN UPDATES, TRUST ISSUES & PACMAN**
+### ■ SET ADMIN/ [SUDO](https://github.com/bluntwizard/steam_deck_dub_edition/main/README.md#:~:text=DISCRIPTION-,SUDO,-%5BALSO%20KNOWN%20AS) PASSWORD WITHIN KONSOLE/ TERMINAL EMULATOR.
 ###### COPY/ PASTE
 ```sh
 passwd
@@ -37,16 +39,26 @@ passwd
 ```sh
 ENTER NEW ADMIN PASSWORD
 ```
-### ■ WRITE ACCESS & INSTALLING BUILD DEPENDENCIES
-> **DISABLES READONLY.**
-> 
+# RWFUS: READ-WRITE OVERLAY FILESYSTEM
+> **RWFUS COVERS THE /usr/ DIRECTORY [AND SOME OTHERS] ALLOWING PACMAN TO BE INITIALIZED WITHOUT LOSING PACKAGES WHEN THE NEXT UPDATE COMES OUT.**
+
+##### ■ INSTALLATION
+###### COPY/ PASTE
+```sh
+git clone https://github.com/ValShaped/rwfus.git && cd rwfus && ./rwfus -iI
+```
+# <p align="center">`REBOOT-NOW`</p>
+# <p align="center">`REBOOT-NOW`</p>
+# <p align="center">`REBOOT-NOW`</p>
+
+### ■ INSTALLING BUILD DEPENDENCIES
 >**DOWNLOAD, POPULATE, & REFRESH KEYS FROM UBUNTU'S KEYSERVER.**
 > 
 >**[GCC/ CLANG/ GLIBC/ MAKE - MAY BE REDUNDANT.]**
 
 ###### COPY/ PASTE
 ```sh
-sudo steamos-readonly disable && echo "keyserver hkps://keyserver.ubuntu.com" >> /etc/pacman.d/gnupg/gpg.conf && sudo pacman-key --init && sudo pacman-key --populate && sudo pacman-key --refresh-keys && sudo pacman -S base-devel && sudo pacman -S gcc && sudo pacman -S clang && sudo pacman -S make && sudo pacman -S glibc
+sudo echo "keyserver hkps://keyserver.ubuntu.com" >> /etc/pacman.d/gnupg/gpg.conf && sudo pacman-key --init && sudo pacman-key --populate && sudo pacman-key --refresh-keys && sudo pacman -S base-devel && sudo pacman -S gcc && sudo pacman -S clang && sudo pacman -S make && sudo pacman -S glibc
 ```
 ### ■ FIXING TRUST ISSUES
 > **THE MAIN ISSUE: PGP KEY VERIFICATION IS BROKEN, FAILING DURING PACKAGE INSTALLATION.**
@@ -63,6 +75,8 @@ sudo steamos-readonly disable && echo "keyserver hkps://keyserver.ubuntu.com" >>
 ```sh
 sudo cd Download https://archlinux.org/packages/core/any/archlinux-keyring/download && sudo pacman -U archlinux-keyring-20220713-2-any.pkg.tar.zst
 ```
+## PACMAN IS NOW READY, USER CAN BUILD PACKAGES FROM SOURCE, AND PACKAGES WILL NOT BE WIPED ON NEXT UPDATE.
+
 # <p align="center">`REBOOT-NOW`</p>
 # <p align="center">`REBOOT-NOW`</p>
 # <p align="center">`REBOOT-NOW`</p>
@@ -211,18 +225,6 @@ awk '{gsub(/license_mask = 0/, "license_mask = 1"); print}' xenia-canary.config.
 ```sh
 sudo cd Desktop && sudo wget -q https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/decky_installer.desktop && sudo gtk-launch decky_installer.desktop
 ```
-# RWFUS: READ-WRITE OVERLAY FILESYSTEM
-> **RWFUS COVERS THE /usr/ DIRECTORY [AND SOME OTHERS] ALLOWING PACMAN TO BE INITIALIZED WITHOUT LOSING PACKAGES WHEN THE NEXT UPDATE COMES OUT.**
-
-##### ■ INSTALLATION
-###### COPY/ PASTE
-```sh
-git clone https://github.com/ValShaped/rwfus.git && cd rwfus && ./rwfus -iI
-```
-# <p align="center">`REBOOT-NOW`</p>
-# <p align="center">`REBOOT-NOW`</p>
-# <p align="center">`REBOOT-NOW`</p>
-
 ## DECKY LOADER PLUGINS
 | PLUGIN | DISCRIPTION |
 | ------ | ------ |
@@ -282,3 +284,19 @@ git clone https://github.com/ValShaped/rwfus.git && cd rwfus && ./rwfus -iI
 | **`DECKSETTINGS`** | PLUGIN TO BROWSE RECOMMENDED STEAM DECK GAME SETTINGS FROM SHAREDECK AND STEAMDECKHQ. |
 | **`TS3 QUICKACCESS`** | A TEAMSPEAK 3 CLIENT PLUGIN THAT INTEGRATES TEAMSPEAK 3 INTO STEAM DECK'S QUICK ACCESS MENU. |
 
+| BUZZ WORDS | DISCRIPTION |
+| ------ | ------ |
+| **`SUDO`** | [ALSO KNOWN AS "SUPER USER DO"] ALLOWS THE USER TO TEMPORARILY ELEVATE THE CURRENT USER ACCOUNT TO HAVE ROOT PRIVILEGES. |
+| **`ROOT PRIVILEGES/ ROOT ACCESS`** | THE CURRENT ACCOUNT CAN READ AND WRITE ANY FILES ON THE SYSTEM, PERFORM OPERATIONS AS ANY USER, CHANGE SYSTEM CONFIGURATION, INSTALL/ REMOVE SOFTWARE, AND UPGRADE THE SYSTEM AND/ OR FIRMWARE. IN ESSENCE, THE CURRENT ACCOUNT CAN DO ALMOST ANYTHING ON THE SYSTEM. |
+
+### ■ WRITE ACCESS & INSTALLING BUILD DEPENDENCIES
+> **DISABLES READONLY.**
+> 
+>**DOWNLOAD, POPULATE, & REFRESH KEYS FROM UBUNTU'S KEYSERVER.**
+> 
+>**[GCC/ CLANG/ GLIBC/ MAKE - MAY BE REDUNDANT.]**
+
+###### COPY/ PASTE
+```sh
+sudo steamos-readonly disable && echo "keyserver hkps://keyserver.ubuntu.com" >> /etc/pacman.d/gnupg/gpg.conf && sudo pacman-key --init && sudo pacman-key --populate && sudo pacman-key --refresh-keys && sudo pacman -S base-devel && sudo pacman -S gcc && sudo pacman -S clang && sudo pacman -S make && sudo pacman -S glibc
+```
