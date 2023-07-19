@@ -1,8 +1,5 @@
 #
-
 # <p align="center"> THE DEFINITIVE GUIDE </p>
-
-#
 # <p align="center"><img src="https://raw.githubusercontent.com/bluntwizard/steam_deck_dub_edition/f9e102fc2dec0f986433a9f33ff7bbbb05cb9d6d/Steam_Deck_colored_logo.svg" alt="alt text" width="25%" height="25%"><img src="https://github.com/bluntwizard/steam_deck_dub_edition/blob/main/dub_edition.png?raw=true" alt="alt text" width="20%" height="20%"> EDITION </p>
 ###### <p align="center">"THROW SOME D'S ON THAT BITCH."</p>
 #
@@ -10,15 +7,14 @@
 > 
 > **FROM BUILDING PACKAGES AND RETAINING THEM BETWEEN UPDATES, TO EMULATION AND SOFTWARE MODIFICATIONS/ PLUGINS.**
 > 
-> **`IF YOU FEEL THERE IS SOMETHING MISSING, PLEASE MAKE A COMMIT.`**
+> #### *`⚠︎⚠︎⚠︎ ROUGHLY INTENDED AS A STEP-BY-STEP GUIDE. ⚠︎⚠︎⚠︎`*
 >
-> #### *`⚠︎ ROUGHLY INTENDED AS A STEP-BY-STEP GUIDE. ⚠︎`*
-> #
+> ## **`IF YOU FEEL THERE IS SOMETHING MISSING, PLEASE MAKE A COMMIT.`**
+#
 
-# TABLE OF CONTENTS
-| SECTION | 
+| TABLE OF CONTENTS | 
 | ------ | 
-|**I: GETTING STARTED**|
+|[**SECTION I** : GETTING STARTED]()|
 ||
 ||
 ||
@@ -29,11 +25,13 @@
 ||
 |[X: RECOMMENDED FLATPAK LIST]()|
 |[X: PLUGINS LIST](#decky-loader-plugins)|
-#
+------
+------
+## SECTION I: GETTING STARTED
 
-# SECTION I: GETTING STARTED
-> **ROOT ACCESS, RETAINING APPS BETWEEN UPDATES, TRUST ISSUES, PACMAN & YAY**
-### ■ SET ADMIN/ [SUDO](https://github.com/bluntwizard/steam_deck_dub_edition/main/README.md#:~:text=DISCRIPTION-,SUDO,-%5BALSO%20KNOWN%20AS) PASSWORD WITHIN KONSOLE/ TERMINAL EMULATOR.
+**`ROOT ACCESS, RETAINING APPS BETWEEN UPDATES, TRUST ISSUES, PACMAN & YAY`**
+
+### ■ SET ADMIN/ [SUDO]() PASSWORD WITHIN KONSOLE/ TERMINAL EMULATOR.
 ###### COPY/ PASTE
 ```sh
 passwd
