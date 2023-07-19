@@ -82,7 +82,9 @@ git clone https://github.com/ValShaped/rwfus.git && cd rwfus && ./rwfus -iI
 sudo echo "keyserver hkps://keyserver.ubuntu.com" >> /etc/pacman.d/gnupg/gpg.conf && sudo pacman-key --init && sudo pacman-key --populate && sudo pacman-key --refresh-keys && sudo pacman -S base-devel && sudo pacman -S gcc && sudo pacman -S clang && sudo pacman -S make && sudo pacman -S glibc
 ```
 
-### ■ FIXING TRUST ISSUES
+#
+
+## 4. FIXING TRUST ISSUES
 
 > **THE MAIN ISSUE: PGP KEY VERIFICATION IS BROKEN, FAILING DURING PACKAGE INSTALLATION.**
 >
@@ -100,9 +102,13 @@ sudo echo "keyserver hkps://keyserver.ubuntu.com" >> /etc/pacman.d/gnupg/gpg.con
 sudo cd Download https://archlinux.org/packages/core/any/archlinux-keyring/download && sudo pacman -U archlinux-keyring-20220713-2-any.pkg.tar.zst
 ```
 
+#
+
 ## `PACMAN IS NOW READY, USER CAN BUILD PACKAGES FROM SOURCE, AND PACKAGES WILL NOT BE WIPED ON NEXT UPDATE.`
 
-## YAY
+#
+
+## 5. INSTALLING YAY
 
 ### INSTALLATION
 
