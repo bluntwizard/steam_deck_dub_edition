@@ -4,23 +4,23 @@
 
 # <p align="center"><img src="https://raw.githubusercontent.com/bluntwizard/steam_deck_dub_edition/f9e102fc2dec0f986433a9f33ff7bbbb05cb9d6d/Steam_Deck_colored_logo.svg" alt="alt text" width="25%" height="25%"><img src="https://github.com/bluntwizard/steam_deck_dub_edition/blob/main/dub_edition.png?raw=true" alt="alt text" width="20%" height="20%"> EDITION </p>
 
-###### <p align="center">"THROW SOME D'S ON THAT BITCH."</p>
-
-#
-
->##### **THIS GUIDE IS INTENDED AS A DEFINITIVE START GUIDE REGARDING VARIOUS AVENUES OF INTEREST ON THE STEAM DECK.**
-> 
->##### **FROM BUILDING PACKAGES AND RETAINING THEM BETWEEN UPDATES, TO EMULATION AND SOFTWARE MODIFICATIONS/ PLUGINS.**
-> 
-> ### *`⚠︎⚠︎⚠︎ ROUGHLY INTENDED AS A STEP-BY-STEP GUIDE. ⚠︎⚠︎⚠︎`*
->
-> ## **`IF YOU FEEL THERE IS SOMETHING MISSING, PLEASE MAKE A COMMIT.`**
+> ### <p align="center">"THROW SOME D'S ON THAT BITCH."</p>
 
 ------
 
-| TABLE OF CONTENTS | 
-| ------ | 
-|[**SECTION I** : GETTING STARTED]()|
+>##### **THIS GUIDE IS INTENDED AS A DEFINITIVE START GUIDE REGARDING VARIOUS AVENUES OF INTEREST ON THE STEAM DECK.**
+> 
+>##### **FROM INSTALLING PACKAGES AND RETAINING THEM BETWEEN UPDATES, TO EMULATION AND SOFTWARE MODIFICATIONS/ PLUGINS.**
+> 
+> ### <p align="center">*`⚠︎⚠︎⚠︎ ROUGHLY INTENDED AS A STEP-BY-STEP GUIDE. ⚠︎⚠︎⚠︎`*</p>
+>
+> ### <p align="center">**`IF YOU FEEL THERE IS SOMETHING MISSING, PLEASE MAKE A COMMIT.`**</p>
+
+------
+
+| TABLE OF CONTENTS |
+| ------ |
+|[**SECTION I** : GETTING STARTED](https://github.com/bluntwizard/steam_deck_dub_edition#section-i-getting-started)|
 ||
 ||
 ||
@@ -38,11 +38,13 @@
 
 ## SECTION I: GETTING STARTED
 
-**`ROOT ACCESS, RETAINING APPS BETWEEN UPDATES, TRUST ISSUES, PACMAN & YAY`**
+**`SUDO, RETAINING PACKAGES BETWEEN UPDATES, TRUST ISSUES, PACMAN & YAY`**
 
 ------
 
-## 1. SET ADMIN/ [SUDO]() PASSWORD WITHIN KONSOLE/ TERMINAL EMULATOR.
+### 1. SETTING ADMIN/ [SUDO](https://wiki.archlinux.org/title/sudo) PASSWORD WITHIN KONSOLE/ [TERMINAL EMULATOR](https://en.wikipedia.org/wiki/Terminal_emulator)
+
+#
 
 ###### COPY/ PASTE
 
@@ -56,21 +58,21 @@ ENTER NEW ADMIN PASSWORD
 
 #
 
-## 2. INSTALL RWFUS: READ-WRITE OVERLAY FILESYSTEM
+### 2. INSTALLING [RWFUS: READ-WRITE OVERLAY FILESYSTEM](https://github.com/ValShaped/rwfus)
 
-> **RWFUS COVERS THE /usr/ DIRECTORY [AND SOME OTHERS] ALLOWING PACMAN TO BE INITIALIZED WITHOUT LOSING PACKAGES WHEN THE NEXT UPDATE COMES OUT.**
+#
 
-##### ■ INSTALLATION
+> **STEAMOS IS AN [IMMUTABLE OPERATING SYSTEM](https://kairos.io/blog/2023/03/22/understanding-immutable-linux-os-benefits-architecture-and-challenges/#what-is-an-immutable-linux-os), RWFUS COVERS THE /usr/ DIRECTORY [AND SOME OTHERS] ALLOWING PACMAN TO BE INITIALIZED WITHOUT LOSING PACKAGES WHEN THE NEXT UPDATE COMES OUT.**
 
 ###### COPY/ PASTE
 
 ```
-git clone https://github.com/ValShaped/rwfus.git && cd rwfus && ./rwfus -iI
+git clone https://github.com/ValShaped/rwfus.git && cd rwfus && ./rwfus -iI && sudo reboot
 ```
 
-# <p align="center">`REBOOT-NOW`</p>
+### 3. INSTALLING [DEPENDENCIES](https://askubuntu.com/questions/361741/what-are-dependencies#:~:text=Sometimes%20when%20you%20install%20programs%2C%20they%20rely%20on%20other%20programs%20to%20work.%20These%20other%20programs%20are%20called%20dependencies.)
 
-## 3. INSTALLING BUILD DEPENDENCIES
+#
 
 >**DOWNLOAD, POPULATE, & REFRESH KEYS FROM UBUNTU'S KEYSERVER.**
 > 
@@ -84,17 +86,21 @@ sudo echo "keyserver hkps://keyserver.ubuntu.com" >> /etc/pacman.d/gnupg/gpg.con
 
 #
 
-## 4. FIXING TRUST ISSUES
+### 4. FIXING TRUST ISSUES
 
-> **THE MAIN ISSUE: PGP KEY VERIFICATION IS BROKEN, FAILING DURING PACKAGE INSTALLATION.**
+#
+
+> ### **THE MAIN ISSUE:**
 >
-> **THIS IS BECAUSE THE CORE ARCHLINUX-KEYRING IS OUT OF DATE. PACMAN/GNUPG WILL SHOW THAT ANY PACKAGE YOU ARE TRYING TO INSTALL IS OUT OF DATE, CORRUPT, OR OF MARGINAL TRUST.**
+> #### **[PGP KEY VERIFICATION](https://www.secureideas.com/blog/how-to-verify-pgp-signatures#:~:text=Verifying%20PGP%20signatures%20allows%20us,need%20the%20signer's%20public%20key.) IS BROKEN, FAILING DURING PACKAGE INSTALLATION.**
 >
-> **CHANGING REPOS TO OFFICIAL ARCH WOULD FIX THIS, BUT THAT WOULD CHANGE THE KERNEL & OTHER CORE PACKAGES.**
+> #### **THIS IS BECAUSE THE CORE ARCHLINUX-KEYRING IS OUT OF DATE. PACMAN/GNUPG WILL SHOW THAT ANY PACKAGE YOU ARE TRYING TO INSTALL IS OUT OF DATE, CORRUPT, OR OF MARGINAL TRUST.**
 >
-> **WE COULD TURN OFF PGP VERIFICATION, BUT THIS IS INSECURE.**
+> #### **CHANGING REPOS TO OFFICIAL ARCH WOULD FIX THIS, BUT THAT WOULD CHANGE THE KERNEL & OTHER CORE PACKAGES.**
 >
-> **SO WE MUST MANUALLY INSTALL IT.**
+> #### **WE COULD TURN OFF PGP VERIFICATION, BUT THIS IS INSECURE.**
+>
+> #### **SO WE MUST MANUALLY INSTALL IT.**
 
 ###### COPY/PASTE
 
@@ -104,37 +110,47 @@ sudo cd Download https://archlinux.org/packages/core/any/archlinux-keyring/downl
 
 #
 
-## `PACMAN IS NOW READY, USER CAN BUILD PACKAGES FROM SOURCE, AND PACKAGES WILL NOT BE WIPED ON NEXT UPDATE.`
+> ### [PACMAN](https://wiki.archlinux.org/title/Pacman) IS NOW READY.
+>
+> #### USER CAN NOW BUILD AND INSTALL PACKAGES FROM [THE AUR](https://wiki.archlinux.org/title/Arch_User_Repository#:~:text=The%20Arch%20User%20Repository%20(AUR)%20is%20a%20community%2Ddriven%20repository%20for%20Arch%20users.).
+>
+> #### IN CONJUNCTION WITH RWFUS THESE PACKAGES WILL NOT BE WIPED ON NEXT UPDATE.
 
 #
 
-## 5. INSTALLING YAY
+### 5. INSTALLING [YAY](https://github.com/Jguer/yay#yay) [OPTIONAL]
 
-### INSTALLATION
+#
 
-# <p align="center">`REBOOT-NOW`</p>
-# <p align="center">`REBOOT-NOW`</p>
-# <p align="center">`REBOOT-NOW`</p>
+> **YAY : Yet Another Yogurt - An [AUR Helper](https://wiki.archlinux.org/title/AUR_helpers#:~:text=AUR%20helpers%20automate%20usage%20of%20the%20Arch%20User%20Repository.) Written in Go.**
 
-# STEAMOS-BRTFS
+###### COPY/ PASTE
 
-> **CONVERTS FILESYSTEM FROM EXT4 TO BTRFS.**
+```
+git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+```
+
+## SECTION II: OPTIMIZATIONS
+
+> **`CONVERT FILE SYSTEM & MODIFY SWAP TO OPTIMIZE READ/ WRITE & ADD STORAGE`**
+
+### 1. INSTALLING [STEAMOS-BRTFS](https://gitlab.com/popsulfr/steamos-btrfs)
+
+> #### **CONVERTS FILESYSTEM FROM [EXT4](https://en.wikipedia.org/wiki/Ext4) TO [BTRFS](https://en.wikipedia.org/wiki/Btrfs).**
 > 
-> **CAN INCREASE STORAGE UP TO 33%.**
+> #### **CAN INCREASE STORAGE UP TO 33%.**
 > 
-> **[PERSONAL EXPERIENCE - MILEAGE MY VARY WITH FILE TYPE AND SIZE.]**
+> #### **[PERSONAL EXPERIENCE - MILEAGE MY VARY WITH FILE TYPE AND SIZE.]**
 
-### ■ INSTALL & RUN
+### REQUIREMENTS
 
-##### -REQUIREMENTS
-
-> **AT LEAST 20% FREE SPACE.**
+> #### **AT LEAST 20% FREE SPACE.**
 > 
-> **CHOSE ALL AVAILABLE OPTIONS.**
+> #### **CHOSE ALL AVAILABLE OPTIONS.**
 > 
-> **REBOOT WHEN PROMPTED.**
+> #### **REBOOT WHEN PROMPTED.**
 > 
-> **PROCESS CAN TAKE UP TO 30 MINUTES.**
+> #### **PROCESS CAN TAKE UP TO 30 MINUTES.**
 
 ###### COPY/ PASTE
 
@@ -142,15 +158,9 @@ sudo cd Download https://archlinux.org/packages/core/any/archlinux-keyring/downl
 t="$(mktemp -d)" && curl -sSL https://gitlab.com/popsulfr/steamos-btrfs/-/archive/main/steamos-btrfs-main.tar.gz | tar -xzf - -C "$t" --strip-components=1 && "$t/install.sh" && rm -rf "$t"
 ```
 
-# <p align="center">`REBOOT-NOW`</p>
-# <p align="center">`REBOOT-NOW`</p>
-# <p align="center">`REBOOT-NOW`</p>
+### 2. INSTALLING [CRYOUTILITIES](https://github.com/CryoByte33/steam-deck-utilities#cryoutilities)
 
-# CRYOUTILITIES
-
-> **CYROUTILITIES IS A COLLECTION OF SCRIPTS & UTILITIES TO IMPROVE PERFORMANCE & MANAGE STORAGE ON THE STEAM DECK.**
-
-### ■ INSTALL & RUN
+> #### **CYROUTILITIES IS A COLLECTION OF SCRIPTS & UTILITIES TO IMPROVE PERFORMANCE & MANAGE STORAGE ON THE STEAM DECK.**
 
 ###### COPY/ PASTE
 
@@ -170,48 +180,45 @@ CHOSE RECOMMENDED SETTINGS
 ```
 
 # <p align="center">`REBOOT-NOW`</p>
-# <p align="center">`REBOOT-NOW`</p>
-# <p align="center">`REBOOT-NOW`</p>
 
-# EMUDECK
+## SECTION III: GAMING
 
-> **INSTALLS EMULATORS FROM THE DISCOVER STORE & OFFICIAL REPOSITORIES.**
->
-> **CREATES ~/Emulation DIRECTORY WITH FOLDERS FOR BIOS ROMS.**
->
-> **PROVIDES GENERIC STEAM INPUT PROFILES FOR EMULATORS.**
->
-> **PRE-OPTIMIZES EMULATORS, ALLOWS THE USER TO CHANGE THESE SETTINGS.**
+> **`EMULATION, NON-STEAM GAMES, NON-STEAM LAUNCHERS, WINDOWS SOFTWARE, CONSOLE STREAMING & FLASHPOINT`**
+
+### 1. INSTALLING EMUDECK
+
+> #### **INSTALLS EMULATORS FROM THE DISCOVER STORE & OFFICIAL REPOSITORIES.**
+> 
+> #### **CREATES ~/Emulation DIRECTORY WITH FOLDERS FOR BIOS ROMS.**
+> 
+> #### **PROVIDES GENERIC STEAM INPUT PROFILES FOR EMULATORS.**
+> 
+> #### **PRE-OPTIMIZES EMULATORS, ALLOWS THE USER TO CHANGE THESE SETTINGS.**
 
 
-> **INCLUDES `STEAM ROM MANAGER`.**
->
-> **`STEAM ROM MANAGER` EASILY ADDS YOUR NON-STEAM GAMES TO YOUR STEAM LIBRARY.**
->
-> **`STEAM ROM MANAGER` AUTOMATICALLY CREATES COLLECTIONS FOR EACH CONSOLE IN YOUR LIBRARY.**
->
-> **`STEAM ROM MANAGER` AUTOMATICALLY FETCHES ARTWORK FOR GAMES.**
-
-### ■ INSTALLATION
+> ### **INCLUDES `STEAM ROM MANAGER`.**
+> 
+> #### **`STEAM ROM MANAGER` EASILY ADDS YOUR NON-STEAM GAMES TO YOUR STEAM LIBRARY.**
+> 
+> #### **`STEAM ROM MANAGER` AUTOMATICALLY CREATES COLLECTIONS FOR EACH CONSOLE IN YOUR LIBRARY.**
+> 
+> #### **`STEAM ROM MANAGER` AUTOMATICALLY FETCHES ARTWORK FOR GAMES.**
 
 ###### COPY/ PASTE
 
 ```
 sudo cd Desktop && sudo wget -q https://www.emudeck.com/EmuDeck.desktop -O ~/Desktop/EmuDeck.desktop && sudo gtk-launch EmuDeck.desktop
 ```
-### ■ SETUP
 
-> **CHOSE MANUAL SETUP.**
+### **SETUP**
+
+> #### **CHOOSE MANUAL SETUP.**
 > 
-> **SELECT ALL EMULATORS LISTED.**
+> #### **SELECT ALL EMULATORS LISTED.**
 > 
-> **CHANGE ANY OTHER WANTED SETTINGS.**
+> #### **CHANGE ANY OTHER WANTED SETTINGS.**
 
-# YUZU
-
-> **NINTENDO SWITCH EMULATOR.**
-
-### ■ REPLACING WITH EARLY ACCESS & ENABLING AUTO UPDATE
+### 2. REPLACING YUZU - THE NINTENTO SWITCH EMULATOR, WITH YUZU EARLY ACCESS & ENABLES AUTO UPDATE
 
 ###### COPY/ PASTE
 
@@ -235,11 +242,9 @@ copy paste beneath bin/bash
     curl -s https://api.github.com/repos/pineappleEA/pineapple-src/releases/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/Applications/yuzu.AppImage -i -
 ```
 
-# XENIA
+### 3. ISNTALLING XENIA
 
-> **MICROSOFT XBOX 360 EMULATOR.**
-
-### ■ INSTALLATION
+> #### **THE MICROSOFT XBOX 360 EMULATOR.**
 
 ```
 START 'EMUDECK'
@@ -247,7 +252,7 @@ SELECT 'MANAGE EMULATORS'
 SELECT & INSTALL 'XENIA'
 ```
 
-### ■ REPLACING XENIA
+### 3-a. REPLACING XENIA
 
 > **CURRENT XENIA BUILDS CRASH ON STEAM DECK WHEN LOADING XBLA TITLES.**
 
@@ -257,7 +262,7 @@ SELECT & INSTALL 'XENIA'
  sudo wget -q https://github.com/xenia-canary/xenia-canary/releases/tag/190cef9 -O ~/emulation/roms/xbox360/xenia_canary.exe 
 ```
 
-### ■ UNLOCK FULL XBLA GAME ACCESS
+### 3-b. UNLOCK FULL XBLA GAME ACCESS
 
 > **BY DEFAULT XENIA REPORTS NO LICENSE FOR XBLA TITLES.**
 >
@@ -285,11 +290,13 @@ awk '{gsub(/license_mask = 0/, "license_mask = 1"); print}' xenia-canary.config.
         license_mask = 1
 ```
 
-# DECKY LOADER
+SECTION IV: STEAMOS MODS & EXTENSIONS
 
-> **HOMEBREW PLUGIN LAUNCHER FOR THE STEAM DECK.**
+### 1. INSTALLING DECKY LOADER
+
+> #### **HOMEBREW PLUGIN LAUNCHER FOR THE STEAM DECK.**
 >
-> **CAN BE USED TO STYLIZE MENUS, CHANGE SYSTEM SOUNDS, ADJUST SCREEN SATURATION, CHANGE ADDITIONAL SYSTEM SETTINGS, AND MUCH MORE.**
+> #### **CAN BE USED TO STYLIZE MENUS, CHANGE SYSTEM SOUNDS, ADJUST SCREEN SATURATION, CHANGE ADDITIONAL SYSTEM SETTINGS, AND MUCH MORE.**
 
 ##### ■ INSTALLATION
 
