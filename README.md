@@ -28,7 +28,7 @@
 ||
 ||
 ||
-|[X: GLOSSARY|
+|[X: GLOSSARY]()|
 |[X: RECOMMENDED FLATPAK LIST]()|
 |[X: DEKCY LOADER PLUGIN LIST](#decky-loader-plugins)|
 
