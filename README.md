@@ -21,16 +21,16 @@
 | TABLE OF CONTENTS |
 | ------ |
 |[**SECTION I** : GETTING STARTED](https://github.com/bluntwizard/steam_deck_dub_edition#section-i-getting-started)|
+|[**SECTION II** : OPTIMIZATIONS](https://github.com/bluntwizard/steam_deck_dub_edition#section-ii-optimizations)|
+|[**SECTION III** : GAMING](https://github.com/bluntwizard/steam_deck_dub_edition#section-iii-gaming)|
+|[**SECTION IV** : DECKY LOADER]()|
 ||
 ||
 ||
 ||
-||
-||
-||
-||
+|[X: GLOSSARY|
 |[X: RECOMMENDED FLATPAK LIST]()|
-|[X: PLUGINS LIST](#decky-loader-plugins)|
+|[X: DEKCY LOADER PLUGIN LIST](#decky-loader-plugins)|
 
 ------
 
@@ -69,6 +69,8 @@ ENTER NEW ADMIN PASSWORD
 ```
 git clone https://github.com/ValShaped/rwfus.git && cd rwfus && ./rwfus -iI && sudo reboot
 ```
+
+#
 
 ### 3. INSTALLING [DEPENDENCIES](https://askubuntu.com/questions/361741/what-are-dependencies#:~:text=Sometimes%20when%20you%20install%20programs%2C%20they%20rely%20on%20other%20programs%20to%20work.%20These%20other%20programs%20are%20called%20dependencies.)
 
@@ -130,11 +132,19 @@ sudo cd Download https://archlinux.org/packages/core/any/archlinux-keyring/downl
 git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 ```
 
+------
+
+------
+
 ## SECTION II: OPTIMIZATIONS
 
-> **`CONVERT FILE SYSTEM & MODIFY SWAP TO OPTIMIZE READ/ WRITE & ADD STORAGE`**
+**`CONVERT FILE SYSTEM & MODIFY SWAP TO OPTIMIZE READ/ WRITE & ADD STORAGE`**
+
+------
 
 ### 1. INSTALLING [STEAMOS-BRTFS](https://gitlab.com/popsulfr/steamos-btrfs)
+
+#
 
 > #### **CONVERTS FILESYSTEM FROM [EXT4](https://en.wikipedia.org/wiki/Ext4) TO [BTRFS](https://en.wikipedia.org/wiki/Btrfs).**
 > 
@@ -143,6 +153,8 @@ git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 > #### **[PERSONAL EXPERIENCE - MILEAGE MY VARY WITH FILE TYPE AND SIZE.]**
 
 ### REQUIREMENTS
+
+#
 
 > #### **AT LEAST 20% FREE SPACE.**
 > 
@@ -179,11 +191,15 @@ StartupNotify=false" >> InstallCryoUtilities.desktop && sudo gtk-launch EmuDeck.
 CHOSE RECOMMENDED SETTINGS
 ```
 
-# <p align="center">`REBOOT-NOW`</p>
+------
+
+------
 
 ## SECTION III: GAMING
 
 > **`EMULATION, NON-STEAM GAMES, NON-STEAM LAUNCHERS, WINDOWS SOFTWARE, CONSOLE STREAMING & FLASHPOINT`**
+
+------
 
 ### 1. INSTALLING EMUDECK
 
@@ -195,6 +211,7 @@ CHOSE RECOMMENDED SETTINGS
 > 
 > #### **PRE-OPTIMIZES EMULATORS, ALLOWS THE USER TO CHANGE THESE SETTINGS.**
 
+#
 
 > ### **INCLUDES `STEAM ROM MANAGER`.**
 > 
@@ -210,6 +227,8 @@ CHOSE RECOMMENDED SETTINGS
 sudo cd Desktop && sudo wget -q https://www.emudeck.com/EmuDeck.desktop -O ~/Desktop/EmuDeck.desktop && sudo gtk-launch EmuDeck.desktop
 ```
 
+#
+
 ### **SETUP**
 
 > #### **CHOOSE MANUAL SETUP.**
@@ -218,6 +237,8 @@ sudo cd Desktop && sudo wget -q https://www.emudeck.com/EmuDeck.desktop -O ~/Des
 > 
 > #### **CHANGE ANY OTHER WANTED SETTINGS.**
 
+#
+
 ### 2. REPLACING YUZU - THE NINTENTO SWITCH EMULATOR, WITH YUZU EARLY ACCESS & ENABLES AUTO UPDATE
 
 ###### COPY/ PASTE
@@ -225,6 +246,8 @@ sudo cd Desktop && sudo wget -q https://www.emudeck.com/EmuDeck.desktop -O ~/Des
 ```
 curl -s https://api.github.com/repos/pineappleEA/pineapple-src/releases/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/Applications/yuzu.AppImage -i - &&  awk -v prepend="<curl -s https://api.github.com/repos/pineappleEA/pineapple-src/releases/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/Applications/yuzu.AppImage -i ->" 'NR==2{print prepend $0;next};1' $HOME/Emulation/tools/launchers/yuzu.sh
 ```
+
+#
 
 ###### ABOVE CODE POSSIBLY REPLACES THESE
 
@@ -241,6 +264,8 @@ copy paste beneath bin/bash
 
     curl -s https://api.github.com/repos/pineappleEA/pineapple-src/releases/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/Applications/yuzu.AppImage -i -
 ```
+
+#
 
 ### 3. ISNTALLING XENIA
 
@@ -290,7 +315,7 @@ awk '{gsub(/license_mask = 0/, "license_mask = 1"); print}' xenia-canary.config.
         license_mask = 1
 ```
 
-SECTION IV: STEAMOS MODS & EXTENSIONS
+## SECTION IV: DECKY LOADER
 
 ### 1. INSTALLING DECKY LOADER
 
