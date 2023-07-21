@@ -401,21 +401,3 @@ PEAZIP
 JDOWNLOADER
 HEROIC LAUNCHER
 ```
-
-**`SUDO`** [ALSO KNOWN AS "SUPER USER DO"] ALLOWS THE USER TO TEMPORARILY ELEVATE THE CURRENT USER ACCOUNT TO HAVE ROOT PRIVILEGES. 
-
-**`ROOT PRIVILEGES/ ROOT ACCESS`**  THE CURRENT ACCOUNT CAN READ AND WRITE ANY FILES ON THE SYSTEM, PERFORM OPERATIONS AS ANY USER, CHANGE SYSTEM CONFIGURATION, INSTALL/ REMOVE SOFTWARE, AND UPGRADE THE SYSTEM AND/ OR FIRMWARE. IN ESSENCE, THE CURRENT ACCOUNT CAN DO ALMOST ANYTHING ON THE SYSTEM. 
-
-### ■ WRITE ACCESS & INSTALLING BUILD DEPENDENCIES
-
-> **DISABLES READONLY.**
-> 
->**DOWNLOAD, POPULATE, & REFRESH KEYS FROM UBUNTU'S KEYSERVER.**
-> 
->**[GCC/ CLANG/ GLIBC/ MAKE - MAY BE REDUNDANT.]**
-
-###### COPY/ PASTE
-
-```
-sudo steamos-readonly disable && echo "keyserver hkps://keyserver.ubuntu.com" >> /etc/pacman.d/gnupg/gpg.conf && sudo pacman-key --init && sudo pacman-key --populate && sudo pacman-key --refresh-keys && sudo pacman -S base-devel && sudo pacman -S gcc && sudo pacman -S clang && sudo pacman -S make && sudo pacman -S glibc
-```
