@@ -52,9 +52,8 @@
 passwd
 ```
 
-```
-ENTER NEW ADMIN PASSWORD
-```
+> #### **ENTER NEW ADMIN PASSWORD**
+
 
 #
 
@@ -152,7 +151,7 @@ git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 > 
 > #### **[PERSONAL EXPERIENCE - MILEAGE MY VARY WITH FILE TYPE AND SIZE.]**
 
-### REQUIREMENTS
+### -REQUIREMENTS
 
 #
 
@@ -170,11 +169,13 @@ git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 t="$(mktemp -d)" && curl -sSL https://gitlab.com/popsulfr/steamos-btrfs/-/archive/main/steamos-btrfs-main.tar.gz | tar -xzf - -C "$t" --strip-components=1 && "$t/install.sh" && rm -rf "$t"
 ```
 
+#
+
 ### 2. INSTALLING [CRYOUTILITIES](https://github.com/CryoByte33/steam-deck-utilities#cryoutilities)
 
-> #### **CYROUTILITIES IS A COLLECTION OF SCRIPTS & UTILITIES TO IMPROVE PERFORMANCE & MANAGE STORAGE ON THE STEAM DECK.**
-
 #
+
+> #### **CYROUTILITIES IS A COLLECTION OF SCRIPTS & UTILITIES TO IMPROVE PERFORMANCE & MANAGE STORAGE ON THE STEAM DECK.**
 
 ###### COPY/ PASTE
 
@@ -205,6 +206,8 @@ CHOSE RECOMMENDED SETTINGS
 
 ### 1. INSTALLING EMUDECK
 
+#
+
 > #### **INSTALLS EMULATORS FROM THE DISCOVER STORE & OFFICIAL REPOSITORIES.**
 > 
 > #### **CREATES ~/Emulation DIRECTORY WITH FOLDERS FOR BIOS ROMS.**
@@ -229,8 +232,6 @@ CHOSE RECOMMENDED SETTINGS
 sudo cd Desktop && sudo wget -q https://www.emudeck.com/EmuDeck.desktop -O ~/Desktop/EmuDeck.desktop && sudo gtk-launch EmuDeck.desktop
 ```
 
-#
-
 ### **SETUP**
 
 > #### **CHOOSE MANUAL SETUP.**
@@ -241,7 +242,9 @@ sudo cd Desktop && sudo wget -q https://www.emudeck.com/EmuDeck.desktop -O ~/Des
 
 #
 
-### 2. REPLACING YUZU - THE NINTENTO SWITCH EMULATOR, WITH YUZU EARLY ACCESS & ENABLES AUTO UPDATE
+### 2. REPLACING YUZU - THE NINTENTO SWITCH EMULATOR, WITH YUZU EARLY ACCESS, ENABLING AUTO UPDATE
+
+#
 
 ###### COPY/ PASTE
 
@@ -271,6 +274,8 @@ copy paste beneath bin/bash
 
 ### 3. ISNTALLING XENIA
 
+#
+
 > #### **THE MICROSOFT XBOX 360 EMULATOR.**
 
 ```
@@ -279,9 +284,13 @@ SELECT 'MANAGE EMULATORS'
 SELECT & INSTALL 'XENIA'
 ```
 
+#
+
 ### 3-a. REPLACING XENIA
 
-> **CURRENT XENIA BUILDS CRASH ON STEAM DECK WHEN LOADING XBLA TITLES.**
+#
+
+> #### **CURRENT XENIA BUILDS CRASH ON STEAM DECK WHEN LOADING XBLA TITLES.**
 
 ###### COPY/ PASTE
 
@@ -289,7 +298,11 @@ SELECT & INSTALL 'XENIA'
  sudo wget -q https://github.com/xenia-canary/xenia-canary/releases/tag/190cef9 -O ~/emulation/roms/xbox360/xenia_canary.exe 
 ```
 
+#
+
 ### 3-b. UNLOCK FULL XBLA GAME ACCESS
+
+#
 
 > **BY DEFAULT XENIA REPORTS NO LICENSE FOR XBLA TITLES.**
 >
@@ -300,6 +313,8 @@ SELECT & INSTALL 'XENIA'
 ```
 awk '{gsub(/license_mask = 0/, "license_mask = 1"); print}' xenia-canary.config.toml > xenia-canary.config.toml
 ```
+
+#
 
 ###### ABOVE CODE POSSIBLY REPLACES THIS
 
@@ -317,15 +332,21 @@ awk '{gsub(/license_mask = 0/, "license_mask = 1"); print}' xenia-canary.config.
         license_mask = 1
 ```
 
+------
+
+------
+
 ## SECTION IV: DECKY LOADER
 
+------
+
 ### 1. INSTALLING DECKY LOADER
+
+#
 
 > #### **HOMEBREW PLUGIN LAUNCHER FOR THE STEAM DECK.**
 >
 > #### **CAN BE USED TO STYLIZE MENUS, CHANGE SYSTEM SOUNDS, ADJUST SCREEN SATURATION, CHANGE ADDITIONAL SYSTEM SETTINGS, AND MUCH MORE.**
-
-##### ■ INSTALLATION
 
 ###### COPY/ PASTE
 
@@ -333,7 +354,13 @@ awk '{gsub(/license_mask = 0/, "license_mask = 1"); print}' xenia-canary.config.
 sudo cd Desktop && sudo wget -q https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/decky_installer.desktop && sudo gtk-launch decky_installer.desktop
 ```
 
-## DECKY LOADER PLUGINS
+------
+
+------
+
+### DECKY LOADER PLUGINS
+
+------
 
 | PLUGIN | DISCRIPTION |
 | ------ | ------ |
@@ -384,7 +411,11 @@ sudo cd Desktop && sudo wget -q https://github.com/SteamDeckHomebrew/decky-insta
 | **`DECKYFILESERVER`** | START YOUR OWN FILE SERVER FROM YOUR STEAM DECK TO EASILY TRANSFER FILES FROM YOUR STEAM DECK. |
 | **`TABMASTER`** | GIVES YOU FULL CONTROL OVER YOUR STEAM LIBRARY! SUPPORT FOR CUSTOMIZING, ADDING, AND HIDING LIBRARY TABS. |
 
-## DECKY LOADER PLUGINS [PRE-RELEASE/ TESTING]
+#
+
+### DECKY LOADER PLUGINS [PRE-RELEASE/ TESTING]
+
+------
 
 | PLUGIN | DISCRIPTION |
 | ------ | ------ |
@@ -393,6 +424,8 @@ sudo cd Desktop && sudo wget -q https://github.com/SteamDeckHomebrew/decky-insta
 | **`RADIYO!`** | SEARCH AND PLAY MUSIC FROM INTERNET RADIO STATIONS WHILE GAMING |
 | **`DECKSETTINGS`** | PLUGIN TO BROWSE RECOMMENDED STEAM DECK GAME SETTINGS FROM SHAREDECK AND STEAMDECKHQ. |
 | **`TS3 QUICKACCESS`** | A TEAMSPEAK 3 CLIENT PLUGIN THAT INTEGRATES TEAMSPEAK 3 INTO STEAM DECK'S QUICK ACCESS MENU. |
+
+#
 
 ### ■ DISCOVER STORE FLATPAKS
 
@@ -403,3 +436,7 @@ PEAZIP
 JDOWNLOADER
 HEROIC LAUNCHER
 ```
+
+------
+
+------
