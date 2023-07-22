@@ -1,5 +1,5 @@
 <div style="width: 100%;">
-    <a href="https://github.com/bluntwizard/steam_deck_dub_edition/blob/main/adde.svg">
+    <a href="https://github.com/bluntwizard/steam_deck_dub_edition/blob/main/sdde.svg">
     <img src="sdde.svg" style="width: 100%;">
     </a>
 </div>
