@@ -1,5 +1,7 @@
 <div style="width: 100%;">
+    <a href="https://github.com/nikolalsvk/steam_deck_dub_edition/blob/main/adde.svg">
     <img src="sdde.svg" style="width: 100%;">
+    </a>
 </div>
 
 
