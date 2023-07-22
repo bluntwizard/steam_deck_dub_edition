@@ -203,7 +203,7 @@
     <div class='body'>
       <div class='container'>
         <h1>
-          <a href="https://github.com/nikolalsvk">
+          <a xlink:href="https://github.com/nikolalsvk">
             <span><em>Steam Deck</em></span>
             <span><em>Steam Deck</em></span>
             <span><em>Steam Deck</em></span>
@@ -214,10 +214,10 @@
             <li>DUB Edition</li>
           </ul>
           <ul>
-            <li>By <a href="https://github.com/bluntwizard/">BluntWizard</a></li>
+            <li>By <a xlink:href="https://github.com/bluntwizard/">BluntWizard</a></li>
           </ul>
           <ul>
-            <li><a href="" role="button"><span class='hi'>👋</span></a></li>
+            <li><a xlink:href="" role="button"><span class='hi'>👋</span></a></li>
           </ul>
         </section>
       </div>
