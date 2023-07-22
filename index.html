@@ -4,8 +4,392 @@
         <!-- head definitions go here -->
     </head>
     <body>
-        <div style="width: 100%;">
-    <img src="sdde.svg" style="width: 100%;">
-</div>
+        <h1 id="-p-align-center-the-definitive-guide-p-"><p align="center"> THE DEFINITIVE GUIDE </p></h1>
+<h1 id="-p-align-center-img-src-https-raw-githubusercontent-com-bluntwizard-steam_deck_dub_edition-f9e102fc2dec0f986433a9f33ff7bbbb05cb9d6d-steam_deck_colored_logo-svg-alt-alt-text-width-25-height-25-img-src-https-github-com-bluntwizard-steam_deck_dub_edition-blob-main-dub_edition-png-raw-true-alt-alt-text-width-20-height-20-edition-p-"><p align="center"><img src="https://raw.githubusercontent.com/bluntwizard/steam_deck_dub_edition/f9e102fc2dec0f986433a9f33ff7bbbb05cb9d6d/Steam_Deck_colored_logo.svg" alt="alt text" width="25%" height="25%"><img src="https://github.com/bluntwizard/steam_deck_dub_edition/blob/main/dub_edition.png?raw=true" alt="alt text" width="20%" height="20%"> EDITION </p></h1>
+<blockquote>
+<h3 id="-p-align-center-throw-some-d-s-on-that-bitch-p-"><p align="center">&quot;THROW SOME D&#39;S ON THAT BITCH.&quot;</p></h3>
+</blockquote>
+<hr>
+<blockquote>
+<h5 id="-this-guide-is-intended-as-a-definitive-start-guide-regarding-various-avenues-of-interest-on-the-steam-deck-"><strong>THIS GUIDE IS INTENDED AS A DEFINITIVE START GUIDE REGARDING VARIOUS AVENUES OF INTEREST ON THE STEAM DECK.</strong></h5>
+<h5 id="-from-installing-packages-and-retaining-them-between-updates-to-emulation-and-software-modifications-plugins-"><strong>FROM INSTALLING PACKAGES AND RETAINING THEM BETWEEN UPDATES, TO EMULATION AND SOFTWARE MODIFICATIONS/ PLUGINS.</strong></h5>
+<h3 id="-p-align-center-roughly-intended-as-a-step-by-step-guide-p-"><p align="center"><em><code>⚠︎⚠︎⚠︎ ROUGHLY INTENDED AS A STEP-BY-STEP GUIDE. ⚠︎⚠︎⚠︎</code></em></p></h3>
+<h3 id="-p-align-center-if-you-feel-there-is-something-missing-please-make-a-commit-p-"><p align="center"><strong><code>IF YOU FEEL THERE IS SOMETHING MISSING, PLEASE MAKE A COMMIT.</code></strong></p></h3>
+</blockquote>
+<hr>
+<table>
+<thead>
+<tr>
+<th>TABLE OF CONTENTS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/bluntwizard/steam_deck_dub_edition#section-i-getting-started"><strong>SECTION I</strong> : GETTING STARTED</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/bluntwizard/steam_deck_dub_edition#section-ii-optimizations"><strong>SECTION II</strong> : OPTIMIZATIONS</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/bluntwizard/steam_deck_dub_edition#section-iii-gaming"><strong>SECTION III</strong> : GAMING</a></td>
+</tr>
+<tr>
+<td><a href=""><strong>SECTION IV</strong> : DECKY LOADER</a></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><a href="">X: GLOSSARY</a></td>
+</tr>
+<tr>
+<td><a href="">X: RECOMMENDED FLATPAK LIST</a></td>
+</tr>
+<tr>
+<td><a href="#decky-loader-plugins">X: DEKCY LOADER PLUGIN LIST</a></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<hr>
+<h2 id="section-i-getting-started">SECTION I: GETTING STARTED</h2>
+<p><strong><code>SUDO, RETAINING PACKAGES BETWEEN UPDATES, TRUST ISSUES, PACMAN &amp; YAY</code></strong></p>
+<hr>
+<h3 id="1-setting-admin-sudo-https-wiki-archlinux-org-title-sudo-password-within-konsole-terminal-emulator-https-en-wikipedia-org-wiki-terminal_emulator-">1. SETTING ADMIN/ <a href="https://wiki.archlinux.org/title/sudo">SUDO</a> PASSWORD WITHIN KONSOLE/ <a href="https://en.wikipedia.org/wiki/Terminal_emulator">TERMINAL EMULATOR</a></h3>
+<p>#</p>
+<h6 id="copy-paste">COPY/ PASTE</h6>
+<pre><code><span class="hljs-attribute">passwd</span>
+</code></pre><blockquote>
+<h4 id="-enter-new-admin-password-"><strong>ENTER NEW ADMIN PASSWORD</strong></h4>
+</blockquote>
+<p>#</p>
+<h3 id="2-installing-rwfus-read-write-overlay-filesystem-https-github-com-valshaped-rwfus-">2. INSTALLING <a href="https://github.com/ValShaped/rwfus">RWFUS: READ-WRITE OVERLAY FILESYSTEM</a></h3>
+<p>#</p>
+<blockquote>
+<p><strong>STEAMOS IS AN <a href="https://kairos.io/blog/2023/03/22/understanding-immutable-linux-os-benefits-architecture-and-challenges/#what-is-an-immutable-linux-os">IMMUTABLE OPERATING SYSTEM</a>, RWFUS COVERS THE /usr/ DIRECTORY [AND SOME OTHERS] ALLOWING PACMAN TO BE INITIALIZED WITHOUT LOSING PACKAGES WHEN THE NEXT UPDATE COMES OUT.</strong></p>
+</blockquote>
+<h6 id="copy-paste">COPY/ PASTE</h6>
+<pre><code>git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/ValShaped/rwfus.git &amp;&amp; cd rwfus &amp;&amp; ./rwfus -iI &amp;&amp; sudo reboot
+</code></pre><p>#</p>
+<h3 id="3-installing-dependencies-https-askubuntu-com-questions-361741-what-are-dependencies-text-sometimes-20when-20you-20install-20programs-2c-20they-20rely-20on-20other-20programs-20to-20work-20these-20other-20programs-20are-20called-20dependencies-">3. INSTALLING <a href="https://askubuntu.com/questions/361741/what-are-dependencies#:~:text=Sometimes%20when%20you%20install%20programs%2C%20they%20rely%20on%20other%20programs%20to%20work.%20These%20other%20programs%20are%20called%20dependencies.">DEPENDENCIES</a></h3>
+<p>#</p>
+<blockquote>
+<p><strong>DOWNLOAD, POPULATE, &amp; REFRESH KEYS FROM UBUNTU&#39;S KEYSERVER.</strong></p>
+<p><strong>[GCC/ CLANG/ GLIBC/ MAKE - MAY BE REDUNDANT.]</strong></p>
+</blockquote>
+<h6 id="copy-paste">COPY/ PASTE</h6>
+<pre><code>sudo echo <span class="hljs-string">"keyserver hkps://keyserver.ubuntu.com"</span> &gt;&gt; /etc/pacman.d/gnupg/gpg.conf &amp;&amp; sudo pacman-<span class="hljs-built_in">key</span> --init &amp;&amp; sudo pacman-<span class="hljs-built_in">key</span> --populate &amp;&amp; sudo pacman-<span class="hljs-built_in">key</span> --refresh-keys &amp;&amp; sudo pacman -S base-devel &amp;&amp; sudo pacman -S gcc &amp;&amp; sudo pacman -S clang &amp;&amp; sudo pacman -S <span class="hljs-built_in">make</span> &amp;&amp; sudo pacman -S glibc
+</code></pre><p>#</p>
+<h3 id="4-fixing-trust-issues">4. FIXING TRUST ISSUES</h3>
+<p>#</p>
+<blockquote>
+<h3 id="-the-main-issue-"><strong>THE MAIN ISSUE:</strong></h3>
+<h4 id="-pgp-key-verification-https-www-secureideas-com-blog-how-to-verify-pgp-signatures-text-verifying-20pgp-20signatures-20allows-20us-need-20the-20signer-s-20public-20key-is-broken-failing-during-package-installation-"><strong><a href="https://www.secureideas.com/blog/how-to-verify-pgp-signatures#:~:text=Verifying%20PGP%20signatures%20allows%20us,need%20the%20signer&#39;s%20public%20key.">PGP KEY VERIFICATION</a> IS BROKEN, FAILING DURING PACKAGE INSTALLATION.</strong></h4>
+<h4 id="-this-is-because-the-core-archlinux-keyring-is-out-of-date-pacman-gnupg-will-show-that-any-package-you-are-trying-to-install-is-out-of-date-corrupt-or-of-marginal-trust-"><strong>THIS IS BECAUSE THE CORE ARCHLINUX-KEYRING IS OUT OF DATE. PACMAN/GNUPG WILL SHOW THAT ANY PACKAGE YOU ARE TRYING TO INSTALL IS OUT OF DATE, CORRUPT, OR OF MARGINAL TRUST.</strong></h4>
+<h4 id="-changing-repos-to-official-arch-would-fix-this-but-that-would-change-the-kernel-other-core-packages-"><strong>CHANGING REPOS TO OFFICIAL ARCH WOULD FIX THIS, BUT THAT WOULD CHANGE THE KERNEL &amp; OTHER CORE PACKAGES.</strong></h4>
+<h4 id="-we-could-turn-off-pgp-verification-but-this-is-insecure-"><strong>WE COULD TURN OFF PGP VERIFICATION, BUT THIS IS INSECURE.</strong></h4>
+<h4 id="-so-we-must-manually-install-it-"><strong>SO WE MUST MANUALLY INSTALL IT.</strong></h4>
+</blockquote>
+<h6 id="copy-paste">COPY/PASTE</h6>
+<pre><code>sudo cd Download https:<span class="hljs-regexp">//</span>archlinux.org<span class="hljs-regexp">/packages/</span>core<span class="hljs-regexp">/any/</span>archlinux-keyring<span class="hljs-regexp">/download &amp;&amp; sudo pacman -U archlinux-keyring-20220713-2-any.pkg.tar.zst</span>
+</code></pre><p>#</p>
+<blockquote>
+<h3 id="-pacman-https-wiki-archlinux-org-title-pacman-is-now-ready-"><a href="https://wiki.archlinux.org/title/Pacman">PACMAN</a> IS NOW READY.</h3>
+<h4 id="user-can-now-build-and-install-packages-from-the-aur-https-wiki-archlinux-org-title-arch_user_repository-text-the-20arch-20user-20repository-20-aur-20is-20a-20community-2ddriven-20repository-20for-20arch-20users-">USER CAN NOW BUILD AND INSTALL PACKAGES FROM <a href="https://wiki.archlinux.org/title/Arch_User_Repository#:~:text=The%20Arch%20User%20Repository%20(AUR">THE AUR</a>%20is%20a%20community%2Ddriven%20repository%20for%20Arch%20users.).</h4>
+<h4 id="in-conjunction-with-rwfus-these-packages-will-not-be-wiped-on-next-update-">IN CONJUNCTION WITH RWFUS THESE PACKAGES WILL NOT BE WIPED ON NEXT UPDATE.</h4>
+</blockquote>
+<p>#</p>
+<h3 id="5-installing-yay-https-github-com-jguer-yay-yay-optional-">5. INSTALLING <a href="https://github.com/Jguer/yay#yay">YAY</a> [OPTIONAL]</h3>
+<p>#</p>
+<blockquote>
+<p><strong>YAY : Yet Another Yogurt - An <a href="https://wiki.archlinux.org/title/AUR_helpers#:~:text=AUR%20helpers%20automate%20usage%20of%20the%20Arch%20User%20Repository.">AUR Helper</a> Written in Go.</strong></p>
+</blockquote>
+<h6 id="copy-paste">COPY/ PASTE</h6>
+<pre><code>git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://aur.archlinux.org/yay.git &amp;&amp; cd yay &amp;&amp; makepkg -si
+</code></pre><hr>
+<hr>
+<h2 id="section-ii-optimizations">SECTION II: OPTIMIZATIONS</h2>
+<p><strong><code>CONVERT FILE SYSTEM &amp; MODIFY SWAP TO OPTIMIZE READ/ WRITE &amp; ADD STORAGE</code></strong></p>
+<hr>
+<h3 id="1-installing-steamos-brtfs-https-gitlab-com-popsulfr-steamos-btrfs-">1. INSTALLING <a href="https://gitlab.com/popsulfr/steamos-btrfs">STEAMOS-BRTFS</a></h3>
+<p>#</p>
+<blockquote>
+<h4 id="-converts-filesystem-from-ext4-https-en-wikipedia-org-wiki-ext4-to-btrfs-https-en-wikipedia-org-wiki-btrfs-"><strong>CONVERTS FILESYSTEM FROM <a href="https://en.wikipedia.org/wiki/Ext4">EXT4</a> TO <a href="https://en.wikipedia.org/wiki/Btrfs">BTRFS</a>.</strong></h4>
+<h4 id="-can-increase-storage-up-to-33-"><strong>CAN INCREASE STORAGE UP TO 33%.</strong></h4>
+<h4 id="-personal-experience-mileage-my-vary-with-file-type-and-size-"><strong>[PERSONAL EXPERIENCE - MILEAGE MY VARY WITH FILE TYPE AND SIZE.]</strong></h4>
+</blockquote>
+<h3 id="-requirements">-REQUIREMENTS</h3>
+<p>#</p>
+<blockquote>
+<h4 id="-at-least-20-free-space-"><strong>AT LEAST 20% FREE SPACE.</strong></h4>
+<h4 id="-chose-all-available-options-"><strong>CHOSE ALL AVAILABLE OPTIONS.</strong></h4>
+<h4 id="-reboot-when-prompted-"><strong>REBOOT WHEN PROMPTED.</strong></h4>
+<h4 id="-process-can-take-up-to-30-minutes-"><strong>PROCESS CAN TAKE UP TO 30 MINUTES.</strong></h4>
+</blockquote>
+<h6 id="copy-paste">COPY/ PASTE</h6>
+<pre><code>t=<span class="hljs-string">"<span class="hljs-variable">$(mktemp -d)</span>"</span> &amp;&amp; curl <span class="hljs-_">-s</span>SL https://gitlab.com/popsulfr/steamos-btrfs/-/archive/main/steamos-btrfs-main.tar.gz | tar -xzf - -C <span class="hljs-string">"<span class="hljs-variable">$t</span>"</span> --strip-components=1 &amp;&amp; <span class="hljs-string">"<span class="hljs-variable">$t</span>/install.sh"</span> &amp;&amp; rm -rf <span class="hljs-string">"<span class="hljs-variable">$t</span>"</span>
+</code></pre><p>#</p>
+<h3 id="2-installing-cryoutilities-https-github-com-cryobyte33-steam-deck-utilities-cryoutilities-">2. INSTALLING <a href="https://github.com/CryoByte33/steam-deck-utilities#cryoutilities">CRYOUTILITIES</a></h3>
+<p>#</p>
+<blockquote>
+<h4 id="-cyroutilities-is-a-collection-of-scripts-utilities-to-improve-performance-manage-storage-on-the-steam-deck-"><strong>CYROUTILITIES IS A COLLECTION OF SCRIPTS &amp; UTILITIES TO IMPROVE PERFORMANCE &amp; MANAGE STORAGE ON THE STEAM DECK.</strong></h4>
+</blockquote>
+<h6 id="copy-paste">COPY/ PASTE</h6>
+<pre><code><span class="hljs-keyword">cd</span> Desktop &amp;&amp; <span class="hljs-keyword">echo</span> <span class="hljs-comment">"#!/usr/bin/env xdg-open</span>
+[Desktop Entry]
+Name=Install CryoUtilities
+Exec=curl http<span class="hljs-variable">s:</span>//raw.githubusercontent.<span class="hljs-keyword">com</span>/CryoByte33/steam-deck-utilities/main/install.<span class="hljs-keyword">sh</span> | bash -s --
+Icon=steamdeck-gaming-<span class="hljs-keyword">return</span>
+Terminal=true
+Type=Application
+StartupNotify=false<span class="hljs-comment">" &gt;&gt; InstallCryoUtilities.desktop &amp;&amp; sudo gtk-launch EmuDeck.desktop</span>
+</code></pre><pre><code><span class="hljs-attribute">CHOSE RECOMMENDED SETTINGS</span>
+</code></pre><hr>
+<hr>
+<h2 id="section-iii-gaming">SECTION III: GAMING</h2>
+<blockquote>
+<p><strong><code>EMULATION, NON-STEAM GAMES, NON-STEAM LAUNCHERS, WINDOWS SOFTWARE, CONSOLE STREAMING &amp; FLASHPOINT</code></strong></p>
+</blockquote>
+<hr>
+<h3 id="1-installing-emudeck">1. INSTALLING EMUDECK</h3>
+<p>#</p>
+<blockquote>
+<h4 id="-installs-emulators-from-the-discover-store-official-repositories-"><strong>INSTALLS EMULATORS FROM THE DISCOVER STORE &amp; OFFICIAL REPOSITORIES.</strong></h4>
+<h4 id="-creates-emulation-directory-with-folders-for-bios-roms-"><strong>CREATES ~/Emulation DIRECTORY WITH FOLDERS FOR BIOS ROMS.</strong></h4>
+<h4 id="-provides-generic-steam-input-profiles-for-emulators-"><strong>PROVIDES GENERIC STEAM INPUT PROFILES FOR EMULATORS.</strong></h4>
+<h4 id="-pre-optimizes-emulators-allows-the-user-to-change-these-settings-"><strong>PRE-OPTIMIZES EMULATORS, ALLOWS THE USER TO CHANGE THESE SETTINGS.</strong></h4>
+</blockquote>
+<p>#</p>
+<blockquote>
+<h3 id="-includes-steam-rom-manager-"><strong>INCLUDES <code>STEAM ROM MANAGER</code>.</strong></h3>
+<h4 id="-steam-rom-manager-easily-adds-your-non-steam-games-to-your-steam-library-"><strong><code>STEAM ROM MANAGER</code> EASILY ADDS YOUR NON-STEAM GAMES TO YOUR STEAM LIBRARY.</strong></h4>
+<h4 id="-steam-rom-manager-automatically-creates-collections-for-each-console-in-your-library-"><strong><code>STEAM ROM MANAGER</code> AUTOMATICALLY CREATES COLLECTIONS FOR EACH CONSOLE IN YOUR LIBRARY.</strong></h4>
+<h4 id="-steam-rom-manager-automatically-fetches-artwork-for-games-"><strong><code>STEAM ROM MANAGER</code> AUTOMATICALLY FETCHES ARTWORK FOR GAMES.</strong></h4>
+</blockquote>
+<h6 id="copy-paste">COPY/ PASTE</h6>
+<pre><code>sudo cd Desktop &amp;&amp; sudo wget -<span class="hljs-selector-tag">q</span> https:<span class="hljs-comment">//www.emudeck.com/EmuDeck.desktop -O ~/Desktop/EmuDeck.desktop &amp;&amp; sudo gtk-launch EmuDeck.desktop</span>
+</code></pre><h3 id="-setup-"><strong>SETUP</strong></h3>
+<blockquote>
+<h4 id="-choose-manual-setup-"><strong>CHOOSE MANUAL SETUP.</strong></h4>
+<h4 id="-select-all-emulators-listed-"><strong>SELECT ALL EMULATORS LISTED.</strong></h4>
+<h4 id="-change-any-other-wanted-settings-"><strong>CHANGE ANY OTHER WANTED SETTINGS.</strong></h4>
+</blockquote>
+<p>#</p>
+<h3 id="2-replacing-yuzu-the-nintento-switch-emulator-with-yuzu-early-access-enabling-auto-update">2. REPLACING YUZU - THE NINTENTO SWITCH EMULATOR, WITH YUZU EARLY ACCESS, ENABLING AUTO UPDATE</h3>
+<p>#</p>
+<h6 id="copy-paste">COPY/ PASTE</h6>
+<pre><code>curl -s https:<span class="hljs-regexp">//</span>api.github.com<span class="hljs-regexp">/repos/</span>pineappleEA<span class="hljs-regexp">/pineapple-src/</span>releases<span class="hljs-regexp">/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/</span>Applications<span class="hljs-regexp">/yuzu.AppImage -i - &amp;&amp;  awk -v prepend="&lt;curl -s https:/</span><span class="hljs-regexp">/api.github.com/</span>repos<span class="hljs-regexp">/pineappleEA/</span>pineapple-src<span class="hljs-regexp">/releases/</span>latest | jq -r <span class="hljs-string">".assets[0] | .browser_download_url"</span> | wget -qO <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/Applications/yu</span>zu.AppImage -i -&gt;<span class="hljs-string">" 'NR==2{print prepend $0;next};1' $HOME/Emulation/tools/launchers/yuzu.sh</span>
+</code></pre><p>#</p>
+<h6 id="above-code-possibly-replaces-these">ABOVE CODE POSSIBLY REPLACES THESE</h6>
+<pre><code>Download Yuzu <span class="hljs-keyword">ea</span>
+<span class="hljs-keyword">copy</span>/ paste
+
+    curl -s http<span class="hljs-variable">s:</span>//api.github.<span class="hljs-keyword">com</span>/repos/pineappleEA/pineapple-src/releases/latest | jq -r <span class="hljs-string">".assets[0] | .browser_download_url"</span> | wget -qO $HOME/Applications/yuzu.AppImage -i -
+</code></pre><pre><code><span class="hljs-keyword">edit</span> yuzu.<span class="hljs-keyword">sh</span>
+<span class="hljs-keyword">copy</span> paste beneath bin/bash
+
+    curl -s http<span class="hljs-variable">s:</span>//api.github.<span class="hljs-keyword">com</span>/repos/pineappleEA/pineapple-src/releases/latest | jq -r <span class="hljs-string">".assets[0] | .browser_download_url"</span> | wget -qO $HOME/Applications/yuzu.AppImage -i -
+</code></pre><p>#</p>
+<h3 id="3-isntalling-xenia">3. ISNTALLING XENIA</h3>
+<p>#</p>
+<blockquote>
+<h4 id="-the-microsoft-xbox-360-emulator-"><strong>THE MICROSOFT XBOX 360 EMULATOR.</strong></h4>
+</blockquote>
+<pre><code><span class="hljs-keyword">START</span> <span class="hljs-string">'EMUDECK'</span>
+<span class="hljs-keyword">SELECT</span> <span class="hljs-string">'MANAGE EMULATORS'</span>
+<span class="hljs-keyword">SELECT</span> &amp; <span class="hljs-keyword">INSTALL</span> <span class="hljs-string">'XENIA'</span>
+</code></pre><p>#</p>
+<h3 id="3-a-replacing-xenia">3-a. REPLACING XENIA</h3>
+<p>#</p>
+<blockquote>
+<h4 id="-current-xenia-builds-crash-on-steam-deck-when-loading-xbla-titles-"><strong>CURRENT XENIA BUILDS CRASH ON STEAM DECK WHEN LOADING XBLA TITLES.</strong></h4>
+</blockquote>
+<h6 id="copy-paste">COPY/ PASTE</h6>
+<pre><code> sudo wget -q https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/xenia-canary/</span>xenia-canary<span class="hljs-regexp">/releases/</span>tag<span class="hljs-regexp">/190cef9 -O ~/</span>emulation<span class="hljs-regexp">/roms/</span>xbox360<span class="hljs-regexp">/xenia_canary.exe</span>
+</code></pre><p>#</p>
+<h3 id="3-b-unlock-full-xbla-game-access">3-b. UNLOCK FULL XBLA GAME ACCESS</h3>
+<p>#</p>
+<blockquote>
+<p><strong>BY DEFAULT XENIA REPORTS NO LICENSE FOR XBLA TITLES.</strong></p>
+<p><strong>NO LICENSE WILL CAUSE XBLA TITLES TO START IN DEMO MODE/ NOT AT ALL.*</strong></p>
+</blockquote>
+<h6 id="copy-paste">COPY/ PASTE</h6>
+<pre><code>awk <span class="hljs-string">'{gsub(/license_mask = 0/, "license_mask = 1"); print}'</span> xenia-canary<span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.toml</span> &gt; xenia-canary<span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.toml</span>
+</code></pre><p>#</p>
+<h6 id="above-code-possibly-replaces-this">ABOVE CODE POSSIBLY REPLACES THIS</h6>
+<pre><code>    edit xenia-canary.config.toml inside ~/Emulation/roms/xbox360
+
+    <span class="hljs-keyword">change</span>
+
+        [<span class="hljs-keyword">Content</span>]
+        license_mask = <span class="hljs-number">0</span>
+
+    <span class="hljs-keyword">to</span>
+
+        [<span class="hljs-keyword">Content</span>]
+        license_mask = <span class="hljs-number">1</span>
+</code></pre><hr>
+<hr>
+<h2 id="section-iv-decky-loader">SECTION IV: DECKY LOADER</h2>
+<hr>
+<h3 id="1-installing-decky-loader">1. INSTALLING DECKY LOADER</h3>
+<p>#</p>
+<blockquote>
+<h4 id="-homebrew-plugin-launcher-for-the-steam-deck-"><strong>HOMEBREW PLUGIN LAUNCHER FOR THE STEAM DECK.</strong></h4>
+<h4 id="-can-be-used-to-stylize-menus-change-system-sounds-adjust-screen-saturation-change-additional-system-settings-and-much-more-"><strong>CAN BE USED TO STYLIZE MENUS, CHANGE SYSTEM SOUNDS, ADJUST SCREEN SATURATION, CHANGE ADDITIONAL SYSTEM SETTINGS, AND MUCH MORE.</strong></h4>
+</blockquote>
+<h6 id="copy-paste">COPY/ PASTE</h6>
+<pre><code>sudo cd Desktop &amp;&amp; sudo wget -q https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/SteamDeckHomebrew/</span>decky-installer<span class="hljs-regexp">/releases/</span>latest<span class="hljs-regexp">/download/</span>decky_installer.desktop &amp;&amp; sudo gtk-launch decky_installer.desktop
+</code></pre><hr>
+<hr>
+<details>
+  <summary align="center"><h1>DECKY LOADER PLUGINS&nbsp;<img src="https://decky.xyz/static/icon-45ca1f5aea376a9ad37e92db906f283e.png" style="vertical-align:middle" height="30"></h1></summary>
+
+<p align="center">
+  <a href="https://github.com/SteamDeckHomebrew/decky-loader/releases"><img src="https://img.shields.io/github/downloads/SteamDeckHomebrew/decky-loader/total" /></a>
+  <a href="https://github.com/SteamDeckHomebrew/decky-loader/stargazers"><img src="https://img.shields.io/github/stars/SteamDeckHomebrew/decky-loader" /></a>
+  <a href="https://github.com/SteamDeckHomebrew/decky-loader/commits/main"><img src="https://img.shields.io/github/last-commit/SteamDeckHomebrew/decky-loader.svg" /></a>
+  <a href="https://weblate.werwolv.net/engage/decky/"><img src="https://weblate.werwolv.net/widgets/decky/-/decky/svg-badge.svg" alt="Translation status" /></a>
+  <a href="https://github.com/SteamDeckHomebrew/decky-loader/blob/main/LICENSE"><img src="https://img.shields.io/github/license/SteamDeckHomebrew/decky-loader" /></a>
+  <a href="https://deckbrew.xyz/discord"><img src="https://img.shields.io/discord/960281551428522045?color=%235865F2&label=discord" /></a>
+  <br>
+  <br>
+  <img src="https://media.discordapp.net/attachments/966017112244125756/1012466063893610506/main.jpg" alt="Decky screenshot" width="80%">
+</p>
+
+<details>
+    <summary alig="center"><h3>PRIMARY REPOSITORY</h3></summary>
+    <br><hr>
+    <b><a href="">ANIMATION CHANGER</a></b> - A BOOT/ SUSPEND ANIMATION MANAGEMENT PLUGIN.
+    <br><hr>
+    <b><a href="">AUDIO LOADER</a></b> - REPLACES STEAM UI SOUND EFFECTS WITH CUSTOM SOUNDS AND ADDS MUSIC TO MENUS.
+    <br><hr>
+    <b><a href="">AUTOFLATPAKS</a></b> - A PLUGIN TO MANAGE, NOTIFY, AND AUTOMATICALLY UPDATE FLATPAKS ON YOUR STEAMDECK CONSOLE
+    <br><hr>
+    <b><a href="">AUTOSUSPEND</a></b> - AUTOMATICALLY SUSPEND ON LOW POWER.
+    <br><hr>
+    <b><a href="">BASH SHORTCUTS</a></b> - MANAGER FOR SHORTCUTS IN THE QUICK ACCESS MENU! USES BASH UNDER THE HOOD.
+    <br><hr>
+    <b><a href="">BLUETOOTH</a></b> - QUICKLY CONNECT TO YOUR ALREADY PAIRED BLUETOOTH DEVICES.
+    <br><hr>
+    <b><a href="">BOOKMARKS</a></b> - REMEMBER HARD-TO-REACH PAGES IN STEAM&#39;S UI, AND OPEN WEB PAGES.
+    <br><hr>
+    <b><a href="">CONTROLLER TOOLS</a></b> - THE MISSING GAME CONTROLLER MENU. DISPLAYS THE CURRENT BATTERY % AND CHARGING STATUS. SUPPORTS: DUALSENSE, DUALSHOCK 4, NINTENDO SWITCH PRO CONTROLLER
+    <br><hr>
+    <b><a href="">CSSLOADER</a></b> - LOADS CSS (THEMES) DYNAMICALLY INTO THE STEAM DECK GAME UI
+    AUDIO LOADER REPLACES STEAM UI SOUND EFFECTS WITH CUSTOM SOUNDS AND ADDS MUSIC TO MENUS.
+    <br><hr>
+    <b><a href="">DECKFAQS</a></b> - A GAMEFAQS BROWSER FOR THE STEAM DECK (BOTH STEAM AND NON-STEAM GAMES)
+    <br><hr>
+    <b><a href="">DECKYFILESERVER</a></b> - START YOUR OWN FILE SERVER FROM YOUR STEAM DECK TO EASILY TRANSFER FILES FROM YOUR STEAM DECK.
+    <br><hr>
+    <b><a href="">DECKMTP</a></b> - A PLUGIN THAT ALLOWS YOUR STEAM DECK TO TRANSFER FILES TO YOUR PC VIA MTP AND USB
+    <br><hr>
+    <b><a href="">DECKROULETTE</a></b> - A PLUGIN THAT ALLOWS YOU TO NAVIGATE TO A RANDOM GAME IN YOUR LIVRARY OR A STEAM COLLECTION.
+    <br><hr>
+    <b><a href="">DECKY CLOUD SAVE</a></b> - MANAGE CLOUD SAVES FOR GAMES THAT DO NOT SUPPORT IT IN [CURRENT YEAR]
+    <br><hr>
+    <b><a href="">DECKY RECORDER</a></b> - RECORD YOUR GAMES WITH DECKY RECORDER
+    <br><hr>
+    <b><a href="">DISCORD STATUS</a></b> - DISPLAYS CURRENT STEAM DECK GAME IN DISCORD
+    <br><hr>
+    <b><a href="">EMUCHIEVEMENTS</a></b> - PLUGIN FOR VIEWING RETROACHIEVEMENTS PROGRESS. PART OF THE EMUDECK PROJECT
+    <br><hr>
+    <b><a href="">FANTASTIC</a></b> - FAN CONTROLS
+    <br><hr>
+    <b><a href="">FREE GAMES</a></b> - A PLUGIN TO NOTIFY YOU OF FREE GAMES AVAILABLE ON THE EPIC GAMES STORE.
+    <br><hr>
+    <b><a href="">FRIENDSFIX</a></b> - FIXES THE MISSING FRIENDS UI BUG.
+    <br><hr>
+    <b><a href="">GAMEVIEW MUSIC</a></b> - ADDS BACKGROUND MUSIC TO THE GAME PAGE
+    <br><hr>
+    <b><a href="">GAME THEME MUSIC</a></b> - PLAY THEME SONGS ON YOUR GAME PAGES
+    <br><hr>
+    <b><a href="">HTLB FOR DECK</a></b> - A PLUGIN TO SHOW YOU GAME LENGTHS ACCORDING TO HOW LONG TO BEAT
+    <br><hr>
+    <b><a href="">MANGOPEEL</a></b> - A DECKY PLUGIN FOR CUSTOM PERFORMANCE MONITORING STYLE.
+    <br><hr>
+    <b><a href="">MEMORY DECK</a></b> - A SIMPLISTIC SCANMEM WRAPPER FOR DECKY. ENABLING SCANNING FOR AND EDITING VALUES IN MEMORY.
+    <br><hr>
+    <b><a href="">METADECK</a></b> - PLUGIN FOR VIEWING METADATA FOR NON STEAM GAMES FROM IGDB. PART OF THE EMUDECK PROJECT
+    <br><hr>
+    <b><a href="">MOONDECK</a></b> - MOONDECK IS AN AUTOMATION TOOL THAT WILL SIMPLIFY LAUNCHING YOUR STEAM GAMES VIA THE MOONLIGHT CLIENT FOR STEAMING.
+    <br><hr>
+    <b><a href="">MUSICCONTROL</a></b> - CONTROL RUNNING MEDIA PLAYERS USING THE DBUS INTERFACE (MPRIS). MEDIA PLAYER HAS TO BE STARTED THROUGH GAME MODE.
+    <br><hr>
+    <b><a href="">NETWORK INFO</a></b> - VIEW DETAILED INFORMATION ABOUT YOUR STEAM DECK&#39;S NETWORK INTERFACES.
+    <br><hr>
+    <b><a href="">NOTEBOOK</a></b> - QUICKLY SCRIBBLE DOWN IMPORTANT CODES OR NOTES DURING YOUR PLAY SESSIONS.
+    <br><hr>
+    <b><a href="">PAUSE GAMES</a></b> - PAUSE/ RESUME GAMES TO REDIRECT RESOURCES AND EVEN PLAY/ STOP APPS THAT DON&#39;T NATIVELY HABE AN IMMEDIATE OPTION TO DO SO.
+    <br><hr>
+    <b><a href="">POWERTOOLS</a></b> - POWER TWEAKS FOR POWER USERS
+    <br><hr>
+    <b><a href="">PROTONDB BADGES</a></b> - DISPLAY TAPPABLE PROTONDB BADGES ON YOUR GAME PAGES
+    <br><hr>
+    <b><a href="">QUICK LAUNCH</a></b> - QUICKLY LAUNCH NON-STEAM-APPS FROM THE QUICK ACCESS MENU WITHOUT ADDING THEM AS SHORTCUTS, OR ADD THEM TO THE STEAM LIBRARY.
+    <br><hr>
+    <b><a href="">SHOTTY</a></b> - A PLUGIN FOR COPYING OVER SCREENSHOTS TO THE PICTURES FOLDER
+    <br><hr>
+    <b><a href="">STEAMBACK</a></b> - AUTOMATIC SAVE GAME SNAPSHOT/ RESTORE FOR STEAM
+    <br><hr>
+    <b><a href="">STEAMGRIDDB</a></b> - CUSTOM LIVRARY ART FOR STEAM APPS AND NON-STEAM SHORTCUTS FROM STEAMGRIDDB OR YOUR LOCAL FILES.
+    <br><hr>
+    <b><a href="">STORAGE CLEANER</a></b> - QUICKLY VISUALIZE, SELECT AND CLEAR SHADER CACHE AND COMPATIBILITY DATA.
+    <br><hr>
+    <b><a href="">SYSTEM TOOLBOX</a></b> - HELPFUL TOOLS TO CONTROL VARIOUS SETTINGS OF THE STEAM DECK
+    <br><hr>
+    <b><a href="">TABMASTER</a></b> - GIVES YOU FULL CONTROL OVER YOUR STEAM LIBRARY! SUPPORT FOR CUSTOMIZING, ADDING, AND HIDING LIBRARY TABS.
+    <br><hr>
+    <b><a href="">TAILSCALE CONTROL</a></b> - A DECKY PLUGIN TO ACTIVATE AND DEACTIVATE TAILSCALE, WHILE STAYING IN GAMING MODE. [NOTE: TAILSCALE NEEDS TO BE INSTALLED, THIS WORKS ONLY LIKE A SWITCH FOR THE SAME.
+    <br><hr>
+    <b><a href="">TUNNELDECK</a></b> - ENABLES VPN SUPPORT WITHIN GAMING MODE AND ACTIVATES OPENVPN SUPPORT FOR NETWORK MANAGER.
+    <br><hr>
+    <b><a href="">VIBRANTDECK</a></b> - ADJUST COLOR SETTINGS OF YOUR DECK
+    <br><hr>
+    <b><a href="">VOLUME BOOST</a></b> - A DECKY PLUGIN TO BOOST VOLUME.
+    <br><hr>
+    <b><a href="">VOLUME MIXER</a></b> - CONTROL THE COLUME OF APPLICATIONS AND CONNECTED BLUETOOTH SOURCES.
+    <br><hr>
+    <b><a href="">WEB BROWSER</a></b> - A WEB BRPWSER WITH MULTIPLE FEATURES INCLUDING TABS!, LIMITED GAMEPAD SUPPORT, FAVORITES AND A MULTIFUNCTION SEARCH/ URL BAR.
+    <br><hr>
+
+</details>
+
+<details>
+<br><hr>
+<summary alig="center"><h3>PRE-RELEASE/ TESTING</h3></summary>
+<br><hr>
+<b><a href="">DECKSETTINGS</a></b> - PLUGIN TO BROWSE RECOMMENDED STEAM DECK GAME SETTINGS FROM SHAREDECK AND STEAMDECKHQ.
+<br><hr>
+<b><a href="">FREE LOADER</a></b> - PLUGIN TO PROVIDE NOTIFICATIONS FOR AND EASY ACCESS TO FREE GAMES ON THE STEAM STORE.
+<br><hr>
+<b><a href="">MICROSDECK</a></b> - A PLUGIN TO MANAGE MICROSD CARDS.
+<br><hr>
+<b><a href="">TS3 QUICKACCESS</a></b> - A TEAMSPEAK 3 CLIENT PLUGIN THAT INTEGRATES TEAMSPEAK 3 INTO STEAM DECK&#39;S QUICK ACCESS MENU.
+<br><hr>
+
+</details>
+
+<hr>
+<p>#</p>
+<h3 id="-discover-store-flatpaks">■ DISCOVER STORE FLATPAKS</h3>
+<pre><code>CHROME<span class="hljs-comment">//FIREFOX</span>
+DISCORD
+PEAZIP
+JDOWNLOADER
+HEROIC LAUNCHER
+</code></pre><hr>
+<hr>
+
     </body>
 </html>
