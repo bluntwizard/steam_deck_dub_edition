@@ -1,7 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap");
 
-$details-padding: 1em;
-
 	* {
 		font-family: "Roboto", sans-serif;
         	margin: 0;
@@ -13,15 +11,27 @@ $details-padding: 1em;
       	}
 
 	details {
-	font-size: 1rem;
-	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-		0 10px 10px -5px rgba(0, 0, 0, 0.04);
-	position: relative;
-	]
+	width: 100%;
+
+	.summary-title {
+		user-select: none;
+	}
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	.summary-content {
+		border-top: 1px solid #e2e8f0;
+		cursor: default;
+		padding: 1em;
+		font-weight: 300;
+		line-height: 1.5;
+	}
 
 	summary {
 		list-style: none;
-		padding: $details-padding;
+		padding: 1em;
 
 		&:focus {
 			outline: none;
@@ -41,8 +51,8 @@ $details-padding: 1em;
 		pointer-events: none;
 		position: absolute;
 		top: 0.75em;
-		right: $details-padding;
-		background: #0d1117;
+		right: 1em;
+		background: #ffffff;
 
 		svg {
 			display: block;
@@ -52,7 +62,7 @@ $details-padding: 1em;
 	summary::-webkit-details-marker {
 		display: none;
 	}
-
+}
 
 
 
