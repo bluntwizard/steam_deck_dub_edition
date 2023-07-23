@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- update 3 -->
+        <!-- update 4 -->
     </head>
     <body>
         <div class="w2-container">
@@ -11,7 +11,9 @@
   <div xmlns="http://www.w3.org/1999/xhtml">
     <style>
 	@import url("https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap");
-	
+	    
+	$details-padding: 1em;
+	    
 	* {
 		font-family: "Roboto", sans-serif;
         	margin: 0;
@@ -43,13 +45,15 @@
 
 	.summary-content {
 		cursor: default;
+		padding: $details-padding;
 		font-weight: 300;
 		line-height: 1.5;
 	}
 
 	summary {
 		list-style: none;
-
+		padding: $details-padding;
+		
 		&:focus {
 			outline: none;
 		}
@@ -68,6 +72,7 @@
 		pointer-events: none;
 		position: absolute;
 		top: 0.75em;
+		right: $details-padding;
 		
 		svg {
 			display: block;
