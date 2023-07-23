@@ -7,8 +7,10 @@
         outline: none;
         box-sizing: border-box;
       }
+      
+      
 
-      .body {
+      div.cl-body {
         --color-main: #ff9b71;
         --color-primary: #ff4444;
         --color-secondary: #e8e677;
@@ -17,12 +19,36 @@
         --color-link-active: #ff4444;
 
         height: 400px;
+        width: 80%;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        left: 9.5vw;
+        top:2vh;
+        background-image: radial-gradient(var(--color-main), var(--color-primary), var(--color-secondary));
+        animation: border 5s linear infinite;
+        background-size: 200% 200%;
+        background-position: 0 0;
+        border: 1px solid;
+        border-color: #00000000;
+      }
+      
+      div.cl2-body {
+        --color-main: #ff9b71;
+        --color-primary: #ff4444;
+        --color-secondary: #e8e677;
+        --color-background: #0d1117;
+        --color-link: #fef29e;
+        --color-link-active: #ff4444;
+
+        height: 100vh;
         width: 100%;
         text-transform: uppercase;
         display: flex;
         align-items: center;
         justify-content: center;
-
         background-image: radial-gradient(var(--color-main), var(--color-primary), var(--color-secondary));
         animation: border 5s linear infinite;
         background-size: 200% 200%;
@@ -199,15 +225,35 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap");
 
 html {
+	box-sizing: border-box;
+	font-size: 18px;
 	font-family: "Roboto", sans-serif;
 }
 
+body {
+	background: #edf2f7;
+	color: #4a5568;
+	height: 100%;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+$details-padding: 1em;
+
 details {
-	margin: auto;
-	box-shadow: none !important;
+	font-size: 1rem;
+	margin: 7em auto;
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+		0 10px 10px -5px rgba(0, 0, 0, 0.04);
 	width: 100%;
+	background: #ffffff;
+	border-radius: 8px;
 	position: relative;
-	width: 400px;
+	width: 500px;
 
 	.summary-title {
 		user-select: none;
@@ -220,14 +266,14 @@ details {
 	.summary-content {
 		border-top: 1px solid #e2e8f0;
 		cursor: default;
-		padding: 1em;
+		padding: $details-padding;
 		font-weight: 300;
 		line-height: 1.5;
 	}
 
 	summary {
 		list-style: none;
-		padding: 1em;
+		padding: $details-padding;
 
 		&:focus {
 			outline: none;
@@ -241,26 +287,77 @@ details {
 	.summary-chevron-up svg {
 		opacity: 0.5;
 	}
+}
 
-	.summary-chevron-up,
-	.summary-chevron-down {
+div.summary-chevron-up {
 		pointer-events: none;
-		position: absolute;
-		top: 0.75em;
-		right: 1em;
+		position: relative;
+		top: -1.5em;
+		left: 93vw;
 		background: #0d1117;
-
+    display: inline;
 		svg {
-			display: block;
+			display: flex;
+		}
+	}
+	
+	div.summary-chevron-down {
+		pointer-events: none;
+		position: relative;
+		top: -17em;
+		left: 93vw;
+		background: #0d1117;
+    display: inline;
+		svg {
+			display: flex;
 		}
 	}
 
-	summary::-webkit-details-marker {
-		display: none;
+::-webkit-details-marker {
+		display: none !important;
 	}
-}
+
 
 div.w2-container {
-background-color: #0d1117;
+background-color: #00000000;
+width: 100vw;
+margin: auto !important;
 }
 
+div.w3-container {
+margin-left: 1em
+}
+
+div.w5-container {
+background-color:#ddd;
+    position: fixed;
+    padding: 2em;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index:-1;
+}
+
+p {
+color: #ffffff;
+}
+
+h2 {
+color: #ffffff;
+}
+
+h3 {
+color: #ffffff;
+}
+
+h4 {
+color: #ffffff;
+}
+
+h5 {
+color: #ffffff;
+}
+
+h6 {
+color: #ffffff;
+}
