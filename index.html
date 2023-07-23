@@ -13,18 +13,59 @@
 	@import url("https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap");
 	
 	* {
-	font-family: "Roboto", sans-serif;
-        margin: 0;
-        padding: 0;
-        text-decoration: none;
-        list-style: none;
-        outline: none;
-        box-sizing: border-box;
+		font-family: "Roboto", sans-serif;
+        	margin: 0;
+        	padding: 0;
+        	text-decoration: none;
+        	list-style: none;
+        	outline: none;
+        	box-sizing: border-box;
       	}
 
-    div.w2-container {
-    background-color: #0d1117 !important;
-    }
+	.summary-title {
+		user-select: none;
+	}
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	summary {
+		list-style: none;
+		
+		&:focus {
+			outline: none;
+		}
+
+		&:hover .summary-chevron-up svg {
+			opacity: 1;
+		}
+	}
+
+	.summary-chevron-up svg {
+		opacity: 0.5;
+	}
+
+	.summary-chevron-up,
+	.summary-chevron-down {
+		pointer-events: none;
+		top: 0.75em;
+		background: #ffffff;
+
+		svg {
+			display: block;
+		}
+	}
+
+	summary::-webkit-details-marker {
+		display: none;
+	}
+}
+
+
+    	div.w2-container {
+    		background-color: #0d1117 !important;
+    	}
 
     div.w3-container {
     display: flex !important;
