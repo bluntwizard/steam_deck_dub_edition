@@ -331,7 +331,6 @@ margin-left: 1em
 div.w5-container {
 background-color:#ddd;
     position: fixed;
-    padding: 2em;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
