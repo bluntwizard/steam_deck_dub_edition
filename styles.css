@@ -17,16 +17,12 @@
         --color-background: #0d1117;
         --color-link: #fef29e;
         --color-link-active: #ff4444;
-
         height: 400px;
         width: 80%;
         text-transform: uppercase;
         display: flex;
         align-items: center;
         justify-content: center;
-        position: relative;
-        left: 9.5vw;
-        top:2vh;
         background-image: radial-gradient(var(--color-main), var(--color-primary), var(--color-secondary));
         animation: border 5s linear infinite;
         background-size: 200% 200%;
@@ -156,7 +152,7 @@
       .hi {
         display: inline-block;
         transform-origin: 70% 70%;
-        animation: hi 3s linear -2s infinite;
+        animation: hi 3.5s linear -2s infinite;
       }
 
       @keyframes border {
@@ -291,11 +287,9 @@ details {
 
 div.summary-chevron-up {
 		pointer-events: none;
-		position: relative;
-		top: -1.5em;
-		left: 93vw;
+	  position: relative;
 		background: #0d1117;
-    display: inline;
+    display: inline-block;
 		svg {
 			display: flex;
 		}
@@ -303,11 +297,11 @@ div.summary-chevron-up {
 	
 	div.summary-chevron-down {
 		pointer-events: none;
-		position: relative;
-		top: -17em;
-		left: 93vw;
+    position: absolute;
+    right: 12%;
+    transform: translate(50%, -1000%);
 		background: #0d1117;
-    display: inline;
+    display: inline-block;
 		svg {
 			display: flex;
 		}
@@ -320,12 +314,14 @@ div.summary-chevron-up {
 
 div.w2-container {
 background-color: #00000000;
-width: 100vw;
-margin: auto !important;
+width: 100%;
+max-width: 80vw;
+margin: auto;
 }
 
 div.w3-container {
-margin-left: 1em
+width: 100vw;
+margin: auto;
 }
 
 div.w5-container {
@@ -335,6 +331,57 @@ background-color:#ddd;
     top: 50%;
     transform: translate(-50%, -50%);
     z-index:-1;
+    width: 100vw;
+    height: 100vh;
+}
+
+div.center-section-iv {
+width: 100%;
+max-width: 80vw;
+text-align: center;
+}
+
+div.summary-title-section-iv {
+display: inline-block;
+width: 75vw;
+}
+
+h2.section-iv {
+display: inline-block;
+}
+
+div.bottom-boarder {
+height: 4.7vh;
+width: 100vw;
+background-color: #0d1117;
+position: fixed;
+bottom: 0;
+}
+
+div.top-boarder {
+height: 4.7vh;
+width: 100vw;
+background-color: #0d1117;
+position: fixed;
+top: 0;
+}
+
+div.left-boarder {
+height: 100vh;
+width: 3.8vw;
+background-color: #0d1117;
+position: fixed;
+bottom: 0;
+left: 0;
+}
+
+div.right-boarder {
+height: 100vh;
+width: 3.8vw;
+background-color: #0d1117;
+position: fixed;
+bottom: 0;
+right: 0;
 }
 
 p {
