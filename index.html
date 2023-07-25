@@ -5,9 +5,97 @@
 	    <link rel="stylesheet" type="text/css" href="styles.css">
         <!-- update 10 -->
 
+
+
+
+
+
+
+
+
+	    
+	<style>
+/* CHATGPT4-BING::Define the styles for the outer and inner borders */
+.outer-border {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background-color: #0d1117;
+}
+
+.inner-border {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  z-index: 10000;
+  background-image: radial-gradient(#ff9b71, #ff4444, #e8e677);
+}
+
+/* CHATGPT4-BING::Use media queries to adjust the border sizes for different screen sizes and orientations */
+@media (max-width: 600px) {
+  .inner-border {
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+  }
+}
+
+@media (orientation: landscape) {
+  .inner-border {
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+  }
+}
+</style>
+
+
+
+
+
+
+
+
+	    
+
     </head>
 	
     <body>
+
+
+
+
+
+
+
+
+
+	    
+
+	<!-- CHATGPT4-BING::Use SVG to create the border shapes -->
+<svg class="outer-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+<path d="M0,0 L100,0 L100,100 L0,100 Z M5,5 L95,5 L95,95 L5,95 Z" fill-rule="evenodd" />
+</svg>
+<svg class="inner-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+<path d="M0,0 L100,0 L100,100 L0,100 Z M10,10 L90,10 L90,90 L10,90 Z" fill-rule="evenodd" />
+</svg>
+
+
+
+
+
+
+
+
+
+	    
         <div class="w2-container">
         <div class="w3-container">
         <br>
