@@ -108,12 +108,12 @@
 <hr>
 <hr>
 <h2 id="section-i-getting-started">SECTION I: GETTING STARTED</h2>
-<p><strong><code>SUDO, RETAINING PACKAGES BETWEEN UPDATES, TRUST ISSUES, PACMAN &amp; YAY</code></strong></p>
+<p class="code-1"><strong><code>SUDO, RETAINING PACKAGES BETWEEN UPDATES, TRUST ISSUES, PACMAN &amp; YAY</code></strong></p>
 <hr>
 <h3 id="1-setting-admin-sudo-https-wiki-archlinux-org-title-sudo-password-within-konsole-terminal-emulator-https-en-wikipedia-org-wiki-terminal_emulator-">1. SETTING ADMIN/ <a href="https://wiki.archlinux.org/title/sudo">SUDO</a> PASSWORD WITHIN KONSOLE/ <a href="https://en.wikipedia.org/wiki/Terminal_emulator">TERMINAL EMULATOR</a></h3>
 <p>#</p>
 <h6 id="copy-paste">COPY/ PASTE</h6>
-<p><code><span class="hljs-attribute">passwd</span>
+<p class="code-2"><code><span class="hljs-attribute">passwd</span>
 </code></p><blockquote>
 <h4 id="-enter-new-admin-password-"><strong>ENTER NEW ADMIN PASSWORD</strong></h4>
 </blockquote>
@@ -124,7 +124,7 @@
 <p><strong>STEAMOS IS AN <a href="https://kairos.io/blog/2023/03/22/understanding-immutable-linux-os-benefits-architecture-and-challenges/#what-is-an-immutable-linux-os">IMMUTABLE OPERATING SYSTEM</a>, RWFUS COVERS THE /usr/ DIRECTORY [AND SOME OTHERS] ALLOWING PACMAN TO BE INITIALIZED WITHOUT LOSING PACKAGES WHEN THE NEXT UPDATE COMES OUT.</strong></p>
 </blockquote>
 <h6 id="copy-paste">COPY/ PASTE</h6>
-<p><code>git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/ValShaped/rwfus.git &amp;&amp; cd rwfus &amp;&amp; ./rwfus -iI &amp;&amp; sudo reboot
+<p class="code-3"><code>git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/ValShaped/rwfus.git &amp;&amp; cd rwfus &amp;&amp; ./rwfus -iI &amp;&amp; sudo reboot
 </code></p><p>#</p>
 <h3 id="3-installing-dependencies-https-askubuntu-com-questions-361741-what-are-dependencies-text-sometimes-20when-20you-20install-20programs-2c-20they-20rely-20on-20other-20programs-20to-20work-20these-20other-20programs-20are-20called-20dependencies-">3. INSTALLING <a href="https://askubuntu.com/questions/361741/what-are-dependencies#:~:text=Sometimes%20when%20you%20install%20programs%2C%20they%20rely%20on%20other%20programs%20to%20work.%20These%20other%20programs%20are%20called%20dependencies.">DEPENDENCIES</a></h3>
 <p>#</p>
@@ -133,7 +133,7 @@
 <p><strong>[GCC/ CLANG/ GLIBC/ MAKE - MAY BE REDUNDANT.]</strong></p>
 </blockquote>
 <h6 id="copy-paste">COPY/ PASTE</h6>
-<p><code>sudo echo <span class="hljs-string">"keyserver hkps://keyserver.ubuntu.com"</span> &gt;&gt; /etc/pacman.d/gnupg/gpg.conf &amp;&amp; sudo pacman-<span class="hljs-built_in">key</span> --init &amp;&amp; sudo pacman-<span class="hljs-built_in">key</span> --populate &amp;&amp; sudo pacman-<span class="hljs-built_in">key</span> --refresh-keys &amp;&amp; sudo pacman -S base-devel &amp;&amp; sudo pacman -S gcc &amp;&amp; sudo pacman -S clang &amp;&amp; sudo pacman -S <span class="hljs-built_in">make</span> &amp;&amp; sudo pacman -S glibc
+<p class="code-4"><code>sudo echo <span class="hljs-string">"keyserver hkps://keyserver.ubuntu.com"</span> &gt;&gt; /etc/pacman.d/gnupg/gpg.conf &amp;&amp; sudo pacman-<span class="hljs-built_in">key</span> --init &amp;&amp; sudo pacman-<span class="hljs-built_in">key</span> --populate &amp;&amp; sudo pacman-<span class="hljs-built_in">key</span> --refresh-keys &amp;&amp; sudo pacman -S base-devel &amp;&amp; sudo pacman -S gcc &amp;&amp; sudo pacman -S clang &amp;&amp; sudo pacman -S <span class="hljs-built_in">make</span> &amp;&amp; sudo pacman -S glibc
 </code></p><p>#</p>
 <h3 id="4-fixing-trust-issues">4. FIXING TRUST ISSUES</h3>
 <p>#</p>
@@ -146,7 +146,7 @@
 <h4 id="-so-we-must-manually-install-it-"><strong>SO WE MUST MANUALLY INSTALL IT.</strong></h4>
 </blockquote>
 <h6 id="copy-paste">COPY/PASTE</h6>
-<p><code>sudo cd Download https:<span class="hljs-regexp">//</span>archlinux.org<span class="hljs-regexp">/packages/</span>core<span class="hljs-regexp">/any/</span>archlinux-keyring<span class="hljs-regexp">/download &amp;&amp; sudo pacman -U archlinux-keyring-20220713-2-any.pkg.tar.zst</span>
+<p class="code-5"><code>sudo cd Download https:<span class="hljs-regexp">//</span>archlinux.org<span class="hljs-regexp">/packages/</span>core<span class="hljs-regexp">/any/</span>archlinux-keyring<span class="hljs-regexp">/download &amp;&amp; sudo pacman -U archlinux-keyring-20220713-2-any.pkg.tar.zst</span>
 </code></p>
 <p><blockquote>
 <p><a href="https://wiki.archlinux.org/title/Pacman">Pacman</a> is now ready.</p>
@@ -159,11 +159,11 @@
 <p><strong>YAY : Yet Another Yogurt - An <a href="https://wiki.archlinux.org/title/AUR_helpers#:~:text=AUR%20helpers%20automate%20usage%20of%20the%20Arch%20User%20Repository.">AUR Helper</a> Written in Go.</strong></p>
 </blockquote>
 <h6 id="copy-paste">COPY/ PASTE</h6>
-<p><code>git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://aur.archlinux.org/yay.git &amp;&amp; cd yay &amp;&amp; makepkg -si
+<p class="code-6"><code>git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://aur.archlinux.org/yay.git &amp;&amp; cd yay &amp;&amp; makepkg -si
 </code></p><hr>
 <hr>
 <h2 id="section-ii-optimizations">SECTION II: OPTIMIZATIONS</h2>
-<p><strong><code>CONVERT FILE SYSTEM &amp; MODIFY SWAP TO OPTIMIZE READ/ WRITE &amp; ADD STORAGE</code></strong></p>
+<p class="code-7"><strong><code>CONVERT FILE SYSTEM &amp; MODIFY SWAP TO OPTIMIZE READ/ WRITE &amp; ADD STORAGE</code></strong></p>
 <hr>
 <h3 id="1-installing-steamos-brtfs-https-gitlab-com-popsulfr-steamos-btrfs-">1. INSTALLING <a href="https://gitlab.com/popsulfr/steamos-btrfs">STEAMOS-BRTFS</a></h3>
 <p>#</p>
@@ -181,7 +181,7 @@
 <h4 id="-process-can-take-up-to-30-minutes-"><strong>PROCESS CAN TAKE UP TO 30 MINUTES.</strong></h4>
 </blockquote>
 <h6 id="copy-paste">COPY/ PASTE</h6>
-<p><code>t=<span class="hljs-string">"<span class="hljs-variable">$(mktemp -d)</span>"</span> &amp;&amp; curl <span class="hljs-_">-s</span>SL https://gitlab.com/popsulfr/steamos-btrfs/-/archive/main/steamos-btrfs-main.tar.gz | tar -xzf - -C <span class="hljs-string">"<span class="hljs-variable">$t</span>"</span> --strip-components=1 &amp;&amp; <span class="hljs-string">"<span class="hljs-variable">$t</span>/install.sh"</span> &amp;&amp; rm -rf <span class="hljs-string">"<span class="hljs-variable">$t</span>"</span>
+<p class="code-8"><code>t=<span class="hljs-string">"<span class="hljs-variable">$(mktemp -d)</span>"</span> &amp;&amp; curl <span class="hljs-_">-s</span>SL https://gitlab.com/popsulfr/steamos-btrfs/-/archive/main/steamos-btrfs-main.tar.gz | tar -xzf - -C <span class="hljs-string">"<span class="hljs-variable">$t</span>"</span> --strip-components=1 &amp;&amp; <span class="hljs-string">"<span class="hljs-variable">$t</span>/install.sh"</span> &amp;&amp; rm -rf <span class="hljs-string">"<span class="hljs-variable">$t</span>"</span>
 </code></p><p>#</p>
 <h3 id="2-installing-cryoutilities-https-github-com-cryobyte33-steam-deck-utilities-cryoutilities-">2. INSTALLING <a href="https://github.com/CryoByte33/steam-deck-utilities#cryoutilities">CRYOUTILITIES</a></h3>
 <p>#</p>
@@ -189,7 +189,7 @@
 <h4 id="-cyroutilities-is-a-collection-of-scripts-utilities-to-improve-performance-manage-storage-on-the-steam-deck-"><strong>CYROUTILITIES IS A COLLECTION OF SCRIPTS &amp; UTILITIES TO IMPROVE PERFORMANCE &amp; MANAGE STORAGE ON THE STEAM DECK.</strong></h4>
 </blockquote>
 <h6 id="copy-paste">COPY/ PASTE</h6>
-<p><code><span class="hljs-keyword">cd</span> Desktop &amp;&amp; <span class="hljs-keyword">echo</span> <span class="hljs-comment">"#!/usr/bin/env xdg-open</span>
+<p class="code-9"><code><span class="hljs-keyword">cd</span> Desktop &amp;&amp; <span class="hljs-keyword">echo</span> <span class="hljs-comment">"#!/usr/bin/env xdg-open</span>
 [Desktop Entry]
 Name=Install CryoUtilities
 Exec=curl http<span class="hljs-variable">s:</span>//raw.githubusercontent.<span class="hljs-keyword">com</span>/CryoByte33/steam-deck-utilities/main/install.<span class="hljs-keyword">sh</span> | bash -s --
@@ -197,12 +197,12 @@ Icon=steamdeck-gaming-<span class="hljs-keyword">return</span>
 Terminal=true
 Type=Application
 StartupNotify=false<span class="hljs-comment">" &gt;&gt; InstallCryoUtilities.desktop &amp;&amp; sudo gtk-launch EmuDeck.desktop</span>
-</code></p><p><code><span class="hljs-attribute">CHOSE RECOMMENDED SETTINGS</span>
+</code></p><p class="code-10"><code><span class="hljs-attribute">CHOSE RECOMMENDED SETTINGS</span>
 </code></p><hr>
 <hr>
 <h2 id="section-iii-gaming">SECTION III: GAMING</h2>
 <blockquote>
-<p><strong><code>EMULATION, NON-STEAM GAMES, NON-STEAM LAUNCHERS, WINDOWS SOFTWARE, CONSOLE STREAMING &amp; FLASHPOINT</code></strong></p>
+<p class="code-11"><strong><code>EMULATION, NON-STEAM GAMES, NON-STEAM LAUNCHERS, WINDOWS SOFTWARE, CONSOLE STREAMING &amp; FLASHPOINT</code></strong></p>
 </blockquote>
 <hr>
 <h3 id="1-installing-emudeck">1. INSTALLING EMUDECK</h3>
@@ -221,7 +221,7 @@ StartupNotify=false<span class="hljs-comment">" &gt;&gt; InstallCryoUtilities.de
 <h4 id="-steam-rom-manager-automatically-fetches-artwork-for-games-"><strong><code>STEAM ROM MANAGER</code> AUTOMATICALLY FETCHES ARTWORK FOR GAMES.</strong></h4>
 </blockquote>
 <h6 id="copy-paste">COPY/ PASTE</h6>
-<p><code>sudo cd Desktop &amp;&amp; sudo wget -<span class="hljs-selector-tag">q</span> https:<span class="hljs-comment">//www.emudeck.com/EmuDeck.desktop -O ~/Desktop/EmuDeck.desktop &amp;&amp; sudo gtk-launch EmuDeck.desktop</span>
+<p class="code-12"><code>sudo cd Desktop &amp;&amp; sudo wget -<span class="hljs-selector-tag">q</span> https:<span class="hljs-comment">//www.emudeck.com/EmuDeck.desktop -O ~/Desktop/EmuDeck.desktop &amp;&amp; sudo gtk-launch EmuDeck.desktop</span>
 </code></p><h3 id="-setup-"><strong>SETUP</strong></h3>
 <blockquote>
 <h4 id="-choose-manual-setup-"><strong>CHOOSE MANUAL SETUP.</strong></h4>
@@ -232,10 +232,10 @@ StartupNotify=false<span class="hljs-comment">" &gt;&gt; InstallCryoUtilities.de
 <h3 id="2-replacing-yuzu-the-nintento-switch-emulator-with-yuzu-early-access-enabling-auto-update">2. REPLACING YUZU - THE NINTENTO SWITCH EMULATOR, WITH YUZU EARLY ACCESS, ENABLING AUTO UPDATE</h3>
 <p>#</p>
 <h6 id="copy-paste">COPY/ PASTE</h6>
-<p><code>curl -s https:<span class="hljs-regexp">//</span>api.github.com<span class="hljs-regexp">/repos/</span>pineappleEA<span class="hljs-regexp">/pineapple-src/</span>releases<span class="hljs-regexp">/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/</span>Applications<span class="hljs-regexp">/yuzu.AppImage -i - &amp;&amp;  awk -v prepend="&lt;curl -s https:/</span><span class="hljs-regexp">/api.github.com/</span>repos<span class="hljs-regexp">/pineappleEA/</span>pineapple-src<span class="hljs-regexp">/releases/</span>latest | jq -r <span class="hljs-string">".assets[0] | .browser_download_url"</span> | wget -qO <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/Applications/yu</span>zu.AppImage -i -&gt;<span class="hljs-string">" 'NR==2{print prepend $0;next};1' $HOME/Emulation/tools/launchers/yuzu.sh</span>
+<p class="code-13"><code>curl -s https:<span class="hljs-regexp">//</span>api.github.com<span class="hljs-regexp">/repos/</span>pineappleEA<span class="hljs-regexp">/pineapple-src/</span>releases<span class="hljs-regexp">/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/</span>Applications<span class="hljs-regexp">/yuzu.AppImage -i - &amp;&amp;  awk -v prepend="&lt;curl -s https:/</span><span class="hljs-regexp">/api.github.com/</span>repos<span class="hljs-regexp">/pineappleEA/</span>pineapple-src<span class="hljs-regexp">/releases/</span>latest | jq -r <span class="hljs-string">".assets[0] | .browser_download_url"</span> | wget -qO <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/Applications/yu</span>zu.AppImage -i -&gt;<span class="hljs-string">" 'NR==2{print prepend $0;next};1' $HOME/Emulation/tools/launchers/yuzu.sh</span>
 </code></p><p>#</p>
 <h6 id="above-code-possibly-replaces-these">ABOVE CODE POSSIBLY REPLACES THESE</h6>
-<p><code>Download Yuzu <span class="hljs-keyword">ea</span>
+<p class="code-14"><code>Download Yuzu <span class="hljs-keyword">ea</span>
 <span class="hljs-keyword">copy</span>/ paste
 
     curl -s http<span class="hljs-variable">s:</span>//api.github.<span class="hljs-keyword">com</span>/repos/pineappleEA/pineapple-src/releases/latest | jq -r <span class="hljs-string">".assets[0] | .browser_download_url"</span> | wget -qO $HOME/Applications/yuzu.AppImage -i -
@@ -249,7 +249,7 @@ StartupNotify=false<span class="hljs-comment">" &gt;&gt; InstallCryoUtilities.de
 <blockquote>
 <h4 id="-the-microsoft-xbox-360-emulator-"><strong>THE MICROSOFT XBOX 360 EMULATOR.</strong></h4>
 </blockquote>
-<p><code><span class="hljs-keyword">START</span> <span class="hljs-string">'EMUDECK'</span>
+<p class="code-15"><code><span class="hljs-keyword">START</span> <span class="hljs-string">'EMUDECK'</span>
 <span class="hljs-keyword">SELECT</span> <span class="hljs-string">'MANAGE EMULATORS'</span>
 <span class="hljs-keyword">SELECT</span> &amp; <span class="hljs-keyword">INSTALL</span> <span class="hljs-string">'XENIA'</span>
 </code></p><p>#</p>
@@ -259,7 +259,7 @@ StartupNotify=false<span class="hljs-comment">" &gt;&gt; InstallCryoUtilities.de
 <h4 id="-current-xenia-builds-crash-on-steam-deck-when-loading-xbla-titles-"><strong>CURRENT XENIA BUILDS CRASH ON STEAM DECK WHEN LOADING XBLA TITLES.</strong></h4>
 </blockquote>
 <h6 id="copy-paste">COPY/ PASTE</h6>
-<p><code> sudo wget -q https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/xenia-canary/</span>xenia-canary<span class="hljs-regexp">/releases/</span>tag<span class="hljs-regexp">/190cef9 -O ~/</span>emulation<span class="hljs-regexp">/roms/</span>xbox360<span class="hljs-regexp">/xenia_canary.exe</span>
+<p class="code-16"><code> sudo wget -q https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/xenia-canary/</span>xenia-canary<span class="hljs-regexp">/releases/</span>tag<span class="hljs-regexp">/190cef9 -O ~/</span>emulation<span class="hljs-regexp">/roms/</span>xbox360<span class="hljs-regexp">/xenia_canary.exe</span>
 </code></p><p>#</p>
 <h3 id="3-b-unlock-full-xbla-game-access">3-b. UNLOCK FULL XBLA GAME ACCESS</h3>
 <p>#</p>
@@ -268,10 +268,10 @@ StartupNotify=false<span class="hljs-comment">" &gt;&gt; InstallCryoUtilities.de
 <p><strong>NO LICENSE WILL CAUSE XBLA TITLES TO START IN DEMO MODE/ NOT AT ALL.*</strong></p>
 </blockquote>
 <h6 id="copy-paste">COPY/ PASTE</h6>
-<p><code>awk <span class="hljs-string">'{gsub(/license_mask = 0/, "license_mask = 1"); print}'</span> xenia-canary<span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.toml</span> &gt; xenia-canary<span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.toml</span>
+<p class="code-17"><code>awk <span class="hljs-string">'{gsub(/license_mask = 0/, "license_mask = 1"); print}'</span> xenia-canary<span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.toml</span> &gt; xenia-canary<span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.toml</span>
 </code></p><p>#</p>
 <h6 id="above-code-possibly-replaces-this">ABOVE CODE POSSIBLY REPLACES THIS</h6>
-<p><code>    edit xenia-canary.config.toml inside ~/Emulation/roms/xbox360
+<p class="code-18"><code>    edit xenia-canary.config.toml inside ~/Emulation/roms/xbox360
 
     <span class="hljs-keyword">change</span>
 
@@ -293,7 +293,7 @@ StartupNotify=false<span class="hljs-comment">" &gt;&gt; InstallCryoUtilities.de
 <h4 id="-can-be-used-to-stylize-menus-change-system-sounds-adjust-screen-saturation-change-additional-system-settings-and-much-more-"><strong>CAN BE USED TO STYLIZE MENUS, CHANGE SYSTEM SOUNDS, ADJUST SCREEN SATURATION, CHANGE ADDITIONAL SYSTEM SETTINGS, AND MUCH MORE.</strong></h4>
 </blockquote>
 <h6 id="copy-paste">COPY/ PASTE</h6>
-<p><code>sudo cd Desktop &amp;&amp; sudo wget -q https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/SteamDeckHomebrew/</span>decky-installer<span class="hljs-regexp">/releases/</span>latest<span class="hljs-regexp">/download/</span>decky_installer.desktop &amp;&amp; sudo gtk-launch decky_installer.desktop
+<p class="code-19"><code>sudo cd Desktop &amp;&amp; sudo wget -q https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/SteamDeckHomebrew/</span>decky-installer<span class="hljs-regexp">/releases/</span>latest<span class="hljs-regexp">/download/</span>decky_installer.desktop &amp;&amp; sudo gtk-launch decky_installer.desktop
 </code></p><hr>
 <hr>
 
@@ -318,7 +318,7 @@ StartupNotify=false<span class="hljs-comment">" &gt;&gt; InstallCryoUtilities.de
             <h4 id="-can-be-used-to-stylize-menus-change-system-sounds-adjust-screen-saturation-change-additional-system-settings-and-much-more-"><strong>CAN BE USED TO STYLIZE MENUS, CHANGE SYSTEM SOUNDS, ADJUST SCREEN SATURATION, CHANGE ADDITIONAL SYSTEM SETTINGS, AND MUCH MORE.</strong></h4>
         </blockquote>
         <h6 id="copy-paste">COPY/ PASTE</h6>
-        <p><code>sudo cd Desktop &amp;&amp; sudo wget -q https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/SteamDeckHomebrew/</span>decky-installer<span class="hljs-regexp">/releases/</span>latest<span class="hljs-regexp">/download/</span>decky_installer.desktop &amp;&amp; sudo gtk-launch decky_installer.desktop
+        <p class="code-20"><code>sudo cd Desktop &amp;&amp; sudo wget -q https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/SteamDeckHomebrew/</span>decky-installer<span class="hljs-regexp">/releases/</span>latest<span class="hljs-regexp">/download/</span>decky_installer.desktop &amp;&amp; sudo gtk-launch decky_installer.desktop
         </code></p></div>
         <br>
 	<div class="summary-chevron-down">
@@ -458,7 +458,7 @@ StartupNotify=false<span class="hljs-comment">" &gt;&gt; InstallCryoUtilities.de
 <hr>
 <p>#</p>
 <h3 id="-discover-store-flatpaks">■ DISCOVER STORE FLATPAKS</h3>
-<p><code>CHROME<span class="hljs-comment">//FIREFOX</span>
+<p class="code-21"><code>CHROME<span class="hljs-comment">//FIREFOX</span>
 DISCORD
 PEAZIP
 JDOWNLOADER
