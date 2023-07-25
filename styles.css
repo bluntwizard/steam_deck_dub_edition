@@ -6,9 +6,33 @@
         list-style: none;
         outline: none;
         box-sizing: border-box;
+        word-break: break-word;
       }
       
-      
+      p.code-1,
+      p.code-2,
+      p.code-3,
+      p.code-4,
+      p.code-5,
+      p.code-6,
+      p.code-7,
+      p.code-8,
+      p.code-9,
+      p.code-9,
+      p.code-10,
+      p.code-11,
+      p.code-12,
+      p.code-13,
+      p.code-14,
+      p.code-15,
+      p.code-16,
+      p.code-17,
+      p.code-18,
+      p.code-19,
+      p.code-20,
+      p.code-21 {
+       word-break: break-word;
+      }
 
       div.cl-body {
         --color-main: #ff9b71;
