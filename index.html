@@ -14,49 +14,107 @@
 
 
 	    
-	<style>
-/* CHATGPT4-BING::Define the styles for the outer and inner borders */
-/* Define the styles for the outer and inner borders */
-.outer-border {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9999;
-  background-color: #0d1117;
-}
+<script>
+// Define the styles for the outer and inner borders
+var outerBorderStyle = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  zIndex: 9999,
+  backgroundColor: "#0d1117"
+};
 
-.inner-border {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
-  z-index: 10000;
-  background-image: radial-gradient(#ff9b71, #ff4444, #e8e677);
-}
+var innerBorderStyle = {
+  position: "fixed",
+  top: 10,
+  left: 10,
+  right: 10,
+  bottom: 10,
+  zIndex: 10000,
+  backgroundImage: "radial-gradient(#ff9b71, #ff4444, #e8e677)"
+};
 
-/* Use media queries to adjust the border sizes for different screen sizes and orientations */
-@media (max-width: 600px) {
-  .inner-border {
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
+// Use media queries to adjust the border sizes for different screen sizes and orientations
+var mediaQuery1 = window.matchMedia("(max-width: 600px)");
+var mediaQuery2 = window.matchMedia("(orientation: landscape)");
+
+function handleMediaQuery1(e) {
+  if (e.matches) {
+    // If the screen width is less than or equal to 600px, make the inner border smaller
+    innerBorderStyle.top = 5;
+    innerBorderStyle.left = 5;
+    innerBorderStyle.right = 5;
+    innerBorderStyle.bottom = 5;
+  } else {
+    // Otherwise, use the default values
+    innerBorderStyle.top = 10;
+    innerBorderStyle.left = 10;
+    innerBorderStyle.right = 10;
+    innerBorderStyle.bottom = 10;
   }
 }
 
-@media (orientation: landscape) {
-  .inner-border {
-    top: 20px;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
+function handleMediaQuery2(e) {
+  if (e.matches) {
+    // If the screen orientation is landscape, make the inner border larger
+    innerBorderStyle.top = 20;
+    innerBorderStyle.left = 20;
+    innerBorderStyle.right = 20;
+    innerBorderStyle.bottom = 20;
+  } else {
+    // Otherwise, use the default values
+    innerBorderStyle.top = 10;
+    innerBorderStyle.left = 10;
+    innerBorderStyle.right = 10;
+    innerBorderStyle.bottom = 10;
   }
 }
-</style>
 
+// Add event listeners for the media queries
+mediaQuery1.addEventListener("change", handleMediaQuery1);
+mediaQuery2.addEventListener("change", handleMediaQuery2);
+
+// Call the handlers once to set the initial values
+handleMediaQuery1(mediaQuery1);
+handleMediaQuery2(mediaQuery2);
+
+// Create the SVG elements for the border shapes
+var outerBorderSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+var outerBorderPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+outerBorderSVG.setAttribute("class", "outer-border");
+outerBorderSVG.setAttribute("viewBox", "0 0 100 100");
+outerBorderSVG.setAttribute("preserveAspectRatio", "none");
+outerBorderPath.setAttribute("d", "M0,0 L100,0 L100,100 L0,100 Z M2.5,2.5 L97.5,2.5 L97.5,97.5 L2.5,97.5 Z");
+outerBorderPath.setAttribute("fill-rule", "evenodd");
+outerBorderPath.setAttribute("fill-opacity", "0");
+outerBorderSVG.appendChild(outerBorderPath);
+
+var innerBorderSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+var innerBorderPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+innerBorderSVG.setAttribute("class", "inner-border");
+innerBorderSVG.setAttribute("viewBox", "0 0 100 100");
+innerBorderSVG.setAttribute("preserveAspectRatio", "none");
+innerBorderPath.setAttribute("d", "M0,0 L100,0 L100,100 L0,100 Z M12.5,12.5 L87.5,12.5 L87.5,87.5 L12.5,87.5 Z");
+innerBorderPath.setAttribute("fill-rule", "evenodd");
+innerBorderPath.setAttribute("fill-opacity", "0");
+innerBorderSVG.appendChild(innerBorderPath);
+
+// Apply the styles to the SVG elements
+function applyStyle(element, style) {
+  for (var property in style) {
+    element.style[property] = style[property];
+  }
+}
+
+applyStyle(outerBorderSVG, outerBorderStyle);
+applyStyle(innerBorderSVG, innerBorderStyle);
+
+// Append the SVG elements to the document body
+document.body.appendChild(outerBorderSVG);
+document.body.appendChild(innerBorderSVG);
+</script>
 
 
 
