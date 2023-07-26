@@ -2,7 +2,7 @@
 
 <html>
     <head>
-	    <title>SVG Cutout Border</title>
+	    
 	    <link rel="stylesheet" type="text/css" href="styles.css">
         <!-- update 10 -->
 
@@ -128,20 +128,10 @@ document.body.appendChild(innerBorderSVG);
     </head>
 	
     <body>
-<svg viewBox="0 0 100 100">
-      <defs>
-        <radialGradient id="gradient">
-          <stop offset="0" stop-color="red" />
-          <stop offset="1" stop-color="blue" />
-        </radialGradient>
-      </defs>
-      <rect x="0" y="0" width="100" height="100" rx="20" ry="20" fill="none" stroke="black" stroke-width="5" />
-      <circle cx="50" cy="50" r="35" fill="url(#gradient)" stroke="none" />
-    </svg>
-    <svg viewBox="0 0 100 100" style="position: fixed; z-index: 100; pointer-events: none;">
-      <rect x="0" y="0" width="100" height="100" rx="20" ry="20" fill="none" stroke="black" stroke-width="5" />
-      <circle cx="50" cy="50" r="35" fill="url(#gradient)" stroke="none" />
-    </svg>
+<svg width="100%" height="100%" viewBox="0 0 100 100">
+  <rect x="0" y="0" width="100" height="100" stroke="white" stroke-width="5" fill="none"/>
+  <rect x="10" y="10" width="80" height="80" stroke="none" fill="white" />
+</svg>
 
 
 
