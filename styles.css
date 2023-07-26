@@ -8,6 +8,10 @@
         box-sizing: border-box;
         word-break: break-word;
       }
+
+.svg-cutout-border {
+  animation: 5s linear infinite;
+}
       
       p.code-1,
       p.code-2,
