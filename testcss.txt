@@ -1,0 +1,65 @@
+body.dark {
+  background-color: #212529;
+  color: #ffffff;
+}
+
+.fullscreen-button {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 100;
+}
+
+.dark-mode-button {
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  z-index: 100;
+}
+
+.categories {
+  margin-top: 2rem;
+}
+
+.categories ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.categories li {
+  margin-bottom: 1rem;
+}
+
+.categories li a {
+  padding: 0.5rem 1rem;
+}
+
+.tutorial {
+  margin-top: 2rem;
+}
+
+.tutorial h2 {
+  margin-top: 0;
+}
+
+.tutorial p {
+  margin-bottom: 1rem;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333333;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #212529;
+    color: #ffffff;
+  }
+
+  .fullscreen-button,
+  .dark-mode-button {
+    background-color: #ffffff;
+    color: #212529;
+  }
+}
