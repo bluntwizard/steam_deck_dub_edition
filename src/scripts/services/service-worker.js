@@ -1,10 +1,11 @@
 /**
- * Service Worker for Steam Deck DUB Edition Guide
+ * Enhanced Service Worker for Steam Deck DUB Edition Guide
  * Provides offline functionality and caching of essential resources
+ * with improved PWA capabilities
  */
 
 // Cache version - increment this when making significant changes
-const CACHE_VERSION = '2';
+const CACHE_VERSION = '3';
 
 // Cache names for different types of assets
 const CACHE_NAMES = {
@@ -12,7 +13,9 @@ const CACHE_NAMES = {
   content: `content-cache-v${CACHE_VERSION}`,
   dynamic: `dynamic-cache-v${CACHE_VERSION}`,
   images: `images-cache-v${CACHE_VERSION}`,
-  locales: `locales-cache-v${CACHE_VERSION}`
+  locales: `locales-cache-v${CACHE_VERSION}`,
+  fonts: `fonts-cache-v${CACHE_VERSION}`,
+  documents: `documents-cache-v${CACHE_VERSION}`
 };
 
 // Assets to cache on install (core files needed for the app to function)
@@ -25,57 +28,123 @@ const STATIC_ASSETS = [
   '/src/ui-main.js',
   '/src/utils.js',
   '/src/i18n.js',
-  '/src/components/sidebar.js',
-  '/src/components/search.js',
-  '/src/components/navigation.js',
-  '/src/components/theme.js',
-  '/src/styles/theme.css',
-  '/dyslexic-font.css',
-  '/navigation-fixes.css',
-  '/print-styles.css',
+  '/manifest.json',
+  '/src/components/Button/index.js',
+  '/src/components/Button/Button.js',
+  '/src/components/Button/Button.module.css',
+  '/src/components/Dialog/index.js',
+  '/src/components/Dialog/Dialog.js',
+  '/src/components/Dialog/Dialog.module.css',
+  '/src/components/ErrorHandler/index.js',
+  '/src/components/ErrorHandler/ErrorHandler.js',
+  '/src/components/ErrorHandler/ErrorHandler.module.css',
+  '/src/components/HelpCenter/index.js',
+  '/src/components/HelpCenter/HelpCenter.js',
+  '/src/components/HelpCenter/HelpCenter.module.css',
+  '/src/components/NotificationSystem/index.js',
+  '/src/components/NotificationSystem/NotificationSystem.js',
+  '/src/components/NotificationSystem/NotificationSystem.module.css',
+  '/src/components/PageLoader/index.js',
+  '/src/components/PageLoader/PageLoader.js',
+  '/src/components/PageLoader/PageLoader.module.css',
+  '/src/styles/main.css',
   '/sdde.svg',
   '/dub_edition.png',
   '/Steam_Deck_colored_logo.svg'
 ];
 
+// Font files to cache
+const FONT_ASSETS = [
+  '/fonts/OpenDyslexic-Regular.otf',
+  '/fonts/OpenDyslexic-Bold.otf',
+  '/fonts/OpenDyslexic-Italic.otf'
+];
+
 // Locale files to cache
 const LOCALE_ASSETS = [
   '/locales/en.json',
-  '/locales/es.json'
+  '/locales/es.json',
+  '/src/locales/en.json',
+  '/src/locales/es.json'
+];
+
+// Document assets to cache for offline access
+const DOCUMENT_ASSETS = [
+  '/docs/developer-quickstart.md',
+  '/docs/components.md',
+  '/docs/component-visuals.md',
+  '/docs/testing.md',
+  '/CONTRIBUTING.md',
+  '/README.md'
+];
+
+// Icon assets
+const ICON_ASSETS = [
+  '/icons/icon-72x72.png',
+  '/icons/icon-96x96.png',
+  '/icons/icon-128x128.png',
+  '/icons/icon-144x144.png',
+  '/icons/icon-152x152.png',
+  '/icons/icon-192x192.png',
+  '/icons/icon-384x384.png',
+  '/icons/icon-512x512.png',
+  '/icons/maskable-icon.png'
 ];
 
 // All assets to cache on install
 const PRECACHE_ASSETS = [
   ...STATIC_ASSETS,
-  ...LOCALE_ASSETS
+  ...LOCALE_ASSETS,
+  ...FONT_ASSETS,
+  ...ICON_ASSETS
 ];
 
 // Maximum number of items in dynamic cache
-const DYNAMIC_CACHE_LIMIT = 100;
+const DYNAMIC_CACHE_LIMIT = 150;
+
+// Background sync tag for pending requests
+const BACKGROUND_SYNC_TAG = 'sdde-pending-requests';
 
 // Install event - cache essential files
 self.addEventListener('install', event => {
   console.log('[Service Worker] Installing Service Worker...');
   event.waitUntil(
-    caches.open(CACHE_NAMES.static)
-      .then(cache => {
-        console.log('[Service Worker] Precaching App Shell');
-        return cache.addAll(STATIC_ASSETS);
-      })
-      .then(() => {
-        return caches.open(CACHE_NAMES.locales);
-      })
-      .then(cache => {
-        console.log('[Service Worker] Precaching Locale Files');
-        return cache.addAll(LOCALE_ASSETS);
-      })
-      .then(() => {
-        console.log('[Service Worker] Successfully cached app shell');
-        return self.skipWaiting();
-      })
-      .catch(error => {
-        console.error('[Service Worker] Precaching error:', error);
-      })
+    Promise.all([
+      // Cache static assets
+      caches.open(CACHE_NAMES.static)
+        .then(cache => {
+          console.log('[Service Worker] Precaching App Shell');
+          return cache.addAll(STATIC_ASSETS);
+        }),
+      
+      // Cache locale files
+      caches.open(CACHE_NAMES.locales)
+        .then(cache => {
+          console.log('[Service Worker] Precaching Locale Files');
+          return cache.addAll(LOCALE_ASSETS);
+        }),
+        
+      // Cache font files
+      caches.open(CACHE_NAMES.fonts)
+        .then(cache => {
+          console.log('[Service Worker] Precaching Font Files');
+          return cache.addAll(FONT_ASSETS);
+        }),
+        
+      // Cache document files for offline access
+      caches.open(CACHE_NAMES.documents)
+        .then(cache => {
+          console.log('[Service Worker] Precaching Document Files');
+          return cache.addAll(DOCUMENT_ASSETS);
+        })
+    ])
+    .then(() => {
+      console.log('[Service Worker] Successfully cached app resources');
+      return self.skipWaiting();
+    })
+    .catch(error => {
+      console.error('[Service Worker] Precaching error:', error);
+    })
   );
 });
 
@@ -88,11 +157,9 @@ self.addEventListener('activate', event => {
         return Promise.all(keyList.map(key => {
           // Check if this is an old version of our caches
           if (
-            key.startsWith('static-cache-v') && key !== CACHE_NAMES.static ||
-            key.startsWith('content-cache-v') && key !== CACHE_NAMES.content ||
-            key.startsWith('dynamic-cache-v') && key !== CACHE_NAMES.dynamic ||
-            key.startsWith('images-cache-v') && key !== CACHE_NAMES.images ||
-            key.startsWith('locales-cache-v') && key !== CACHE_NAMES.locales
+            Object.values(CACHE_NAMES).every(cacheName => key !== cacheName) &&
+            Object.keys(CACHE_NAMES).some(cacheType => 
+              key.startsWith(`${cacheType}-cache-v`))
           ) {
             console.log('[Service Worker] Removing old cache:', key);
             return caches.delete(key);
@@ -122,6 +189,16 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       cacheFirst(event.request, CACHE_NAMES.locales)
     );
+  } else if (isFontFile(requestUrl)) {
+    // Font files - Cache first, falling back to network
+    event.respondWith(
+      cacheFirst(event.request, CACHE_NAMES.fonts)
+    );
+  } else if (isDocumentFile(requestUrl)) {
+    // Document files - Network first, falling back to cache
+    event.respondWith(
+      networkFirst(event.request, CACHE_NAMES.documents)
+    );
   } else if (isContentFile(requestUrl)) {
     // Content files - Network first, falling back to cache
     event.respondWith(
@@ -150,18 +227,101 @@ self.addEventListener('fetch', event => {
   }
 });
 
+// Background sync event
+self.addEventListener('sync', event => {
+  if (event.tag === BACKGROUND_SYNC_TAG) {
+    console.log('[Service Worker] Background sync triggered');
+    event.waitUntil(processPendingRequests());
+  }
+});
+
+// Push notification event
+self.addEventListener('push', event => {
+  if (!event.data) {
+    console.log('[Service Worker] Push received but no data');
+    return;
+  }
+  
+  const data = event.data.json();
+  console.log('[Service Worker] Push received:', data);
+  
+  const title = data.title || 'Steam Deck DUB Edition';
+  const options = {
+    body: data.body || 'New notification from SDDE',
+    icon: data.icon || '/icons/icon-192x192.png',
+    badge: '/icons/badge-icon.png',
+    data: data.data || {},
+    actions: data.actions || [],
+    tag: data.tag || 'default',
+    requireInteraction: data.requireInteraction || false
+  };
+  
+  event.waitUntil(
+    self.registration.showNotification(title, options)
+  );
+});
+
+// Notification click event
+self.addEventListener('notificationclick', event => {
+  console.log('[Service Worker] Notification click received');
+  
+  event.notification.close();
+  
+  // This looks to see if the target URL is already open and focuses if it is
+  event.waitUntil(
+    clients.matchAll({
+      type: 'window'
+    })
+    .then(clientList => {
+      const notificationData = event.notification.data;
+      const url = notificationData && notificationData.url ? notificationData.url : '/';
+      
+      for (let i = 0; i < clientList.length; i++) {
+        const client = clientList[i];
+        if (client.url === url && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      
+      if (clients.openWindow) {
+        return clients.openWindow(url);
+      }
+    })
+  );
+});
+
+// Helper functions
+
 /**
  * Check if the URL is a locale file
  */
 function isLocaleFile(url) {
-  return url.pathname.startsWith('/locales/');
+  return url.pathname.includes('/locales/');
+}
+
+/**
+ * Check if the URL is a font file
+ */
+function isFontFile(url) {
+  const fontExtensions = ['.woff', '.woff2', '.ttf', '.otf', '.eot'];
+  return fontExtensions.some(ext => url.pathname.toLowerCase().endsWith(ext)) ||
+         url.pathname.includes('/fonts/');
+}
+
+/**
+ * Check if the URL is a document file
+ */
+function isDocumentFile(url) {
+  return url.pathname.includes('/docs/') || 
+         url.pathname.endsWith('.md') ||
+         DOCUMENT_ASSETS.some(doc => url.pathname.endsWith(doc));
 }
 
 /**
  * Check if the URL is a content file
  */
 function isContentFile(url) {
-  return url.pathname.startsWith('/content/');
+  return url.pathname.includes('/content/');
 }
 
 /**
@@ -169,18 +329,21 @@ function isContentFile(url) {
  */
 function isImageFile(url) {
   const imageExtensions = ['.png', '.jpg', '.jpeg', '.svg', '.gif', '.webp', '.ico'];
-  return imageExtensions.some(ext => url.pathname.toLowerCase().endsWith(ext));
+  return imageExtensions.some(ext => url.pathname.toLowerCase().endsWith(ext)) ||
+         url.pathname.includes('/images/') ||
+         url.pathname.includes('/icons/');
 }
 
 /**
  * Check if the URL is a static asset
  */
 function isAssetFile(url) {
-  const assetExtensions = ['.css', '.js', '.woff', '.woff2', '.ttf'];
+  const assetExtensions = ['.css', '.js', '.json'];
   return assetExtensions.some(ext => url.pathname.endsWith(ext)) || 
          url.pathname === '/' || 
-         url.pathname === '/index.html' ||
-         url.pathname === '/offline.html';
+         url.pathname.endsWith('/index.html') ||
+         url.pathname.endsWith('/offline.html') ||
+         url.pathname.includes('/src/components/');
 }
 
 /**
@@ -249,32 +412,29 @@ async function networkFirst(request, cacheName) {
 }
 
 /**
- * Stale-while-revalidate strategy: return cached version immediately,
- * then update the cache in the background
+ * Stale-while-revalidate: return cached version immediately, then update cache in background
  */
 async function staleWhileRevalidate(request, cacheName) {
+  // First, try to get the resource from the cache
   const cachedResponse = await caches.match(request);
   
-  // Create a promise to update the cache
+  // Next, send a network request in the background to update the cache
   const fetchPromise = fetch(request)
     .then(networkResponse => {
       cacheResponse(request, networkResponse.clone(), cacheName);
       return networkResponse;
     })
     .catch(error => {
-      console.log('[Service Worker] Stale-while-revalidate fetch failed:', error);
-      // If it's an HTML request, return the offline page
-      if (request.headers.get('Accept')?.includes('text/html')) {
-        return caches.match('/offline.html');
-      }
+      console.log('[Service Worker] Fetch failed for stale-while-revalidate:', error);
+      // Just catch the error and don't propagate it further
     });
   
-  // Return the cached response immediately, or wait for the network if no cached response
+  // Return the cached response immediately or wait for the network response
   return cachedResponse || fetchPromise;
 }
 
 /**
- * Helper function to add a response to the cache
+ * Store the response in the appropriate cache
  */
 async function cacheResponse(request, response, cacheName) {
   // Only cache valid responses
@@ -283,68 +443,50 @@ async function cacheResponse(request, response, cacheName) {
   }
   
   const cache = await caches.open(cacheName);
+  await cache.put(request, response);
   
-  // For dynamic cache, implement size limit
+  // Trim the cache if it's the dynamic cache
   if (cacheName === CACHE_NAMES.dynamic) {
-    // Clean up dynamic cache if necessary
-    trimCache(cache, DYNAMIC_CACHE_LIMIT);
+    await trimCache(cache, DYNAMIC_CACHE_LIMIT);
   }
-  
-  cache.put(request, response);
 }
 
 /**
- * Trim the cache to the specified maximum
+ * Trim the cache to a certain number of items
  */
 async function trimCache(cache, maxItems) {
   const keys = await cache.keys();
   if (keys.length > maxItems) {
     await cache.delete(keys[0]);
-    // Recursively trim again if still too large
-    trimCache(cache, maxItems);
+    await trimCache(cache, maxItems);
   }
 }
 
 /**
- * Listen for messages from clients
+ * Process any pending requests stored in IndexedDB
  */
-self.addEventListener('message', event => {
-  // Check for cache update requests
-  if (event.data && event.data.action === 'skipWaiting') {
-    self.skipWaiting();
-  }
-  
-  // Check for cache clear requests
-  if (event.data && event.data.action === 'clearCache') {
-    const cacheToClean = event.data.cacheName;
-    
-    if (cacheToClean && CACHE_NAMES[cacheToClean]) {
-      console.log(`[Service Worker] Clearing ${cacheToClean} cache`);
-      caches.open(CACHE_NAMES[cacheToClean]).then(cache => cache.keys().then(keys => {
-        keys.forEach(request => cache.delete(request));
-      }));
-    } else if (cacheToClean === 'all') {
-      console.log('[Service Worker] Clearing all caches');
-      Object.values(CACHE_NAMES).forEach(cacheName => {
-        caches.open(cacheName).then(cache => cache.keys().then(keys => {
-          keys.forEach(request => cache.delete(request));
-        }));
+async function processPendingRequests() {
+  // This would be implemented with IndexedDB to store and retrieve pending requests
+  console.log('[Service Worker] Processing pending requests');
+  // Implementation would go here
+}
+
+/**
+ * Register for periodic background sync if available
+ */
+async function registerPeriodicSync() {
+  if ('periodicSync' in self.registration) {
+    try {
+      await self.registration.periodicSync.register('content-update', {
+        minInterval: 24 * 60 * 60 * 1000 // Once per day
       });
+      console.log('[Service Worker] Periodic sync registered');
+    } catch (error) {
+      console.error('[Service Worker] Periodic sync could not be registered:', error);
     }
-    
-    // Let the client know we've received the request
-    event.ports[0].postMessage({
-      action: 'clearCache',
-      status: 'success',
-      message: `Clearing cache: ${cacheToClean || 'all'}`
-    });
   }
-  
-  // Check for content version check requests
-  if (event.data && event.data.action === 'checkContentVersion') {
-    event.ports[0].postMessage({
-      action: 'contentVersionStatus',
-      version: CACHE_VERSION
-    });
-  }
-});
+}
+
+// Try to register for periodic sync
+registerPeriodicSync().catch(console.error);
+
