@@ -1,6 +1,10 @@
 /**
- * UI Improvements for SDDE Guide
+ * UI Improvements Module
+ * 
+ * Provides various UI enhancements and interactions
  */
+
+import KeyboardShortcuts from '../../components/KeyboardShortcuts/KeyboardShortcuts';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Check if new header exists, otherwise show warning
@@ -346,179 +350,63 @@ function enhanceBackToTopButton() {
  * Set up keyboard shortcuts for navigation
  */
 function setupKeyboardShortcuts() {
+    // Initialize KeyboardShortcuts component
+    const keyboardShortcuts = new KeyboardShortcuts();
+    keyboardShortcuts.init({
+        shortcuts: [
+            // Add any additional shortcuts here if needed
+        ]
+    });
+
     // Listen for keyboard shortcuts
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', (e) => {
         // Only enable keyboard shortcuts when no input elements are focused
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || 
-            e.target.isContentEditable) {
+        if (isInputElement(document.activeElement)) return;
+        
+        // Skip if modifiers are pressed (except for Alt+digit combinations)
+        if ((e.ctrlKey || e.metaKey) && !(/^[1-9]$/.test(e.key) && e.altKey)) {
             return;
         }
-            
+        
+        // Handle keyboard shortcuts
         switch (e.key) {
-            case '/': // Search
+            case '/':
+                // Focus search box
                 e.preventDefault();
-                document.getElementById('search-input').focus();
+                focusSearchBox();
                 break;
                 
-            case 't': // Toggle theme
-                if (!e.ctrlKey && !e.metaKey) {
-                    e.preventDefault();
-                    document.getElementById('theme-toggle').click();
-                }
+            // Number keys to jump to sections
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                e.preventDefault();
+                jumpToSection(parseInt(e.key) - 1);
                 break;
                 
-            case 'h': // Show help
-                if (!e.ctrlKey && !e.metaKey) {
-                    e.preventDefault();
-                    showKeyboardShortcutsHelp();
-                }
+            case 'Home':
+                // Go to top of page
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
                 break;
                 
-            case 'Escape': { // Close help, search, etc.
-                const helpDialog = document.querySelector('.keyboard-shortcuts-dialog');
-                if (helpDialog && helpDialog.style.display === 'flex') {
-                    helpDialog.style.display = 'none';
-                    e.preventDefault();
-                }
-                
-                const searchInput = document.getElementById('search-input');
-                if (document.activeElement === searchInput) {
-                    searchInput.blur();
-                    // Clear search if it's activated
-                    if (searchInput.value) {
-                        searchInput.value = '';
-                        const event = new Event('input');
-                        searchInput.dispatchEvent(event);
-                    }
-                    e.preventDefault();
-                }
+            case 'End':
+                // Go to bottom of page
+                e.preventDefault();
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
+                });
                 break;
-            }
-                
-            case 'ArrowUp': // Scroll up a bit
-                if (e.ctrlKey) {
-                    e.preventDefault();
-                    window.scrollBy({
-                        top: -100,
-                        behavior: 'smooth'
-                    });
-                }
-                break;
-                
-            case 'ArrowDown': // Scroll down a bit
-                if (e.ctrlKey) {
-                    e.preventDefault();
-                    window.scrollBy({
-                        top: 100,
-                        behavior: 'smooth'
-                    });
-                }
-                break;
-                
-            case 'Home': // Scroll to top
-                if (e.ctrlKey) {
-                    e.preventDefault();
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                }
-                break;
-                
-            case 'End': // Scroll to bottom
-                if (e.ctrlKey) {
-                    e.preventDefault();
-                    window.scrollTo({
-                        top: document.body.scrollHeight,
-                        behavior: 'smooth'
-                    });
-                }
-                break;
-        }
-    });
-    
-    // Add a help button to show keyboard shortcuts
-    if (!document.querySelector('.keyboard-shortcuts-button')) {
-        const helpButton = document.createElement('button');
-        helpButton.className = 'keyboard-shortcuts-button';
-        helpButton.innerHTML = '<span>?</span>';
-        helpButton.setAttribute('title', 'Keyboard Shortcuts');
-        helpButton.setAttribute('aria-label', 'Show Keyboard Shortcuts');
-        
-        helpButton.addEventListener('click', showKeyboardShortcutsHelp);
-        
-        document.body.appendChild(helpButton);
-    }
-}
-
-/**
- * Show keyboard shortcuts help overlay
- */
-function showKeyboardShortcutsHelp() {
-    // Remove existing help if it exists
-    const existingHelp = document.querySelector('.keyboard-shortcuts-help');
-    if (existingHelp) {
-        existingHelp.remove();
-        return;
-    }
-    
-    // Create help overlay
-    const helpOverlay = document.createElement('div');
-    helpOverlay.className = 'keyboard-shortcuts-help';
-    helpOverlay.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: var(--dracula-background, #282a36);
-        border: 1px solid var(--dracula-comment, #6272a4);
-        border-radius: 8px;
-        padding: 20px;
-        z-index: 9999;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-        max-width: 500px;
-        width: 90%;
-    `;
-    
-    // Add content
-    helpOverlay.innerHTML = `
-        <h3 style="color: var(--dracula-purple, #bd93f9); margin-top: 0;">Keyboard Shortcuts</h3>
-        <div style="margin-bottom: 15px; border-bottom: 1px solid var(--dracula-comment, #6272a4); padding-bottom: 10px;">
-            <p style="margin: 0; text-align: right;">
-                <button id="close-shortcuts-help" style="background: none; border: none; color: var(--dracula-comment, #6272a4); cursor: pointer;">Close (ESC)</button>
-            </p>
-        </div>
-        <ul style="list-style-type: none; padding: 0; margin: 0;">
-            <li style="margin-bottom: 10px;"><kbd>/</kbd> - Focus search box</li>
-            <li style="margin-bottom: 10px;"><kbd>?</kbd> - Show/hide this help</li>
-            <li style="margin-bottom: 10px;"><kbd>Home</kbd> - Go to top of page</li>
-            <li style="margin-bottom: 10px;"><kbd>End</kbd> - Go to bottom of page</li>
-            <li style="margin-bottom: 10px;"><kbd>1</kbd> - <kbd>9</kbd> - Jump to section</li>
-            <li style="margin-bottom: 10px;"><kbd>Esc</kbd> - Close dialogs or remove focus</li>
-        </ul>
-    `;
-    
-    // Add to DOM
-    document.body.appendChild(helpOverlay);
-    
-    // Handle close button
-    document.getElementById('close-shortcuts-help').addEventListener('click', () => {
-        helpOverlay.remove();
-    });
-    
-    // Close on ESC key
-    document.addEventListener('keydown', function closeHelp(e) {
-        if (e.key === 'Escape') {
-            helpOverlay.remove();
-            document.removeEventListener('keydown', closeHelp);
-        }
-    });
-    
-    // Close when clicking outside
-    document.addEventListener('click', function closeHelp(e) {
-        if (!helpOverlay.contains(e.target)) {
-            helpOverlay.remove();
-            document.removeEventListener('click', closeHelp);
         }
     });
 }
@@ -748,4 +636,37 @@ function detectKeyboardNavigation() {
         usingKeyboard = false;
         document.body.classList.remove('keyboard-user');
     });
+}
+
+/**
+ * Check if an element is an input element
+ * @param {Element} element - The element to check
+ * @returns {boolean} - True if the element is an input element
+ */
+function isInputElement(element) {
+    return element.tagName === 'INPUT' || 
+           element.tagName === 'TEXTAREA' || 
+           element.isContentEditable;
+}
+
+/**
+ * Focus the search box
+ */
+function focusSearchBox() {
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.focus();
+    }
+}
+
+/**
+ * Jump to a specific section by index
+ * @param {number} index - The section index to jump to
+ */
+function jumpToSection(index) {
+    const sections = Array.from(document.querySelectorAll('.section'));
+    if (sections.length > index) {
+        const section = sections[index];
+        section.scrollIntoView({ behavior: 'smooth' });
+    }
 }
