@@ -276,7 +276,7 @@ class SettingsManager {
     
     // Theme radio buttons
     const themes = [
-      { id: 'light', label: i18n.t('settings.theme.light') },
+      { id: 'light', label: i18n.t('settings.theme.catppuccinlatte') },
       { id: 'dark', label: i18n.t('settings.theme.dark') },
       { id: 'system', label: i18n.t('settings.theme.system') }
     ];

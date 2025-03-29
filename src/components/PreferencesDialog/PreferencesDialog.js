@@ -285,7 +285,7 @@ class PreferencesDialog {
           <div class="${styles['select-wrapper']}">
             <select id="theme-select" aria-label="Select theme">
               <option value="theme-dracula">Dracula (Default)</option>
-              <option value="theme-light">Light</option>
+              <option value="theme-light">Catppuccin Latte</option>
               <option value="theme-dark">Dark</option>
               <option value="theme-high-contrast">High Contrast</option>
             </select>

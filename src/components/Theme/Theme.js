@@ -12,6 +12,7 @@ import styles from './Theme.module.css';
 /**
  * @typedef {'dark' | 'light' | 'system'} ThemePreference
  * The user's preferred theme setting
+ * 'light' represents the Catppuccin Latte theme
  */
 
 /**
@@ -177,7 +178,7 @@ class ThemeController {
         }
       } else {
         // Text fallback if no icon
-        themeToggle.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+        themeToggle.textContent = isDark ? 'Catppuccin Latte' : 'Dark Mode';
       }
       
       // Update title/aria-label
