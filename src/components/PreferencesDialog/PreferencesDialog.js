@@ -1,1095 +1,1158 @@
 /**
- * PreferencesDialog Component for Steam Deck DUB Edition
- * Handles user preferences including theme, accessibility, and display options
+ * Steam Deck DUB Edition
+ * PreferencesDialog Component
  * 
- * @module PreferencesDialog
- * @author Steam Deck DUB Edition Team
- * @version 1.0.0
+ * A dialog component for managing user preferences with tabbed interface
  */
 
 import styles from './PreferencesDialog.module.css';
+import SettingsTabs from '../SettingsTabs';
 
-/**
- * Class for managing user preferences
- */
 class PreferencesDialog {
   /**
-   * Creates a new PreferencesDialog instance
+   * Create a new preferences dialog
+   * @param {Object} options - Configuration options
+   * @param {HTMLElement} options.container - Container element to append the dialog to
+   * @param {Object} options.preferences - Initial preferences object
+   * @param {Function} options.onSave - Callback for when preferences are saved
+   * @param {Function} options.onReset - Callback for when preferences are reset
+   * @param {Object} options.tabConfigs - Custom configuration for tabs
+   * @param {boolean} options.autoInit - Whether to initialize automatically
    */
-  constructor() {
-    /**
-     * Default user preferences with descriptions
-     * @type {Object}
-     * @private
-     */
-    this.defaultPreferences = {
-      // Theme preferences
-      theme: 'theme-dracula',           // Color theme for the application
-      
-      // Text preferences
-      fontSize: 'font-size-medium',     // Base font size for text content
-      lineHeight: 'line-height-normal', // Spacing between lines of text
-      
-      // Code block preferences
-      codeHeight: 'code-height-standard', // Maximum height of code blocks
-      syntaxHighlighting: true,           // Enable syntax highlighting in code
-      darkCodeBlocks: true,               // Always use dark background for code
-      
-      // Accessibility preferences
-      highContrast: false,            // Increase contrast for better readability
-      dyslexicFont: false,            // Use font designed for readers with dyslexia
-      reducedMotion: false,           // Minimize animations and transitions
-      
-      // Navigation preferences
-      compactSidebar: false,          // Use narrow sidebar with icons only
-      markVisitedLinks: false,        // Show different color for visited links
-      
-      // Added preferences
-      autoExpandCode: false,          // Auto-expand long code blocks
-      smoothScrolling: true,          // Use smooth scrolling for navigation
-      contentWidth: 'width-standard', // Control the width of content
-      codeBlockFontSize: 'code-font-medium' // Font size specific to code blocks
+  constructor(options = {}) {
+    this.options = {
+      container: options.container || document.body,
+      preferences: options.preferences || {},
+      onSave: options.onSave || (() => {}),
+      onReset: options.onReset || (() => {}),
+      tabConfigs: options.tabConfigs || this.getDefaultTabConfigs(),
+      autoInit: options.autoInit !== false
     };
     
-    /**
-     * Current user preferences
-     * @type {Object}
-     * @private
-     */
-    this.userPreferences = {...this.defaultPreferences};
-    
-    /**
-     * Track real-time preview changes to avoid saving unwanted changes
-     * @type {boolean}
-     * @private
-     */
+    // Element references
+    this.dialogElement = null;
+    this.dialogContent = null;
+    this.tabs = null;
+    this.formControls = new Map();
+    this.isOpen = false;
     this.previewChanges = false;
     
-    /**
-     * DOM element for the preferences button
-     * @type {HTMLElement|null}
-     * @private
-     */
-    this.button = null;
+    // Bind methods
+    this.handleEscapeKey = this.handleEscapeKey.bind(this);
+    this.handleBackdropClick = this.handleBackdropClick.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+    this.handleExport = this.handleExport.bind(this);
+    this.handleImport = this.handleImport.bind(this);
+    this.handleFormControlChange = this.handleFormControlChange.bind(this);
     
-    /**
-     * DOM element for the preferences dialog
-     * @type {HTMLElement|null}
-     * @private
-     */
-    this.dialogElement = null;
-    
-    /**
-     * Whether the component has been initialized
-     * @type {boolean}
-     * @private
-     */
-    this.initialized = false;
-    
-    /**
-     * Whether auto-save is enabled
-     * @type {boolean}
-     * @private
-     */
-    this.autoSave = false;
+    // Auto-initialize if specified
+    if (this.options.autoInit) {
+      this.initialize();
+    }
   }
   
   /**
-   * Initialize the preferences manager
-   * @returns {void}
+   * Initialize the preferences dialog
+   * @returns {HTMLElement} The created dialog element
    */
   initialize() {
-    if (this.initialized) return;
-    
-    console.log('Initializing preferences manager...');
-    
-    // Load saved preferences from localStorage
-    this.loadPreferences();
-    
-    // Create preferences button if it doesn't exist
-    this.createPreferencesButton();
-    
-    // Apply preferences to current page
-    this.applyPreferences();
-    
-    // Apply preferences to dynamically loaded content
-    window.addEventListener('content-loaded', () => {
-      if (!this.previewChanges) {
-        this.applyPreferences();
-      }
-    });
-    
-    // Apply preferences on theme toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => {
-        // Wait for theme toggle to complete
-        setTimeout(() => {
-          this.applyPreferences();
-        }, 50);
-      });
-    }
-    
-    // Also apply when window is resized (for responsive layouts)
-    window.addEventListener('resize', this.debounce(() => {
-      if (!this.previewChanges) {
-        this.applyPreferencesToLayout();
-      }
-    }, 250));
-    
-    this.initialized = true;
-  }
-  
-  /**
-   * Debounce function to limit execution frequency
-   * @param {Function} func - Function to debounce
-   * @param {number} wait - Wait time in ms
-   * @returns {Function} Debounced function
-   * @private
-   */
-  debounce(func, wait) {
-    let timeout;
-    return function() {
-      const context = this, args = arguments;
-      clearTimeout(timeout);
-      timeout = setTimeout(function() {
-        func.apply(context, args);
-      }, wait);
-    };
-  }
-  
-  /**
-   * Create preferences button if it doesn't exist
-   * @private
-   */
-  createPreferencesButton() {
-    if (document.getElementById('preferences-button')) {
-      this.button = document.getElementById('preferences-button');
-      // Update event listener to use this class
-      this.button.removeEventListener('click', null);
-      this.button.addEventListener('click', () => this.showPreferencesDialog());
-      return;
-    }
-    
-    this.button = document.createElement('button');
-    this.button.id = 'preferences-button';
-    this.button.className = styles['preferences-button'];
-    this.button.innerHTML = '⚙️';
-    this.button.title = 'Preferences';
-    this.button.setAttribute('aria-label', 'Open user preferences');
-    
-    this.button.addEventListener('click', () => this.showPreferencesDialog());
-    document.body.appendChild(this.button);
-    
-    // Add keyboard shortcut (Alt+P)
-    document.addEventListener('keydown', (e) => {
-      if (e.altKey && e.key === 'p') {
-        e.preventDefault();
-        this.showPreferencesDialog();
-      }
-    });
-    
-    console.log('Preferences button created');
-  }
-  
-  /**
-   * Show preferences dialog
-   */
-  showPreferencesDialog() {
-    console.log('Opening preferences dialog');
-    
-    // Enable preview changes mode
-    this.previewChanges = true;
-    
-    // Check if dialog already exists
-    if (this.dialogElement) {
-      this.dialogElement.style.display = 'flex';
-      
-      // Update form values in case preferences changed elsewhere
-      this.updateFormFromPreferences();
-      return;
-    }
+    if (this.dialogElement) return this.dialogElement;
     
     // Create dialog element
     this.dialogElement = document.createElement('div');
-    this.dialogElement.className = styles['preferences-dialog'];
+    this.dialogElement.className = styles.preferencesDialog;
     this.dialogElement.setAttribute('role', 'dialog');
     this.dialogElement.setAttribute('aria-labelledby', 'preferences-title');
+    this.dialogElement.setAttribute('aria-modal', 'true');
+    this.dialogElement.setAttribute('tabindex', '-1');
+    this.dialogElement.hidden = true;
     
     // Create dialog content
-    const dialogContent = document.createElement('div');
-    dialogContent.className = styles['preferences-dialog-content'];
+    this.dialogContent = document.createElement('div');
+    this.dialogContent.className = styles.preferencesDialogContent;
     
     // Add dialog header
-    dialogContent.innerHTML = `
-      <h3 id="preferences-title">User Preferences</h3>
-      <p class="${styles['dialog-description']}">Customize your reading experience with these settings.</p>
+    const header = document.createElement('div');
+    header.className = styles.dialogHeader;
+    header.innerHTML = `
+      <h3 id="preferences-title" class="${styles.dialogTitle}">User Preferences</h3>
+      <p class="${styles.dialogDescription}">Customize your reading experience with these settings.</p>
+      <button class="${styles.closeButton}" aria-label="Close preferences dialog">✕</button>
+    `;
+    
+    // Add close button event handler
+    const closeButton = header.querySelector(`.${styles.closeButton}`);
+    closeButton.addEventListener('click', () => this.close());
+    
+    this.dialogContent.appendChild(header);
+    
+    // Create tabs container
+    const tabsContainer = document.createElement('div');
+    tabsContainer.className = styles.tabsContainer;
+    this.dialogContent.appendChild(tabsContainer);
+    
+    // Create tabs
+    this.createTabs(tabsContainer);
+    
+    // Create action buttons
+    const actionButtons = document.createElement('div');
+    actionButtons.className = styles.actionButtons;
+    actionButtons.innerHTML = `
+      <button id="reset-preferences-btn" class="${styles.button} ${styles.dangerButton}">Reset to Default</button>
+      <button id="save-preferences-btn" class="${styles.button} ${styles.primaryButton}">Save Changes</button>
+    `;
+    
+    // Add button event handlers
+    const saveButton = actionButtons.querySelector('#save-preferences-btn');
+    const resetButton = actionButtons.querySelector('#reset-preferences-btn');
+    
+    saveButton.addEventListener('click', this.handleSave);
+    resetButton.addEventListener('click', this.handleReset);
+    
+    this.dialogContent.appendChild(actionButtons);
+    this.dialogElement.appendChild(this.dialogContent);
+    
+    // Add dialog to container
+    this.options.container.appendChild(this.dialogElement);
+    
+    // Add backdrop click event
+    this.dialogElement.addEventListener('click', this.handleBackdropClick);
+    
+    return this.dialogElement;
+  }
+  
+  /**
+   * Create and initialize tabs with content
+   * @param {HTMLElement} container - Container for the tabs
+   * @private
+   */
+  createTabs(container) {
+    const tabConfigs = this.options.tabConfigs;
+    
+    // Initialize SettingsTabs component
+    this.tabs = new SettingsTabs({
+      container: container,
+      tabs: Object.keys(tabConfigs).map(tabId => ({
+        id: tabId,
+        label: tabConfigs[tabId].label,
+        icon: tabConfigs[tabId].icon,
+        content: this.createTabContent(tabId, tabConfigs[tabId])
+      })),
+      activeTab: Object.keys(tabConfigs)[0]
+    });
+  }
+  
+  /**
+   * Create content for a specific tab
+   * @param {string} tabId - ID of the tab
+   * @param {Object} tabConfig - Configuration for the tab
+   * @private
+   * @returns {HTMLElement} The tab content element
+   */
+  createTabContent(tabId, tabConfig) {
+    const tabContent = document.createElement('div');
+    tabContent.className = styles.tabContent;
+    
+    // Create preference groups
+    tabConfig.groups.forEach(group => {
+      const groupElement = document.createElement('div');
+      groupElement.className = styles.preferenceGroup;
       
-      <div class="${styles['preferences-tabs']}" role="tablist">
-        <button class="${styles['tab-button']} ${styles['active']}" data-tab="appearance" role="tab" aria-selected="true" aria-controls="appearance-tab">Appearance</button>
-        <button class="${styles['tab-button']}" data-tab="accessibility" role="tab" aria-selected="false" aria-controls="accessibility-tab">Accessibility</button>
-        <button class="${styles['tab-button']}" data-tab="reading" role="tab" aria-selected="false" aria-controls="reading-tab">Reading</button>
-        <button class="${styles['tab-button']}" data-tab="advanced" role="tab" aria-selected="false" aria-controls="advanced-tab">Advanced</button>
-      </div>
-    `;
-    
-    // Add tabs content
-    dialogContent.appendChild(this.createAppearanceTab());
-    dialogContent.appendChild(this.createAccessibilityTab());
-    dialogContent.appendChild(this.createReadingTab());
-    dialogContent.appendChild(this.createAdvancedTab());
-    
-    // Add action buttons
-    const actionsDiv = document.createElement('div');
-    actionsDiv.className = styles['preferences-actions'];
-    actionsDiv.innerHTML = `
-      <button id="reset-preferences" class="${styles['preferences-btn']} ${styles['preferences-btn-danger']}">Reset to Default</button>
-      <div>
-        <button id="cancel-preferences" class="${styles['preferences-btn']}">Cancel</button>
-        <button id="save-preferences" class="${styles['preferences-btn']} ${styles['preferences-btn-primary']}">Save Changes</button>
-      </div>
-    `;
-    dialogContent.appendChild(actionsDiv);
-    
-    // Add content to dialog
-    this.dialogElement.appendChild(dialogContent);
-    
-    // Add to document
-    document.body.appendChild(this.dialogElement);
-    
-    // Setup event listeners
-    this.setupDialogEventListeners();
-    
-    // Update form values from current preferences
-    this.updateFormFromPreferences();
-  }
-  
-  /**
-   * Create the appearance tab content
-   * @returns {HTMLElement} The tab content
-   * @private
-   */
-  createAppearanceTab() {
-    const tab = document.createElement('div');
-    tab.id = 'appearance-tab';
-    tab.className = `${styles['preferences-tab-content']} ${styles['active']}`;
-    tab.setAttribute('role', 'tabpanel');
-    tab.innerHTML = `
-      <div class="${styles['preference-group']}">
-        <h4>Theme</h4>
-        <div class="${styles['preference-item']}">
-          <div>
-            <span class="${styles['preference-label']}">Theme</span>
-            <span class="${styles['preference-description']}">Choose your preferred color theme</span>
-          </div>
-          <div class="${styles['select-wrapper']}">
-            <select id="theme-select" aria-label="Select theme">
-              <option value="theme-dracula">Dracula (Default)</option>
-              <option value="theme-light">Catppuccin Latte</option>
-              <option value="theme-dark">Dark</option>
-              <option value="theme-high-contrast">High Contrast</option>
-            </select>
-          </div>
-        </div>
-      </div>
+      // Add group header
+      const groupHeader = document.createElement('h4');
+      groupHeader.className = styles.groupTitle;
+      groupHeader.textContent = group.title;
+      groupElement.appendChild(groupHeader);
       
-      <div class="${styles['preference-group']}">
-        <h4>Text Appearance</h4>
-        <div class="${styles['preference-item']}">
-          <div>
-            <span class="${styles['preference-label']}">Font Size</span>
-            <span class="${styles['preference-description']}">Adjust the size of text</span>
-          </div>
-          <div class="${styles['select-wrapper']}">
-            <select id="font-size-select" aria-label="Select font size">
-              <option value="font-size-small">Small</option>
-              <option value="font-size-medium">Medium (Default)</option>
-              <option value="font-size-large">Large</option>
-            </select>
-          </div>
-        </div>
-        
-        <div class="${styles['preference-item']}">
-          <div>
-            <span class="${styles['preference-label']}">Line Height</span>
-            <span class="${styles['preference-description']}">Adjust spacing between lines of text</span>
-          </div>
-          <div class="${styles['select-wrapper']}">
-            <select id="line-height-select" aria-label="Select line height">
-              <option value="line-height-compact">Compact</option>
-              <option value="line-height-normal">Normal (Default)</option>
-              <option value="line-height-relaxed">Relaxed</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    `;
-    return tab;
-  }
-  
-  /**
-   * Create the accessibility tab content
-   * @returns {HTMLElement} The tab content
-   * @private
-   */
-  createAccessibilityTab() {
-    const tab = document.createElement('div');
-    tab.id = 'accessibility-tab';
-    tab.className = styles['preferences-tab-content'];
-    tab.setAttribute('role', 'tabpanel');
-    tab.innerHTML = `
-      <div class="${styles['preference-group']}">
-        <h4>Reading Assistance</h4>
-        <div class="${styles['preference-item']}">
-          <div>
-            <span class="${styles['preference-label']}">High Contrast</span>
-            <span class="${styles['preference-description']}">Increase contrast for better readability</span>
-          </div>
-          <label class="${styles['toggle-switch']}">
-            <input type="checkbox" id="high-contrast-toggle" aria-label="Toggle high contrast">
-            <span class="${styles['toggle-slider']} ${styles['round']}"></span>
-          </label>
-        </div>
-        
-        <div class="${styles['preference-item']}">
-          <div>
-            <span class="${styles['preference-label']}">Dyslexic Font</span>
-            <span class="${styles['preference-description']}">Use font designed for readers with dyslexia</span>
-          </div>
-          <label class="${styles['toggle-switch']}">
-            <input type="checkbox" id="dyslexic-font-toggle" aria-label="Toggle dyslexic font">
-            <span class="${styles['toggle-slider']} ${styles['round']}"></span>
-          </label>
-        </div>
-        
-        <div class="${styles['preference-item']}">
-          <div>
-            <span class="${styles['preference-label']}">Reduced Motion</span>
-            <span class="${styles['preference-description']}">Minimize animations and transitions</span>
-          </div>
-          <label class="${styles['toggle-switch']}">
-            <input type="checkbox" id="reduced-motion-toggle" aria-label="Toggle reduced motion">
-            <span class="${styles['toggle-slider']} ${styles['round']}"></span>
-          </label>
-        </div>
-      </div>
-    `;
-    return tab;
-  }
-  
-  /**
-   * Create the reading tab content
-   * @returns {HTMLElement} The tab content
-   * @private
-   */
-  createReadingTab() {
-    const tab = document.createElement('div');
-    tab.id = 'reading-tab';
-    tab.className = styles['preferences-tab-content'];
-    tab.setAttribute('role', 'tabpanel');
-    tab.innerHTML = `
-      <div class="${styles['preference-group']}">
-        <h4>Reading Experience</h4>
-        <div class="${styles['preference-item']}">
-          <div>
-            <span class="${styles['preference-label']}">Content Width</span>
-            <span class="${styles['preference-description']}">Control the width of content area</span>
-          </div>
-          <div class="${styles['select-wrapper']}">
-            <select id="content-width-select" aria-label="Select content width">
-              <option value="width-narrow">Narrow</option>
-              <option value="width-standard">Standard (Default)</option>
-              <option value="width-wide">Wide</option>
-              <option value="width-full">Full Width</option>
-            </select>
-          </div>
-        </div>
-        
-        <div class="${styles['preference-item']}">
-          <div>
-            <span class="${styles['preference-label']}">Smooth Scrolling</span>
-            <span class="${styles['preference-description']}">Enable smooth scrolling for navigation</span>
-          </div>
-          <label class="${styles['toggle-switch']}">
-            <input type="checkbox" id="smooth-scrolling-toggle" aria-label="Toggle smooth scrolling">
-            <span class="${styles['toggle-slider']} ${styles['round']}"></span>
-          </label>
-        </div>
-        
-        <div class="${styles['preference-item']}">
-          <div>
-            <span class="${styles['preference-label']}">Mark Visited Links</span>
-            <span class="${styles['preference-description']}">Show different color for visited links</span>
-          </div>
-          <label class="${styles['toggle-switch']}">
-            <input type="checkbox" id="mark-visited-links-toggle" aria-label="Toggle mark visited links">
-            <span class="${styles['toggle-slider']} ${styles['round']}"></span>
-          </label>
-        </div>
-      </div>
-    `;
-    return tab;
-  }
-  
-  /**
-   * Create the advanced tab content
-   * @returns {HTMLElement} The tab content
-   * @private
-   */
-  createAdvancedTab() {
-    const tab = document.createElement('div');
-    tab.id = 'advanced-tab';
-    tab.className = styles['preferences-tab-content'];
-    tab.setAttribute('role', 'tabpanel');
-    tab.innerHTML = `
-      <div class="${styles['preference-group']}">
-        <h4>Code Display</h4>
-        <div class="${styles['preference-item']}">
-          <div>
-            <span class="${styles['preference-label']}">Code Block Height</span>
-            <span class="${styles['preference-description']}">Maximum height of code blocks</span>
-          </div>
-          <div class="${styles['select-wrapper']}">
-            <select id="code-height-select" aria-label="Select code block height">
-              <option value="code-height-compact">Compact</option>
-              <option value="code-height-standard">Standard (Default)</option>
-              <option value="code-height-expanded">Expanded</option>
-            </select>
-          </div>
-        </div>
-        
-        <div class="${styles['preference-item']}">
-          <div>
-            <span class="${styles['preference-label']}">Code Font Size</span>
-            <span class="${styles['preference-description']}">Font size for code blocks</span>
-          </div>
-          <div class="${styles['select-wrapper']}">
-            <select id="code-font-size-select" aria-label="Select code font size">
-              <option value="code-font-small">Small</option>
-              <option value="code-font-medium">Medium (Default)</option>
-              <option value="code-font-large">Large</option>
-            </select>
-          </div>
-        </div>
-        
-        <div class="${styles['preference-item']}">
-          <div>
-            <span class="${styles['preference-label']}">Auto-expand Code</span>
-            <span class="${styles['preference-description']}">Automatically expand all code blocks</span>
-          </div>
-          <label class="${styles['toggle-switch']}">
-            <input type="checkbox" id="auto-expand-code-toggle" aria-label="Toggle auto-expand code">
-            <span class="${styles['toggle-slider']} ${styles['round']}"></span>
-          </label>
-        </div>
-        
-        <div class="${styles['preference-item']}">
-          <div>
-            <span class="${styles['preference-label']}">Syntax Highlighting</span>
-            <span class="${styles['preference-description']}">Enable syntax highlighting in code</span>
-          </div>
-          <label class="${styles['toggle-switch']}">
-            <input type="checkbox" id="syntax-highlighting-toggle" aria-label="Toggle syntax highlighting">
-            <span class="${styles['toggle-slider']} ${styles['round']}"></span>
-          </label>
-        </div>
-      </div>
+      // Add preference items
+      group.items.forEach(item => {
+        const itemElement = this.createPreferenceItem(item);
+        groupElement.appendChild(itemElement);
+      });
       
-      <div class="${styles['preference-group']}">
-        <h4>Data Management</h4>
-        <div class="${styles['preference-item']}">
-          <div>
-            <span class="${styles['preference-label']}">Auto-save Preferences</span>
-            <span class="${styles['preference-description']}">Save changes automatically without confirmation</span>
-          </div>
-          <label class="${styles['toggle-switch']}">
-            <input type="checkbox" id="auto-save-toggle" aria-label="Toggle auto-save">
-            <span class="${styles['toggle-slider']} ${styles['round']}"></span>
-          </label>
+      tabContent.appendChild(groupElement);
+    });
+    
+    // Add special content for advanced tab
+    if (tabId === 'advanced') {
+      const exportGroup = document.createElement('div');
+      exportGroup.className = styles.preferenceGroup;
+      
+      const exportHeader = document.createElement('h4');
+      exportHeader.className = styles.groupTitle;
+      exportHeader.textContent = 'Preferences Data';
+      exportGroup.appendChild(exportHeader);
+      
+      // Export button
+      const exportItem = document.createElement('div');
+      exportItem.className = styles.preferenceItem;
+      exportItem.innerHTML = `
+        <div>
+          <span class="${styles.preferenceLabel}">Export Preferences</span>
+          <span class="${styles.preferenceDescription}">Save your preferences to a file</span>
         </div>
-        <div class="${styles['action-button']}" id="export-preferences">Export Preferences</div>
-        <div class="${styles['action-button']}" id="import-preferences">Import Preferences</div>
-      </div>
-    `;
-    return tab;
+        <button id="export-prefs-btn" class="${styles.button} ${styles.secondaryButton}">Export</button>
+      `;
+      exportItem.querySelector('#export-prefs-btn').addEventListener('click', this.handleExport);
+      exportGroup.appendChild(exportItem);
+      
+      // Import button
+      const importItem = document.createElement('div');
+      importItem.className = styles.preferenceItem;
+      importItem.innerHTML = `
+        <div>
+          <span class="${styles.preferenceLabel}">Import Preferences</span>
+          <span class="${styles.preferenceDescription}">Load preferences from a file</span>
+        </div>
+        <button id="import-prefs-btn" class="${styles.button} ${styles.secondaryButton}">Import</button>
+      `;
+      importItem.querySelector('#import-prefs-btn').addEventListener('click', this.handleImport);
+      exportGroup.appendChild(importItem);
+      
+      tabContent.appendChild(exportGroup);
+    }
+    
+    return tabContent;
   }
   
   /**
-   * Setup event listeners for dialog elements
+   * Create a preference item with the appropriate control
+   * @param {Object} item - Preference item configuration
    * @private
+   * @returns {HTMLElement} The preference item element
    */
-  setupDialogEventListeners() {
-    // Tab switching
-    const tabButtons = this.dialogElement.querySelectorAll(`.${styles['tab-button']}`);
-    tabButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        // Remove active class from all tabs
-        tabButtons.forEach(btn => {
-          btn.classList.remove(styles['active']);
-          btn.setAttribute('aria-selected', 'false');
-        });
-        
-        // Add active class to clicked tab
-        e.target.classList.add(styles['active']);
-        e.target.setAttribute('aria-selected', 'true');
-        
-        // Hide all tab content
-        const tabContents = this.dialogElement.querySelectorAll(`.${styles['preferences-tab-content']}`);
-        tabContents.forEach(content => {
-          content.classList.remove(styles['active']);
-        });
-        
-        // Show active tab content
-        const tabId = e.target.getAttribute('data-tab');
-        const activeContent = this.dialogElement.querySelector(`#${tabId}-tab`);
-        if (activeContent) {
-          activeContent.classList.add(styles['active']);
+  createPreferenceItem(item) {
+    const itemElement = document.createElement('div');
+    itemElement.className = styles.preferenceItem;
+    itemElement.setAttribute('data-pref-item', item.id);
+    
+    // Create label and description
+    const labelContainer = document.createElement('div');
+    labelContainer.className = styles.labelContainer;
+    
+    const label = document.createElement('span');
+    label.className = styles.preferenceLabel;
+    label.textContent = item.label;
+    labelContainer.appendChild(label);
+    
+    if (item.description) {
+      const description = document.createElement('span');
+      description.className = styles.preferenceDescription;
+      description.textContent = item.description;
+      labelContainer.appendChild(description);
+    }
+    
+    itemElement.appendChild(labelContainer);
+    
+    // Create control based on type
+    let control;
+    
+    switch (item.type) {
+      case 'select':
+        control = this.createSelectControl(item);
+        break;
+      case 'toggle':
+        control = this.createToggleControl(item);
+        break;
+      case 'button':
+        control = this.createButtonControl(item);
+        break;
+      case 'radio':
+        control = this.createRadioControl(item);
+        break;
+      case 'slider':
+        control = this.createSliderControl(item);
+        break;
+      default:
+        control = document.createElement('div');
+        control.textContent = 'Unknown control type';
+    }
+    
+    itemElement.appendChild(control);
+    
+    // Store reference to the control for later use
+    this.formControls.set(item.id, {
+      element: control.querySelector('input, select, button'),
+      type: item.type,
+      config: item
+    });
+    
+    // Make the entire item clickable for toggles
+    if (item.type === 'toggle') {
+      itemElement.addEventListener('click', (event) => {
+        // Don't trigger if clicking on the toggle itself
+        if (event.target.tagName !== 'INPUT') {
+          const toggle = control.querySelector('input[type="checkbox"]');
+          toggle.checked = !toggle.checked;
+          toggle.dispatchEvent(new Event('change', { bubbles: true }));
+          itemElement.classList.add(styles.clicked);
+          setTimeout(() => {
+            itemElement.classList.remove(styles.clicked);
+          }, 300);
         }
       });
+    }
+    
+    return itemElement;
+  }
+  
+  /**
+   * Create a select control
+   * @param {Object} item - Preference item configuration
+   * @private
+   * @returns {HTMLElement} The select control element
+   */
+  createSelectControl(item) {
+    const controlWrapper = document.createElement('div');
+    controlWrapper.className = styles.selectWrapper;
+    
+    const select = document.createElement('select');
+    select.id = `${item.id}-select`;
+    select.setAttribute('aria-label', `Select ${item.label.toLowerCase()}`);
+    select.className = styles.select;
+    
+    item.options.forEach(option => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option.value;
+      optionElement.textContent = option.label;
+      select.appendChild(optionElement);
     });
     
-    // Form element change handlers - apply changes for preview
-    const formElements = this.dialogElement.querySelectorAll('select, input');
-    formElements.forEach(element => {
-      element.addEventListener('change', () => {
-        this.updatePreferencesFromForm();
-        this.applyPreferences(true); // Preview mode
-      });
+    // Set initial value
+    const currentValue = this.getCurrentPreferenceValue(item.id);
+    if (currentValue) {
+      select.value = currentValue;
+    }
+    
+    // Add change event listener
+    select.addEventListener('change', () => {
+      this.handleFormControlChange(item.id, select.value);
     });
     
-    // Close dialog when clicking outside
-    this.dialogElement.addEventListener('click', (e) => {
-      if (e.target === this.dialogElement) {
-        this.closeDialog();
+    controlWrapper.appendChild(select);
+    return controlWrapper;
+  }
+  
+  /**
+   * Create a toggle control
+   * @param {Object} item - Preference item configuration
+   * @private
+   * @returns {HTMLElement} The toggle control element
+   */
+  createToggleControl(item) {
+    const label = document.createElement('label');
+    label.className = styles.toggleSwitch;
+    
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.id = `${item.id}-toggle`;
+    input.setAttribute('aria-label', `Toggle ${item.label.toLowerCase()}`);
+    
+    // Set initial value
+    const currentValue = this.getCurrentPreferenceValue(item.id);
+    input.checked = currentValue === true;
+    
+    // Add change event listener
+    input.addEventListener('change', () => {
+      this.handleFormControlChange(item.id, input.checked);
+    });
+    
+    const slider = document.createElement('span');
+    slider.className = styles.toggleSlider;
+    
+    label.appendChild(input);
+    label.appendChild(slider);
+    
+    return label;
+  }
+  
+  /**
+   * Create a button control
+   * @param {Object} item - Preference item configuration
+   * @private
+   * @returns {HTMLElement} The button control element
+   */
+  createButtonControl(item) {
+    const button = document.createElement('button');
+    button.className = `${styles.button} ${styles[item.variant + 'Button'] || styles.secondaryButton}`;
+    button.id = `${item.id}-btn`;
+    button.textContent = item.label;
+    
+    // Add click event listener
+    button.addEventListener('click', () => {
+      if (typeof item.onClick === 'function') {
+        item.onClick();
       }
     });
     
-    // Button handlers
-    const saveButton = this.dialogElement.querySelector('#save-preferences');
-    if (saveButton) {
-      saveButton.addEventListener('click', () => {
-        this.savePreferences();
-        this.closeDialog();
-      });
-    }
-    
-    const cancelButton = this.dialogElement.querySelector('#cancel-preferences');
-    if (cancelButton) {
-      cancelButton.addEventListener('click', () => {
-        this.closeDialog(true); // Cancel changes
-      });
-    }
-    
-    const resetButton = this.dialogElement.querySelector('#reset-preferences');
-    if (resetButton) {
-      resetButton.addEventListener('click', () => {
-        this.confirmAction(
-          'Reset to Default',
-          'Are you sure you want to reset all preferences to default settings? This cannot be undone.',
-          () => {
-            this.resetPreferences();
-            this.updateFormFromPreferences();
-            this.applyPreferences(true);
-          }
-        );
-      });
-    }
-    
-    // Advanced tab actions
-    const exportButton = this.dialogElement.querySelector('#export-preferences');
-    if (exportButton) {
-      exportButton.addEventListener('click', () => this.exportPreferences());
-    }
-    
-    const importButton = this.dialogElement.querySelector('#import-preferences');
-    if (importButton) {
-      importButton.addEventListener('click', () => this.importPreferences());
-    }
-    
-    const autoSaveToggle = this.dialogElement.querySelector('#auto-save-toggle');
-    if (autoSaveToggle) {
-      autoSaveToggle.addEventListener('change', (e) => {
-        this.autoSave = e.target.checked;
-        if (this.autoSave) {
-          this.showNotification('Auto-save enabled. Preferences will save automatically.');
-        }
-      });
-    }
-    
-    // Keyboard handling
-    this.dialogElement.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        this.closeDialog(true);
-      } else if (e.key === 'Enter' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'SELECT' && !e.target.closest(`.${styles['preferences-actions']}`)) {
-        if (saveButton) {
-          saveButton.click();
-        }
-      }
-    });
+    return button;
   }
   
   /**
-   * Update form elements with current preference values
+   * Create a radio control
+   * @param {Object} item - Preference item configuration
    * @private
+   * @returns {HTMLElement} The radio control element
+   */
+  createRadioControl(item) {
+    const fieldset = document.createElement('fieldset');
+    fieldset.className = styles.radioGroup;
+    fieldset.setAttribute('aria-label', item.label);
+    
+    // Current value
+    const currentValue = this.getCurrentPreferenceValue(item.id);
+    
+    item.options.forEach(option => {
+      const radioItem = document.createElement('div');
+      radioItem.className = styles.radioItem;
+      
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.id = `${item.id}-${option.value}`;
+      input.name = item.id;
+      input.value = option.value;
+      input.checked = currentValue === option.value;
+      
+      input.addEventListener('change', () => {
+        if (input.checked) {
+          this.handleFormControlChange(item.id, option.value);
+        }
+      });
+      
+      const label = document.createElement('label');
+      label.htmlFor = `${item.id}-${option.value}`;
+      label.textContent = option.label;
+      
+      radioItem.appendChild(input);
+      radioItem.appendChild(label);
+      fieldset.appendChild(radioItem);
+    });
+    
+    return fieldset;
+  }
+  
+  /**
+   * Create a slider control
+   * @param {Object} item - Preference item configuration
+   * @private
+   * @returns {HTMLElement} The slider control element
+   */
+  createSliderControl(item) {
+    const controlWrapper = document.createElement('div');
+    controlWrapper.className = styles.sliderWrapper;
+    
+    const input = document.createElement('input');
+    input.type = 'range';
+    input.className = styles.slider;
+    input.id = `${item.id}-slider`;
+    input.min = item.min || 0;
+    input.max = item.max || 100;
+    input.step = item.step || 1;
+    
+    // Set initial value
+    const currentValue = this.getCurrentPreferenceValue(item.id);
+    input.value = currentValue !== undefined ? currentValue : (item.defaultValue || 50);
+    
+    const valueDisplay = document.createElement('span');
+    valueDisplay.className = styles.sliderValue;
+    valueDisplay.textContent = input.value;
+    
+    // Add change event listener
+    input.addEventListener('input', () => {
+      valueDisplay.textContent = input.value;
+    });
+    
+    input.addEventListener('change', () => {
+      this.handleFormControlChange(item.id, Number(input.value));
+    });
+    
+    controlWrapper.appendChild(input);
+    controlWrapper.appendChild(valueDisplay);
+    return controlWrapper;
+  }
+  
+  /**
+   * Handle form control change events
+   * @param {string} id - Preference ID
+   * @param {any} value - New value
+   * @private
+   */
+  handleFormControlChange(id, value) {
+    // Update internal preferences object
+    const preferencePath = id.split('.');
+    let current = this.options.preferences;
+    
+    for (let i = 0; i < preferencePath.length - 1; i++) {
+      if (!current[preferencePath[i]]) {
+        current[preferencePath[i]] = {};
+      }
+      current = current[preferencePath[i]];
+    }
+    
+    current[preferencePath[preferencePath.length - 1]] = value;
+    
+    // Apply preview if enabled
+    if (this.previewChanges) {
+      this.previewPreferenceChange(id, value);
+    }
+    
+    // Dispatch event
+    const event = new CustomEvent('preference-change', {
+      bubbles: true,
+      detail: {
+        id,
+        value,
+        preferences: this.options.preferences
+      }
+    });
+    this.dialogElement.dispatchEvent(event);
+  }
+  
+  /**
+   * Preview a preference change
+   * @param {string} id - Preference ID
+   * @param {any} value - New value
+   * @private
+   */
+  previewPreferenceChange(id, value) {
+    // This method can be overridden or extended by child classes
+    // for specific preview behaviors
+  }
+  
+  /**
+   * Get the current value of a preference
+   * @param {string} id - Preference ID
+   * @private
+   * @returns {any} The current value
+   */
+  getCurrentPreferenceValue(id) {
+    const preferencePath = id.split('.');
+    let current = this.options.preferences;
+    
+    for (let i = 0; i < preferencePath.length; i++) {
+      if (current === undefined || current === null) return undefined;
+      current = current[preferencePath[i]];
+    }
+    
+    return current;
+  }
+  
+  /**
+   * Handle save button click
+   * @private
+   */
+  handleSave() {
+    // Call the onSave callback with current preferences
+    this.options.onSave(this.options.preferences);
+    
+    // Show confirmation and close
+    this.showNotification('Preferences saved successfully!');
+    this.close();
+  }
+  
+  /**
+   * Handle reset button click
+   * @private
+   */
+  handleReset() {
+    this.showConfirmDialog(
+      'Reset Preferences',
+      'Are you sure you want to reset all preferences to default values?',
+      () => {
+        // Call the onReset callback
+        this.options.onReset();
+        
+        // Update the form controls with the new values
+        this.updateFormFromPreferences();
+        
+        // Show confirmation
+        this.showNotification('Preferences reset to defaults');
+      }
+    );
+  }
+  
+  /**
+   * Handle export button click
+   * @private
+   */
+  handleExport() {
+    // Create a JSON string of the preferences
+    const preferencesJson = JSON.stringify(this.options.preferences, null, 2);
+    
+    // Create a blob and download link
+    const blob = new Blob([preferencesJson], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sdde-preferences.json';
+    a.style.display = 'none';
+    
+    document.body.appendChild(a);
+    a.click();
+    
+    // Clean up
+    setTimeout(() => {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 100);
+    
+    this.showNotification('Preferences exported successfully!');
+  }
+  
+  /**
+   * Handle import button click
+   * @private
+   */
+  handleImport() {
+    // Create a file input element
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'application/json';
+    fileInput.style.display = 'none';
+    
+    fileInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const importedPrefs = JSON.parse(e.target.result);
+          
+          // Confirm before importing
+          this.showConfirmDialog(
+            'Import Preferences',
+            'Are you sure you want to replace your current preferences with the imported ones?',
+            () => {
+              // Update preferences
+              this.options.preferences = importedPrefs;
+              
+              // Update form controls
+              this.updateFormFromPreferences();
+              
+              // Preview changes
+              if (this.previewChanges) {
+                Object.entries(this.formControls).forEach(([id, control]) => {
+                  const value = this.getCurrentPreferenceValue(id);
+                  if (value !== undefined) {
+                    this.previewPreferenceChange(id, value);
+                  }
+                });
+              }
+              
+              this.showNotification('Preferences imported successfully!');
+            }
+          );
+        } catch (error) {
+          this.showNotification('Error importing preferences: Invalid JSON file', true);
+          console.error('Error importing preferences:', error);
+        }
+      };
+      
+      reader.readAsText(file);
+    });
+    
+    document.body.appendChild(fileInput);
+    fileInput.click();
+    
+    // Clean up
+    setTimeout(() => {
+      document.body.removeChild(fileInput);
+    }, 100);
+  }
+  
+  /**
+   * Update form controls based on current preferences
    */
   updateFormFromPreferences() {
-    if (!this.dialogElement) return;
-    
-    // Update select elements
-    const selectMappings = {
-      'theme-select': 'theme',
-      'font-size-select': 'fontSize',
-      'line-height-select': 'lineHeight',
-      'code-height-select': 'codeHeight',
-      'content-width-select': 'contentWidth',
-      'code-font-size-select': 'codeBlockFontSize'
-    };
-    
-    Object.entries(selectMappings).forEach(([elementId, prefKey]) => {
-      const element = this.dialogElement.querySelector(`#${elementId}`);
-      if (element && this.userPreferences[prefKey]) {
-        element.value = this.userPreferences[prefKey];
-      }
-    });
-    
-    // Update toggle elements
-    const toggleMappings = {
-      'high-contrast-toggle': 'highContrast',
-      'dyslexic-font-toggle': 'dyslexicFont',
-      'reduced-motion-toggle': 'reducedMotion',
-      'smooth-scrolling-toggle': 'smoothScrolling',
-      'mark-visited-links-toggle': 'markVisitedLinks',
-      'auto-expand-code-toggle': 'autoExpandCode',
-      'syntax-highlighting-toggle': 'syntaxHighlighting',
-      'auto-save-toggle': 'autoSave'
-    };
-    
-    Object.entries(toggleMappings).forEach(([elementId, prefKey]) => {
-      const element = this.dialogElement.querySelector(`#${elementId}`);
-      if (element) {
-        element.checked = this.userPreferences[prefKey] === true;
+    this.formControls.forEach((control, id) => {
+      const value = this.getCurrentPreferenceValue(id);
+      if (value === undefined) return;
+      
+      const element = control.element;
+      
+      switch (control.type) {
+        case 'select':
+          element.value = value;
+          break;
+        case 'toggle':
+          element.checked = value === true;
+          break;
+        case 'slider':
+          element.value = value;
+          element.parentNode.querySelector(`.${styles.sliderValue}`).textContent = value;
+          break;
+        case 'radio':
+          const radio = document.querySelector(`input[name="${id}"][value="${value}"]`);
+          if (radio) radio.checked = true;
+          break;
       }
     });
   }
   
   /**
-   * Update preferences object from form values
-   * @private
-   */
-  updatePreferencesFromForm() {
-    if (!this.dialogElement) return;
-    
-    // Create new preferences object
-    const newPreferences = {...this.userPreferences};
-    
-    // Update from select elements
-    const selectMappings = {
-      'theme-select': 'theme',
-      'font-size-select': 'fontSize',
-      'line-height-select': 'lineHeight',
-      'code-height-select': 'codeHeight',
-      'content-width-select': 'contentWidth',
-      'code-font-size-select': 'codeBlockFontSize'
-    };
-    
-    Object.entries(selectMappings).forEach(([elementId, prefKey]) => {
-      const element = this.dialogElement.querySelector(`#${elementId}`);
-      if (element) {
-        newPreferences[prefKey] = element.value;
-      }
-    });
-    
-    // Update from toggle elements
-    const toggleMappings = {
-      'high-contrast-toggle': 'highContrast',
-      'dyslexic-font-toggle': 'dyslexicFont',
-      'reduced-motion-toggle': 'reducedMotion',
-      'smooth-scrolling-toggle': 'smoothScrolling',
-      'mark-visited-links-toggle': 'markVisitedLinks',
-      'auto-expand-code-toggle': 'autoExpandCode',
-      'syntax-highlighting-toggle': 'syntaxHighlighting'
-    };
-    
-    Object.entries(toggleMappings).forEach(([elementId, prefKey]) => {
-      const element = this.dialogElement.querySelector(`#${elementId}`);
-      if (element) {
-        newPreferences[prefKey] = element.checked;
-      }
-    });
-    
-    // Update auto-save setting
-    const autoSaveToggle = this.dialogElement.querySelector('#auto-save-toggle');
-    if (autoSaveToggle) {
-      this.autoSave = autoSaveToggle.checked;
-    }
-    
-    // Update the preferences object
-    this.userPreferences = newPreferences;
-    
-    // Auto-save if enabled
-    if (this.autoSave) {
-      this.savePreferences(true);
-    }
-  }
-  
-  /**
-   * Apply current preferences to the page
-   * @param {boolean} [previewMode=false] - Whether this is for preview only
-   */
-  applyPreferences(previewMode = false) {
-    if (previewMode) {
-      this.previewChanges = true;
-    }
-    
-    // Create a clean html element for class manipulation
-    const html = document.documentElement;
-    
-    // Helper to remove and add classes in a group
-    const updateClassGroup = (element, classPrefix, newClass) => {
-      // Remove existing classes with this prefix
-      const classes = Array.from(element.classList).filter(cls => cls.startsWith(classPrefix));
-      classes.forEach(cls => element.classList.remove(cls));
-      
-      // Add the new class
-      if (newClass) {
-        element.classList.add(newClass);
-      }
-    };
-    
-    // Apply theme
-    updateClassGroup(html, 'theme-', this.userPreferences.theme);
-    
-    // Apply font size
-    updateClassGroup(html, 'font-size-', this.userPreferences.fontSize);
-    
-    // Apply line height
-    updateClassGroup(html, 'line-height-', this.userPreferences.lineHeight);
-    
-    // Apply code block height
-    updateClassGroup(html, 'code-height-', this.userPreferences.codeHeight);
-    
-    // Apply content width
-    updateClassGroup(html, 'width-', this.userPreferences.contentWidth);
-    
-    // Apply code font size
-    updateClassGroup(html, 'code-font-', this.userPreferences.codeBlockFontSize);
-    
-    // Apply toggle preferences
-    const toggleClasses = {
-      highContrast: 'high-contrast',
-      dyslexicFont: 'dyslexic-font',
-      reducedMotion: 'reduced-motion',
-      smoothScrolling: 'smooth-scrolling',
-      autoExpandCode: 'auto-expand-code',
-      markVisitedLinks: 'mark-visited-links'
-    };
-    
-    Object.entries(toggleClasses).forEach(([prefKey, className]) => {
-      if (this.userPreferences[prefKey]) {
-        html.classList.add(className);
-      } else {
-        html.classList.remove(className);
-      }
-    });
-    
-    // Apply syntax highlighting preferences
-    if (!previewMode) {
-      this.applySyntaxHighlightingPreference();
-    }
-    
-    // Apply layout-specific preferences
-    this.applyPreferencesToLayout();
-  }
-  
-  /**
-   * Apply preferences related to layout and positioning
-   * @private
-   */
-  applyPreferencesToLayout() {
-    // Handle sidebar compactness
-    const sidebar = document.querySelector('.sidebar');
-    if (sidebar) {
-      if (this.userPreferences.compactSidebar) {
-        sidebar.classList.add('compact');
-      } else {
-        sidebar.classList.remove('compact');
-      }
-    }
-  }
-  
-  /**
-   * Apply syntax highlighting preferences
-   * @private
-   */
-  applySyntaxHighlightingPreference() {
-    // Find all code blocks
-    const codeBlocks = document.querySelectorAll('pre code');
-    
-    if (codeBlocks.length > 0) {
-      if (this.userPreferences.syntaxHighlighting) {
-        // Enable syntax highlighting if a highlighter library is available
-        if (typeof window.highlightAll === 'function') {
-          window.highlightAll();
-        } else if (typeof window.hljs !== 'undefined' && typeof window.hljs.highlightAll === 'function') {
-          window.hljs.highlightAll();
-        }
-      } else {
-        // Disable syntax highlighting
-        codeBlocks.forEach(block => {
-          block.className = ''; // Remove highlighting classes
-        });
-      }
-    }
-  }
-  
-  /**
-   * Load preferences from localStorage
-   */
-  loadPreferences() {
-    try {
-      const savedPreferences = localStorage.getItem('userPreferences');
-      if (savedPreferences) {
-        const parsed = JSON.parse(savedPreferences);
-        
-        // Only update with valid values, use defaults for any missing ones
-        this.userPreferences = {...this.defaultPreferences, ...parsed};
-        console.log('Loaded user preferences:', this.userPreferences);
-      }
-    } catch (error) {
-      console.error('Error loading preferences:', error);
-      // Use default preferences if there was an error
-      this.userPreferences = {...this.defaultPreferences};
-    }
-  }
-  
-  /**
-   * Save current preferences to localStorage
-   * @param {boolean} [silent=false] - Don't show notification
-   */
-  savePreferences(silent = false) {
-    try {
-      localStorage.setItem('userPreferences', JSON.stringify(this.userPreferences));
-      
-      this.previewChanges = false;
-      
-      if (!silent) {
-        this.showNotification('Preferences saved successfully!');
-      }
-      
-      console.log('Saved preferences:', this.userPreferences);
-    } catch (error) {
-      console.error('Error saving preferences:', error);
-      this.showNotification('Error saving preferences', true);
-    }
-  }
-  
-  /**
-   * Reset preferences to default values
-   */
-  resetPreferences() {
-    this.userPreferences = {...this.defaultPreferences};
-    this.savePreferences();
-    this.showNotification('Preferences reset to defaults');
-  }
-
-  /**
-   * Close the preferences dialog
-   * @param {boolean} [cancel=false] - Whether to cancel changes
-   */
-  closeDialog(cancel = false) {
-    if (!this.dialogElement) return;
-    
-    // If canceling, revert to saved preferences
-    if (cancel) {
-      this.loadPreferences();
-      this.applyPreferences();
-    }
-    
-    // Hide dialog
-    this.dialogElement.style.display = 'none';
-    
-    // Disable preview mode
-    this.previewChanges = false;
-  }
-
-  /**
-   * Show a confirmation dialog
-   * @param {string} title - Dialog title
-   * @param {string} message - Dialog message
-   * @param {Function} onConfirm - Function to call when confirmed
-   * @private
-   */
-  confirmAction(title, message, onConfirm) {
-    // Create confirm dialog
-    const confirmDialog = document.createElement('div');
-    confirmDialog.className = styles['confirm-dialog'];
-    confirmDialog.innerHTML = `
-      <div class="${styles['confirm-dialog-content']}">
-        <h3>${title}</h3>
-        <p>${message}</p>
-        <div class="${styles['confirm-dialog-actions']}">
-          <button class="${styles['preferences-btn']}">Cancel</button>
-          <button class="${styles['preferences-btn']} ${styles['preferences-btn-danger']}">Confirm</button>
-        </div>
-      </div>
-    `;
-    
-    // Add to document
-    document.body.appendChild(confirmDialog);
-    
-    // Get action buttons
-    const cancelButton = confirmDialog.querySelector(`.${styles['preferences-btn']}`);
-    const confirmButton = confirmDialog.querySelector(`.${styles['preferences-btn-danger']}`);
-    
-    // Add event listeners
-    cancelButton.addEventListener('click', () => {
-      confirmDialog.remove();
-    });
-    
-    confirmButton.addEventListener('click', () => {
-      onConfirm();
-      confirmDialog.remove();
-    });
-    
-    // Close when clicking outside
-    confirmDialog.addEventListener('click', (e) => {
-      if (e.target === confirmDialog) {
-        confirmDialog.remove();
-      }
-    });
-  }
-
-  /**
-   * Export preferences to a JSON file
-   * @private
-   */
-  exportPreferences() {
-    try {
-      // Create JSON data
-      const data = JSON.stringify(this.userPreferences, null, 2);
-      const blob = new Blob([data], {type: 'application/json'});
-      const url = URL.createObjectURL(blob);
-      
-      // Create download link
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'sdde_preferences.json';
-      a.style.display = 'none';
-      
-      // Click the link to start download
-      document.body.appendChild(a);
-      a.click();
-      
-      // Clean up
-      setTimeout(() => {
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }, 100);
-      
-      this.showNotification('Preferences exported successfully!');
-    } catch (error) {
-      console.error('Error exporting preferences:', error);
-      this.showNotification('Error exporting preferences', true);
-    }
-  }
-
-  /**
-   * Import preferences from a JSON file
-   * @private
-   */
-  importPreferences() {
-    try {
-      // Create file input element
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = '.json';
-      input.style.display = 'none';
-      
-      input.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          try {
-            const importedPrefs = JSON.parse(event.target.result);
-            
-            // Validate imported preferences
-            if (typeof importedPrefs !== 'object') {
-              throw new Error('Invalid format');
-            }
-            
-            // Merge with defaults
-            this.userPreferences = {...this.defaultPreferences, ...importedPrefs};
-            
-            // Update UI and save
-            this.updateFormFromPreferences();
-            this.applyPreferences(true);
-            this.savePreferences();
-            
-            this.showNotification('Preferences imported successfully!');
-          } catch (parseError) {
-            console.error('Error parsing preferences file:', parseError);
-            this.showNotification('Error importing preferences: Invalid file format', true);
-          }
-        };
-        
-        reader.readAsText(file);
-      });
-      
-      // Click the input to open file dialog
-      document.body.appendChild(input);
-      input.click();
-      
-      // Clean up
-      setTimeout(() => {
-        document.body.removeChild(input);
-      }, 100);
-    } catch (error) {
-      console.error('Error importing preferences:', error);
-      this.showNotification('Error importing preferences', true);
-    }
-  }
-
-  /**
-   * Show notification message
+   * Show a notification message
    * @param {string} message - Message to display
-   * @param {boolean} [isError=false] - Whether this is an error message
+   * @param {boolean} isError - Whether this is an error message
+   * @private
    */
   showNotification(message, isError = false) {
-    // Use global notification service if available
-    if (window.showNotification) {
-      if (isError) {
-        window.showNotification(message, { type: 'error' });
-      } else {
-        window.showNotification(message, { type: 'success' });
-      }
-      return;
-    }
-    
-    // Remove existing notification
-    const existingNotification = document.querySelector(`.${styles['preferences-notification']}`);
+    // Remove any existing notifications
+    const existingNotification = document.querySelector(`.${styles.notification}`);
     if (existingNotification) {
       existingNotification.remove();
     }
     
     // Create notification element
     const notification = document.createElement('div');
-    notification.className = `${styles['preferences-notification']}${isError ? ` ${styles['error']}` : ''}`;
+    notification.className = `${styles.notification} ${isError ? styles.errorNotification : ''}`;
     notification.textContent = message;
-    notification.setAttribute('role', 'alert');
     
-    // Add to document
+    // Add to body
     document.body.appendChild(notification);
     
-    // Remove after animation
+    // Remove after timeout
     setTimeout(() => {
-      if (notification.parentNode) {
-        notification.remove();
+      notification.classList.add(styles.notificationHide);
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.parentNode.removeChild(notification);
+        }
+      }, 300);
+    }, 3000);
+  }
+  
+  /**
+   * Show a confirmation dialog
+   * @param {string} title - Dialog title
+   * @param {string} message - Dialog message
+   * @param {Function} onConfirm - Callback when confirmed
+   * @private
+   */
+  showConfirmDialog(title, message, onConfirm) {
+    // Create confirmation dialog
+    const dialog = document.createElement('div');
+    dialog.className = styles.confirmDialog;
+    dialog.setAttribute('role', 'alertdialog');
+    dialog.setAttribute('aria-labelledby', 'confirm-title');
+    dialog.setAttribute('aria-describedby', 'confirm-message');
+    
+    dialog.innerHTML = `
+      <div class="${styles.confirmDialogContent}">
+        <h3 id="confirm-title" class="${styles.confirmTitle}">${title}</h3>
+        <p id="confirm-message" class="${styles.confirmMessage}">${message}</p>
+        <div class="${styles.confirmActions}">
+          <button class="${styles.button} ${styles.secondaryButton}" id="cancel-btn">Cancel</button>
+          <button class="${styles.button} ${styles.dangerButton}" id="confirm-btn">Confirm</button>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(dialog);
+    
+    // Focus the confirm button (for accessibility)
+    setTimeout(() => {
+      dialog.querySelector('#confirm-btn').focus();
+    }, 100);
+    
+    // Add event listeners
+    dialog.querySelector('#cancel-btn').addEventListener('click', () => {
+      dialog.remove();
+    });
+    
+    dialog.querySelector('#confirm-btn').addEventListener('click', () => {
+      onConfirm();
+      dialog.remove();
+    });
+    
+    // Close on click outside
+    dialog.addEventListener('click', e => {
+      if (e.target === dialog) {
+        dialog.remove();
       }
-    }, 4000);
+    });
+    
+    // Close on Escape key
+    const escapeHandler = (e) => {
+      if (e.key === 'Escape') {
+        dialog.remove();
+        document.removeEventListener('keydown', escapeHandler);
+      }
+    };
+    
+    document.addEventListener('keydown', escapeHandler);
+  }
+  
+  /**
+   * Handle Escape key press
+   * @param {KeyboardEvent} event - Keyboard event
+   * @private
+   */
+  handleEscapeKey(event) {
+    if (event.key === 'Escape') {
+      this.close();
+    }
+  }
+  
+  /**
+   * Handle click on the dialog backdrop
+   * @param {MouseEvent} event - Mouse event
+   * @private
+   */
+  handleBackdropClick(event) {
+    if (event.target === this.dialogElement) {
+      this.close();
+    }
+  }
+  
+  /**
+   * Get default tab configurations
+   * @private
+   * @returns {Object} Default tab configs
+   */
+  getDefaultTabConfigs() {
+    return {
+      appearance: {
+        label: 'Appearance',
+        icon: '🎨',
+        groups: [
+          {
+            title: 'Theme',
+            items: [
+              {
+                id: 'theme',
+                type: 'select',
+                label: 'Theme',
+                description: 'Choose your preferred color theme',
+                options: [
+                  { value: 'theme-dracula', label: 'Dracula (Default)' },
+                  { value: 'theme-light', label: 'Light' },
+                  { value: 'theme-dark', label: 'Dark' },
+                  { value: 'theme-high-contrast', label: 'High Contrast' }
+                ]
+              }
+            ]
+          },
+          {
+            title: 'Text Appearance',
+            items: [
+              {
+                id: 'fontSize',
+                type: 'select',
+                label: 'Font Size',
+                description: 'Adjust the size of text',
+                options: [
+                  { value: 'font-size-small', label: 'Small' },
+                  { value: 'font-size-medium', label: 'Medium (Default)' },
+                  { value: 'font-size-large', label: 'Large' }
+                ]
+              },
+              {
+                id: 'lineHeight',
+                type: 'select',
+                label: 'Line Height',
+                description: 'Adjust spacing between lines',
+                options: [
+                  { value: 'line-height-compact', label: 'Compact' },
+                  { value: 'line-height-normal', label: 'Normal (Default)' },
+                  { value: 'line-height-relaxed', label: 'Relaxed' }
+                ]
+              },
+              {
+                id: 'contentWidth',
+                type: 'select',
+                label: 'Content Width',
+                description: 'Adjust the maximum width of content',
+                options: [
+                  { value: 'width-narrow', label: 'Narrow' },
+                  { value: 'width-standard', label: 'Standard (Default)' },
+                  { value: 'width-wide', label: 'Wide' },
+                  { value: 'width-full', label: 'Full Width' }
+                ]
+              }
+            ]
+          },
+          {
+            title: 'Code Blocks',
+            items: [
+              {
+                id: 'codeHeight',
+                type: 'select',
+                label: 'Code Block Height',
+                description: 'Maximum height of code blocks before scrolling',
+                options: [
+                  { value: 'code-height-compact', label: 'Compact' },
+                  { value: 'code-height-standard', label: 'Standard (Default)' },
+                  { value: 'code-height-expanded', label: 'Expanded' }
+                ]
+              },
+              {
+                id: 'codeFontSize',
+                type: 'select',
+                label: 'Code Font Size',
+                description: 'Adjust size of text in code blocks',
+                options: [
+                  { value: 'code-font-small', label: 'Small' },
+                  { value: 'code-font-medium', label: 'Medium (Default)' },
+                  { value: 'code-font-large', label: 'Large' }
+                ]
+              },
+              {
+                id: 'syntaxHighlighting',
+                type: 'toggle',
+                label: 'Syntax Highlighting',
+                description: 'Colorize code for better readability'
+              },
+              {
+                id: 'darkCodeBlocks',
+                type: 'toggle',
+                label: 'Dark Code Blocks',
+                description: 'Always use dark background for code'
+              },
+              {
+                id: 'autoExpandCode',
+                type: 'toggle',
+                label: 'Auto-Expand Long Code',
+                description: 'Automatically expand long code blocks'
+              }
+            ]
+          }
+        ]
+      },
+      accessibility: {
+        label: 'Accessibility',
+        icon: '♿',
+        groups: [
+          {
+            title: 'Visual Adjustments',
+            items: [
+              {
+                id: 'highContrast',
+                type: 'toggle',
+                label: 'High Contrast',
+                description: 'Increase contrast for better readability'
+              },
+              {
+                id: 'dyslexicFont',
+                type: 'toggle',
+                label: 'Dyslexic-Friendly Font',
+                description: 'Use font designed for readers with dyslexia'
+              }
+            ]
+          },
+          {
+            title: 'Motion & Animation',
+            items: [
+              {
+                id: 'reducedMotion',
+                type: 'toggle',
+                label: 'Reduce Motion',
+                description: 'Minimize animations and transitions'
+              },
+              {
+                id: 'smoothScrolling',
+                type: 'toggle',
+                label: 'Smooth Scrolling',
+                description: 'Use smooth animations when navigating'
+              }
+            ]
+          }
+        ]
+      },
+      reading: {
+        label: 'Reading',
+        icon: '📖',
+        groups: [
+          {
+            title: 'Reading Experience',
+            items: [
+              {
+                id: 'sidebarCompact',
+                type: 'toggle',
+                label: 'Compact Sidebar',
+                description: 'Make the sidebar more compact'
+              },
+              {
+                id: 'showLineNumbers',
+                type: 'toggle',
+                label: 'Show Line Numbers',
+                description: 'Display line numbers in code blocks'
+              },
+              {
+                id: 'preserveScroll',
+                type: 'toggle',
+                label: 'Preserve Scroll Position',
+                description: 'Remember scroll position between pages'
+              }
+            ]
+          },
+          {
+            title: 'Reading Aids',
+            items: [
+              {
+                id: 'readingGuide',
+                type: 'toggle',
+                label: 'Reading Guide',
+                description: 'Highlight the line you are reading'
+              }
+            ]
+          }
+        ]
+      },
+      advanced: {
+        label: 'Advanced',
+        icon: '⚙️',
+        groups: [
+          {
+            title: 'Experimental Features',
+            items: [
+              {
+                id: 'autoSavePreferences',
+                type: 'toggle',
+                label: 'Auto-Save Preferences',
+                description: 'Automatically save changes as you make them'
+              }
+            ]
+          }
+        ]
+      }
+    };
+  }
+  
+  /**
+   * Open the preferences dialog
+   */
+  open() {
+    if (!this.dialogElement) {
+      this.initialize();
+    }
+    
+    this.dialogElement.hidden = false;
+    this.dialogElement.classList.add(styles.open);
+    this.isOpen = true;
+    
+    // Enable preview changes
+    this.previewChanges = true;
+    
+    // Update form values in case preferences changed elsewhere
+    this.updateFormFromPreferences();
+    
+    // Add keyboard listener for Escape
+    document.addEventListener('keydown', this.handleEscapeKey);
+    
+    // Focus the dialog (for keyboard navigation)
+    this.dialogElement.focus();
+    
+    // Dispatch open event
+    this.dialogElement.dispatchEvent(new CustomEvent('preferences-dialog-open', { bubbles: true }));
+  }
+  
+  /**
+   * Close the preferences dialog
+   */
+  close() {
+    if (!this.dialogElement || !this.isOpen) return;
+    
+    this.dialogElement.classList.remove(styles.open);
+    
+    // Hide after animation
+    setTimeout(() => {
+      this.dialogElement.hidden = true;
+    }, 300);
+    
+    this.isOpen = false;
+    
+    // Disable preview changes
+    this.previewChanges = false;
+    
+    // Remove keyboard listener
+    document.removeEventListener('keydown', this.handleEscapeKey);
+    
+    // Dispatch close event
+    this.dialogElement.dispatchEvent(new CustomEvent('preferences-dialog-close', { bubbles: true }));
+  }
+  
+  /**
+   * Toggle the preferences dialog
+   */
+  toggle() {
+    if (this.isOpen) {
+      this.close();
+    } else {
+      this.open();
+    }
+  }
+  
+  /**
+   * Create a preferences button
+   * @param {Object} options - Button options
+   * @param {HTMLElement} options.container - Container for the button
+   * @param {string} options.position - Position of the button ('top-right', 'bottom-right', etc.)
+   * @returns {HTMLElement} The created button
+   */
+  createPreferencesButton(options = {}) {
+    const container = options.container || document.body;
+    const position = options.position || 'bottom-right';
+    
+    const button = document.createElement('button');
+    button.id = 'preferences-button';
+    button.className = `${styles.preferencesButton} ${styles[position]}`;
+    button.innerHTML = '⚙️';
+    button.title = 'Preferences';
+    button.setAttribute('aria-label', 'Open user preferences');
+    
+    button.addEventListener('click', () => this.toggle());
+    container.appendChild(button);
+    
+    // Add keyboard shortcut (Alt+P)
+    document.addEventListener('keydown', (e) => {
+      if (e.altKey && e.key === 'p') {
+        e.preventDefault();
+        this.toggle();
+      }
+    });
+    
+    return button;
+  }
+  
+  /**
+   * Set preferences data
+   * @param {Object} preferences - New preferences object
+   */
+  setPreferences(preferences) {
+    this.options.preferences = preferences;
+    if (this.isOpen) {
+      this.updateFormFromPreferences();
+    }
+  }
+  
+  /**
+   * Get current preferences
+   * @returns {Object} Current preferences
+   */
+  getPreferences() {
+    return { ...this.options.preferences };
+  }
+  
+  /**
+   * Destroy the preferences dialog and clean up
+   */
+  destroy() {
+    if (this.dialogElement) {
+      document.removeEventListener('keydown', this.handleEscapeKey);
+      this.dialogElement.remove();
+      this.dialogElement = null;
+    }
+    
+    this.formControls.clear();
+    
+    if (this.tabs) {
+      this.tabs.destroy();
+      this.tabs = null;
+    }
   }
 }
 
-// Export a singleton instance
-export default new PreferencesDialog(); 
+export default PreferencesDialog; 

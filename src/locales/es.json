@@ -22,8 +22,7 @@
     "appearance": "Apariencia",
     "theme": {
       "title": "Tema",
-      "light": "Catppuccin Latte",
-      "catppuccinlatte": "Catppuccin Latte",
+      "light": "Claro",
       "dark": "Oscuro",
       "system": "Predeterminado del sistema"
     },

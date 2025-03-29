@@ -3,7 +3,7 @@
  * Main JavaScript
  */
 
-import themeManager from '../../components/Theme';
+import themeManager from './theme.js';
 
 // Initialize theme manager
 document.addEventListener('DOMContentLoaded', () => {

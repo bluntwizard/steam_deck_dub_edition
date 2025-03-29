@@ -1,218 +1,390 @@
 /**
- * SettingsTabs Component for Steam Deck DUB Edition
- * Provides tabbed navigation for settings and configuration sections
+ * Steam Deck DUB Edition
+ * SettingsTabs Component
  * 
- * @module SettingsTabs
- * @author Steam Deck DUB Edition Team
- * @version 1.0.0
+ * A component for managing tabbed interfaces in settings panels
  */
 
 import styles from './SettingsTabs.module.css';
 
-/**
- * Class for managing settings tabs navigation
- */
 class SettingsTabs {
   /**
-   * Creates a new SettingsTabs instance
+   * Create a new settings tabs component
+   * @param {Object} options - Configuration options
+   * @param {string} options.id - Unique identifier for the tabs container
+   * @param {HTMLElement} options.container - Container element to append the tabs to
+   * @param {Array} options.tabs - Array of tab configurations
+   * @param {Function} options.onTabChange - Callback for tab changes
+   * @param {string} options.activeTab - The initially active tab ID
+   * @param {boolean} options.autoInit - Whether to initialize automatically (default: true)
    */
-  constructor() {
-    /**
-     * Whether the component has been initialized
-     * @type {boolean}
-     * @private
-     */
+  constructor(options = {}) {
+    this.options = {
+      id: options.id || `settings-tabs-${Date.now()}`,
+      container: options.container || document.body,
+      tabs: options.tabs || [],
+      onTabChange: options.onTabChange || (() => {}),
+      activeTab: options.activeTab || (options.tabs && options.tabs.length > 0 ? options.tabs[0].id : null),
+      autoInit: options.autoInit !== false
+    };
+    
+    // Element references
+    this.tabsElement = null;
+    this.buttonsContainer = null;
+    this.contentContainer = null;
+    this.tabButtons = new Map();
+    this.tabPanes = new Map();
+    
+    // Track the initialized state
     this.initialized = false;
     
-    /**
-     * Currently active tab
-     * @type {string|null}
-     * @private
-     */
-    this.activeTab = null;
-    
-    /**
-     * Collection of tab buttons
-     * @type {NodeList|Array}
-     * @private
-     */
-    this.tabButtons = [];
-    
-    /**
-     * Collection of tab panes (content)
-     * @type {NodeList|Array}
-     * @private
-     */
-    this.tabPanes = [];
-    
-    /**
-     * Event listeners to be removed on destroy
-     * @type {Array}
-     * @private
-     */
-    this.eventListeners = [];
+    // Auto-initialize if specified
+    if (this.options.autoInit) {
+      this.initialize();
+    }
   }
   
   /**
-   * Initialize the settings tabs component
-   * @param {Object} options - Configuration options
-   * @param {string} [options.container='.settings-tabs-container'] - CSS selector for the tabs container
-   * @param {string} [options.defaultTab] - ID of the default tab to activate
-   * @returns {void}
+   * Initialize the settings tabs
+   * @returns {HTMLElement} The created tabs element
    */
-  initialize(options = {}) {
-    if (this.initialized) return;
+  initialize() {
+    if (this.initialized) return this.tabsElement;
     
-    const settings = {
-      container: '.settings-tabs-container',
-      defaultTab: null,
-      ...options
-    };
+    // Create wrapper element
+    this.tabsElement = document.createElement('div');
+    this.tabsElement.id = this.options.id;
+    this.tabsElement.className = styles.settingsTabs;
     
-    // Find tabs container
-    const container = document.querySelector(settings.container);
-    if (!container) {
-      console.warn(`SettingsTabs: Container '${settings.container}' not found`);
-      return;
-    }
+    // Create tab buttons container
+    this.buttonsContainer = document.createElement('div');
+    this.buttonsContainer.className = styles.tabButtons;
+    this.buttonsContainer.setAttribute('role', 'tablist');
+    this.tabsElement.appendChild(this.buttonsContainer);
     
-    // Apply module styles to container
-    container.classList.add(styles['settings-tabs-container']);
+    // Create tab content container
+    this.contentContainer = document.createElement('div');
+    this.contentContainer.className = styles.tabContent;
+    this.tabsElement.appendChild(this.contentContainer);
     
-    // Find tab buttons and panes
-    this.tabButtons = container.querySelectorAll(`.${styles['tab-button']}, [data-tab]`);
-    this.tabPanes = document.querySelectorAll(`.${styles['tab-pane']}, [data-tab-content]`);
+    // Create tabs
+    this.createTabs();
     
-    // If no tab buttons or panes found, try to find by default classes
-    if (!this.tabButtons.length) {
-      this.tabButtons = container.querySelectorAll('.tab-button, [data-tab]');
-      // Apply styles to buttons
-      this.tabButtons.forEach(button => {
-        button.classList.add(styles['tab-button']);
-      });
-    }
+    // Add to container
+    this.options.container.appendChild(this.tabsElement);
     
-    if (!this.tabPanes.length) {
-      this.tabPanes = document.querySelectorAll('.tab-pane, [data-tab-content]');
-      // Apply styles to panes
-      this.tabPanes.forEach(pane => {
-        pane.classList.add(styles['tab-pane']);
-      });
-    }
-    
-    // Set up event listeners for tab buttons
-    this.setupTabNavigation();
-    
-    // Activate default tab or first tab
-    const defaultTabId = settings.defaultTab || 
-                        this.tabButtons.length ? this.tabButtons[0].getAttribute('data-tab') : null;
-    
-    if (defaultTabId) {
-      this.switchToTab(defaultTabId);
+    // Activate initial tab
+    if (this.options.activeTab && this.tabButtons.has(this.options.activeTab)) {
+      this.switchToTab(this.options.activeTab);
     }
     
     this.initialized = true;
-    console.log('SettingsTabs component initialized');
+    return this.tabsElement;
   }
   
   /**
-   * Set up event listeners for tab navigation
+   * Create tab buttons and panes based on configuration
    * @private
    */
-  setupTabNavigation() {
-    this.tabButtons.forEach(button => {
-      const handler = () => {
-        const tabId = button.getAttribute('data-tab');
-        if (tabId) {
-          this.switchToTab(tabId);
-        }
-      };
-      
-      button.addEventListener('click', handler);
-      
-      // Store for cleanup
-      this.eventListeners.push({
-        element: button,
-        type: 'click',
-        handler
-      });
+  createTabs() {
+    if (!this.options.tabs.length) return;
+    
+    this.options.tabs.forEach(tab => {
+      this.createTab(tab);
     });
+  }
+  
+  /**
+   * Create a single tab with its button and pane
+   * @private
+   * @param {Object} tab - Tab configuration
+   */
+  createTab(tab) {
+    if (!tab.id) return;
+    
+    // Create tab button
+    const button = document.createElement('button');
+    button.className = styles.tabButton;
+    button.dataset.tab = tab.id;
+    button.setAttribute('role', 'tab');
+    button.setAttribute('aria-controls', `${tab.id}-pane`);
+    button.setAttribute('aria-selected', 'false');
+    button.id = `tab-button-${tab.id}`;
+    
+    // Add icon if provided
+    if (tab.icon) {
+      const iconSpan = document.createElement('span');
+      iconSpan.className = styles.tabIcon;
+      iconSpan.innerHTML = tab.icon;
+      button.appendChild(iconSpan);
+    }
+    
+    // Add label
+    const labelSpan = document.createElement('span');
+    labelSpan.className = styles.tabLabel;
+    labelSpan.textContent = tab.label || tab.id;
+    button.appendChild(labelSpan);
+    
+    // Add click event
+    button.addEventListener('click', () => {
+      this.switchToTab(tab.id);
+    });
+    
+    // Create tab pane
+    const pane = document.createElement('div');
+    pane.className = styles.tabPane;
+    pane.id = `${tab.id}-pane`;
+    pane.setAttribute('role', 'tabpanel');
+    pane.setAttribute('aria-labelledby', `tab-button-${tab.id}`);
+    pane.hidden = true;
+    
+    // Add tab content if provided
+    if (tab.content) {
+      if (typeof tab.content === 'string') {
+        pane.innerHTML = tab.content;
+      } else if (tab.content instanceof HTMLElement) {
+        pane.appendChild(tab.content);
+      }
+    }
+    
+    // Store references
+    this.tabButtons.set(tab.id, button);
+    this.tabPanes.set(tab.id, pane);
+    
+    // Add to containers
+    this.buttonsContainer.appendChild(button);
+    this.contentContainer.appendChild(pane);
   }
   
   /**
    * Switch to a specific tab
    * @param {string} tabId - ID of the tab to switch to
-   * @returns {void}
+   * @returns {boolean} Whether the tab switch was successful
    */
   switchToTab(tabId) {
-    if (!tabId) return;
+    if (!this.initialized || !this.tabButtons.has(tabId)) return false;
     
-    // Update active state
-    this.activeTab = tabId;
+    // Update active tab
+    const prevTabId = this.options.activeTab;
+    this.options.activeTab = tabId;
     
-    // Update tab button active states
-    this.tabButtons.forEach(button => {
-      const isActive = button.getAttribute('data-tab') === tabId;
+    // Update button states
+    this.tabButtons.forEach((button, id) => {
+      const isActive = id === tabId;
       button.classList.toggle(styles.active, isActive);
-      button.setAttribute('aria-selected', isActive.toString());
+      button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      button.setAttribute('tabindex', isActive ? '0' : '-1');
     });
     
-    // Update tab pane visibility
-    this.tabPanes.forEach(pane => {
-      // Check for matching tab content ID
-      const paneTabId = pane.getAttribute('data-tab-content') || pane.id.replace('-content', '');
-      const isActive = paneTabId === tabId;
-      
+    // Update pane visibility
+    this.tabPanes.forEach((pane, id) => {
+      const isActive = id === tabId;
       pane.classList.toggle(styles.active, isActive);
-      pane.setAttribute('aria-hidden', (!isActive).toString());
-      
-      // Trigger custom event for content visibility change
-      if (isActive) {
-        const event = new CustomEvent('tab:shown', { detail: { tabId } });
-        pane.dispatchEvent(event);
-      }
+      pane.hidden = !isActive;
     });
     
-    // Dispatch tab change event
-    const event = new CustomEvent('tab:changed', { 
-      detail: { tabId, previousTab: this.activeTab !== tabId ? this.activeTab : null } 
-    });
-    document.dispatchEvent(event);
+    // Call tab change callback
+    if (prevTabId !== tabId) {
+      this.options.onTabChange(tabId, prevTabId);
+      
+      // Dispatch custom event
+      const event = new CustomEvent('tab-change', {
+        bubbles: true,
+        detail: {
+          tabs: this,
+          tabId: tabId,
+          previousTabId: prevTabId
+        }
+      });
+      this.tabsElement.dispatchEvent(event);
+    }
+    
+    return true;
+  }
+  
+  /**
+   * Add a new tab to the tabs component
+   * @param {Object} tab - Tab configuration
+   * @param {boolean} switchTo - Whether to switch to the new tab
+   * @returns {boolean} Whether the tab was added successfully
+   */
+  addTab(tab, switchTo = false) {
+    if (!this.initialized || !tab.id || this.tabButtons.has(tab.id)) return false;
+    
+    this.createTab(tab);
+    this.options.tabs.push(tab);
+    
+    if (switchTo) {
+      this.switchToTab(tab.id);
+    }
+    
+    return true;
+  }
+  
+  /**
+   * Remove a tab from the tabs component
+   * @param {string} tabId - ID of the tab to remove
+   * @returns {boolean} Whether the tab was removed successfully
+   */
+  removeTab(tabId) {
+    if (!this.initialized || !this.tabButtons.has(tabId)) return false;
+    
+    // Get references
+    const button = this.tabButtons.get(tabId);
+    const pane = this.tabPanes.get(tabId);
+    
+    // Remove from DOM
+    button.remove();
+    pane.remove();
+    
+    // Remove from references
+    this.tabButtons.delete(tabId);
+    this.tabPanes.delete(tabId);
+    
+    // Remove from tabs array
+    const tabIndex = this.options.tabs.findIndex(tab => tab.id === tabId);
+    if (tabIndex !== -1) {
+      this.options.tabs.splice(tabIndex, 1);
+    }
+    
+    // Switch to another tab if the active tab was removed
+    if (this.options.activeTab === tabId && this.options.tabs.length > 0) {
+      this.switchToTab(this.options.tabs[0].id);
+    }
+    
+    return true;
+  }
+  
+  /**
+   * Update a tab's properties
+   * @param {string} tabId - ID of the tab to update
+   * @param {Object} tabProps - Tab properties to update
+   * @returns {boolean} Whether the tab was updated successfully
+   */
+  updateTab(tabId, tabProps) {
+    if (!this.initialized || !this.tabButtons.has(tabId)) return false;
+    
+    // Get references
+    const button = this.tabButtons.get(tabId);
+    const pane = this.tabPanes.get(tabId);
+    
+    // Update tab data
+    const tabIndex = this.options.tabs.findIndex(tab => tab.id === tabId);
+    if (tabIndex !== -1) {
+      this.options.tabs[tabIndex] = { ...this.options.tabs[tabIndex], ...tabProps };
+      const tab = this.options.tabs[tabIndex];
+      
+      // Update button label
+      if (tabProps.label) {
+        const labelSpan = button.querySelector(`.${styles.tabLabel}`);
+        if (labelSpan) {
+          labelSpan.textContent = tabProps.label;
+        }
+      }
+      
+      // Update button icon
+      if (tabProps.icon) {
+        let iconSpan = button.querySelector(`.${styles.tabIcon}`);
+        if (!iconSpan) {
+          iconSpan = document.createElement('span');
+          iconSpan.className = styles.tabIcon;
+          button.insertBefore(iconSpan, button.firstChild);
+        }
+        iconSpan.innerHTML = tabProps.icon;
+      }
+      
+      // Update content
+      if (tabProps.content) {
+        pane.innerHTML = '';
+        if (typeof tabProps.content === 'string') {
+          pane.innerHTML = tabProps.content;
+        } else if (tabProps.content instanceof HTMLElement) {
+          pane.appendChild(tabProps.content);
+        }
+      }
+    }
+    
+    return true;
   }
   
   /**
    * Get the currently active tab ID
-   * @returns {string|null} The active tab ID
+   * @returns {string} Active tab ID
    */
   getActiveTab() {
-    return this.activeTab;
+    return this.options.activeTab;
   }
   
   /**
-   * Refresh tab layouts (useful after dynamic content changes)
-   * @returns {void}
+   * Get all tabs configuration
+   * @returns {Array} Array of tab configurations
    */
-  refresh() {
-    // Re-apply active tab
-    if (this.activeTab) {
-      this.switchToTab(this.activeTab);
-    }
+  getTabs() {
+    return [...this.options.tabs];
   }
   
   /**
-   * Clean up event listeners and prepare for destruction
-   * @returns {void}
+   * Set up keyboard navigation for tabs
+   * @private
+   */
+  setupKeyboardNavigation() {
+    if (!this.initialized) return;
+    
+    this.buttonsContainer.addEventListener('keydown', (event) => {
+      // Only handle keyboard events for our tab buttons
+      if (!event.target.classList.contains(styles.tabButton)) return;
+      
+      const tabs = this.options.tabs;
+      const tabIds = tabs.map(tab => tab.id);
+      const currentIdx = tabIds.indexOf(this.options.activeTab);
+      
+      // Get the tab to navigate to based on key press
+      let nextIdx;
+      switch (event.key) {
+        case 'ArrowRight':
+          nextIdx = (currentIdx + 1) % tabs.length;
+          break;
+        case 'ArrowLeft':
+          nextIdx = (currentIdx - 1 + tabs.length) % tabs.length;
+          break;
+        case 'Home':
+          nextIdx = 0;
+          break;
+        case 'End':
+          nextIdx = tabs.length - 1;
+          break;
+        default:
+          return; // Do nothing for other keys
+      }
+      
+      // Switch to the tab and focus its button
+      const nextTabId = tabIds[nextIdx];
+      this.switchToTab(nextTabId);
+      this.tabButtons.get(nextTabId).focus();
+      
+      // Prevent default behavior (like scrolling)
+      event.preventDefault();
+    });
+  }
+  
+  /**
+   * Destroy the tabs component and remove it from the DOM
    */
   destroy() {
-    // Remove event listeners
-    this.eventListeners.forEach(({ element, type, handler }) => {
-      element.removeEventListener(type, handler);
-    });
+    if (!this.initialized) return;
     
-    this.eventListeners = [];
+    // Remove from DOM
+    this.tabsElement.remove();
+    
+    // Clear references
+    this.tabButtons.clear();
+    this.tabPanes.clear();
+    this.tabsElement = null;
+    this.buttonsContainer = null;
+    this.contentContainer = null;
+    
     this.initialized = false;
   }
 }
 
-// Export a singleton instance
-export default new SettingsTabs(); 
+export default SettingsTabs; 

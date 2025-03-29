@@ -1,221 +1,597 @@
 /**
- * SettingsSection Component for Steam Deck DUB Edition
- * Provides structured layout for application settings
+ * Steam Deck DUB Edition
+ * SettingsSection Component
  * 
- * @module SettingsSection
- * @author Steam Deck DUB Edition Team
- * @version 1.0.0
+ * A component for creating and managing settings sections with configurable options
  */
 
 import styles from './SettingsSection.module.css';
-import i18n from '../../scripts/i18n.js';
-import settingsManager from '../../scripts/core/settings-manager.js';
 
-/**
- * Class for managing the settings section component
- */
 class SettingsSection {
   /**
-   * Creates a new SettingsSection instance
-   */
-  constructor() {
-    /**
-     * Whether the component has been initialized
-     * @type {boolean}
-     * @private
-     */
-    this.initialized = false;
-    
-    /**
-     * Reference to the settings section element
-     * @type {HTMLElement|null}
-     * @private
-     */
-    this.sectionElement = null;
-    
-    /**
-     * Reference to the settings tabs component
-     * @type {Object|null}
-     * @private
-     */
-    this.settingsTabs = null;
-  }
-  
-  /**
-   * Initialize the settings section component
+   * Create a new settings section
    * @param {Object} options - Configuration options
-   * @param {string} [options.settingsSectionId='settings-section'] - ID of the settings section element
-   * @param {Object} [options.settingsTabs=null] - Reference to the settings tabs component
-   * @returns {void}
+   * @param {string} options.id - Unique identifier for the section
+   * @param {string} options.title - Section title
+   * @param {string} options.icon - Icon for the section (emoji or HTML)
+   * @param {HTMLElement} options.container - Container element to append the section to
+   * @param {Function} options.onSettingChange - Callback for setting changes
+   * @param {Array} options.settings - Array of setting configurations
+   * @param {boolean} options.autoInit - Whether to initialize automatically (default: true)
    */
-  initialize(options = {}) {
-    if (this.initialized) return;
-    
-    const settings = {
-      settingsSectionId: 'settings-section',
-      settingsTabs: null,
-      ...options
+  constructor(options = {}) {
+    this.options = {
+      id: options.id || `settings-section-${Date.now()}`,
+      title: options.title || 'Settings',
+      icon: options.icon || '⚙️',
+      container: options.container || document.body,
+      onSettingChange: options.onSettingChange || (() => {}),
+      settings: options.settings || [],
+      autoInit: options.autoInit !== false
     };
     
-    // Find settings section element
-    this.sectionElement = document.getElementById(settings.settingsSectionId);
-    if (!this.sectionElement) {
-      console.warn(`SettingsSection: Element with ID '${settings.settingsSectionId}' not found`);
-      return;
+    // Section element
+    this.sectionElement = null;
+    
+    // Track the initialized state
+    this.initialized = false;
+    
+    // Setting element references
+    this.settingElements = new Map();
+    
+    // Auto-initialize if specified
+    if (this.options.autoInit) {
+      this.initialize();
     }
+  }
+  
+  /**
+   * Initialize the settings section
+   * @returns {HTMLElement} The created section element
+   */
+  initialize() {
+    if (this.initialized) return this.sectionElement;
     
-    // Apply module styles
-    this.sectionElement.classList.add(styles['settings-section']);
+    // Create section element
+    this.sectionElement = document.createElement('section');
+    this.sectionElement.id = this.options.id;
+    this.sectionElement.className = styles.settingsSection;
+    this.sectionElement.setAttribute('aria-labelledby', `${this.options.id}-title`);
     
-    // Find all settings group containers and apply styles
-    const settingsGroups = this.sectionElement.querySelectorAll('.settings-group');
-    settingsGroups.forEach(group => {
-      group.classList.add(styles['settings-group']);
-    });
+    // Create header with title
+    this.createHeader();
     
-    // Find all setting items and apply styles
-    const settingItems = this.sectionElement.querySelectorAll('.setting-item');
-    settingItems.forEach(item => {
-      item.classList.add(styles['setting-item']);
-    });
+    // Create settings elements
+    this.createSettings();
     
-    // Find all toggle switches and apply styles
-    const toggleSwitches = this.sectionElement.querySelectorAll('.toggle-switch');
-    toggleSwitches.forEach(toggle => {
-      toggle.classList.add(styles['toggle-switch']);
-    });
-    
-    // Find all buttons and apply styles
-    const buttons = this.sectionElement.querySelectorAll('.btn-secondary');
-    buttons.forEach(button => {
-      button.classList.add(styles['btn-secondary']);
-    });
-    
-    // Find all button groups and apply styles
-    const buttonGroups = this.sectionElement.querySelectorAll('.button-group');
-    buttonGroups.forEach(group => {
-      group.classList.add(styles['button-group']);
-    });
-    
-    // Store reference to settings tabs component if provided
-    this.settingsTabs = settings.settingsTabs;
-    
-    // Initialize settings toggle in header
-    this.createSettingsToggle();
+    // Add to container
+    this.options.container.appendChild(this.sectionElement);
     
     this.initialized = true;
-    console.log('SettingsSection component initialized');
+    return this.sectionElement;
   }
   
   /**
-   * Create settings toggle button in the header
+   * Create section header with title
    * @private
    */
-  createSettingsToggle() {
-    const navbar = document.querySelector('.navbar-nav');
-    if (!navbar) return;
+  createHeader() {
+    const header = document.createElement('div');
+    header.className = styles.sectionHeader;
     
-    // Check if toggle already exists
-    if (document.querySelector('.settings-toggle')) return;
+    // Icon if provided
+    if (this.options.icon) {
+      const iconElement = document.createElement('span');
+      iconElement.className = styles.sectionIcon;
+      iconElement.innerHTML = this.options.icon;
+      header.appendChild(iconElement);
+    }
     
-    // Create settings link
-    const settingsLi = document.createElement('li');
-    settingsLi.className = 'nav-item';
+    // Title
+    const title = document.createElement('h3');
+    title.id = `${this.options.id}-title`;
+    title.className = styles.sectionTitle;
+    title.textContent = this.options.title;
+    header.appendChild(title);
     
-    const settingsLink = document.createElement('a');
-    settingsLink.className = `nav-link settings-toggle ${styles['settings-toggle']}`;
-    settingsLink.href = '#settings';
-    settingsLink.setAttribute('data-i18n', 'nav.settings');
-    settingsLink.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="nav-icon">
-      <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
-      <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
-    </svg> <span>${i18n.t('nav.settings') || 'Settings'}</span>`;
-    
-    settingsLink.addEventListener('click', (event) => {
-      event.preventDefault();
-      this.toggleSettingsVisibility();
-    });
-    
-    settingsLi.appendChild(settingsLink);
-    navbar.appendChild(settingsLi);
+    this.sectionElement.appendChild(header);
   }
   
   /**
-   * Toggle settings section visibility
-   * @public
+   * Create settings elements based on configuration
+   * @private
    */
-  toggleSettingsVisibility() {
-    const homeContent = document.getElementById('home-content');
+  createSettings() {
+    if (!this.options.settings.length) return;
     
-    if (this.sectionElement.style.display === 'none') {
-      // Show settings
-      this.sectionElement.style.display = 'block';
-      if (homeContent) homeContent.style.display = 'none';
-    } else {
-      // Hide settings
-      this.sectionElement.style.display = 'none';
-      if (homeContent) homeContent.style.display = 'block';
-    }
+    const settingsContainer = document.createElement('div');
+    settingsContainer.className = styles.settingsContainer;
     
-    // Switch to the active tab if tabs component is available
-    if (this.settingsTabs && typeof this.settingsTabs.refresh === 'function') {
-      this.settingsTabs.refresh();
-    }
-
-    // Dispatch event for other components to respond to
-    const event = new CustomEvent('settings:visibility:changed', {
-      detail: { visible: this.sectionElement.style.display !== 'none' }
-    });
-    document.dispatchEvent(event);
-  }
-  
-  /**
-   * Show notification to the user
-   * @param {string} message - Message to display
-   * @param {boolean} [isAction=false] - Whether to show action button
-   * @param {string} [actionText=''] - Text for the action button
-   * @param {Function} [actionCallback=null] - Callback for the action button
-   * @param {number} [duration=3000] - Duration to show notification in ms
-   * @public
-   */
-  showNotification(message, isAction = false, actionText = '', actionCallback = null, duration = 3000) {
-    // Create notification element if it doesn't exist
-    let notification = document.getElementById('settings-notification');
-    if (!notification) {
-      notification = document.createElement('div');
-      notification.id = 'settings-notification';
-      notification.className = `notification ${styles.notification}`;
-      document.body.appendChild(notification);
-    }
-    
-    // Set notification content
-    notification.textContent = message;
-    
-    // Add action button if needed
-    if (isAction && actionText) {
-      const actionButton = document.createElement('button');
-      actionButton.className = `notification-action ${styles['notification-action']}`;
-      actionButton.textContent = actionText;
-      if (typeof actionCallback === 'function') {
-        actionButton.onclick = actionCallback;
+    this.options.settings.forEach(setting => {
+      const settingElement = this.createSetting(setting);
+      if (settingElement) {
+        settingsContainer.appendChild(settingElement);
       }
-      notification.appendChild(actionButton);
+    });
+    
+    this.sectionElement.appendChild(settingsContainer);
+  }
+  
+  /**
+   * Create a setting element based on type
+   * @private
+   * @param {Object} setting - Setting configuration
+   * @returns {HTMLElement} The setting element
+   */
+  createSetting(setting) {
+    if (!setting.id || !setting.type) return null;
+    
+    const settingContainer = document.createElement('div');
+    settingContainer.className = styles.settingItem;
+    settingContainer.dataset.settingId = setting.id;
+    
+    // Add setting label
+    if (setting.label) {
+      const label = document.createElement('label');
+      label.className = styles.settingLabel;
+      label.textContent = setting.label;
+      label.htmlFor = `setting-${setting.id}`;
+      settingContainer.appendChild(label);
     }
     
-    // Show notification
-    notification.classList.add(styles.show);
+    // Add description if provided
+    if (setting.description) {
+      const description = document.createElement('p');
+      description.className = styles.settingDescription;
+      description.textContent = setting.description;
+      settingContainer.appendChild(description);
+    }
     
-    // Hide after a delay
-    setTimeout(() => {
-      notification.classList.remove(styles.show);
+    // Create control based on type
+    let control;
+    switch (setting.type) {
+      case 'toggle':
+        control = this.createToggle(setting);
+        break;
+      case 'select':
+        control = this.createSelect(setting);
+        break;
+      case 'radio':
+        control = this.createRadioGroup(setting);
+        break;
+      case 'text':
+        control = this.createTextInput(setting);
+        break;
+      case 'slider':
+        control = this.createSlider(setting);
+        break;
+      case 'button':
+        control = this.createButton(setting);
+        break;
+      case 'custom':
+        control = setting.customElement || null;
+        break;
+      default:
+        control = null;
+    }
+    
+    if (control) {
+      const controlContainer = document.createElement('div');
+      controlContainer.className = styles.settingControl;
+      controlContainer.appendChild(control);
+      settingContainer.appendChild(controlContainer);
       
-      // Remove from DOM after animation
-      setTimeout(() => {
-        if (notification.parentNode && !isAction) notification.remove();
-      }, 300);
-    }, duration);
+      // Store reference to the container
+      this.settingElements.set(setting.id, {
+        container: settingContainer,
+        control: control
+      });
+    }
+    
+    return settingContainer;
+  }
+  
+  /**
+   * Create a toggle switch
+   * @private
+   * @param {Object} setting - Toggle setting configuration
+   * @returns {HTMLElement} The toggle element
+   */
+  createToggle(setting) {
+    const label = document.createElement('label');
+    label.className = styles.toggleSwitch;
+    
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.id = `setting-${setting.id}`;
+    input.checked = setting.value || false;
+    input.disabled = setting.disabled || false;
+    
+    input.addEventListener('change', (e) => {
+      this.handleSettingChange(setting.id, e.target.checked, e);
+    });
+    
+    const slider = document.createElement('span');
+    slider.className = styles.slider;
+    
+    label.appendChild(input);
+    label.appendChild(slider);
+    
+    return label;
+  }
+  
+  /**
+   * Create a select dropdown
+   * @private
+   * @param {Object} setting - Select setting configuration
+   * @returns {HTMLElement} The select element
+   */
+  createSelect(setting) {
+    const select = document.createElement('select');
+    select.id = `setting-${setting.id}`;
+    select.className = styles.select;
+    select.disabled = setting.disabled || false;
+    
+    if (setting.options && Array.isArray(setting.options)) {
+      setting.options.forEach(option => {
+        const optionElement = document.createElement('option');
+        optionElement.value = option.value;
+        optionElement.textContent = option.label;
+        
+        if (option.value === setting.value) {
+          optionElement.selected = true;
+        }
+        
+        select.appendChild(optionElement);
+      });
+    }
+    
+    select.addEventListener('change', (e) => {
+      this.handleSettingChange(setting.id, e.target.value, e);
+    });
+    
+    return select;
+  }
+  
+  /**
+   * Create a radio button group
+   * @private
+   * @param {Object} setting - Radio setting configuration
+   * @returns {HTMLElement} The radio group element
+   */
+  createRadioGroup(setting) {
+    const fieldset = document.createElement('fieldset');
+    fieldset.className = styles.radioGroup;
+    
+    const legend = document.createElement('legend');
+    legend.className = styles.srOnly;
+    legend.textContent = setting.label || setting.id;
+    fieldset.appendChild(legend);
+    
+    if (setting.options && Array.isArray(setting.options)) {
+      setting.options.forEach(option => {
+        const radioContainer = document.createElement('div');
+        radioContainer.className = styles.radioItem;
+        
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = `setting-${setting.id}`;
+        radio.id = `setting-${setting.id}-${option.value}`;
+        radio.value = option.value;
+        radio.checked = option.value === setting.value;
+        radio.disabled = setting.disabled || false;
+        
+        radio.addEventListener('change', (e) => {
+          if (e.target.checked) {
+            this.handleSettingChange(setting.id, e.target.value, e);
+          }
+        });
+        
+        const label = document.createElement('label');
+        label.htmlFor = `setting-${setting.id}-${option.value}`;
+        label.textContent = option.label;
+        
+        radioContainer.appendChild(radio);
+        radioContainer.appendChild(label);
+        fieldset.appendChild(radioContainer);
+      });
+    }
+    
+    return fieldset;
+  }
+  
+  /**
+   * Create a text input
+   * @private
+   * @param {Object} setting - Text setting configuration
+   * @returns {HTMLElement} The input element
+   */
+  createTextInput(setting) {
+    const input = document.createElement('input');
+    input.type = setting.inputType || 'text';
+    input.id = `setting-${setting.id}`;
+    input.className = styles.textInput;
+    input.value = setting.value || '';
+    input.placeholder = setting.placeholder || '';
+    input.disabled = setting.disabled || false;
+    
+    if (setting.maxLength) {
+      input.maxLength = setting.maxLength;
+    }
+    
+    input.addEventListener('change', (e) => {
+      this.handleSettingChange(setting.id, e.target.value, e);
+    });
+    
+    return input;
+  }
+  
+  /**
+   * Create a slider
+   * @private
+   * @param {Object} setting - Slider setting configuration
+   * @returns {HTMLElement} The slider element
+   */
+  createSlider(setting) {
+    const container = document.createElement('div');
+    container.className = styles.sliderContainer;
+    
+    const slider = document.createElement('input');
+    slider.type = 'range';
+    slider.id = `setting-${setting.id}`;
+    slider.className = styles.slider;
+    slider.min = setting.min || 0;
+    slider.max = setting.max || 100;
+    slider.step = setting.step || 1;
+    slider.value = setting.value || slider.min;
+    slider.disabled = setting.disabled || false;
+    
+    const valueDisplay = document.createElement('span');
+    valueDisplay.className = styles.sliderValue;
+    valueDisplay.textContent = slider.value;
+    
+    slider.addEventListener('input', (e) => {
+      valueDisplay.textContent = e.target.value;
+    });
+    
+    slider.addEventListener('change', (e) => {
+      this.handleSettingChange(setting.id, Number(e.target.value), e);
+    });
+    
+    container.appendChild(slider);
+    container.appendChild(valueDisplay);
+    
+    return container;
+  }
+  
+  /**
+   * Create a button
+   * @private
+   * @param {Object} setting - Button setting configuration
+   * @returns {HTMLElement} The button element
+   */
+  createButton(setting) {
+    const button = document.createElement('button');
+    button.id = `setting-${setting.id}`;
+    button.className = `${styles.button} ${setting.variant ? styles[setting.variant] : ''}`;
+    button.textContent = setting.label || setting.id;
+    button.disabled = setting.disabled || false;
+    
+    button.addEventListener('click', (e) => {
+      if (setting.onClick) {
+        setting.onClick(e);
+      }
+      
+      this.handleSettingChange(setting.id, null, e);
+    });
+    
+    return button;
+  }
+  
+  /**
+   * Handle setting change
+   * @private
+   * @param {string} id - Setting ID
+   * @param {*} value - New setting value
+   * @param {Event} event - Original event
+   */
+  handleSettingChange(id, value, event) {
+    // Call the onChange callback
+    this.options.onSettingChange(id, value, event);
+    
+    // Dispatch custom event
+    const customEvent = new CustomEvent('setting-change', {
+      bubbles: true,
+      detail: {
+        settingId: id,
+        value: value,
+        originalEvent: event,
+        section: this
+      }
+    });
+    
+    this.sectionElement.dispatchEvent(customEvent);
+    document.dispatchEvent(customEvent);
+  }
+  
+  /**
+   * Update a setting value
+   * @param {string} id - Setting ID
+   * @param {*} value - New value
+   * @param {boolean} triggerChange - Whether to trigger the change event
+   */
+  updateSetting(id, value, triggerChange = false) {
+    const settingData = this.settingElements.get(id);
+    if (!settingData) return;
+    
+    const control = settingData.control;
+    
+    // Update the control based on type
+    if (control.type === 'checkbox') {
+      control.checked = !!value;
+    } else if (control.type === 'radio') {
+      const radio = this.sectionElement.querySelector(`input[name="setting-${id}"][value="${value}"]`);
+      if (radio) {
+        radio.checked = true;
+      }
+    } else if (control.type === 'range') {
+      control.value = value;
+      const valueDisplay = control.nextElementSibling;
+      if (valueDisplay) {
+        valueDisplay.textContent = value;
+      }
+    } else if (control.tagName === 'SELECT') {
+      control.value = value;
+    } else if (control.type === 'text' || control.type === 'email' || control.type === 'number') {
+      control.value = value;
+    }
+    
+    // Trigger change event if requested
+    if (triggerChange) {
+      this.handleSettingChange(id, value, { target: control });
+    }
+  }
+  
+  /**
+   * Set setting disabled state
+   * @param {string} id - Setting ID
+   * @param {boolean} disabled - Whether the setting should be disabled
+   */
+  setSettingDisabled(id, disabled) {
+    const settingData = this.settingElements.get(id);
+    if (!settingData) return;
+    
+    const control = settingData.control;
+    
+    if (control.tagName === 'FIELDSET') {
+      // For radio groups, disable all inputs
+      const radios = control.querySelectorAll('input[type="radio"]');
+      radios.forEach(radio => {
+        radio.disabled = disabled;
+      });
+    } else {
+      // For other controls
+      control.disabled = disabled;
+    }
+  }
+  
+  /**
+   * Add a new setting to the section
+   * @param {Object} setting - Setting configuration
+   */
+  addSetting(setting) {
+    if (!this.initialized || !setting.id || !setting.type) return;
+    
+    // Add to settings array
+    this.options.settings.push(setting);
+    
+    // Create setting element
+    const settingElement = this.createSetting(setting);
+    if (settingElement) {
+      const settingsContainer = this.sectionElement.querySelector(`.${styles.settingsContainer}`);
+      if (settingsContainer) {
+        settingsContainer.appendChild(settingElement);
+      } else {
+        const newContainer = document.createElement('div');
+        newContainer.className = styles.settingsContainer;
+        newContainer.appendChild(settingElement);
+        this.sectionElement.appendChild(newContainer);
+      }
+    }
+  }
+  
+  /**
+   * Remove a setting from the section
+   * @param {string} id - Setting ID to remove
+   */
+  removeSetting(id) {
+    const settingData = this.settingElements.get(id);
+    if (!settingData) return;
+    
+    // Remove from DOM
+    settingData.container.remove();
+    
+    // Remove from settings array
+    const index = this.options.settings.findIndex(s => s.id === id);
+    if (index !== -1) {
+      this.options.settings.splice(index, 1);
+    }
+    
+    // Remove from settingElements map
+    this.settingElements.delete(id);
+  }
+  
+  /**
+   * Get all current setting values
+   * @returns {Object} Key-value pairs of settings
+   */
+  getValues() {
+    const values = {};
+    
+    this.options.settings.forEach(setting => {
+      const settingData = this.settingElements.get(setting.id);
+      if (!settingData) return;
+      
+      const control = settingData.control;
+      
+      if (control.type === 'checkbox') {
+        values[setting.id] = control.checked;
+      } else if (control.type === 'radio') {
+        const checkedRadio = this.sectionElement.querySelector(`input[name="setting-${setting.id}"]:checked`);
+        if (checkedRadio) {
+          values[setting.id] = checkedRadio.value;
+        }
+      } else if (control.type === 'range') {
+        values[setting.id] = Number(control.value);
+      } else if (control.tagName === 'SELECT') {
+        values[setting.id] = control.value;
+      } else if (control.type === 'text' || control.type === 'email' || control.type === 'number') {
+        values[setting.id] = control.value;
+      }
+    });
+    
+    return values;
+  }
+  
+  /**
+   * Update multiple settings at once
+   * @param {Object} values - Key-value pairs of settings
+   * @param {boolean} triggerChange - Whether to trigger change events
+   */
+  setValues(values, triggerChange = false) {
+    if (typeof values !== 'object') return;
+    
+    Object.entries(values).forEach(([id, value]) => {
+      this.updateSetting(id, value, triggerChange);
+    });
+  }
+  
+  /**
+   * Reset all settings to default values
+   * @param {boolean} triggerChange - Whether to trigger change events
+   */
+  resetToDefaults(triggerChange = true) {
+    this.options.settings.forEach(setting => {
+      if ('defaultValue' in setting) {
+        this.updateSetting(setting.id, setting.defaultValue, triggerChange);
+      }
+    });
+  }
+  
+  /**
+   * Destroy the settings section
+   */
+  destroy() {
+    if (!this.initialized) return;
+    
+    // Remove from DOM
+    this.sectionElement.remove();
+    
+    // Clear references
+    this.settingElements.clear();
+    this.sectionElement = null;
+    this.initialized = false;
   }
 }
 
-// Export singleton instance
-export default new SettingsSection(); 
+export default SettingsSection; 

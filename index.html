@@ -3,547 +3,210 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="A comprehensive guide for Steam Deck customization and optimization">
-        <title>Steam Deck DUB Edition Guide</title>
-        
-        <!-- CSS Files will be injected by webpack in production -->
-        <!-- For development, we still list them to maintain proper cascade -->
-        <!-- First load the fonts -->
-        <link rel="stylesheet" type="text/css" href="src/styles/core/fonts.css">
-        
-        <!-- Then load variables and base styles -->
-        <link rel="stylesheet" type="text/css" href="src/styles/core/variables.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/core/base.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/core/consolidated.css">
-        
-        <!-- Then load layout styles -->
-        <link rel="stylesheet" type="text/css" href="src/styles/layouts/main-layout.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/layouts/header.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/layouts/sidebar.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/layouts/sections.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/layouts/footer.css">
-        
-        <!-- Then load component styles -->
-        <link rel="stylesheet" type="text/css" href="src/styles/components/svg-header.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/components/buttons.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/components/search.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/components/version-manager.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/components/progress-tracker.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/components/preferences-dialog.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/components/lightbox.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/components/accessibility-controls.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/components/settings-tabs.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/components/notifications.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/components/settings-section.css">
-        
-        <!-- Then load animations -->
-        <link rel="stylesheet" type="text/css" href="src/styles/animations/transitions.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/animations/background.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/animations/preferences.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/animations/loading.css">
-        
-        <!-- Finally load utilities -->
-        <link rel="stylesheet" type="text/css" href="src/styles/utilities/spacing.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/utilities/typography.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/utilities/display.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/utilities/position.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/utilities/pseudo-elements.css">
-        <link rel="stylesheet" type="text/css" href="src/styles/utilities/debug.css">
-        
-        <!-- Theme overrides -->
-        <link rel="stylesheet" type="text/css" href="src/themes/dracula/theme.css">
-        <link rel="stylesheet" type="text/css" href="dyslexic-font.css">
-        <link rel="stylesheet" type="text/css" href="high-contrast.css">
-        <link rel="stylesheet" type="text/css" href="font-size.css">
+        <meta name="description" content="Steam Deck DUB Edition - Unofficial Guide and Documentation">
+        <meta name="theme-color" content="#1a1a1a">
+        <title>Steam Deck DUB Edition</title>
         
         <!-- Favicon -->
-        <link rel="icon" href="assets/sdde.svg" type="image/svg+xml">
+        <link rel="icon" href="src/assets/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="src/assets/images/icon-192.png">
+        
+        <!-- Main Stylesheet -->
+        <link rel="stylesheet" type="text/css" href="src/styles/main.css">
+        
+        <!-- Preload critical fonts -->
+        <link rel="preload" href="src/assets/fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin>
+        
+        <!-- Application manifest -->
+        <link rel="manifest" href="manifest.json">
     </head>
     <body>
         <!-- Background elements -->
-        <div class="background-container">
-            <div class="blob blob-1"></div>
-            <div class="blob blob-2"></div>
-            <div class="blob blob-3"></div>
-            <div class="blob blob-4"></div>
-            <div class="blob blob-5"></div>
-            <div class="mesh-overlay"></div>
-            <div class="vignette"></div>
+        <div class="background">
+            <div class="gradient-overlay"></div>
+            <div class="noise-texture"></div>
         </div>
         
-        <!-- New Header -->
-        <header class="sdde-header">
-            <div class="header-container">
-                <!-- Logo Area -->
-                <div class="header-logo">
-                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <use href="steam-deck-icon.svg#svgView(viewBox(0,0,50,50))"></use>
-                    </svg>
+        <!-- Header -->
+        <header id="header" class="app-header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="src/assets/images/logo.svg" alt="Steam Deck DUB Edition Logo" class="logo">
                 </div>
-                
-                <!-- Title Area -->
-                <div class="header-title">
+                <div class="title-container">
                     <h1>Steam Deck DUB Edition</h1>
-                    <p class="subtitle">The ultimate guide to optimizing your Steam Deck experience</p>
+                    <p class="subtitle">Unofficial Guide &amp; Documentation</p>
                 </div>
-                
-                <!-- Actions Area -->
                 <div class="header-actions">
-                    <button type="button" id="theme-toggle" title="Toggle Dark/Light Mode" aria-label="Toggle dark mode">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"></path>
-                        </svg>
+                    <button id="theme-toggle" class="icon-button" aria-label="Toggle dark/light theme">
+                        <span class="icon theme-icon"></span>
                     </button>
-                    
-                    <button id="search-toggle" title="Search Guide">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
+                    <button id="search-toggle" class="icon-button" aria-label="Toggle search">
+                        <span class="icon search-icon"></span>
                     </button>
-                    
-                    <button class="header-toggle-btn" id="header-toggle" title="Toggle Menu">
-                        <span></span>
+                    <button id="help-button" class="icon-button" aria-label="Open help center">
+                        <span class="icon help-icon"></span>
+                    </button>
+                    <button id="menu-toggle" class="icon-button mobile-only" aria-label="Toggle navigation menu">
+                        <span class="icon menu-icon"></span>
                     </button>
                 </div>
-                
-                <!-- Hero Content Area (Visible when expanded) -->
-                <div class="header-hero">
-                    <!-- Navigation Panel -->
-                    <div class="header-nav">
-                        <div class="nav-section">
-                            <h3>Getting Started</h3>
-                            <a href="#section-i">Introduction</a>
-                            <a href="#initial-setup">Initial Setup</a>
-                            <a href="#desktop-mode">Desktop Mode</a>
-                        </div>
-                        
-                        <div class="nav-section">
-                            <h3>Optimizations</h3>
-                            <a href="#section-ii">Overview</a>
-                            <a href="#performance">Performance</a>
-                            <a href="#battery-life">Battery Life</a>
-                        </div>
-                        
-                        <div class="nav-section">
-                            <h3>Gaming</h3>
-                            <a href="#section-iii">Best Practices</a>
-                            <a href="#game-controls">Game Controls</a>
-                            <a href="#steam-settings">Steam Settings</a>
-                        </div>
-                        
-                        <div class="nav-section">
-                            <h3>Advanced</h3>
-                            <a href="#section-iv">Decky Loader</a>
-                            <a href="#plugin-system">Plugin System</a>
-                            <a href="#custom-themes">Custom Themes</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Featured Content Panel -->
-                    <div class="header-featured">
-                        <h3>Featured: Battery Life Optimization</h3>
-                        <p>Learn how to maximize your Steam Deck's battery life with our comprehensive guide to power settings, performance profiles, and recommended tweaks.</p>
-                        <a href="#battery-life" class="featured-link">
-                            Learn More
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
             </div>
-            
-            <!-- Decorative Elements -->
-            <div class="header-bg">
-                <div class="header-particle"></div>
-                <div class="header-particle"></div>
-                <div class="header-particle"></div>
-                <div class="header-particle"></div>
-                <div class="header-particle"></div>
-                <div class="header-particle"></div>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search guide..." aria-label="Search guide content">
+                <button id="search-clear" class="icon-button" aria-label="Clear search">
+                    <span class="icon clear-icon"></span>
+                </button>
             </div>
-            <div class="header-decoration"></div>
         </header>
         
-        <div class="page-container">
-            <!-- Sidebar Navigation -->
-            <nav class="sidebar sidebar-optional">
-                <div class="sidebar-inner">
-                    <h3>SDDE Guide</h3>
-                    <a href="#top" class="active">Home</a>
-                    <h3>Guide Sections</h3>
-                    <a href="#section-i">Section I: Getting Started</a>
-                    <a href="#section-ii">Section II: Optimizations</a>
-                    <a href="#section-iii">Section III: Gaming</a>
-                    <a href="#section-iv">Section IV: Decky Loader</a>
-                    <h3>References</h3>
-                    <a href="#decky-loader-plugins">Decky Loader Plugins</a>
-                    <a href="#glossary">Glossary</a>
-                    <a href="#flatpaks">Recommended Flatpaks</a>
+        <!-- Main content area -->
+        <main class="app-content">
+            <!-- Navigation sidebar -->
+            <nav id="navigation" class="sidebar">
+                <div class="nav-section">
+                    <h2>Guide Navigation</h2>
+                    <ul class="nav-list">
+                        <li><a href="#getting-started" data-section="getting-started">Getting Started</a></li>
+                        <li><a href="#installation" data-section="installation">Installation</a></li>
+                        <li><a href="#features" data-section="features">Features</a></li>
+                        <li><a href="#customization" data-section="customization">Customization</a></li>
+                        <li><a href="#troubleshooting" data-section="troubleshooting">Troubleshooting</a></li>
+                        <li><a href="#faq" data-section="faq">FAQ</a></li>
+                    </ul>
                 </div>
+                
+                <div class="nav-section">
+                    <h2>Settings</h2>
+                    <ul class="nav-list">
+                        <li><a href="#settings-display" data-section="settings-display">Display</a></li>
+                        <li><a href="#settings-performance" data-section="settings-performance">Performance</a></li>
+                        <li><a href="#settings-power" data-section="settings-power">Power</a></li>
+                        <li><a href="#settings-audio" data-section="settings-audio">Audio</a></li>
+                    </ul>
+                </div>
+                
+                <div id="table-of-contents" class="nav-section"></div>
             </nav>
-            <button class="toggle-sidebar" title="Toggle Legacy Sidebar">☰</button>
-            <main class="main-content">
-                <div class="container">
-                    <!-- Settings Section -->
-                    <section id="settings-section" class="settings-section" style="display:none;">
-                        <div class="settings-container">
-                            <h1 class="section-title" data-i18n="settings.title">Settings</h1>
-                            
-                            <div class="settings-tabs">
-                                <button class="tab-button active" data-tab="general">General</button>
-                                <button class="tab-button" data-tab="accessibility">Accessibility</button>
-                                <button class="tab-button" data-tab="content">Content</button>
+            
+            <!-- Main content container -->
+            <div class="content-wrapper">
+                <!-- No results message for search -->
+                <div id="no-results" class="no-results" style="display: none;">
+                    <h2>No results found</h2>
+                    <p>Try different keywords or browse the guide navigation.</p>
+                </div>
+                
+                <!-- Dynamic content container -->
+                <div id="dynamic-content" class="content-container">
+                    <!-- Content will be loaded here -->
+                    <section class="welcome-section">
+                        <h1>Welcome to Steam Deck DUB Edition</h1>
+                        <p class="lead">Your comprehensive guide to Steam Deck DUB Edition, the unofficial community-driven enhancement package for Steam Deck.</p>
+                        
+                        <div class="feature-cards">
+                            <div class="feature-card">
+                                <h3>Getting Started</h3>
+                                <p>Learn how to install and set up Steam Deck DUB Edition on your device.</p>
+                                <a href="#getting-started" data-section="getting-started" class="button">Get Started</a>
                             </div>
                             
-                            <div class="tab-content">
-                                <div id="general-settings" class="tab-pane active">
-                                    <!-- General settings content -->
-                                    <div class="settings-group">
-                                        <h2 data-i18n="settings.appearance">Appearance</h2>
-                                        <div class="setting-item">
-                                            <label data-i18n="settings.theme.title">Theme</label>
-                                            <select id="theme-selector">
-                                                <option value="light" data-i18n="settings.theme.light">Catppuccin Latte</option>
-                                                <option value="dark" data-i18n="settings.theme.dark">Dark</option>
-                                                <option value="system" data-i18n="settings.theme.system">System Default</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="settings-group">
-                                        <h2 data-i18n="settings.language.title">Language</h2>
-                                        <div class="setting-item">
-                                            <label data-i18n="settings.language.selectLanguage">Select Language</label>
-                                            <select id="language-selector">
-                                                <option value="en">English</option>
-                                                <option value="es">Español</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div id="accessibility-settings" class="tab-pane">
-                                    <!-- Accessibility settings will be populated by our component -->
-                                </div>
-                                
-                                <div id="content-settings" class="tab-pane">
-                                    <!-- Content settings -->
-                                    <div class="settings-group">
-                                        <h2 data-i18n="settings.content.title">Content</h2>
-                                        <div class="setting-item">
-                                            <label data-i18n="settings.content.offlineMode">Offline Mode</label>
-                                            <div class="toggle-switch-container">
-                                                <label class="toggle-switch">
-                                                    <input type="checkbox" id="offline-mode-toggle">
-                                                    <span class="slider round"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="setting-item">
-                                            <button id="clear-cache-btn" class="btn btn-secondary" data-i18n="settings.content.clearCache">Clear Cache</button>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="feature-card">
+                                <h3>Key Features</h3>
+                                <p>Explore the enhancements and optimizations included in the DUB Edition.</p>
+                                <a href="#features" data-section="features" class="button">View Features</a>
                             </div>
+                            
+                            <div class="feature-card">
+                                <h3>Troubleshooting</h3>
+                                <p>Find solutions to common issues and learn advanced troubleshooting.</p>
+                                <a href="#troubleshooting" data-section="troubleshooting" class="button">Fix Issues</a>
+                            </div>
+                        </div>
+                        
+                        <div class="version-info">
+                            <p>Current Version: <span id="current-version">1.5.2</span></p>
+                            <p>Last Updated: <span id="last-updated">June 15, 2023</span></p>
                         </div>
                     </section>
-                
-                    <!-- Home content container -->
-                    <div id="home-content" class="content-container">
-                        <!-- Search Box -->
-                        <div class="search-container">
-                            <input type="text" class="search-box" placeholder="Search the guide... (Press '/' key)" id="search-input">
-                            <button id="clear-search" class="clear-search">✕</button>
-                            <!-- Search navigation will be added by JavaScript -->
-                        </div>
-                        <!-- No Results Message -->
-                        <div id="no-results-message"></div>
-                        <!-- Dynamic Content Container - Content will be loaded here by content-loader.js -->
-                        <div id="dynamic-content">
-                            <!-- Initial loading indicator -->
-                            <div class="loading-indicator">
-                                <div class="spinner"></div>
-                                <p>Loading guide content...</p>
-                            </div>
-                        </div>
-                        <!-- Back to Top Button -->
-                        <div class="back-to-top" id="back-to-top">↑</div>
-                    </div>
                 </div>
-            </main>
-        </div>
-        
-        <!-- Add cleanup script early to prevent FOUC (Flash of Unstyled Content) -->
-        <script src="src/scripts/utils/cleanup.js"></script>
-        
-        <!-- Add font-loader.js early in script execution order -->
-        <script src="src/scripts/core/font-loader.js"></script>
-        
-        <!-- JavaScript for functionality - Order matters for proper initialization -->
-        <script src="src/scripts/services/content-loader.js"></script>
-        <script src="src/scripts/core/ui-improvements.js"></script>
-        <script src="src/scripts/services/search.js"></script>
-        <script src="src/scripts/components/preferences.js"></script>
-        <script src="src/scripts/core/main.js"></script>
-        <script src="src/scripts/core/renderer.js"></script>
-        <script src="src/scripts/core/layout.js"></script>
-        <script src="src/scripts/utils/layout-utilities.js"></script>
-        <script src="src/scripts/components/navigation.js"></script>
-        <script src="src/scripts/services/offline.js"></script>
-        <script src="src/scripts/utils/print-helper.js"></script>
-        <script src="src/scripts/services/pdf-export.js"></script>
-        <script src="src/scripts/services/version-manager.js"></script>
-        <script src="src/scripts/services/progress-tracker.js"></script>
-        <script src="src/scripts/utils/debug-helper.js"></script>
-
-        <!-- Initialize copy to clipboard functionality -->
-        <script>
-            function copyToClipboard(button) {
-                const codeBlock = button.nextElementSibling;
-                const codeText = codeBlock.textContent;
                 
-                navigator.clipboard.writeText(codeText).then(() => {
-                    // Change button text temporarily
-                    const originalText = button.textContent;
-                    button.textContent = "Copied!";
-                    button.classList.add("copied");
-                    // Revert button text after 2 seconds
-                    setTimeout(() => {
-                        button.textContent = originalText;
-                        button.classList.remove("copied");
-                    }, 2000);
-                }).catch(err => {
-                    console.error('Failed to copy text: ', err);
-                    button.textContent = "Failed!";
-                    setTimeout(() => {
-                        button.textContent = "Copy";
-                    }, 2000);
-                });
-            }
-        </script>
-
-        <!-- Core Components -->
-        <script type="module" src="src/i18n.js"></script>
-        <script type="module" src="src/components/modal.js"></script>
-        <script type="module" src="src/components/guide-navigation.js"></script>
-        <script type="module" src="src/components/progress-tracking.js"></script>
-        <script type="module" src="src/components/accessibility.js"></script>
-        <script type="module" src="src/components/accessibility-ui.js"></script>
-        <script type="module" src="src/components/settings-manager.js"></script>
-        <script type="module" src="src/accessibility.js"></script>
-        <script type="module" src="src/components/app-initialization.js"></script>
+                <!-- Back to top button -->
+                <button id="back-to-top" class="back-to-top-button" aria-label="Back to top">
+                    <span class="icon arrow-up-icon"></span>
+                </button>
+            </div>
+        </main>
         
-        <!-- Service Worker Registration -->
-        <script>
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <p>&copy; 2023 Steam Deck DUB Edition - Community Project</p>
+                <p>Not affiliated with Valve Corporation. Steam and Steam Deck are trademarks of Valve Corporation.</p>
+                <div class="footer-links">
+                    <a href="#about" data-section="about">About</a>
+                    <a href="#privacy" data-section="privacy">Privacy</a>
+                    <a href="https://github.com/steamdeck-dub/steamdeck-dub" target="_blank" rel="noopener">GitHub</a>
+                </div>
+            </div>
+        </footer>
+        
+        <!-- Scripts -->
+        <script type="module">
+            // Import app initializer
+            import appInit from './src/scripts/app-init.js';
+            
+            // Navigation handling
+            document.querySelectorAll('[data-section]').forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const sectionId = link.getAttribute('data-section');
+                    appInit.loadContent(sectionId);
+                    
+                    // Update URL without page reload
+                    history.pushState({section: sectionId}, '', `#${sectionId}`);
+                    
+                    // Close mobile navigation if open
+                    document.getElementById('navigation').classList.remove('open');
+                });
+            });
+            
+            // Mobile menu toggle
+            document.getElementById('menu-toggle').addEventListener('click', () => {
+                document.getElementById('navigation').classList.toggle('open');
+            });
+            
+            // Handle browser back/forward
+            window.addEventListener('popstate', (event) => {
+                if (event.state && event.state.section) {
+                    appInit.loadContent(event.state.section);
+                } else {
+                    // Default to home page if no state
+                    appInit.loadContent('home');
+                }
+            });
+            
+            // Check for URL hash on load
+            document.addEventListener('DOMContentLoaded', () => {
+                const hash = window.location.hash.substring(1);
+                if (hash) {
+                    appInit.loadContent(hash);
+                }
+            });
+            
             // Register service worker for offline support
             if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/service-worker.js')
-                        .then(registration => {
-                            console.log('Service Worker registered with scope:', registration.scope);
-                            
-                            // Check for updates
-                            registration.addEventListener('updatefound', () => {
-                                const newWorker = registration.installing;
-                                console.log('Service Worker update found!');
-                                // Show update notification when ready
-                                newWorker.addEventListener('statechange', () => {
-                                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                        showUpdateNotification();
-                                    }
-                                });
-                            });
-                        })
-                        .catch(error => {
-                            console.error('Service Worker registration failed:', error);
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(error => {
+                        appInit.components.errorHandler.handleError(error, {
+                            context: 'Service Worker registration',
+                            source: 'Main script'
                         });
-                    
-                    // Listen for controller change
-                    navigator.serviceWorker.addEventListener('controllerchange', () => {
-                        console.log('Service Worker controller changed - reloading page');
-                        window.location.reload();
                     });
-                });
-                
-                // Function to show update notification
-                function showUpdateNotification() {
-                    // Create update notification
-                    const updateNotification = document.createElement('div');
-                    updateNotification.className = 'update-notification';
-                    updateNotification.innerHTML = `
-                        <div class="update-notification-content">
-                            <p>A new version of the guide is available!</p>
-                            <button id="update-button">Update Now</button>
-                            <button id="dismiss-update">Later</button>
-                        </div>
-                    `;
-                    
-                    // Style the notification
-                    updateNotification.style.cssText = `
-                        position: fixed;
-                        bottom: 20px;
-                        right: 20px;
-                        background-color: var(--dracula-purple, #bd93f9);
-                        color: var(--dracula-background, #282a36);
-                        padding: 15px;
-                        border-radius: 8px;
-                        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-                        z-index: 10000;
-                        max-width: 300px;
-                    `;
-                    
-                    // Add to body
-                    document.body.appendChild(updateNotification);
-                    
-                    // Add event listeners
-                    document.getElementById('update-button').addEventListener('click', () => {
-                        if (navigator.serviceWorker.controller) {
-                            // Send message to skip waiting
-                            navigator.serviceWorker.controller.postMessage('skipWaiting');
-                        }
-                        updateNotification.remove();
-                    });
-                    
-                    document.getElementById('dismiss-update').addEventListener('click', () => {
-                        updateNotification.remove();
-                    });
-                }
-                
-                // Check for online/offline status
-                window.addEventListener('online', () => {
-                    document.body.classList.remove('offline');
-                    console.log('You are now online');
-                    
-                    // Show notification
-                    const onlineNotification = document.createElement('div');
-                    onlineNotification.className = 'status-notification online';
-                    onlineNotification.textContent = 'You are now online';
-                    
-                    // Style notification
-                    onlineNotification.style.cssText = `
-                        position: fixed;
-                        top: 20px;
-                        right: 20px;
-                        background-color: var(--dracula-green, #50fa7b);
-                        color: var(--dracula-background, #282a36);
-                        padding: 10px 15px;
-                        border-radius: 4px;
-                        font-weight: bold;
-                        z-index: 10000;
-                        animation: fadeOut 3s forwards;
-                    `;
-                    
-                    document.body.appendChild(onlineNotification);
-                    
-                    // Remove after animation
-                    setTimeout(() => {
-                        onlineNotification.remove();
-                    }, 3000);
-                });
-                
-                window.addEventListener('offline', () => {
-                    document.body.classList.add('offline');
-                    console.log('You are now offline');
-                    
-                    // Show notification
-                    const offlineNotification = document.createElement('div');
-                    offlineNotification.className = 'status-notification offline';
-                    offlineNotification.textContent = 'You are now offline - showing cached content';
-                    
-                    // Style notification
-                    offlineNotification.style.cssText = `
-                        position: fixed;
-                        top: 20px;
-                        right: 20px;
-                        background-color: var(--dracula-orange, #ffb86c);
-                        color: var(--dracula-background, #282a36);
-                        padding: 10px 15px;
-                        border-radius: 4px;
-                        font-weight: bold;
-                        z-index: 10000;
-                        animation: fadeOut 3s forwards;
-                    `;
-                    
-                    document.body.appendChild(offlineNotification);
-                    
-                    // Remove after animation
-                    setTimeout(() => {
-                        offlineNotification.remove();
-                    }, 3000);
-                });
-                
-                // Add fadeOut animation
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes fadeOut {
-                        0% { opacity: 1; }
-                        70% { opacity: 1; }
-                        100% { opacity: 0; }
-                    }
-                `;
-                document.head.appendChild(style);
-                
-                // Set initial offline status
-                if (!navigator.onLine) {
-                    document.body.classList.add('offline');
-                }
             }
         </script>
-        
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Header toggle functionality
-                const headerToggle = document.getElementById('header-toggle');
-                const header = document.querySelector('.sdde-header');
-                
-                headerToggle.addEventListener('click', function() {
-                    header.classList.toggle('expanded');
-                });
-                
-                // Theme toggle functionality
-                const themeToggle = document.getElementById('theme-toggle');
-                themeToggle.addEventListener('click', function() {
-                    document.body.classList.toggle('light-theme');
-                    
-                    // Save preference to localStorage
-                    const isLightTheme = document.body.classList.contains('light-theme');
-                    localStorage.setItem('lightTheme', isLightTheme);
-                });
-                
-                // Search toggle functionality
-                const searchToggle = document.getElementById('search-toggle');
-                const searchInput = document.getElementById('search-input');
-                
-                searchToggle.addEventListener('click', function() {
-                    searchInput.focus();
-                    header.classList.remove('expanded');
-                });
-                
-                // Restore theme preference
-                if (localStorage.getItem('lightTheme') === 'true') {
-                    document.body.classList.add('light-theme');
-                }
-            });
-        </script>
-        
-        <script type="module">
-            // Initialize components
-            import i18n from './src/i18n.js';
-            import accessibilityManager from './src/accessibility.js';
-            
-            document.addEventListener('DOMContentLoaded', async () => {
-                // Initialize i18n
-                await i18n.initializeI18n();
-                
-                // Initialize accessibility manager
-                await accessibilityManager.initialize();
-                
-                // Any additional initialization can go here
-                console.log('Application initialized');
-            });
-        </script>
     </body>
-</html>
+</html> 

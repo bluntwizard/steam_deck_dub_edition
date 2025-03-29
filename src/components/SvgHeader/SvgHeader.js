@@ -1,254 +1,287 @@
 /**
- * SvgHeader Component for Steam Deck DUB Edition
- * Manages the animated SVG header with styling and functionality
+ * Steam Deck DUB Edition
+ * SvgHeader Component
  * 
- * @module SvgHeader
- * @author Steam Deck DUB Edition Team
- * @version 1.0.0
+ * A component for managing SVG headers with proper styling and fallback support
  */
 
 import styles from './SvgHeader.module.css';
 
-/**
- * Class representing the SVG Header component
- */
 class SvgHeader {
   /**
-   * Create a new SvgHeader instance
+   * Create a new SVG header
+   * @param {Object} options - Configuration options
+   * @param {string} options.svgPath - Path to the SVG file
+   * @param {string} options.fallbackText - Text to show if SVG fails to load
+   * @param {string} options.ariaLabel - Accessibility label for the SVG
+   * @param {HTMLElement} options.container - Container element to append the header to
+   * @param {string} options.cssPath - Path to external CSS for the SVG (optional)
+   * @param {Object} options.cssVariables - CSS variables to pass to the SVG (optional)
+   * @param {boolean} options.autoInit - Whether to initialize automatically (default: true)
    */
-  constructor() {
+  constructor(options = {}) {
+    this.options = {
+      svgPath: options.svgPath || 'sdde.svg',
+      fallbackText: options.fallbackText || 'Steam Deck DUB Edition',
+      ariaLabel: options.ariaLabel || 'Steam Deck DUB Edition Logo',
+      container: options.container || document.body,
+      cssPath: options.cssPath || 'svg-header-styles.css',
+      cssVariables: options.cssVariables || [
+        '--color-main',
+        '--color-primary',
+        '--color-secondary',
+        '--color-background', 
+        '--color-link',
+        '--color-link-active'
+      ],
+      autoInit: options.autoInit !== false
+    };
+    
     /**
-     * Whether the component has been initialized
+     * The header container element
+     * @type {HTMLElement}
+     */
+    this.headerContainer = null;
+    
+    /**
+     * The SVG container element
+     * @type {HTMLElement}
+     */
+    this.svgContainer = null;
+    
+    /**
+     * Whether the component is initialized
      * @type {boolean}
-     * @private
      */
     this.initialized = false;
     
-    /**
-     * Collection of header container elements
-     * @type {NodeList|Array}
-     * @private
-     */
-    this.headerContainers = [];
-    
-    /**
-     * Collection of SVG objects
-     * @type {NodeList|Array}
-     * @private
-     */
-    this.svgObjects = [];
+    // Auto-initialize if specified
+    if (this.options.autoInit) {
+      this.initialize();
+    }
   }
   
   /**
-   * Initialize the SVG header component
-   * @param {Object} options - Configuration options
-   * @param {string} [options.containerSelector='.header-container'] - CSS selector for header containers
-   * @param {string} [options.svgPath='sdde.svg'] - Path to the SVG file
-   * @returns {void}
+   * Initialize the SVG header
+   * @returns {HTMLElement} The created header container
    */
-  initialize(options = {}) {
-    if (this.initialized) return;
+  initialize() {
+    if (this.initialized) return this.headerContainer;
     
-    const settings = {
-      containerSelector: '.header-container',
-      svgPath: 'sdde.svg',
-      ...options
-    };
+    // Create header container
+    this.headerContainer = document.createElement('div');
+    this.headerContainer.className = `${styles.headerContainer} header-container`;
     
-    // Find header containers
-    this.headerContainers = document.querySelectorAll(settings.containerSelector);
+    // Create SVG container using object tag
+    this.svgContainer = document.createElement('object');
+    this.svgContainer.data = this.options.svgPath;
+    this.svgContainer.type = 'image/svg+xml';
+    this.svgContainer.className = `${styles.headerSvg} header-svg`;
+    this.svgContainer.setAttribute('aria-label', this.options.ariaLabel);
     
-    if (!this.headerContainers.length) {
-      console.warn(`SvgHeader: No elements found matching selector '${settings.containerSelector}'`);
-      return;
-    }
+    // Create fallback content
+    const fallback = document.createElement('div');
+    fallback.className = `${styles.svgFallback} svg-fallback`;
+    fallback.innerHTML = `<h2>${this.options.fallbackText}</h2>`;
     
-    // Apply module styles to containers
-    this.headerContainers.forEach(container => {
-      container.classList.add(styles['header-container']);
-    });
+    // Append fallback to SVG container
+    this.svgContainer.appendChild(fallback);
     
-    // Initialize SVG objects in each container
-    this.initializeSvgObjects(settings.svgPath);
+    // Append SVG container to header container
+    this.headerContainer.appendChild(this.svgContainer);
     
-    // Add event listeners for SVG objects
+    // Add loading state
+    this.headerContainer.classList.add(styles.svgLoading, 'svg-loading');
+    
+    // Set up event listeners
     this.setupEventListeners();
     
+    // Append header container to specified container
+    this.options.container.appendChild(this.headerContainer);
+    
     this.initialized = true;
-    console.log('SvgHeader component initialized');
+    return this.headerContainer;
   }
   
   /**
-   * Initialize SVG objects within containers
-   * @param {string} svgPath - Path to the SVG file
-   * @private
-   */
-  initializeSvgObjects(svgPath) {
-    this.headerContainers.forEach(container => {
-      // Check if container already has an SVG object
-      let svgObject = container.querySelector('object');
-      
-      if (!svgObject) {
-        // Create new SVG object if not present
-        svgObject = document.createElement('object');
-        svgObject.setAttribute('data', svgPath);
-        svgObject.setAttribute('type', 'image/svg+xml');
-        svgObject.setAttribute('aria-label', 'Steam Deck DUB Edition Logo');
-        
-        // Create fallback content
-        const fallback = document.createElement('div');
-        fallback.className = styles['svg-fallback'];
-        fallback.innerHTML = '<h2>Steam Deck DUB Edition</h2>';
-        svgObject.appendChild(fallback);
-        
-        container.appendChild(svgObject);
-      }
-      
-      // Apply styles to SVG object
-      svgObject.className = styles['header-svg'];
-      
-      // Store reference to SVG object
-      this.svgObjects.push(svgObject);
-    });
-  }
-  
-  /**
-   * Setup event listeners for SVG objects
+   * Set up event listeners for the SVG container
    * @private
    */
   setupEventListeners() {
-    this.svgObjects.forEach(svgObject => {
-      // Listen for load event to initialize SVG
-      svgObject.addEventListener('load', () => this.onSvgLoaded(svgObject));
-      
-      // Listen for error event to show fallback
-      svgObject.addEventListener('error', () => this.onSvgError(svgObject));
-    });
+    if (!this.svgContainer) return;
+    
+    // Handle load event
+    this.svgContainer.addEventListener('load', this.handleSvgLoad.bind(this));
+    
+    // Handle error event
+    this.svgContainer.addEventListener('error', this.handleSvgError.bind(this));
   }
   
   /**
    * Handle SVG load event
-   * @param {HTMLObjectElement} svgObject - The SVG object element
    * @private
+   * @param {Event} event - Load event
    */
-  onSvgLoaded(svgObject) {
+  handleSvgLoad(event) {
     try {
-      // Access SVG document
-      const svgDoc = svgObject.contentDocument;
-      if (!svgDoc) return;
+      // Get the SVG document
+      const svgDoc = this.svgContainer.contentDocument;
       
-      // Apply styles to SVG elements
-      this.applyStylingToSvgElements(svgDoc);
-      
-      // Add animation classes or other enhancements
-      this.enhanceSvgElements(svgDoc);
-      
-      console.log('SVG header loaded successfully');
+      if (svgDoc && svgDoc.documentElement) {
+        // Apply CSS to the SVG
+        this.applyCssToSvg(svgDoc);
+        
+        // Apply CSS variables to the SVG
+        this.applyCssVariablesToSvg(svgDoc);
+        
+        // Remove loading state and add loaded state
+        this.headerContainer.classList.remove(styles.svgLoading, 'svg-loading');
+        this.headerContainer.classList.add(styles.svgLoaded, 'svg-loaded');
+        this.svgContainer.classList.add(styles.svgLoaded, 'svg-loaded');
+        
+        // Dispatch loaded event
+        this.dispatchEvent('svg-loaded', { svgDoc });
+      }
     } catch (error) {
-      console.error('Error initializing SVG header:', error);
+      console.error('Error styling SVG header:', error);
+      this.handleSvgError();
     }
   }
   
   /**
-   * Handle SVG load error
-   * @param {HTMLObjectElement} svgObject - The SVG object element
+   * Handle SVG error event
    * @private
    */
-  onSvgError(svgObject) {
-    // Show fallback content
-    const fallback = svgObject.querySelector(`.${styles['svg-fallback']}`);
-    if (fallback) {
-      fallback.style.display = 'flex';
-    }
-    
+  handleSvgError() {
     console.error('Failed to load SVG header');
-  }
-  
-  /**
-   * Apply styling to SVG document elements
-   * @param {Document} svgDoc - The SVG document
-   * @private
-   */
-  applyStylingToSvgElements(svgDoc) {
-    // Find elements in the SVG document and apply additional styling
-    const bodyElements = svgDoc.querySelectorAll('.cl-body');
-    bodyElements.forEach(element => {
-      // Apply theme variables
-      this.applyThemeVariables(element);
-    });
-  }
-  
-  /**
-   * Apply theme variables to SVG element
-   * @param {Element} element - The SVG element
-   * @private
-   */
-  applyThemeVariables(element) {
-    // Check if dark mode is active
-    const isDarkMode = document.documentElement.classList.contains('dark-theme') ||
-                      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
     
-    // Apply appropriate theme variables
-    if (isDarkMode) {
-      element.style.setProperty('--color-main', '#bd93f9');
-      element.style.setProperty('--color-primary', '#ff79c6');
-      element.style.setProperty('--color-secondary', '#8be9fd');
-      element.style.setProperty('--color-background', '#282a36');
-      element.style.setProperty('--color-link', '#50fa7b');
-      element.style.setProperty('--color-link-active', '#ffb86c');
-    } else {
-      element.style.setProperty('--color-main', '#9B5DE5');
-      element.style.setProperty('--color-primary', '#F15BB5');
-      element.style.setProperty('--color-secondary', '#00BBF9');
-      element.style.setProperty('--color-background', '#fff');
-      element.style.setProperty('--color-link', '#00BBF9');
-      element.style.setProperty('--color-link-active', '#F15BB5');
-    }
+    // Remove loading state and add error state
+    this.headerContainer.classList.remove(styles.svgLoading, 'svg-loading');
+    this.headerContainer.classList.add(styles.svgError, 'svg-error');
+    
+    // Dispatch error event
+    this.dispatchEvent('svg-error', { });
   }
   
   /**
-   * Enhance SVG elements with additional functionality
-   * @param {Document} svgDoc - The SVG document
+   * Apply external CSS to the SVG document
    * @private
+   * @param {Document} svgDoc - SVG document
    */
-  enhanceSvgElements(svgDoc) {
-    // Find hi elements and add wave animation
-    const hiElements = svgDoc.querySelectorAll('.hi');
-    hiElements.forEach(element => {
-      element.classList.add(styles.hi);
-    });
+  applyCssToSvg(svgDoc) {
+    if (!svgDoc || !this.options.cssPath) return;
     
-    // Find link elements and add hover effects
-    const linkElements = svgDoc.querySelectorAll('a');
-    linkElements.forEach(element => {
-      element.addEventListener('mouseenter', () => {
-        element.style.color = 'var(--color-link-active)';
-      });
-      
-      element.addEventListener('mouseleave', () => {
-        element.style.color = 'var(--color-link)';
-      });
-    });
+    // Create a link element to load the external CSS
+    const linkElem = document.createElement('link');
+    linkElem.setAttribute('rel', 'stylesheet');
+    linkElem.setAttribute('type', 'text/css');
+    linkElem.setAttribute('href', this.options.cssPath);
+    
+    // Append it to the SVG document head
+    const svgHead = svgDoc.querySelector('head') || svgDoc.documentElement;
+    svgHead.appendChild(linkElem);
   }
   
   /**
-   * Refresh the SVG header (e.g., after theme change)
-   * @public
+   * Apply CSS variables to the SVG document
+   * @private
+   * @param {Document} svgDoc - SVG document
    */
-  refresh() {
-    if (!this.initialized) return;
+  applyCssVariablesToSvg(svgDoc) {
+    if (!svgDoc || !this.options.cssVariables) return;
     
-    this.svgObjects.forEach(svgObject => {
-      const svgDoc = svgObject.contentDocument;
-      if (svgDoc) {
-        const bodyElements = svgDoc.querySelectorAll('.cl-body');
-        bodyElements.forEach(element => {
-          this.applyThemeVariables(element);
-        });
+    // Get computed styles from root
+    const rootStyles = getComputedStyle(document.documentElement);
+    
+    // Create style element
+    const styleElem = document.createElement('style');
+    
+    // Build CSS variables string
+    let styleText = ':root {\n';
+    this.options.cssVariables.forEach(varName => {
+      const value = rootStyles.getPropertyValue(varName);
+      if (value) {
+        styleText += `  ${varName}: ${value};\n`;
       }
     });
+    styleText += '}';
+    
+    // Set style content and append to SVG
+    styleElem.textContent = styleText;
+    const svgHead = svgDoc.querySelector('head') || svgDoc.documentElement;
+    svgHead.appendChild(styleElem);
+  }
+  
+  /**
+   * Dispatch a custom event
+   * @private
+   * @param {string} name - Event name
+   * @param {Object} detail - Event details
+   */
+  dispatchEvent(name, detail = {}) {
+    const event = new CustomEvent(name, {
+      bubbles: true,
+      detail: {
+        svgHeader: this,
+        ...detail
+      }
+    });
+    
+    this.headerContainer.dispatchEvent(event);
+    document.dispatchEvent(event);
+  }
+  
+  /**
+   * Manually set a new SVG path
+   * @param {string} path - New SVG path
+   */
+  setSvgPath(path) {
+    if (!this.svgContainer) return;
+    
+    // Add loading state
+    this.headerContainer.classList.add(styles.svgLoading, 'svg-loading');
+    this.headerContainer.classList.remove(styles.svgLoaded, 'svg-loaded', styles.svgError, 'svg-error');
+    
+    // Update path
+    this.options.svgPath = path;
+    this.svgContainer.data = path;
+  }
+  
+  /**
+   * Manually set fallback text
+   * @param {string} text - New fallback text
+   */
+  setFallbackText(text) {
+    if (!this.headerContainer) return;
+    
+    this.options.fallbackText = text;
+    
+    const fallback = this.headerContainer.querySelector(`.${styles.svgFallback}, .svg-fallback`);
+    if (fallback) {
+      fallback.innerHTML = `<h2>${text}</h2>`;
+    }
+  }
+  
+  /**
+   * Manually destroy the component
+   */
+  destroy() {
+    if (!this.headerContainer) return;
+    
+    // Remove event listeners
+    if (this.svgContainer) {
+      this.svgContainer.removeEventListener('load', this.handleSvgLoad);
+      this.svgContainer.removeEventListener('error', this.handleSvgError);
+    }
+    
+    // Remove from DOM
+    this.headerContainer.remove();
+    
+    // Reset properties
+    this.headerContainer = null;
+    this.svgContainer = null;
+    this.initialized = false;
   }
 }
 
-// Export singleton instance
-export default new SvgHeader(); 
+export default SvgHeader; 

@@ -1,12 +1,7 @@
 /**
- * SettingsSection Component for Steam Deck DUB Edition
- * Provides structured layout for application settings
- * 
- * @module SettingsSection
- * @author Steam Deck DUB Edition Team
- * @version 1.0.0
+ * Steam Deck DUB Edition
+ * SettingsSection Component Export
  */
 
-import styles from './SettingsSection.module.css';
-
-export { default } from './SettingsSection'; 
+import SettingsSection from './SettingsSection';
+export default SettingsSection; 

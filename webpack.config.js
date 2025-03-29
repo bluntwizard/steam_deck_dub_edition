@@ -66,7 +66,7 @@ module.exports = (env, argv) => {
     
     // Entry points for the bundler
     entry: {
-      main: './src/index.js',
+      main: './src/js/index.js',
       accessibility: './src/accessibility.js',
       styles: './src/styles/index.js'
     },

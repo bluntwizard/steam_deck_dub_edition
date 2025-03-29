@@ -1,237 +1,415 @@
-/**
- * Code Blocks Component Implementation
- * 
- * Enhances code blocks with syntax highlighting, copy buttons, line numbers, and language labels
- * 
- * @module CodeBlocks
- * @author Steam Deck DUB Edition Team
- * @version 1.0.0
- */
-
 import styles from './CodeBlocks.module.css';
 
 /**
- * Code Blocks Controller
- * @class CodeBlocks
+ * CodeBlocks Component
+ * Enhances code blocks with syntax highlighting, copy functionality, and expandable features
  */
-class CodeBlocks {
-  /**
-   * Create a new CodeBlocks instance
-   */
-  constructor() {
+export class CodeBlocks {
+  constructor(options = {}) {
     /**
-     * Whether the controller has been initialized
+     * Whether to add copy buttons to code blocks
      * @type {boolean}
-     * @private
+     */
+    this.addCopyButtons = options.addCopyButtons !== false;
+    
+    /**
+     * Whether to add line numbers to code blocks
+     * @type {boolean}
+     */
+    this.lineNumbers = options.lineNumbers !== false;
+    
+    /**
+     * Whether to show language label on code blocks
+     * @type {boolean}
+     */
+    this.showLanguage = options.showLanguage || false;
+    
+    /**
+     * Whether to make long code blocks expandable
+     * @type {boolean}
+     */
+    this.expandableLongBlocks = options.expandableLongBlocks !== false;
+    
+    /**
+     * Height threshold for expandable code blocks (in pixels)
+     * @type {number}
+     */
+    this.expandThreshold = options.expandThreshold || 400;
+    
+    /**
+     * Whether to use syntax highlighting
+     * @type {boolean}
+     */
+    this.useSyntaxHighlighting = options.useSyntaxHighlighting !== false;
+    
+    /**
+     * Whether the component is initialized
+     * @type {boolean}
      */
     this.initialized = false;
     
-    /**
-     * Default options
-     * @type {Object}
-     * @private
-     */
-    this.options = {
-      addCopyButtons: true,
-      lineNumbers: true,
-      showLanguage: true
-    };
+    // Auto-initialize if specified
+    if (options.autoInit) {
+      this.initialize();
+    }
   }
   
   /**
-   * Initialize the code blocks with enhancements
-   * @param {Object} options - Configuration options
-   * @param {boolean} [options.addCopyButtons=true] - Whether to add copy buttons
-   * @param {boolean} [options.lineNumbers=true] - Whether to add line numbers
-   * @param {boolean} [options.showLanguage=true] - Whether to show language labels
+   * Initialize code blocks with additional features
+   * @param {Object} [options] - Initialization options
    * @returns {void}
    */
   initialize(options = {}) {
     if (this.initialized) return;
     
-    // Merge options with defaults
-    this.options = { ...this.options, ...options };
+    // Apply any new options
+    Object.assign(this, options);
     
-    // Find all code blocks
-    const codeBlocks = document.querySelectorAll('pre code');
+    // Set up mutation observer to catch dynamically added code blocks
+    this.setupMutationObserver();
     
-    if (codeBlocks.length === 0) {
-      console.log('No code blocks found to enhance');
-      return;
-    }
+    // Process existing code blocks
+    this.processCodeBlocks();
     
-    // Enhance each code block
-    codeBlocks.forEach(codeBlock => {
-      this.enhanceCodeBlock(codeBlock);
-    });
-    
-    // Add event listener for copy buttons
-    document.addEventListener('click', this.handleCopyClick.bind(this));
+    // Add event listener for content-inserted to handle lazy-loaded content
+    document.addEventListener('content-inserted', this.handleContentInserted.bind(this));
     
     this.initialized = true;
-    console.log(`Initialized ${codeBlocks.length} code blocks`);
+    console.log('CodeBlocks component initialized');
   }
   
   /**
-   * Enhance a single code block with features
-   * @param {HTMLElement} codeBlock - The code element to enhance
+   * Set up mutation observer to detect new code blocks
    * @private
    */
-  enhanceCodeBlock(codeBlock) {
-    const pre = codeBlock.parentElement;
+  setupMutationObserver() {
+    const observer = new MutationObserver(mutations => {
+      let shouldProcess = false;
+      
+      mutations.forEach(mutation => {
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach(node => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              // Check if the added node is a code block or contains code blocks
+              if (node.querySelector('pre code') || 
+                  node.matches('pre code') || 
+                  node.classList.contains('code-block') ||
+                  node.querySelector('.code-block')) {
+                shouldProcess = true;
+              }
+            }
+          });
+        }
+      });
+      
+      if (shouldProcess) {
+        this.processCodeBlocks();
+      }
+    });
     
-    // Skip if already enhanced
-    if (pre.classList.contains(styles['code-block-wrapper'])) {
-      return;
+    // Start observing the document
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+  
+  /**
+   * Handle content-inserted event for lazy-loaded content
+   * @private
+   * @param {CustomEvent} event - The content-inserted event
+   */
+  handleContentInserted(event) {
+    // Process code blocks in the inserted content
+    const section = event.detail.section;
+    if (section) {
+      setTimeout(() => {
+        this.processCodeBlocks(section);
+      }, 100); // Small delay to ensure content is fully rendered
     }
+  }
+  
+  /**
+   * Process all code blocks in the document or a specific container
+   * @param {HTMLElement} [container=document] - The container to search for code blocks
+   */
+  processCodeBlocks(container = document) {
+    // Process <pre><code> blocks
+    this.processPrefixedCodeBlocks(container);
     
-    // Create wrapper if not already wrapped
-    let wrapper = pre;
-    if (!pre.classList.contains(styles['code-block-wrapper'])) {
-      wrapper = document.createElement('div');
-      wrapper.className = styles['code-block-wrapper'];
-      pre.parentNode.insertBefore(wrapper, pre);
-      wrapper.appendChild(pre);
-    }
-    
-    // Add line numbers if enabled
-    if (this.options.lineNumbers) {
-      this.addLineNumbers(wrapper, codeBlock);
-    }
-    
-    // Add copy button if enabled
-    if (this.options.addCopyButtons) {
-      this.addCopyButton(wrapper);
-    }
-    
-    // Add language label if enabled
-    if (this.options.showLanguage) {
-      this.addLanguageLabel(wrapper, codeBlock);
-    }
+    // Process .code-block elements
+    this.processCodeBlockElements(container);
+  }
+  
+  /**
+   * Process <pre><code> elements
+   * @private
+   * @param {HTMLElement} container - The container to search in
+   */
+  processPrefixedCodeBlocks(container) {
+    container.querySelectorAll('pre code').forEach(codeBlock => {
+      // Skip already processed blocks
+      if (codeBlock.dataset.processed) return;
+      codeBlock.dataset.processed = 'true';
+      
+      const preElement = codeBlock.parentNode;
+      
+      // Add class to parent pre element for styling
+      preElement.classList.add(styles.codeBlock);
+      
+      // Add line numbers if enabled
+      if (this.lineNumbers) {
+        this.addLineNumbers(codeBlock);
+      }
+      
+      // Add language label if enabled
+      if (this.showLanguage) {
+        this.addLanguageLabel(codeBlock);
+      }
+      
+      // Apply syntax highlighting if available and enabled
+      if (this.useSyntaxHighlighting && window.Prism && !codeBlock.classList.contains('language-none')) {
+        // Get language from class or default to bash
+        const hasLanguageClass = Array.from(codeBlock.classList).some(cls => cls.startsWith('language-'));
+        if (!hasLanguageClass) {
+          codeBlock.classList.add('language-bash');
+        }
+        
+        window.Prism.highlightElement(codeBlock);
+      }
+      
+      // Add copy button if enabled
+      if (this.addCopyButtons) {
+        this.addCopyButton(preElement);
+      }
+      
+      // Make expandable if it's a long block and the option is enabled
+      if (this.expandableLongBlocks) {
+        this.makeExpandableIfLong(preElement);
+      }
+    });
+  }
+  
+  /**
+   * Process .code-block elements
+   * @private
+   * @param {HTMLElement} container - The container to search in
+   */
+  processCodeBlockElements(container) {
+    container.querySelectorAll('.code-block').forEach(block => {
+      // Skip already processed blocks
+      if (block.dataset.processed) return;
+      block.dataset.processed = 'true';
+      
+      // Add our component styles
+      block.classList.add(styles.codeBlock);
+      
+      // Add copy button if enabled and not already present
+      if (this.addCopyButtons && !block.querySelector('.copy-button')) {
+        this.addCopyButton(block);
+      }
+      
+      // Make expandable if it's a long block and the option is enabled
+      if (this.expandableLongBlocks) {
+        this.makeExpandableIfLong(block);
+      }
+      
+      // Process code elements inside if they exist
+      const codeElement = block.querySelector('code');
+      if (codeElement && !codeElement.dataset.processed) {
+        codeElement.dataset.processed = 'true';
+        
+        // Add line numbers if enabled
+        if (this.lineNumbers) {
+          this.addLineNumbers(codeElement);
+        }
+        
+        // Add language label if enabled
+        if (this.showLanguage) {
+          this.addLanguageLabel(codeElement);
+        }
+        
+        // Apply syntax highlighting if available and enabled
+        if (this.useSyntaxHighlighting && window.Prism && !codeElement.classList.contains('language-none')) {
+          // Get language from class or default to bash
+          const hasLanguageClass = Array.from(codeElement.classList).some(cls => cls.startsWith('language-'));
+          if (!hasLanguageClass) {
+            codeElement.classList.add('language-bash');
+          }
+          
+          window.Prism.highlightElement(codeElement);
+        }
+      }
+    });
   }
   
   /**
    * Add line numbers to a code block
-   * @param {HTMLElement} wrapper - The code block wrapper
-   * @param {HTMLElement} codeBlock - The code element
    * @private
+   * @param {HTMLElement} codeBlock - The code block to add line numbers to
    */
-  addLineNumbers(wrapper, codeBlock) {
-    wrapper.classList.add(styles['line-numbers']);
+  addLineNumbers(codeBlock) {
+    // Skip if already has line numbers
+    if (codeBlock.parentNode.querySelector(`.${styles.lineNumbers}`)) return;
     
-    // Count lines
-    const content = codeBlock.textContent;
-    const lines = content.split('\n').length;
-    
-    // Create line numbers container
-    const lineNumbersWrapper = document.createElement('div');
-    lineNumbersWrapper.className = styles['line-numbers-rows'];
-    
-    // Add spans for each line
-    for (let i = 0; i < lines; i++) {
-      const lineSpan = document.createElement('span');
-      lineNumbersWrapper.appendChild(lineSpan);
+    const lines = codeBlock.textContent.split('\n').length;
+    if (lines > 1) {
+      const lineNumbers = document.createElement('div');
+      lineNumbers.className = styles.lineNumbers;
+      
+      for (let i = 1; i <= lines; i++) {
+        const lineNumber = document.createElement('span');
+        lineNumber.textContent = i;
+        lineNumbers.appendChild(lineNumber);
+      }
+      
+      codeBlock.parentNode.insertBefore(lineNumbers, codeBlock);
+      codeBlock.parentNode.classList.add(styles.hasLineNumbers);
     }
-    
-    wrapper.appendChild(lineNumbersWrapper);
-  }
-  
-  /**
-   * Add a copy button to a code block
-   * @param {HTMLElement} wrapper - The code block wrapper
-   * @private
-   */
-  addCopyButton(wrapper) {
-    const button = document.createElement('button');
-    button.className = styles['copy-code-button'];
-    button.setAttribute('aria-label', 'Copy code to clipboard');
-    button.setAttribute('title', 'Copy code to clipboard');
-    
-    // SVG icon
-    button.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-      </svg>
-    `;
-    
-    wrapper.appendChild(button);
   }
   
   /**
    * Add a language label to a code block
-   * @param {HTMLElement} wrapper - The code block wrapper
-   * @param {HTMLElement} codeBlock - The code element
    * @private
+   * @param {HTMLElement} codeBlock - The code block to add a language label to
    */
-  addLanguageLabel(wrapper, codeBlock) {
-    // Extract language from class (e.g., "language-javascript")
-    const langClasses = Array.from(codeBlock.classList)
-      .filter(cls => cls.startsWith('language-'));
+  addLanguageLabel(codeBlock) {
+    // Skip if already has language label
+    if (codeBlock.parentNode.querySelector(`.${styles.languageLabel}`)) return;
     
-    if (langClasses.length === 0) return;
-    
-    const language = langClasses[0].replace('language-', '');
-    if (!language) return;
-    
-    // Create label
-    const label = document.createElement('div');
-    label.className = styles['code-language-label'];
-    label.textContent = language;
-    
-    wrapper.appendChild(label);
+    // Get the language from the class
+    const languageClass = Array.from(codeBlock.classList).find(cls => cls.startsWith('language-'));
+    if (languageClass) {
+      const language = languageClass.replace('language-', '');
+      if (language !== 'none') {
+        const label = document.createElement('div');
+        label.className = styles.languageLabel;
+        label.textContent = language;
+        codeBlock.parentNode.insertBefore(label, codeBlock);
+      }
+    }
   }
   
   /**
-   * Handle click events on copy buttons
-   * @param {Event} event - Click event
+   * Add a copy button to a code block
    * @private
+   * @param {HTMLElement} block - The code block container to add a copy button to
    */
-  handleCopyClick(event) {
-    const target = event.target;
-    const copyButton = target.closest(`.${styles['copy-code-button']}`);
+  addCopyButton(block) {
+    // Skip if already has copy button
+    if (block.querySelector(`.${styles.copyButton}`)) return;
     
-    if (!copyButton) return;
+    // Create copy button
+    const copyButton = document.createElement('button');
+    copyButton.className = styles.copyButton;
+    copyButton.textContent = 'Copy';
+    copyButton.title = 'Copy to clipboard';
     
-    // Get the code content
-    const wrapper = copyButton.closest(`.${styles['code-block-wrapper']}`);
-    const codeBlock = wrapper.querySelector('code');
-    const code = codeBlock.textContent;
+    // Add the button to the code block
+    block.insertBefore(copyButton, block.firstChild);
     
-    // Copy to clipboard
-    navigator.clipboard.writeText(code)
-      .then(() => {
-        // Show success state
-        copyButton.classList.add(styles['copy-success']);
-        
-        // Store original content
-        const originalContent = copyButton.innerHTML;
-        
-        // Update button content
-        copyButton.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-        `;
+    // Set up click handler
+    copyButton.addEventListener('click', () => {
+      const codeElement = block.querySelector('code') || block;
+      if (!codeElement) return;
+      
+      // Copy text to clipboard
+      navigator.clipboard.writeText(codeElement.textContent).then(() => {
+        // Success feedback
+        copyButton.textContent = 'Copied!';
+        copyButton.classList.add(styles.copied);
         
         // Reset after delay
         setTimeout(() => {
-          copyButton.classList.remove(styles['copy-success']);
-          copyButton.innerHTML = originalContent;
+          copyButton.textContent = 'Copy';
+          copyButton.classList.remove(styles.copied);
         }, 2000);
-      })
-      .catch(error => {
-        console.error('Failed to copy code:', error);
-        
-        // Show error state
-        copyButton.classList.add(styles['copy-error']);
+      }).catch(err => {
+        // Error feedback
+        console.error('Failed to copy text: ', err);
+        copyButton.textContent = 'Failed';
         
         // Reset after delay
         setTimeout(() => {
-          copyButton.classList.remove(styles['copy-error']);
+          copyButton.textContent = 'Copy';
         }, 2000);
       });
+    });
   }
-}
-
-export default new CodeBlocks(); 
+  
+  /**
+   * Make a code block expandable if it's longer than the threshold
+   * @private
+   * @param {HTMLElement} block - The code block to make expandable
+   */
+  makeExpandableIfLong(block) {
+    // Skip if already expandable
+    if (block.classList.contains(styles.expandable) || block.classList.contains(styles.expanded)) return;
+    
+    const codeElement = block.querySelector('pre') || block;
+    
+    // Check if code block is long (height > threshold)
+    if (codeElement.scrollHeight > this.expandThreshold) {
+      // Add expandable class and click functionality
+      block.classList.add(styles.expandable);
+      
+      // Add expand button
+      const expandButton = document.createElement('button');
+      expandButton.className = styles.expandButton;
+      expandButton.textContent = 'Show more';
+      
+      // Add button to the bottom of the container
+      const expandWrapper = document.createElement('div');
+      expandWrapper.className = styles.expandWrapper;
+      expandWrapper.appendChild(expandButton);
+      block.appendChild(expandWrapper);
+      
+      // Set up click handler
+      expandButton.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent event bubbling
+        
+        // Toggle expanded state
+        if (block.classList.contains(styles.expanded)) {
+          block.classList.remove(styles.expanded);
+          expandButton.textContent = 'Show more';
+        } else {
+          block.classList.add(styles.expanded);
+          expandButton.textContent = 'Show less';
+        }
+      });
+      
+      // Also allow clicking anywhere on the code block to expand
+      block.addEventListener('click', function(e) {
+        // Don't trigger when clicking copy button
+        if (e.target.classList.contains(styles.copyButton)) return;
+        
+        // Toggle expanded state
+        if (block.classList.contains(styles.expanded)) {
+          block.classList.remove(styles.expanded);
+          expandButton.textContent = 'Show more';
+        } else {
+          block.classList.add(styles.expanded);
+          expandButton.textContent = 'Show less';
+        }
+      });
+    }
+  }
+  
+  /**
+   * Update all expandable code blocks with new state
+   * @param {boolean} expanded - Whether the blocks should be expanded
+   */
+  updateExpandableCodeBlocks(expanded) {
+    document.querySelectorAll(`.${styles.expandable}`).forEach(block => {
+      const expandButton = block.querySelector(`.${styles.expandButton}`);
+      
+      if (expanded) {
+        block.classList.add(styles.expanded);
+        if (expandButton) expandButton.textContent = 'Show less';
+      } else {
+        block.classList.remove(styles.expanded);
+        if (expandButton) expandButton.textContent = 'Show more';
+      }
+    });
+  }
+} 

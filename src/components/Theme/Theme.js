@@ -1,71 +1,54 @@
 /**
- * Theme Controller for Steam Deck DUB Edition
- * Handles theme switching and persistence
+ * Steam Deck DUB Edition
+ * Theme Component
  * 
- * @module Theme
- * @author Steam Deck DUB Edition Team
- * @version 1.0.0
+ * Manages theme settings and switching between light and dark themes
  */
 
 import styles from './Theme.module.css';
 
-/**
- * @typedef {'dark' | 'light' | 'system'} ThemePreference
- * The user's preferred theme setting
- * 'light' represents the Catppuccin Latte theme
- */
-
-/**
- * @typedef {'dark' | 'light'} ActiveTheme
- * The currently active theme (after system preference is resolved)
- */
-
-/**
- * @typedef {Object} ThemeChangeEvent
- * @property {ActiveTheme} theme - The active theme ('dark' or 'light')
- * @property {ThemePreference} preference - The user preference ('dark', 'light', or 'system')
- */
-
-/**
- * @class ThemeController
- * @classdesc Manages UI theme switching and persistence
- */
-class ThemeController {
-  constructor() {
+class Theme {
+  constructor(options = {}) {
     /**
-     * Current theme ('dark', 'light', 'system')
-     * @type {ThemePreference}
-     * @private
+     * Available themes in the application
+     * @type {Array<string>}
      */
-    this.currentTheme = 'system';
+    this.availableThemes = options.themes || ['light', 'dark', 'dracula', 'high-contrast'];
     
     /**
-     * List of available themes
-     * @type {Array<ThemePreference>}
-     * @private
+     * Current active theme
+     * @type {string}
      */
-    this.availableThemes = ['dark', 'light', 'system'];
+    this.currentTheme = options.defaultTheme || 'dark';
     
     /**
-     * Whether the controller is initialized
+     * Storage key for saving theme preference
+     * @type {string}
+     */
+    this.storageKey = options.storageKey || 'sdde_theme_preference';
+    
+    /**
+     * Whether the component is initialized
      * @type {boolean}
-     * @private
      */
     this.initialized = false;
     
     /**
-     * Storage key for theme preference
-     * @type {string}
-     * @private
+     * Whether to use localStorage for persistent settings
+     * @type {boolean}
      */
-    this.storageKey = 'sdde_theme_preference';
+    this.persistSettings = options.persistSettings !== false;
     
     /**
-     * Media query for detecting system color scheme
-     * @type {MediaQueryList|null}
-     * @private
+     * Element that will have the data-theme attribute
+     * @type {HTMLElement}
      */
-    this.prefersDarkQuery = null;
+    this.rootElement = options.rootElement || document.documentElement;
+    
+    // Auto initialize if specified
+    if (options.autoInit) {
+      this.initialize();
+    }
   }
   
   /**
@@ -75,369 +58,246 @@ class ThemeController {
   initialize() {
     if (this.initialized) return;
     
-    // Set up system preference detection
-    this.prefersDarkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    // Load saved theme from localStorage
+    this.loadSavedTheme();
     
-    // Load saved preference
-    this.loadThemePreference();
+    // Apply the current theme
+    this.applyTheme(this.currentTheme);
     
-    // Apply current theme
-    this.applyTheme();
+    // Set up system theme detection if needed
+    this.setupSystemThemeDetection();
     
-    // Set up theme toggle event listeners
-    this.setupEventListeners();
+    // Set up theme toggle buttons
+    this.setupThemeToggles();
     
-    // Set up system preference change listener
-    this.prefersDarkQuery.addEventListener('change', () => {
-      if (this.currentTheme === 'system') {
-        this.applyTheme();
-      }
-    });
-    
+    console.log(`Theme initialized with ${this.currentTheme} theme`);
     this.initialized = true;
-    console.log('Theme controller initialized with theme:', this.currentTheme);
   }
   
   /**
-   * Load theme preference from localStorage
+   * Load the saved theme from localStorage
    * @private
    * @returns {void}
    */
-  loadThemePreference() {
-    const savedTheme = localStorage.getItem(this.storageKey);
+  loadSavedTheme() {
+    if (!this.persistSettings) return;
     
-    // Validate saved theme
-    if (savedTheme && this.availableThemes.includes(savedTheme)) {
-      this.currentTheme = savedTheme;
-    } else {
-      // Default to system
-      this.currentTheme = 'system';
+    try {
+      const savedTheme = localStorage.getItem(this.storageKey);
+      if (savedTheme && this.availableThemes.includes(savedTheme)) {
+        this.currentTheme = savedTheme;
+      }
+    } catch (error) {
+      console.warn('Could not access localStorage for theme settings', error);
     }
   }
   
   /**
-   * Apply the current theme to the document
-   * @private
-   * @returns {void}
+   * Apply the specified theme to the document
+   * @param {string} theme - Theme name to apply
+   * @returns {boolean} Success status
    */
-  applyTheme() {
-    // Remove all theme classes first
-    document.documentElement.classList.remove('dark-theme', 'light-theme');
-    
-    // Determine which theme to apply
-    let themeToApply = this.currentTheme;
-    
-    // If system preference, check OS setting
-    if (themeToApply === 'system') {
-      themeToApply = this.prefersDarkQuery.matches ? 'dark' : 'light';
-    }
-    
-    // Apply the appropriate class
-    if (themeToApply === 'dark') {
-      document.documentElement.classList.add('dark-theme');
-    } else {
-      document.documentElement.classList.add('light-theme');
-    }
-    
-    // Update theme toggle buttons if they exist
-    this.updateToggleButtons();
-    
-    // Dispatch event for other components
-    document.dispatchEvent(new CustomEvent('theme-changed', {
-      detail: {
-        theme: themeToApply,
-        preference: this.currentTheme
-      }
-    }));
-  }
-  
-  /**
-   * Update UI of theme toggle buttons
-   * @private
-   * @returns {void}
-   */
-  updateToggleButtons() {
-    // Update standard theme toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    if (themeToggle) {
-      // Update icon or text based on current theme
-      const isDark = document.documentElement.classList.contains('dark-theme');
-      
-      // If the toggle has an icon inside it
-      const toggleIcon = themeToggle.querySelector('svg');
-      if (toggleIcon) {
-        // Different SVG paths for sun/moon icons
-        if (isDark) {
-          toggleIcon.innerHTML = `
-            <path d="M12 3a9 9 0 0 0 9 9m0-9c0 6.627-5.373 12-12 12S0 15.627 0 9 5.373 0 12 0s12 5.373 12 12ZM12 3a9 9 0 0 1 9 9" />
-          `;
-        } else {
-          toggleIcon.innerHTML = `
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-          `;
-        }
-      } else {
-        // Text fallback if no icon
-        themeToggle.textContent = isDark ? 'Catppuccin Latte' : 'Dark Mode';
-      }
-      
-      // Update title/aria-label
-      themeToggle.setAttribute('aria-label', 
-        isDark ? 'Switch to light mode' : 'Switch to dark mode'
-      );
-    }
-    
-    // Update any radio buttons for theme selection
-    document.querySelectorAll('[name="theme-choice"]').forEach(radio => {
-      if (radio.value === this.currentTheme) {
-        radio.checked = true;
-      }
-    });
-  }
-
-  /**
-   * Set up event listeners for theme controls
-   * @private
-   * @returns {void}
-   */
-  setupEventListeners() {
-    // Simple theme toggle button
-    const themeToggle = document.getElementById('theme-toggle');
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => {
-        // Toggle between light and dark
-        const isDark = document.documentElement.classList.contains('dark-theme');
-        this.setTheme(isDark ? 'light' : 'dark');
-      });
-    }
-    
-    // Theme choice radio buttons
-    document.querySelectorAll('[name="theme-choice"]').forEach(radio => {
-      radio.addEventListener('change', () => {
-        if (radio.checked) {
-          this.setTheme(radio.value);
-        }
-      });
-    });
-    
-    // Listen for theme toggle buttons added dynamically
-    document.addEventListener('click', (e) => {
-      if (e.target.matches('[data-theme-toggle]') || e.target.closest('[data-theme-toggle]')) {
-        const toggle = e.target.matches('[data-theme-toggle]') 
-          ? e.target 
-          : e.target.closest('[data-theme-toggle]');
-        
-        const theme = toggle.dataset.themeValue || '';
-        
-        if (theme && this.availableThemes.includes(theme)) {
-          // Specific theme
-          this.setTheme(theme);
-        } else {
-          // Toggle current theme
-          const isDark = document.documentElement.classList.contains('dark-theme');
-          this.setTheme(isDark ? 'light' : 'dark');
-        }
-      }
-    });
-  }
-  
-  /**
-   * Set the active theme
-   * @param {string} theme - The theme to set ('dark', 'light', or 'system')
-   * @returns {void}
-   */
-  setTheme(theme) {
+  applyTheme(theme) {
     // Validate theme
     if (!this.availableThemes.includes(theme)) {
-      console.error(`Invalid theme: ${theme}. Must be one of: ${this.availableThemes.join(', ')}`);
-      return;
+      console.error(`Theme "${theme}" is not available`);
+      return false;
     }
+    
+    // Remove all theme classes first
+    this.availableThemes.forEach(t => {
+      this.rootElement.classList.remove(`theme-${t}`);
+    });
+    
+    // Set data-theme attribute
+    this.rootElement.setAttribute('data-theme', theme);
+    
+    // Add theme class
+    this.rootElement.classList.add(`theme-${theme}`);
     
     // Update current theme
     this.currentTheme = theme;
     
-    // Save preference
-    localStorage.setItem(this.storageKey, theme);
+    // Save to localStorage if enabled
+    this.saveThemePreference();
     
-    // Apply theme
-    this.applyTheme();
+    // Dispatch theme change event
+    this.dispatchThemeChangeEvent();
     
-    console.log(`Theme set to: ${theme}`);
+    return true;
+  }
+  
+  /**
+   * Save the current theme preference to localStorage
+   * @private
+   * @returns {void}
+   */
+  saveThemePreference() {
+    if (!this.persistSettings) return;
+    
+    try {
+      localStorage.setItem(this.storageKey, this.currentTheme);
+    } catch (error) {
+      console.warn('Could not save theme setting to localStorage', error);
+    }
+  }
+  
+  /**
+   * Toggle between light and dark themes
+   * @returns {string} The new active theme
+   */
+  toggleTheme() {
+    const newTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+    this.applyTheme(newTheme);
+    return newTheme;
+  }
+  
+  /**
+   * Switch to a specific theme
+   * @param {string} theme - The theme to switch to
+   * @returns {boolean} Success status
+   */
+  setTheme(theme) {
+    return this.applyTheme(theme);
   }
   
   /**
    * Get the current active theme
-   * @returns {string} The current theme ('dark' or 'light')
+   * @returns {string} The current theme
    */
-  getCurrentTheme() {
-    // Return the actual applied theme (not preference)
-    return document.documentElement.classList.contains('dark-theme') ? 'dark' : 'light';
-  }
-  
-  /**
-   * Get the user's theme preference
-   * @returns {string} The user's preference ('dark', 'light', or 'system')
-   */
-  getThemePreference() {
+  getTheme() {
     return this.currentTheme;
   }
   
   /**
-   * Check if the current theme is dark
-   * @returns {boolean} True if dark theme is active
+   * Set up detection for system theme preference changes
+   * @private
+   * @returns {void}
    */
-  isDarkTheme() {
-    return document.documentElement.classList.contains('dark-theme');
+  setupSystemThemeDetection() {
+    // Check if the browser supports prefers-color-scheme
+    if (window.matchMedia) {
+      const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      
+      // Define handler function
+      const handleSystemThemeChange = (e) => {
+        // Only auto-switch if no explicit user preference is saved
+        if (!localStorage.getItem(this.storageKey)) {
+          const systemTheme = e.matches ? 'dark' : 'light';
+          this.applyTheme(systemTheme);
+        }
+      };
+      
+      // Set initial theme based on system preference if no saved preference
+      if (!localStorage.getItem(this.storageKey)) {
+        const systemTheme = darkModeMediaQuery.matches ? 'dark' : 'light';
+        this.applyTheme(systemTheme);
+      }
+      
+      // Add listener for changes
+      try {
+        // Try using the modern API (newer browsers)
+        darkModeMediaQuery.addEventListener('change', handleSystemThemeChange);
+      } catch (error) {
+        // Fall back to deprecated API (older browsers)
+        darkModeMediaQuery.addListener(handleSystemThemeChange);
+      }
+    }
   }
-
-  /**
-   * Creates a theme toggle button with accessibility features
-   * @returns {HTMLElement} The created theme toggle button
-   */
-  createToggleButton() {
-    // Create button
-    const button = document.createElement('button');
-    button.id = 'theme-toggle';
-    button.className = styles['theme-toggle-btn'];
-    button.setAttribute('aria-label', `Switch to ${this.getNextTheme()} theme`);
-    
-    // Create icon container
-    const iconContainer = document.createElement('span');
-    iconContainer.className = styles['theme-icon-container'];
-    iconContainer.setAttribute('aria-hidden', 'true');
-    
-    // Create light mode icon
-    const lightIcon = document.createElement('span');
-    lightIcon.className = `${styles['theme-icon']} ${styles['light-icon']}`;
-    lightIcon.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="5"></circle>
-        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
-      </svg>
-    `;
-    
-    // Create dark mode icon
-    const darkIcon = document.createElement('span');
-    darkIcon.className = `${styles['theme-icon']} ${styles['dark-icon']}`;
-    darkIcon.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-      </svg>
-    `;
-    
-    // Create system mode icon (if needed)
-    const systemIcon = document.createElement('span');
-    systemIcon.className = `${styles['theme-icon']} ${styles['system-icon']}`;
-    systemIcon.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="2" y="3" width="20" height="14" rx="2"></rect>
-        <path d="M8 21h8M12 17v4"></path>
-      </svg>
-    `;
-    
-    // Append icons to container
-    iconContainer.appendChild(lightIcon);
-    iconContainer.appendChild(darkIcon);
-    iconContainer.appendChild(systemIcon);
-    
-    // Add text for screen readers
-    const srText = document.createElement('span');
-    srText.className = styles['sr-only'];
-    srText.textContent = `Current theme: ${this.getCurrentThemeLabel()}`;
-    srText.id = 'theme-status';
-    
-    // Append children to button
-    button.appendChild(iconContainer);
-    button.appendChild(srText);
   
-    // Add event listener
-    button.addEventListener('click', () => {
-      this.toggleTheme();
+  /**
+   * Set up event listeners for theme toggle buttons
+   * @private
+   * @returns {void}
+   */
+  setupThemeToggles() {
+    // Find theme toggle elements
+    const toggles = document.querySelectorAll(
+      '.theme-toggle, [data-theme-toggle], #theme-toggle'
+    );
+    
+    // Add click handlers
+    toggles.forEach(toggle => {
+      // Skip if already initialized
+      if (toggle.dataset.themeInitialized === 'true') return;
       
-      // Update the aria-label and status text
-      button.setAttribute('aria-label', `Switch to ${this.getNextTheme()} theme`);
-      srText.textContent = `Current theme: ${this.getCurrentThemeLabel()}`;
+      toggle.addEventListener('click', () => {
+        // If a specific theme is specified in the data attribute, use it
+        if (toggle.dataset.theme && this.availableThemes.includes(toggle.dataset.theme)) {
+          this.applyTheme(toggle.dataset.theme);
+        } else {
+          // Otherwise toggle between light and dark
+          this.toggleTheme();
+        }
+      });
       
-      // Announce theme change to screen readers
-      this.announceThemeChange();
+      // Mark as initialized
+      toggle.dataset.themeInitialized = 'true';
     });
+  }
+  
+  /**
+   * Create a theme toggle button
+   * @param {Object} options - Button options
+   * @param {string} [options.position='bottom-right'] - Position of the button
+   * @param {HTMLElement} [options.container] - Container to append the button to
+   * @returns {HTMLElement} The created button
+   */
+  createToggleButton(options = {}) {
+    const position = options.position || 'bottom-right';
+    const container = options.container || document.body;
     
-    return button;
-  }
-
-  /**
-   * Toggle through the available themes
-   */
-  toggleTheme() {
-    const currentIndex = this.availableThemes.indexOf(this.currentTheme);
-    const nextIndex = (currentIndex + 1) % this.availableThemes.length;
-    this.setTheme(this.availableThemes[nextIndex]);
-  }
-
-  /**
-   * Gets the next theme in rotation
-   * @private
-   * @returns {string} The name of the next theme
-   */
-  getNextTheme() {
-    const currentIndex = this.availableThemes.indexOf(this.currentTheme);
-    const nextIndex = (currentIndex + 1) % this.availableThemes.length;
-    const nextTheme = this.availableThemes[nextIndex];
+    // Create container if not exists
+    let toggleContainer = document.querySelector(`.${styles.themeToggleContainer}`);
     
-    return this.getThemeLabel(nextTheme);
-  }
-
-  /**
-   * Gets a human-readable label for the theme
-   * @private
-   * @param {ThemePreference} theme - The theme preference
-   * @returns {string} A human-readable label
-   */
-  getThemeLabel(theme) {
-    switch (theme) {
-      case 'dark': return 'Dark';
-      case 'light': return 'Light';
-      case 'system': return 'System';
-      default: return theme;
-    }
-  }
-
-  /**
-   * Gets the label for the current theme
-   * @private
-   * @returns {string} A human-readable label for the current theme
-   */
-  getCurrentThemeLabel() {
-    return this.getThemeLabel(this.currentTheme);
-  }
-
-  /**
-   * Announce theme change to screen readers
-   * @private
-   */
-  announceThemeChange() {
-    let announcer = document.getElementById('theme-announcer');
-    
-    if (!announcer) {
-      announcer = document.createElement('div');
-      announcer.id = 'theme-announcer';
-      announcer.className = styles['sr-only'];
-      announcer.setAttribute('aria-live', 'polite');
-      announcer.setAttribute('aria-atomic', 'true');
-      document.body.appendChild(announcer);
+    if (!toggleContainer) {
+      toggleContainer = document.createElement('div');
+      toggleContainer.className = styles.themeToggleContainer;
+      toggleContainer.classList.add(styles[`position-${position}`]);
+      
+      // Create button
+      const button = document.createElement('button');
+      button.id = 'theme-toggle';
+      button.className = styles.themeToggleButton;
+      button.setAttribute('aria-label', 'Toggle theme');
+      button.setAttribute('title', 'Toggle light/dark theme');
+      
+      // Create icons
+      const lightIcon = document.createElement('span');
+      lightIcon.className = styles.themeToggleLight;
+      lightIcon.innerHTML = '☀️';
+      
+      const darkIcon = document.createElement('span');
+      darkIcon.className = styles.themeToggleDark;
+      darkIcon.innerHTML = '🌙';
+      
+      // Add click handler
+      button.addEventListener('click', () => this.toggleTheme());
+      
+      // Assemble button
+      button.appendChild(lightIcon);
+      button.appendChild(darkIcon);
+      toggleContainer.appendChild(button);
+      
+      // Add to container
+      container.appendChild(toggleContainer);
     }
     
-    announcer.textContent = `Theme changed to ${this.getCurrentThemeLabel()}`;
-    
-    // Clear after a delay
-    setTimeout(() => {
-      announcer.textContent = '';
-    }, 1000);
+    return toggleContainer;
+  }
+  
+  /**
+   * Dispatch a theme change event
+   * @private
+   * @returns {void}
+   */
+  dispatchThemeChangeEvent() {
+    document.dispatchEvent(new CustomEvent('theme-changed', {
+      detail: {
+        theme: this.currentTheme
+      }
+    }));
   }
 }
 
-// Create singleton instance
-const themeController = new ThemeController();
-
-// Export the singleton
-export default themeController; 
+export default Theme; 

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDDE Components Example</title>
+    <link rel="stylesheet" href="../dist/sdde-components.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .demo-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #1a9fff;
+        }
+        button {
+            margin: 5px;
+            padding: 8px 16px;
+            background-color: #1a9fff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0080ff;
+        }
+    </style>
+</head>
+<body>
+    <h1>SDDE Components Example</h1>
+    
+    <div class="demo-section">
+        <h2>Dialog Component</h2>
+        <button id="openDialog">Open Dialog</button>
+        <button id="openConfirmDialog">Open Confirm Dialog</button>
+    </div>
+    
+    <div class="demo-section">
+        <h2>Notification System</h2>
+        <button id="showInfoNotif">Show Info Notification</button>
+        <button id="showSuccessNotif">Show Success Notification</button>
+        <button id="showWarningNotif">Show Warning Notification</button>
+        <button id="showErrorNotif">Show Error Notification</button>
+    </div>
+    
+    <div class="demo-section">
+        <h2>Page Loader</h2>
+        <button id="showLoader">Show Loader</button>
+        <button id="showLoaderWithProgress">Show Loader with Progress</button>
+    </div>
+    
+    <div class="demo-section">
+        <h2>Error Handler</h2>
+        <button id="triggerError">Trigger Error</button>
+        <button id="triggerCriticalError">Trigger Critical Error</button>
+    </div>
+    
+    <div class="demo-section">
+        <h2>Help Center</h2>
+        <button id="openHelpCenter">Open Help Center</button>
+    </div>
+
+    <script src="../dist/sdde-components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize components
+            const notificationSystem = new SDDE.NotificationSystem({
+                position: 'top-right'
+            });
+            
+            const errorHandler = new SDDE.ErrorHandler({
+                showNotifications: true,
+                notificationSystem: notificationSystem
+            });
+            
+            const pageLoader = new SDDE.PageLoader({
+                container: document.body
+            });
+            
+            const helpCenter = new SDDE.HelpCenter({
+                container: document.body,
+                helpContentUrl: './help-content/'
+            });
+            
+            // Dialog examples
+            document.getElementById('openDialog').addEventListener('click', () => {
+                const dialog = new SDDE.Dialog({
+                    title: 'Example Dialog',
+                    content: 'This is a simple dialog example.',
+                    buttons: [
+                        { text: 'Close', action: 'close' }
+                    ]
+                });
+                dialog.open();
+            });
+            
+            document.getElementById('openConfirmDialog').addEventListener('click', () => {
+                const dialog = new SDDE.Dialog({
+                    title: 'Confirm Action',
+                    content: 'Are you sure you want to proceed?',
+                    buttons: [
+                        { text: 'Cancel', action: 'close' },
+                        { text: 'OK', action: () => {
+                            notificationSystem.showNotification({
+                                type: 'success',
+                                message: 'Action confirmed!'
+                            });
+                        }}
+                    ]
+                });
+                dialog.open();
+            });
+            
+            // Notification examples
+            document.getElementById('showInfoNotif').addEventListener('click', () => {
+                notificationSystem.showNotification({
+                    type: 'info',
+                    message: 'This is an information message.'
+                });
+            });
+            
+            document.getElementById('showSuccessNotif').addEventListener('click', () => {
+                notificationSystem.showNotification({
+                    type: 'success',
+                    message: 'Operation completed successfully!'
+                });
+            });
+            
+            document.getElementById('showWarningNotif').addEventListener('click', () => {
+                notificationSystem.showNotification({
+                    type: 'warning',
+                    message: 'Warning: This action might have consequences.'
+                });
+            });
+            
+            document.getElementById('showErrorNotif').addEventListener('click', () => {
+                notificationSystem.showNotification({
+                    type: 'error',
+                    message: 'An error occurred while processing your request.'
+                });
+            });
+            
+            // PageLoader examples
+            document.getElementById('showLoader').addEventListener('click', () => {
+                pageLoader.show();
+                setTimeout(() => pageLoader.hide(), 3000);
+            });
+            
+            document.getElementById('showLoaderWithProgress').addEventListener('click', () => {
+                pageLoader.show();
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 10;
+                    pageLoader.updateProgress(progress);
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => pageLoader.hide(), 500);
+                    }
+                }, 300);
+            });
+            
+            // ErrorHandler examples
+            document.getElementById('triggerError').addEventListener('click', () => {
+                errorHandler.handleError(new Error('This is a test error'), {
+                    userMessage: 'A non-critical error occurred',
+                    displayMode: 'notification'
+                });
+            });
+            
+            document.getElementById('triggerCriticalError').addEventListener('click', () => {
+                errorHandler.handleError(new Error('This is a critical error'), {
+                    userMessage: 'A critical error occurred',
+                    displayMode: 'modal',
+                    actionButtons: [
+                        { text: 'Retry', action: () => {
+                            notificationSystem.showNotification({
+                                type: 'info',
+                                message: 'Retrying operation...'
+                            });
+                        }}
+                    ]
+                });
+            });
+            
+            // HelpCenter examples
+            document.getElementById('openHelpCenter').addEventListener('click', () => {
+                helpCenter.open();
+            });
+        });
+    </script>
+</body>
+</html> 

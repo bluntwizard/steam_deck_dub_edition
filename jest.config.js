@@ -1,5 +1,5 @@
 module.exports = {
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   testMatch: ['**/__tests__/**/*.js', '**/?(*.)+(spec|test).js'],
   collectCoverage: true,
   coverageDirectory: 'coverage',
@@ -7,5 +7,11 @@ module.exports = {
     'src/**/*.js',
     '!**/node_modules/**',
     '!**/dist/**'
-  ]
+  ],
+  transform: {
+    '^.+\\.js$': 'babel-jest'
+  },
+  moduleNameMapper: {
+    '\\.(css|less|scss|sass)$': '<rootDir>/__mocks__/styleMock.js'
+  }
 };

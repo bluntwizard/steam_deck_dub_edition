@@ -9,4 +9,4 @@ export { default as pdfExport } from './pdf-export.js';
 export { default as progressTracker } from './progress-tracker.js';
 export { default as search } from './search.js';
 export { default as settings } from './settings.js';
-export { default as versionManager } from '../../components/VersionManager';
+export { default as versionManager } from './version-manager.js';

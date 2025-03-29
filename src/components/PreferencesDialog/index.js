@@ -1,12 +1,7 @@
 /**
- * PreferencesDialog Component for Steam Deck DUB Edition
- * Handles user preferences including theme, accessibility, and display options
- * 
- * @module PreferencesDialog
- * @author Steam Deck DUB Edition Team
- * @version 1.0.0
+ * Steam Deck DUB Edition
+ * PreferencesDialog Component Export
  */
 
-import styles from './PreferencesDialog.module.css';
-
-export { default } from './PreferencesDialog'; 
+import PreferencesDialog from './PreferencesDialog';
+export default PreferencesDialog; 

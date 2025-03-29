@@ -1,169 +1,274 @@
 /**
- * Styles for version management and update notifications
+ * Steam Deck DUB Edition
+ * VersionManager Component CSS
+ * 
+ * Styles for changelog dialog and update notifications
  */
 
-/* Version display in sidebar */
-.version-display {
-  padding-top: 20px;
-  padding-bottom: 10px;
-  font-size: 0.85rem;
-  color: var(--dracula-comment, #6272a4);
-  border-top: 1px solid var(--dracula-current-line, #44475a);
-  text-align: center;
-  margin-top: 30px;
-}
-
-.version-number { 
-  margin-bottom: 5px;
-}
-
-.version-display a {
-  color: var(--dracula-cyan, #8be9fd);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.version-display a:hover {
-  color: var(--dracula-pink, #ff79c6);
-  text-decoration: underline;
-}
-
-/* Changelog dialog */
-.changelog-dialog {
+/* Changelog Dialog */
+.changelogDialog {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: var(--dracula-background, #282a36);
-  border: 1px solid var(--dracula-current-line, #44475a);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: var(--z-index-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.changelogContent {
+  background-color: var(--background-primary);
   border-radius: 8px;
-  padding: 20px;
   width: 90%;
-  max-width: 600px;
+  max-width: 700px;
   max-height: 80vh;
-  overflow-y: auto;
-  z-index: 10000;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: dialogEnter 0.3s ease;
 }
 
-.changelog-entry {
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--dracula-current-line, #44475a);
+@keyframes dialogEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.changelog-entry:last-child { 
-  border-bottom: none;
+.changelogHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--background-secondary);
 }
 
-.changelog-entry h4 {
-  color: var(--dracula-cyan, #8be9fd);
-  margin-bottom: 10px;
-}
-
-.changelog-entry ul {
+.changelogTitle {
   margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.closeButton:hover {
+  background-color: var(--background-hover);
+  color: var(--text-primary);
+}
+
+.changelogBody {
+  padding: 20px;
+  overflow-y: auto;
+  max-height: calc(80vh - 70px);
+}
+
+.changelogItems {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.versionEntry {
+  padding: 16px;
+  border-radius: 6px;
+  background-color: var(--background-tertiary);
+  transition: background-color 0.3s ease;
+}
+
+.versionEntry.highlight {
+  background-color: var(--background-highlight);
+  animation: highlightPulse 1.5s ease;
+}
+
+@keyframes highlightPulse {
+  0%, 100% {
+    background-color: var(--background-tertiary);
+  }
+  50% {
+    background-color: var(--background-highlight);
+  }
+}
+
+.versionTitle {
+  margin: 0 0 6px 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+}
+
+.versionDate {
+  margin-left: 10px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: normal;
+}
+
+.changesList {
+  list-style-type: disc;
+  margin: 12px 0 0 0;
   padding-left: 20px;
 }
 
-.changelog-entry li { 
-  margin-bottom: 5px;
+.changesList li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+  color: var(--text-primary);
 }
 
-/* Section timestamps */
-.section-timestamp {
-  font-size: 0.8rem;
-  color: var(--dracula-comment, #6272a4);
-  margin-top: 5px;
-  text-align: right;
+.changesList li:last-child {
+  margin-bottom: 0;
 }
 
-/* Updated badges */
-.updated-badge {
-  background-color: var(--dracula-green, #50fa7b);
-  color: var(--dracula-background, #282a36);
-  font-size: 0.7rem;
-  font-weight: bold;
-  padding: 2px 6px;
-  border-radius: 3px;
-  margin-left: 10px;
-  vertical-align: middle;
-  display: inline-block;
-  animation: pulse-badge 2s infinite;
-}
-
-@keyframes pulse-badge {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}
-
-.updated-dot {
-  display: inline-block;
-  color: var(--dracula-green, #50fa7b);
-  margin-left: 5px;
-  font-weight: bold;
-}
-
-/* Update notification */
-.update-notification {
+/* Update Notification */
+.updateNotification {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: var(--dracula-purple, #bd93f9);
-  color: var(--dracula-background, #282a36);
-  padding: 15px;
+  bottom: 30px;
+  right: 30px;
+  background-color: var(--background-primary);
   border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  z-index: 10000;
-  max-width: 350px;
-  font-weight: bold;
-  transform: translateY(-100px);
-  transition: transform 0.5s ease;
-}
-
-.update-button {
-  background-color: var(--dracula-background, #282a36);
-  color: var(--dracula-foreground, #f8f8f2);
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.dismiss-button {
-  background-color: transparent;
-  color: var(--dracula-background, #282a36);
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.update-button:hover,
-.dismiss-button:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-/* Ensure proper flexbox layout for sidebar */
-:global(.sidebar-inner) {
+  padding: 16px;
+  box-shadow: var(--shadow-lg);
+  width: 90%;
+  max-width: 400px;
+  z-index: var(--z-index-notification);
   display: flex;
-  flex-direction: column;
-  min-height: 90vh;
+  gap: 16px;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-left: 4px solid var(--primary-color);
 }
 
-/* Print styles */
-@media print {
-  .version-display,
-  .section-timestamp {
-    color: #666 !important;
-    border-color: #ccc !important;
+.updateNotification.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.updateIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  color: var(--primary-color);
+}
+
+.updateMessage {
+  flex-grow: 1;
+}
+
+.updateMessage h3 {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.updateMessage p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.updateActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: flex-end;
+}
+
+.viewUpdatesButton {
+  background-color: var(--primary-color);
+  color: var(--text-on-primary);
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.viewUpdatesButton:hover {
+  background-color: var(--primary-color-hover);
+}
+
+.dismissButton {
+  background-color: transparent;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dismissButton:hover {
+  background-color: var(--background-hover);
+  color: var(--text-primary);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .changelogContent {
+    width: 95%;
+    max-height: 90vh;
   }
   
-  .updated-badge {
-    background-color: #ddd !important;
-    color: #333 !important;
-    animation: none !important;
+  .updateNotification {
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .changelogHeader {
+    padding: 12px 16px;
+  }
+  
+  .changelogBody {
+    padding: 16px;
+  }
+  
+  .updateNotification {
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+  }
+  
+  .updateIcon {
+    align-self: flex-start;
+  }
+  
+  .updateActions {
+    justify-content: space-between;
   }
 } 

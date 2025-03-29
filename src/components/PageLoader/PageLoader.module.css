@@ -1,0 +1,176 @@
+/**
+ * Steam Deck DUB Edition
+ * PageLoader Component CSS Module
+ */
+
+.pageLoader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-color, #282a36);
+  z-index: var(--z-index-overlay, 9999);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fadeOut {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.loaderContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  max-width: 80%;
+}
+
+.spinner {
+  width: 4rem;
+  height: 4rem;
+  border: 0.375rem solid rgba(189, 147, 249, 0.2);
+  border-radius: 50%;
+  border-top-color: var(--primary-color, #bd93f9);
+  border-left-color: var(--secondary-color, #ff79c6);
+  animation: spin 1.2s linear infinite;
+  margin-bottom: 1.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.message {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-primary, #f8f8f2);
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+}
+
+.progressContainer {
+  width: 100%;
+  max-width: 400px;
+  height: 0.5rem;
+  background-color: rgba(68, 71, 90, 0.5);
+  border-radius: 0.25rem;
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    var(--primary-color, #bd93f9),
+    var(--secondary-color, #ff79c6)
+  );
+  transition: width 0.3s ease;
+  border-radius: 0.25rem;
+}
+
+/* Error state */
+.error .spinner {
+  display: none;
+}
+
+.error .message {
+  color: var(--text-error, #ff5555);
+}
+
+.errorIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.retryButton {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color, #bd93f9);
+  color: var(--text-on-primary, #f8f8f2);
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.retryButton:hover {
+  background-color: var(--primary-color-hover, #a679f7);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .spinner {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.3rem;
+  }
+  
+  .message {
+    font-size: 1.25rem;
+  }
+  
+  .progressContainer {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .spinner {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-width: 0.25rem;
+  }
+  
+  .message {
+    font-size: 1rem;
+  }
+  
+  .progressContainer {
+    max-width: 250px;
+  }
+  
+  .retryButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+  
+  .pageLoader,
+  .visible,
+  .fadeOut,
+  .progressBar {
+    transition: none;
+  }
+} 

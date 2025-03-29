@@ -1,144 +1,111 @@
 /**
- * Theme styles for Steam Deck DUB Edition
+ * Steam Deck DUB Edition
+ * Theme Module CSS
+ * 
+ * Styles for theme toggling and theme-specific components
  */
 
+/* Theme toggle container */
+.themeToggleContainer {
+  position: fixed;
+  z-index: var(--z-index-floating);
+}
+
+/* Position variants */
+.position-bottom-right {
+  bottom: 1.5rem;
+  right: 1.5rem;
+}
+
+.position-bottom-left {
+  bottom: 1.5rem;
+  left: 1.5rem;
+}
+
+.position-top-right {
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+.position-top-left {
+  top: 1.5rem;
+  left: 1.5rem;
+}
+
 /* Theme toggle button */
-.theme-toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  background: transparent;
-  color: var(--color-text);
-  cursor: pointer;
-  position: relative;
-  transition: background-color 0.2s ease;
-}
-
-.theme-toggle-btn:hover {
-  background-color: var(--color-bg-hover);
-}
-
-.theme-toggle-btn:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
-
-/* Theme icon container */
-.theme-icon-container {
-  position: relative;
-  width: 24px;
-  height: 24px;
+.themeToggleButton {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--background-button-secondary);
+  color: var(--text-button-secondary);
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.themeToggleButton:hover {
+  background-color: var(--background-button-secondary-hover);
+  transform: scale(1.05);
+}
+
+.themeToggleButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.3);
 }
 
 /* Theme icons */
-.theme-icon {
-  width: 24px;
-  height: 24px;
+.themeToggleLight,
+.themeToggleDark {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.theme-icon svg {
-  width: 24px;
-  height: 24px;
-  stroke: currentColor;
-  stroke-width: 2;
-  fill: none;
-  transition: transform 0.5s ease;
-}
-
 /* Show/hide appropriate icon based on theme */
-:global(.dark-theme) .light-icon,
-:global(.light-theme) .dark-icon,
-:global(.system-theme) .dark-icon,
-:global(.system-theme) .light-icon {
-  opacity: 0;
-  transform: scale(0);
-}
-
-:global(.dark-theme) .dark-icon,
-:global(.light-theme) .light-icon {
+:global([data-theme="light"]) .themeToggleDark,
+:global([data-theme="dark"]) .themeToggleLight {
   opacity: 1;
-  transform: scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
-:global(.dark-theme) .system-icon,
-:global(.light-theme) .system-icon {
+:global([data-theme="light"]) .themeToggleLight,
+:global([data-theme="dark"]) .themeToggleDark {
   opacity: 0;
-  transform: scale(0);
+  transform: translate(-50%, -50%) scale(0.5);
 }
 
-:global([data-theme-preference="system"]) .system-icon {
-  opacity: 1;
-  transform: scale(1);
-}
-
-:global([data-theme-preference="system"]) .dark-icon,
-:global([data-theme-preference="system"]) .light-icon {
-  opacity: 0;
-  transform: scale(0);
-}
-
-/* Theme selector radio buttons */
-.theme-selector {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 1rem;
-  background-color: var(--color-bg-subtle);
-  border-radius: var(--border-radius);
-}
-
-.theme-option {
-  display: flex;
-  align-items: center;
-}
-
-.theme-option input[type="radio"] {
-  margin-right: 0.5rem;
-}
-
-.theme-option label {
-  font-size: var(--text-sm);
-  cursor: pointer;
-}
-
-/* Screen reader only content */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-/* Theme transition */
-:global(html) {
-  --theme-transition-props: color, background-color, border-color, box-shadow;
-  --theme-transition-duration: 0.3s;
-  --theme-transition-timing: ease;
-  transition: var(--theme-transition-props) var(--theme-transition-duration) var(--theme-transition-timing);
-}
-
-:global(body),
-:global(.themed-transition) {
-  transition: var(--theme-transition-props) var(--theme-transition-duration) var(--theme-transition-timing);
-}
-
-/* Prevent transitions on page load */
-:global(.preload) * {
-  transition: none !important;
+/* Responsive styles */
+@media (max-width: 768px) {
+  .themeToggleButton {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .position-bottom-right,
+  .position-bottom-left {
+    bottom: 1rem;
+  }
+  
+  .position-bottom-right,
+  .position-top-right {
+    right: 1rem;
+  }
+  
+  .position-bottom-left,
+  .position-top-left {
+    left: 1rem;
+  }
+  
+  .position-top-right,
+  .position-top-left {
+    top: 1rem;
+  }
 } 

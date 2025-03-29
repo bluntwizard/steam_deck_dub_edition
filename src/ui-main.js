@@ -8,8 +8,8 @@
  */
 
 // Import critical component modules
-import themeController from './components/Theme';
-import lazyLoader from './components/LazyLoader';
+import themeController from './components/theme.js';
+import lazyLoader from './components/lazy-loader.js';
 
 // Import utilities
 import { utils } from './utils.js';
@@ -21,12 +21,6 @@ let gallery;
 let progressTracker;
 let accessibilityUI;
 let versionDisplay;
-let notificationsService;
-let preferencesDialog;
-let settingsTabs;
-let settingsSection;
-let svgHeader;
-let versionManager;
 
 /**
  * Lazy load a component module
@@ -89,7 +83,7 @@ function initializeApp() {
   setupSearch();
   
   // Wait for accessibility UI to load before initializing
-  loadComponent('./components/AccessibilityControls')
+  loadComponent('./components/accessibility-ui.js')
     .then(module => {
       accessibilityUI = module;
       accessibilityUI.initialize();
@@ -120,20 +114,14 @@ async function loadRemainingComponents() {
 }
 
 /**
- * Initialize components that are needed for visible content
+ * Initialize components that may be needed for visible content
  * @returns {Promise<void>}
  */
 async function initializeVisibleComponents() {
   try {
-    // Initialize SVG header if present
-    if (document.querySelector('.header-container')) {
-      svgHeader = await loadComponent('./components/SvgHeader');
-      svgHeader.initialize();
-    }
-    
     // Load code blocks controller if code blocks are present
     if (document.querySelector('pre code')) {
-      codeBlocksController = await loadComponent('./components/CodeBlocks');
+      codeBlocksController = await loadComponent('./components/code-blocks.js');
       codeBlocksController.initialize({
         addCopyButtons: true,
         lineNumbers: true,
@@ -143,7 +131,7 @@ async function initializeVisibleComponents() {
     
     // Load gallery if gallery elements are present
     if (document.querySelector('.gallery, [data-gallery]')) {
-      gallery = await loadComponent('./components/Gallery');
+      gallery = await loadComponent('./components/gallery.js');
       gallery.initialize();
     }
   } catch (error) {
@@ -158,42 +146,16 @@ async function initializeVisibleComponents() {
 async function initializeDeferredComponents() {
   try {
     // Initialize search
-    searchController = await loadComponent('./components/Search');
+    searchController = await loadComponent('./components/search.js');
     searchController.initialize();
     
     // Initialize progress tracker
-    progressTracker = await loadComponent('./components/ProgressTracker');
+    progressTracker = await loadComponent('./components/progress-tracker.js');
     progressTracker.initialize();
 
     // Initialize version display
-    versionDisplay = await loadComponent('./components/VersionDisplay');
+    versionDisplay = await loadComponent('./components/version-display.js');
     versionDisplay.initialize();
-    
-    // Initialize version manager
-    versionManager = await loadComponent('./components/VersionManager');
-    versionManager.initialize();
-
-    // Initialize notifications service
-    notificationsService = await loadComponent('./components/Notifications');
-    notificationsService.initialize();
-
-    // Initialize preferences dialog
-    preferencesDialog = await loadComponent('./components/PreferencesDialog');
-    preferencesDialog.initialize();
-    
-    // Initialize settings tabs if present in the document
-    if (document.querySelector('.settings-tabs-container, .settings-tabs')) {
-      settingsTabs = await loadComponent('./components/SettingsTabs');
-      settingsTabs.initialize();
-    }
-    
-    // Initialize settings section if present
-    if (document.getElementById('settings-section')) {
-      settingsSection = await loadComponent('./components/SettingsSection');
-      settingsSection.initialize({
-        settingsTabs: settingsTabs
-      });
-    }
   } catch (error) {
     console.error('Error initializing deferred components:', error);
   }
@@ -231,19 +193,6 @@ function setupExternalLinks() {
       window.open(link.getAttribute('href'), '_blank');
     }
   });
-}
-
-/**
- * Set up code blocks enhancement
- * @function setupCodeBlocks
- * @private
- * @returns {void}
- */
-function setupCodeBlocks() {
-  // Code blocks are loaded conditionally in initializeVisibleComponents
-  // This function exists as a placeholder for any setup that needs to happen
-  // before the component is loaded
-  console.log('Setting up code blocks...');
 }
 
 /**
@@ -330,9 +279,3 @@ export { gallery };
 export { progressTracker };
 export { accessibilityUI };
 export { versionDisplay };
-export { versionManager };
-export { notificationsService };
-export { preferencesDialog };
-export { settingsTabs };
-export { settingsSection };
-export { svgHeader };

@@ -1,0 +1,297 @@
+/**
+ * Steam Deck DUB Edition
+ * NotificationSystem Component CSS Module
+ */
+
+/* Notification Containers */
+.notificationContainer {
+  position: fixed;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  max-height: 100%;
+  pointer-events: none; /* Allow clicking through the container */
+  overflow: hidden;
+}
+
+/* Container positions */
+.top-left {
+  top: 20px;
+  left: 20px;
+  align-items: flex-start;
+}
+
+.top-center {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+
+.top-right {
+  top: 20px;
+  right: 20px;
+  align-items: flex-end;
+}
+
+.bottom-left {
+  bottom: 20px;
+  left: 20px;
+  align-items: flex-start;
+  flex-direction: column-reverse;
+}
+
+.bottom-center {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+  flex-direction: column-reverse;
+}
+
+.bottom-right {
+  bottom: 20px;
+  right: 20px;
+  align-items: flex-end;
+  flex-direction: column-reverse;
+}
+
+/* Individual Notification */
+.notification {
+  position: relative;
+  margin: 10px 0;
+  padding: 12px;
+  width: 300px;
+  min-height: 60px;
+  border-radius: 6px;
+  background-color: var(--background-primary, #282a36);
+  color: var(--text-primary, #f8f8f2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  pointer-events: auto; /* Re-enable pointer events */
+  overflow: hidden;
+}
+
+/* Notification visibility state */
+.notification.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Notification Types */
+.info {
+  border-left: 4px solid var(--color-primary, #bd93f9);
+}
+
+.success {
+  border-left: 4px solid var(--color-success, #50fa7b);
+}
+
+.warning {
+  border-left: 4px solid var(--color-warning, #f1fa8c);
+}
+
+.error {
+  border-left: 4px solid var(--color-danger, #ff5555);
+}
+
+/* Notification Parts */
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  font-size: 16px;
+  border-radius: 50%;
+}
+
+.info .icon {
+  color: var(--color-primary, #bd93f9);
+}
+
+.success .icon {
+  color: var(--color-success, #50fa7b);
+}
+
+.warning .icon {
+  color: var(--color-warning, #f1fa8c);
+}
+
+.error .icon {
+  color: var(--color-danger, #ff5555);
+}
+
+.content {
+  flex-grow: 1;
+  margin-right: 24px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  color: var(--text-primary, #f8f8f2);
+}
+
+.message {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--text-secondary, #a8abbe);
+  margin-bottom: 8px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.actionButton {
+  padding: 4px 10px;
+  background-color: var(--background-tertiary, #44475a);
+  color: var(--text-primary, #f8f8f2);
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.actionButton:hover {
+  background-color: var(--background-hover, #566177);
+}
+
+.info .actionButton {
+  background-color: var(--color-primary-faded, rgba(189, 147, 249, 0.2));
+  color: var(--color-primary, #bd93f9);
+}
+
+.info .actionButton:hover {
+  background-color: var(--color-primary-faded-hover, rgba(189, 147, 249, 0.3));
+}
+
+.success .actionButton {
+  background-color: var(--color-success-faded, rgba(80, 250, 123, 0.2));
+  color: var(--color-success, #50fa7b);
+}
+
+.success .actionButton:hover {
+  background-color: var(--color-success-faded-hover, rgba(80, 250, 123, 0.3));
+}
+
+.warning .actionButton {
+  background-color: var(--color-warning-faded, rgba(241, 250, 140, 0.2));
+  color: var(--color-warning, #f1fa8c);
+}
+
+.warning .actionButton:hover {
+  background-color: var(--color-warning-faded-hover, rgba(241, 250, 140, 0.3));
+}
+
+.error .actionButton {
+  background-color: var(--color-danger-faded, rgba(255, 85, 85, 0.2));
+  color: var(--color-danger, #ff5555);
+}
+
+.error .actionButton:hover {
+  background-color: var(--color-danger-faded-hover, rgba(255, 85, 85, 0.3));
+}
+
+.closeButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--text-secondary, #a8abbe);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  opacity: 0.6;
+  padding: 0;
+}
+
+.closeButton:hover {
+  color: var(--text-primary, #f8f8f2);
+  opacity: 1;
+}
+
+/* Progress bar for auto-dismiss (optional) */
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 100%;
+  transform-origin: left;
+}
+
+.info .progressBar {
+  background-color: var(--color-primary, #bd93f9);
+}
+
+.success .progressBar {
+  background-color: var(--color-success, #50fa7b);
+}
+
+.warning .progressBar {
+  background-color: var(--color-warning, #f1fa8c);
+}
+
+.error .progressBar {
+  background-color: var(--color-danger, #ff5555);
+}
+
+/* Responsive styles */
+@media (max-width: 480px) {
+  .notificationContainer {
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+  
+  .top-center, .bottom-center {
+    left: 0;
+    right: 0;
+    transform: none;
+    padding: 0;
+  }
+  
+  .notification {
+    width: 100%;
+    max-width: none;
+    margin: 5px 0;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .notification,
+  .notification.visible,
+  .actionButton,
+  .actionButton:hover,
+  .closeButton,
+  .closeButton:hover {
+    transition: none;
+  }
+}
+
+/* Optional: Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  /* Custom dark mode styles can be added here if needed */
+} 

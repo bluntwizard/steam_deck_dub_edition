@@ -1,0 +1,278 @@
+/**
+ * Steam Deck DUB Edition
+ * ErrorHandler Component CSS Module
+ */
+
+/* Toast Notifications */
+.errorToast {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: var(--background-primary, #282a36);
+  color: var(--text-primary, #f8f8f2);
+  border-left: 4px solid var(--color-danger, #ff5555);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  min-width: 300px;
+  max-width: 450px;
+  display: flex;
+  align-items: flex-start;
+  z-index: 10000;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.errorToast.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.errorIcon {
+  margin-right: 12px;
+  flex-shrink: 0;
+  font-size: 1.2rem;
+}
+
+.errorContent {
+  flex-grow: 1;
+  padding-right: 24px;
+}
+
+.errorMessage {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.errorDetails {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.errorDetails summary {
+  color: var(--color-primary, #bd93f9);
+  margin-bottom: 4px;
+}
+
+.errorDetails pre {
+  margin: 8px 0 0;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  overflow: auto;
+  max-height: 150px;
+  white-space: pre-wrap;
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: var(--color-secondary, #50fa7b);
+}
+
+.closeButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--text-secondary, #6272a4);
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.closeButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary, #f8f8f2);
+}
+
+/* Error Modal */
+.errorModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.errorModal.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.errorModalContent {
+  background-color: var(--background-primary, #282a36);
+  border-radius: 6px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.errorModalHeader {
+  background-color: var(--background-darker, #1e1f29);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color, rgba(98, 114, 164, 0.2));
+}
+
+.errorModalHeader h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-danger, #ff5555);
+}
+
+.errorModalBody {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.errorModalBody .errorIcon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  margin-right: 0;
+}
+
+.errorModalBody .errorMessage {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.errorModalBody .errorDetails {
+  width: 100%;
+  text-align: left;
+  margin-top: 16px;
+}
+
+.errorModalFooter {
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid var(--border-color, rgba(98, 114, 164, 0.2));
+}
+
+.reloadButton {
+  padding: 8px 16px;
+  background-color: var(--color-primary, #bd93f9);
+  color: var(--text-on-primary, #f8f8f2);
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.reloadButton:hover {
+  background-color: var(--color-primary-hover, #a679f7);
+}
+
+/* Inline Error */
+.inlineError {
+  margin: 8px 0;
+  padding: 10px 12px;
+  background-color: var(--background-error, rgba(255, 85, 85, 0.1));
+  border-left: 3px solid var(--color-danger, #ff5555);
+  border-radius: 3px;
+  display: flex;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.inlineError.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.inlineError .errorIcon {
+  font-size: 1rem;
+  margin-right: 8px;
+}
+
+.inlineError .errorMessage {
+  font-size: 0.9rem;
+  color: var(--text-error, #ff5555);
+}
+
+.inlineError .closeButton {
+  position: relative;
+  top: -4px;
+  right: -4px;
+  width: 20px;
+  height: 20px;
+  font-size: 1rem;
+  margin-left: auto;
+}
+
+/* Error Boundary */
+.errorBoundary {
+  padding: 16px;
+  margin: 16px 0;
+  background-color: var(--background-error, rgba(255, 85, 85, 0.1));
+  border: 1px solid var(--color-danger, #ff5555);
+  border-radius: 4px;
+  color: var(--text-error, #ff5555);
+  text-align: center;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .errorToast {
+    min-width: auto;
+    max-width: 90%;
+    bottom: 10px;
+    left: 5%;
+    right: 5%;
+    width: 90%;
+  }
+  
+  .errorModalContent {
+    width: 95%;
+    max-height: 90vh;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .errorToast,
+  .errorToast.visible,
+  .errorModal,
+  .errorModal.visible,
+  .inlineError,
+  .inlineError.visible,
+  .closeButton,
+  .closeButton:hover,
+  .reloadButton,
+  .reloadButton:hover {
+    transition: none;
+  }
+} 

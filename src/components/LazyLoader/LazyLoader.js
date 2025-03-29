@@ -1,20 +1,11 @@
-/**
- * LazyLoader Component for Steam Deck DUB Edition
- * Handles dynamic loading of content sections
- * 
- * @module LazyLoader
- * @author Steam Deck DUB Edition Team
- * @version 1.0.0
- */
-
 import styles from './LazyLoader.module.css';
 
 /**
- * @class LazyLoader
- * @classdesc Manages lazy loading of content sections
+ * LazyLoader Component
+ * Handles dynamic loading of content sections as they enter the viewport
  */
-class LazyLoader {
-  constructor() {
+export class LazyLoader {
+  constructor(options = {}) {
     /**
      * IntersectionObserver for detecting when elements enter viewport
      * @type {IntersectionObserver|null}
@@ -41,14 +32,19 @@ class LazyLoader {
      * @type {string}
      * @private
      */
-    this.contentBaseUrl = './content/';
+    this.contentBaseUrl = options.contentBaseUrl || './content/';
     
     /**
      * Default timeout for content loading (ms)
      * @type {number}
      * @private
      */
-    this.loadTimeout = 10000; // 10 seconds
+    this.loadTimeout = options.loadTimeout || 10000; // 10 seconds
+    
+    // Initialize if options.autoInit is true
+    if (options.autoInit) {
+      this.initialize();
+    }
   }
   
   /**
@@ -296,9 +292,9 @@ class LazyLoader {
     
     // Create loading indicator
     const loadingIndicator = document.createElement('div');
-    loadingIndicator.className = styles['lazy-loading-indicator'];
+    loadingIndicator.className = styles.loadingIndicator;
     loadingIndicator.innerHTML = `
-      <div class="${styles['loading-spinner']}"></div>
+      <div class="${styles.loadingSpinner}"></div>
       <p>Loading content...</p>
     `;
     
@@ -317,12 +313,12 @@ class LazyLoader {
   showLoadError(section, error) {
     // Create error message
     const errorMessage = document.createElement('div');
-    errorMessage.className = styles['lazy-loading-error'];
+    errorMessage.className = styles.loadingError;
     errorMessage.innerHTML = `
-      <div class="${styles['error-icon']}">⚠️</div>
+      <div class="${styles.errorIcon}">⚠️</div>
       <h3>Content Loading Error</h3>
       <p>${error.message}</p>
-      <button class="${styles['retry-button']}">Try Again</button>
+      <button class="${styles.retryButton}">Try Again</button>
     `;
     
     // Clear section and add error message
@@ -330,7 +326,7 @@ class LazyLoader {
     section.appendChild(errorMessage);
     
     // Add retry functionality
-    errorMessage.querySelector(`.${styles['retry-button']}`).addEventListener('click', () => {
+    errorMessage.querySelector(`.${styles.retryButton}`).addEventListener('click', () => {
       // Try loading again
       this.loadContent(section).catch(error => {
         console.error('Error retrying content load:', error);
@@ -483,10 +479,4 @@ class LazyLoader {
       });
     });
   }
-}
-
-// Create singleton instance
-const lazyLoader = new LazyLoader();
-
-// Export singleton
-export default lazyLoader; 
+} 

@@ -1,55 +1,64 @@
 #!/bin/bash
 
-# Steam Deck DUB Edition - Unified Fix Script
-# This script runs all necessary fixes and linting for the project
+# Make scripts executable
+chmod +x fix-dependencies.sh
 
-echo "╔════════════════════════════════════════════════════╗"
-echo "║       Steam Deck DUB Edition Fixer                  ║"
-echo "║       ------------------------------                 ║"
-echo "║ This tool runs all linting and fixing in one step.  ║"
-echo "╚════════════════════════════════════════════════════╝"
-echo ""
+# Install dependencies
+./fix-dependencies.sh
 
-# Install dependencies if needed
-if [ ! -d "node_modules" ]; then
-  echo "Installing dependencies..."
-  npm install
-fi
+# First run the specialized fix for pseudo-elements
+echo "Fixing pseudo-element issues..."
+node fix-pseudo-elements.js
 
-# Make sure all scripts are executable
-chmod +x scripts/fix-css-all.sh
-chmod +x scripts/fix-dependencies.sh
-chmod +x scripts/deploy.sh
+# Phase 1: CSS Improvements
+echo "Running comprehensive CSS fixes..."
+node comprehensive-css-fix.js
 
-# Run CSS fixes
-echo "Running CSS fixes..."
-npm run fix:css
+# Fix missing CSS units
+echo "Fixing CSS units issues..."
+node fix-css-units.js
 
-# Run JS error handling enhancements
-echo "Enhancing JavaScript error handling..."
-npm run fix:js
+# Fix indentation issues
+echo "Fixing CSS indentation issues..."
+node fix-indentation.js
 
-# Run accessibility improvements
-echo "Improving accessibility..."
-npm run fix:a11y
+# Phase 1: JavaScript Improvements
+echo "Analyzing JavaScript error handling..."
+node enhance-error-handling.js
 
-# Run ESLint
-echo "Running ESLint..."
-npm run lint:fix
+# Phase 1: Accessibility Improvements
+echo "Running accessibility analysis..."
+echo "Note: This requires jsdom to be installed (npm install jsdom)"
+node improve-accessibility.js
 
-# Format code with Prettier
-echo "Formatting code with Prettier..."
-npm run format
+# Fix HTML issues
+echo "Fixing HTML issues..."
+npx html-validate --fix index.html offline.html src/**/*.html
 
-# Run final cleanup
+# Fix CSS issues
+echo "Fixing CSS issues..."
+npx stylelint "**/*.css" --fix
+
+# Fix JS issues
+echo "Fixing JavaScript issues..."
+npx eslint --fix "src/**/*.js" main.js preload.js service-worker.js
+
+# Run our custom CSS fix script
+echo "Running custom CSS fixes..."
+node css-fix-script.js
+
+# Run final cleanup for any remaining issues
 echo "Running final cleanup..."
-node scripts/final-cleanup.js
+node final-cleanup.js
 
-echo ""
-echo "✅ All fixes complete!"
-echo ""
+echo "Running CSS syntax fixes..."
+node fix-css-syntax.js
+
+echo "Running remaining CSS fixes..."
+node fix-remaining-css.js
+
+echo "All fixes complete!"
 echo "Next steps:"
-echo "1. Review any remaining lint issues with: npm run lint"
-echo "2. Review any CSS issues with: npm run lint:css"
-echo "3. Run tests with: npm run test"
-echo "" 
+echo "1. Review error-handling-report.md for JavaScript improvement recommendations"
+echo "2. Review accessibility-report.md for accessibility enhancement recommendations"
+echo "3. Run 'npx stylelint \"src/styles/**/*.css\"' and 'npx eslint --quiet \"src/scripts/**/*.js\"' to verify remaining issues" 

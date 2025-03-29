@@ -1,151 +1,128 @@
 /**
- * SvgHeader Component Styles
- * CSS Module for SVG header styling and animations
+ * Steam Deck DUB Edition
+ * SvgHeader Component CSS
  */
 
-/* Define CSS variables */
-:root {
-  --color-main: #bd93f9; /* Purple */
-  --color-primary: #ff79c6; /* Pink */
-  --color-secondary: #8be9fd; /* Cyan */
-  --color-background: #282a36; /* Background */
-  --color-link: #50fa7b; /* Green */
-  --color-link-active: #ffb86c; /* Orange */
-}
-
-/* External wrapper for SVG object */
-.header-container {
+/* Header container */
+.headerContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  border-radius: 20px;
-  padding: 20px;
+  width: 100%;
   margin: 30px 0;
-  background-color: rgba(13, 17, 23, 0.2);
+  padding: 20px;
+  border-radius: 20px;
+  background-color: rgba(40, 42, 54, 0.4);
+  backdrop-filter: blur(7px);
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
 }
 
-.header-svg {
+/* SVG object container */
+.headerSvg {
+  width: 100%;
+  height: auto;
+  max-width: 800px;
+  display: block;
+  margin: 0 auto;
+  pointer-events: auto; /* Ensure SVG interactions work if any exist */
+}
+
+/* SVG loading states */
+.svgLoading .headerSvg {
+  min-height: 200px;
+  background: rgba(30, 41, 59, 0.3);
+  border-radius: 8px;
+  position: relative;
+}
+
+.svgLoading .headerSvg::after {
+  content: 'Loading...';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-main, #bd93f9);
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+}
+
+/* SVG error state */
+.svgError .svgFallback {
+  display: flex;
+}
+
+/* SVG fallback */
+.svgFallback {
+  display: none;
   width: 100%;
   max-width: 800px;
-  height: auto;
+  padding: 30px;
+  background: linear-gradient(135deg, 
+    var(--color-main, #bd93f9), 
+    var(--color-primary, #ff79c6));
   border-radius: 8px;
-  overflow: hidden;
-}
-
-/* Fallback styling for when SVG fails to load */
-.svg-fallback {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 200px;
-  background: linear-gradient(var(--color-main), var(--color-primary));
-  color: white;
-  border-radius: 8px;
-  padding: 20px;
   text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
-.svg-fallback h2 {
+.svgFallback h2 {
+  margin: 0;
+  color: var(--text-on-primary, #f8f8f2);
   font-size: 2rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  font-family: "Open Sans", sans-serif;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Wave animation class */
-.hi {
-  display: inline-block;
-  transform-origin: 70% 70%;
-  animation: hi 3.5s linear -2s infinite;
+/* SVG loaded state */
+.svgLoaded {
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Animation keyframes */
-@keyframes border {
-  0% { background-position: 0 0; }
-  20% { background-position: 100% 0; }
-  40% { background-position: 100% 100%; }
-  60% { background-position: 0 100%; }
-  100% { background-position: 0 0; }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@keyframes hi {
-  0%, 20% { transform: rotate(0deg); }
-  25% { transform: rotate(15deg); }
-  30% { transform: rotate(0deg); }
-  35% { transform: rotate(15deg); }
-  40%, 45% { transform: rotate(0deg); }
-  50%, 70% { transform: rotate(0deg); }
-  80% { transform: rotate(0deg); }
-  85% { transform: rotate(15deg); }
-  90% { transform: rotate(0deg); }
-  95% { transform: rotate(15deg); }
-  100% { transform: rotate(0deg); }
-}
-
-@keyframes intro {
-  0%, 75% { transform: translateX(-100vw); }
-  100% { transform: translateX(0); }
-}
-
-@keyframes fade {
-  0%, 75% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-/* Media queries */
+/* Responsive styles */
 @media (max-width: 768px) {
-  .header-container {
-    padding: 15px;
+  .headerContainer {
     margin: 20px 0;
+    padding: 15px;
+    border-radius: 15px;
   }
-
-  .header-svg {
+  
+  .headerSvg {
     max-width: 100%;
   }
   
-  .svg-fallback h2 {
+  .svgFallback {
+    padding: 20px;
+  }
+  
+  .svgFallback h2 {
     font-size: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .header-container {
-    padding: 10px;
+  .headerContainer {
     margin: 15px 0;
+    padding: 10px;
     border-radius: 10px;
   }
-
-  .svg-fallback {
-    height: 150px;
+  
+  .svgLoading .headerSvg {
+    min-height: 150px;
+  }
+  
+  .svgFallback {
     padding: 15px;
   }
   
-  .svg-fallback h2 {
+  .svgFallback h2 {
     font-size: 1.2rem;
   }
-}
-
-/* Reduced motion preference */
-@media (prefers-reduced-motion) {
-  .hi {
-    animation: none !important;
-  }
-}
-
-/* Dark theme compatibility */
-:global(.dark-theme) .svg-fallback {
-  background: linear-gradient(#bd93f9, #ff79c6);
-}
-
-/* High contrast mode enhancements */
-:global(.high-contrast) .header-container {
-  box-shadow: 0 0 0 2px #fff;
-}
-
-:global(.high-contrast) .svg-fallback {
-  border: 2px solid #fff;
 } 

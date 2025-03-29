@@ -16,7 +16,6 @@ This document summarizes the consolidation process performed on the Steam Deck D
    - `src/assets/images/` - Image assets
    - `src/test/` - Test-related files
    - `src/js/` - JavaScript source files
-   - `src/locales/` - Internationalization files
 
 2. **Moved configuration files to `config/` directory**:
    - `.eslintrc.json`
@@ -31,19 +30,6 @@ This document summarizes the consolidation process performed on the Steam Deck D
    - Removed unused empty directories
    - Consolidated overlapping directories (e.g., tests)
    - Created proper module index files
-
-### Modular JavaScript Architecture
-
-1. **Created proper module structure**:
-   - Added `src/index.js` as the central entry point
-   - Added `src/js/index.js` for JavaScript module exports
-   - Added `src/js/core/index.js` for core functionality exports
-   - Improved import/export patterns for better modularity
-
-2. **Webpack Integration**:
-   - Updated entry points to use the new modular structure
-   - Improved asset handling for optimized builds
-   - Added development conveniences like hot module reloading
 
 ### CSS Fix Script Consolidation
 
@@ -81,12 +67,6 @@ This document summarizes the consolidation process performed on the Steam Deck D
    - Moved all test files to `src/test/` directory
    - Updated Jest configuration to use the new paths
 
-### Internationalization
-
-1. **Organized locale files**:
-   - Moved localization files to `src/locales/` directory
-   - Ensured proper integration with the application
-
 ### Temporary/Backup File Cleanup
 
 1. **Handled legacy files**:
@@ -104,26 +84,8 @@ This consolidation provides several benefits:
 4. **Better Developer Experience** - Simplified file structure makes it easier for new developers to understand the project
 5. **Proper Module Structure** - Added index.js files for better module exports
 6. **Eliminated Dead Code** - Removed empty and unnecessary directories
-7. **Improved Build Process** - Better webpack configuration with proper entry points
-8. **Better Development Experience** - Added hot module reloading for faster development
 
 ## Usage Instructions
-
-### Development
-
-```bash
-# Start Electron app
-npm start
-
-# Run in development mode
-npm run dev
-
-# Run web version with hot reloading
-npm run dev:hot
-
-# Build for production
-npm run build
-```
 
 ### CSS Fixing
 

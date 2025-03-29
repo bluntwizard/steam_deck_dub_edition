@@ -1,404 +1,564 @@
 /**
- * Version Management System for Steam Deck DUB Edition Guide
- * Tracks content updates and notifies users of changes since their last visit
+ * Steam Deck DUB Edition
+ * VersionManager Component
  * 
- * @module VersionManager
- * @author Steam Deck DUB Edition Team
- * @version 1.0.0
+ * Manages version tracking, changelog display, and update notifications
  */
 
 import styles from './VersionManager.module.css';
 
-/**
- * Version Manager
- * @class VersionManager
- */
 class VersionManager {
-  /**
-   * Create a new VersionManager instance
-   */
-  constructor() {
-    // Default values until data is loaded
-    this.currentVersion = '20230801.1';
-    this.sectionVersions = {};
-    this.changelog = {};
-    this.isDataLoaded = false;
+  constructor(options = {}) {
+    /**
+     * Current version of the application
+     * @type {string}
+     */
+    this.currentVersion = options.currentVersion || '1.0.0';
     
-    // Initialize version tracking
-    this.init();
+    /**
+     * URL to fetch version information
+     * @type {string}
+     */
+    this.versionJsonUrl = options.versionJsonUrl || 'version.json';
+    
+    /**
+     * Version data including changelog
+     * @type {Object}
+     */
+    this.versionData = null;
+    
+    /**
+     * Storage key for last visited version
+     * @type {string}
+     */
+    this.storageKey = options.storageKey || 'sdde-last-visited-version';
+    
+    /**
+     * Whether the component is initialized
+     * @type {boolean}
+     */
+    this.initialized = false;
+    
+    /**
+     * Changelog dialog element
+     * @type {HTMLElement}
+     */
+    this.changelogDialog = null;
+    
+    /**
+     * Update notification element
+     * @type {HTMLElement}
+     */
+    this.updateNotification = null;
+    
+    /**
+     * Whether to automatically check for updates
+     * @type {boolean}
+     */
+    this.autoCheckUpdates = options.autoCheckUpdates !== false;
+    
+    // Auto-initialize if specified
+    if (options.autoInit) {
+      this.initialize();
+    }
+  }
+  
+  /**
+   * Initialize the version manager
+   * @returns {Promise<void>}
+   */
+  async initialize() {
+    if (this.initialized) return;
+    
+    try {
+      // Fetch version data
+      await this.fetchVersionData();
+      
+      // Create UI elements
+      this.createChangelogDialog();
+      this.createUpdateNotification();
+      
+      // Check for updates if auto-check is enabled
+      if (this.autoCheckUpdates) {
+        this.checkForUpdates();
+      }
+      
+      // Set up event listeners
+      this.setupEventListeners();
+      
+      this.initialized = true;
+      console.log(`VersionManager initialized (current version: ${this.currentVersion})`);
+    } catch (error) {
+      console.error('Error initializing VersionManager:', error);
+    }
+  }
+  
+  /**
+   * Fetch version data from the server
+   * @private
+   * @returns {Promise<void>}
+   */
+  async fetchVersionData() {
+    try {
+      const response = await fetch(this.versionJsonUrl);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch version data: ${response.status} ${response.statusText}`);
+      }
+      
+      this.versionData = await response.json();
+      
+      // Update current version if provided in the data
+      if (this.versionData.current) {
+        this.currentVersion = this.versionData.current;
+      }
+      
+      console.log('Version data fetched successfully');
+    } catch (error) {
+      console.error('Error fetching version data:', error);
+      // Create minimal version data to avoid errors
+      this.versionData = {
+        current: this.currentVersion,
+        versions: {
+          [this.currentVersion]: {
+            date: new Date().toISOString().split('T')[0],
+            changes: ['Initial version']
+          }
+        }
+      };
+    }
+  }
+  
+  /**
+   * Create the changelog dialog
+   * @private
+   */
+  createChangelogDialog() {
+    // Check if changelog dialog already exists
+    let existingDialog = document.getElementById('changelog-dialog');
+    if (existingDialog) {
+      this.changelogDialog = existingDialog;
+      return;
+    }
+    
+    // Create new dialog
+    this.changelogDialog = document.createElement('div');
+    this.changelogDialog.id = 'changelog-dialog';
+    this.changelogDialog.className = styles.changelogDialog;
+    this.changelogDialog.setAttribute('aria-modal', 'true');
+    this.changelogDialog.setAttribute('role', 'dialog');
+    this.changelogDialog.setAttribute('aria-labelledby', 'changelog-title');
+    this.changelogDialog.style.display = 'none';
+    
+    // Create dialog content
+    this.changelogDialog.innerHTML = `
+      <div class="${styles.changelogContent}">
+        <div class="${styles.changelogHeader}">
+          <h2 id="changelog-title" class="${styles.changelogTitle}">Changelog</h2>
+          <button id="close-changelog" class="${styles.closeButton}" aria-label="Close changelog">×</button>
+        </div>
+        <div class="${styles.changelogBody}">
+          <div id="changelog-content" class="${styles.changelogItems}"></div>
+        </div>
+      </div>
+    `;
+    
+    // Add to document
+    document.body.appendChild(this.changelogDialog);
+  }
+  
+  /**
+   * Create the update notification element
+   * @private
+   */
+  createUpdateNotification() {
+    // Check if notification already exists
+    let existingNotification = document.getElementById('update-notification');
+    if (existingNotification) {
+      this.updateNotification = existingNotification;
+      return;
+    }
+    
+    // Create new notification
+    this.updateNotification = document.createElement('div');
+    this.updateNotification.id = 'update-notification';
+    this.updateNotification.className = styles.updateNotification;
+    this.updateNotification.style.display = 'none';
+    
+    // Create notification content
+    this.updateNotification.innerHTML = `
+      <div class="${styles.updateIcon}">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="${styles.updateMessage}">
+        <h3>New Version Available</h3>
+        <p id="update-message">A new version is available with new features and bug fixes.</p>
+      </div>
+      <div class="${styles.updateActions}">
+        <button id="view-updates" class="${styles.viewUpdatesButton}">View Updates</button>
+        <button id="dismiss-updates" class="${styles.dismissButton}">Dismiss</button>
+      </div>
+    `;
+    
+    // Add to document
+    document.body.appendChild(this.updateNotification);
+  }
+  
+  /**
+   * Set up event listeners
+   * @private
+   */
+  setupEventListeners() {
+    try {
+      // DOM content loaded event
+      window.addEventListener('DOMContentLoaded', () => {
+        this.initVersionTracking();
+      });
+      
+      // Show changelog button
+      const showChangelogButton = document.getElementById('show-changelog');
+      if (showChangelogButton) {
+        showChangelogButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.showChangelog();
+        });
+      }
+      
+      // Close changelog button
+      const closeChangelogButton = document.getElementById('close-changelog');
+      if (closeChangelogButton) {
+        closeChangelogButton.addEventListener('click', () => {
+          this.hideChangelog();
+        });
+      }
+      
+      // View updates button
+      const viewUpdatesButton = document.getElementById('view-updates');
+      if (viewUpdatesButton) {
+        viewUpdatesButton.addEventListener('click', () => {
+          this.hideUpdateNotification();
+          this.showChangelog();
+        });
+      }
+      
+      // Dismiss updates button
+      const dismissUpdatesButton = document.getElementById('dismiss-updates');
+      if (dismissUpdatesButton) {
+        dismissUpdatesButton.addEventListener('click', () => {
+          this.hideUpdateNotification();
+          this.acknowledgeUpdate();
+        });
+      }
+    } catch (error) {
+      console.error('Error setting up event listeners:', error);
+    }
+  }
+  
+  /**
+   * Show the changelog dialog
+   */
+  showChangelog() {
+    try {
+      if (!this.changelogDialog) {
+        this.createChangelogDialog();
+      }
+      
+      // Update changelog content
+      this.updateChangelogContent();
+      
+      // Show dialog
+      this.changelogDialog.style.display = 'flex';
+      document.body.classList.add('modal-open');
+      
+      // Add keyboard event listener to close on Escape
+      document.addEventListener('keydown', this.handleEscapeKey);
+      
+      // Add click outside listener
+      setTimeout(() => {
+        document.addEventListener('click', this.handleOutsideClick);
+      }, 100);
+    } catch (error) {
+      console.error('Error showing changelog:', error);
+    }
+  }
+  
+  /**
+   * Hide the changelog dialog
+   */
+  hideChangelog() {
+    try {
+      if (!this.changelogDialog) return;
+      
+      this.changelogDialog.style.display = 'none';
+      document.body.classList.remove('modal-open');
+      
+      // Remove event listeners
+      document.removeEventListener('keydown', this.handleEscapeKey);
+      document.removeEventListener('click', this.handleOutsideClick);
+    } catch (error) {
+      console.error('Error hiding changelog:', error);
+    }
+  }
+  
+  /**
+   * Handle Escape key press to close the changelog
+   * @private
+   * @param {KeyboardEvent} e - Keyboard event
+   */
+  handleEscapeKey = (e) => {
+    if (e.key === 'Escape') {
+      this.hideChangelog();
+    }
+  };
+  
+  /**
+   * Handle clicks outside the changelog to close it
+   * @private
+   * @param {MouseEvent} e - Mouse event
+   */
+  handleOutsideClick = (e) => {
+    if (
+      this.changelogDialog &&
+      !this.changelogDialog.querySelector(`.${styles.changelogContent}`).contains(e.target)
+    ) {
+      this.hideChangelog();
+    }
+  };
+  
+  /**
+   * Update the changelog content with version data
+   * @private
+   */
+  updateChangelogContent() {
+    try {
+      if (!this.changelogDialog || !this.versionData) return;
+      
+      const contentElement = this.changelogDialog.querySelector('#changelog-content');
+      if (!contentElement) return;
+      
+      let html = '';
+      
+      // Sort versions in descending order (newest first)
+      const sortedVersions = Object.keys(this.versionData.versions).sort((a, b) => {
+        const versionA = a.split('.').map(Number);
+        const versionB = b.split('.').map(Number);
+        
+        for (let i = 0; i < Math.max(versionA.length, versionB.length); i++) {
+          const numA = versionA[i] || 0;
+          const numB = versionB[i] || 0;
+          if (numA !== numB) {
+            return numB - numA; // Descending order
+          }
+        }
+        
+        return 0;
+      });
+      
+      sortedVersions.forEach(version => {
+        const versionInfo = this.versionData.versions[version];
+        if (!versionInfo) return;
+        
+        html += `
+          <div class="${styles.versionEntry}" id="version-${version}">
+            <h3 class="${styles.versionTitle}">Version ${version}</h3>
+            ${versionInfo.date ? `<span class="${styles.versionDate}">${versionInfo.date}</span>` : ''}
+            <ul class="${styles.changesList}">
+              ${versionInfo.changes.map(change => `<li>${change}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      });
+      
+      contentElement.innerHTML = html;
+    } catch (error) {
+      console.error('Error updating changelog content:', error);
+    }
+  }
+  
+  /**
+   * Show the update notification
+   * @param {string} message - Optional custom message
+   */
+  showUpdateNotification(message) {
+    try {
+      if (!this.updateNotification) {
+        this.createUpdateNotification();
+      }
+      
+      // Update message if provided
+      if (message) {
+        const messageElement = this.updateNotification.querySelector('#update-message');
+        if (messageElement) {
+          messageElement.textContent = message;
+        }
+      }
+      
+      // Show notification
+      this.updateNotification.style.display = 'flex';
+      
+      // Animate in
+      setTimeout(() => {
+        this.updateNotification.classList.add(styles.visible);
+      }, 10);
+    } catch (error) {
+      console.error('Error showing update notification:', error);
+    }
+  }
+  
+  /**
+   * Hide the update notification
+   */
+  hideUpdateNotification() {
+    try {
+      if (!this.updateNotification) return;
+      
+      // Animate out
+      this.updateNotification.classList.remove(styles.visible);
+      
+      // Hide after animation
+      setTimeout(() => {
+        this.updateNotification.style.display = 'none';
+      }, 300);
+    } catch (error) {
+      console.error('Error hiding update notification:', error);
+    }
   }
   
   /**
    * Initialize version tracking
    */
-  async init() {
-    // Load version data
-    await this.loadVersionData();
-    
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => this.initVersionTracking());
-    } else {
-      this.initVersionTracking();
-    }
-    
-    // Listen for content loaded event
-    window.addEventListener('content-loaded', () => {
-      // Mark section timestamps and check for updates
-      this.markSectionTimestamps();
-      this.checkForUpdates();
-    });
-  }
-  
-  /**
-   * Load version data from external JSON file
-   */
-  async loadVersionData() {
-    try {
-      const response = await fetch('version.json');
-      if (!response.ok) {
-        throw new Error(`Failed to load version data: ${response.status} ${response.statusText}`);
-      }
-      
-      const data = await response.json();
-      
-      // Update version information
-      this.currentVersion = data.currentVersion;
-      this.sectionVersions = data.sectionVersions;
-      this.changelog = data.changelog;
-      this.isDataLoaded = true;
-      
-      console.log('Version data loaded successfully', this.currentVersion);
-      
-    } catch (error) {
-      console.error('Error loading version data:', error);
-      // Continue with default values
-    }
-  }
-  
-  /**
-   * Initialize version tracking after DOM is ready
-   */
   initVersionTracking() {
-    // Create version display in the sidebar
-    this.createVersionDisplay();
-    
-    // Check for updates after content is loaded
-    if (document.body.classList.contains('content-loaded')) {
-      this.markSectionTimestamps();
-      this.checkForUpdates();
+    try {
+      // Compare current version with last visited version
+      const lastVisitedVersion = this.getLastVisitedVersion();
+      
+      if (lastVisitedVersion) {
+        if (this.isNewerVersion(this.currentVersion, lastVisitedVersion)) {
+          // Show update notification
+          const message = `Updated to version ${this.currentVersion}`;
+          this.showUpdateNotification(message);
+        }
+      }
+      
+      // Save current version as last visited
+      this.saveLastVisitedVersion();
+    } catch (error) {
+      console.error('Error initializing version tracking:', error);
     }
   }
   
   /**
-   * Create version display in the sidebar
+   * Get the last visited version from localStorage
+   * @private
+   * @returns {string|null} Last visited version
    */
-  createVersionDisplay() {
-    const sidebar = document.querySelector('.sidebar-inner');
-    if (!sidebar) return;
-    
-    // Create version display
-    const versionDisplay = document.createElement('div');
-    versionDisplay.className = styles['version-display'];
-    versionDisplay.innerHTML = `
-      <p class="${styles['version-number']}">Version ${this.currentVersion}</p>
-      <a href="#" id="show-changelog">View Changelog</a>
-    `;
-    
-    // Add to sidebar
-    sidebar.appendChild(versionDisplay);
-    
-    // Set up changelog link
-    document.getElementById('show-changelog').addEventListener('click', (e) => {
-      e.preventDefault();
-      this.showChangelog();
-    });
+  getLastVisitedVersion() {
+    try {
+      return localStorage.getItem(this.storageKey);
+    } catch (error) {
+      console.warn('Could not access localStorage for version tracking', error);
+      return null;
+    }
   }
   
   /**
-   * Show changelog dialog
+   * Save the current version as last visited version
+   * @private
    */
-  showChangelog() {
-    // Create changelog dialog
-    const dialog = document.createElement('div');
-    dialog.className = styles['changelog-dialog'];
-    
-    // Generate changelog content
-    let changelogContent = `
-      <h3 style="color: var(--dracula-purple, #bd93f9); margin-top: 0; margin-bottom: 20px;">Changelog</h3>
-    `;
-    
-    // Sort changelog entries by version (newest first)
-    const sortedVersions = Object.keys(this.changelog).sort((a, b) => {
-      return this.compareVersions(b, a);
-    });
-    
-    // Build changelog HTML
-    sortedVersions.forEach(version => {
-      const entry = this.changelog[version];
-      
-      changelogContent += `
-        <div class="${styles['changelog-entry']}">
-          <h4 style="color: var(--dracula-cyan, #8be9fd); margin-bottom: 10px;">
-            Version ${version} <span style="color: var(--dracula-comment, #6272a4); font-size: 0.9em; font-weight: normal;">(${entry.date})</span>
-          </h4>
-          <ul style="margin: 0; padding-left: 20px;">
-      `;
-      
-      entry.changes.forEach(change => {
-        changelogContent += `<li style="margin-bottom: 5px;">${change}</li>`;
-      });
-      
-      changelogContent += '</ul></div>';
-    });
-    
-    // Add close button
-    changelogContent += `
-      <div style="text-align: center; margin-top: 20px;">
-        <button id="close-changelog" style="background-color: var(--dracula-purple, #bd93f9); color: var(--dracula-background, #282a36); padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">Close</button>
-      </div>
-    `;
-    
-    // Set dialog content
-    dialog.innerHTML = changelogContent;
-    
-    // Add to DOM
-    document.body.appendChild(dialog);
-    
-    // Add event listener to close button
-    document.getElementById('close-changelog').addEventListener('click', () => {
-      dialog.remove();
-    });
-    
-    // Close on escape key
-    document.addEventListener('keydown', function closeOnEsc(e) {
-      if (e.key === 'Escape') {
-        dialog.remove();
-        document.removeEventListener('keydown', closeOnEsc);
-      }
-    });
-    
-    // Close on outside click
-    setTimeout(() => {
-      document.addEventListener('click', function closeOnOutsideClick(e) {
-        if (!dialog.contains(e.target) && e.target.id !== 'show-changelog') {
-          dialog.remove();
-          document.removeEventListener('click', closeOnOutsideClick);
-        }
-      });
-    }, 10);
+  saveLastVisitedVersion() {
+    try {
+      localStorage.setItem(this.storageKey, this.currentVersion);
+    } catch (error) {
+      console.warn('Could not save version to localStorage', error);
+    }
   }
   
   /**
-   * Mark each section with its last updated timestamp
+   * Acknowledge the update (mark as seen)
    */
-  markSectionTimestamps() {
-    if (!this.isDataLoaded) return;
+  acknowledgeUpdate() {
+    try {
+      this.saveLastVisitedVersion();
+    } catch (error) {
+      console.error('Error acknowledging update:', error);
+    }
+  }
+  
+  /**
+   * Check if version1 is newer than version2
+   * @private
+   * @param {string} version1 - First version
+   * @param {string} version2 - Second version
+   * @returns {boolean} True if version1 is newer than version2
+   */
+  isNewerVersion(version1, version2) {
+    const v1 = version1.split('.').map(Number);
+    const v2 = version2.split('.').map(Number);
     
-    // Add timestamps to each section
-    Object.entries(this.sectionVersions).forEach(([sectionId, versionInfo]) => {
-      const section = document.getElementById(sectionId);
-      if (!section) return;
+    for (let i = 0; i < Math.max(v1.length, v2.length); i++) {
+      const num1 = v1[i] || 0;
+      const num2 = v2[i] || 0;
       
-      // Check if timestamp already exists
-      let timestamp = section.querySelector(`.${styles['section-timestamp']}`);
+      if (num1 > num2) return true;
+      if (num1 < num2) return false;
+    }
+    
+    return false; // Equal versions
+  }
+  
+  /**
+   * Check for updates manually
+   * @returns {Promise<boolean>} True if updates are available
+   */
+  async checkForUpdates() {
+    try {
+      await this.fetchVersionData();
       
-      if (!timestamp) {
-        // Create timestamp element
-        timestamp = document.createElement('div');
-        timestamp.className = styles['section-timestamp'];
+      // Check if there's a newer version available
+      if (this.versionData && this.versionData.latest) {
+        const isNewer = this.isNewerVersion(this.versionData.latest, this.currentVersion);
         
-        // Get the section heading
-        const heading = section.querySelector('h1, h2, h3, h4, h5, h6');
-        if (heading) {
-          // Insert timestamp after heading
-          heading.insertAdjacentElement('afterend', timestamp);
-        } else {
-          // If no heading, insert at the beginning of the section
-          section.insertBefore(timestamp, section.firstChild);
+        if (isNewer) {
+          // Show update notification
+          const latestVersion = this.versionData.latest;
+          const message = `Version ${latestVersion} is available (you have ${this.currentVersion})`;
+          this.showUpdateNotification(message);
+          return true;
         }
       }
       
-      // Update timestamp text
-      timestamp.textContent = `Last updated: ${versionInfo.lastUpdated}`;
-      
-      // Add data attributes for version info
-      section.dataset.version = versionInfo.version;
-      section.dataset.lastUpdated = versionInfo.lastUpdated;
-    });
+      return false;
+    } catch (error) {
+      console.error('Error checking for updates:', error);
+      return false;
+    }
   }
   
   /**
-   * Check if there are updates since user's last visit
+   * Navigate to a specific version section in the changelog
+   * @param {string} version - Version to navigate to
    */
-  checkForUpdates() {
-    if (!this.isDataLoaded) return;
-    
-    // Get last visited version from localStorage
-    const lastVisitedVersion = localStorage.getItem('sdde-last-visited-version');
-    
-    // If this is the first visit or version data was cleared, just save current version
-    if (!lastVisitedVersion) {
-      localStorage.setItem('sdde-last-visited-version', this.currentVersion);
-      return;
-    }
-    
-    // Check if current version is newer than last visited
-    if (this.compareVersions(this.currentVersion, lastVisitedVersion) > 0) {
-      // Show update notification
-      this.showUpdateNotification(lastVisitedVersion);
-      
-      // Update the stored version
-      localStorage.setItem('sdde-last-visited-version', this.currentVersion);
-    }
-    
-    // Mark updated sections
-    this.markUpdatedSections(lastVisitedVersion);
-  }
-  
-  /**
-   * Show notification about updates since last visit
-   */
-  showUpdateNotification(lastVisitedVersion) {
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = styles['update-notification'];
-    
-    // Generate list of versions since last visit
-    const updatedVersions = this.getVersionsSince(lastVisitedVersion);
-    let changeCount = 0;
-    
-    updatedVersions.forEach(version => {
-      if (this.changelog[version]) {
-        changeCount += this.changelog[version].changes.length;
-      }
-    });
-    
-    // Set notification content
-    notification.innerHTML = `
-      <p style="margin: 0 0 10px 0;">The guide has been updated since your last visit!</p>
-      <p style="margin: 0 0 10px 0; font-size: 0.9em; opacity: 0.9;">
-        ${changeCount} change${changeCount !== 1 ? 's' : ''} in ${updatedVersions.length} update${updatedVersions.length !== 1 ? 's' : ''}
-      </p>
-      <div style="display: flex; justify-content: space-between;">
-        <button id="view-updates" class="${styles['update-button']}">View Changes</button>
-        <button id="dismiss-updates" class="${styles['dismiss-button']}">Dismiss</button>
-      </div>
-    `;
-    
-    // Add to document and animate in
-    document.body.appendChild(notification);
-    
-    // Force reflow to ensure transition works
-    notification.offsetHeight;
-    
-    // Animate in
-    notification.style.transform = 'translateY(0)';
-    
-    // Add event listeners
-    document.getElementById('view-updates').addEventListener('click', () => {
-      notification.remove();
+  navigateToVersion(version) {
+    try {
       this.showChangelog();
-    });
-    
-    document.getElementById('dismiss-updates').addEventListener('click', () => {
-      // Animate out
-      notification.style.transform = 'translateY(-100px)';
       
-      // Remove after animation
       setTimeout(() => {
-        notification.remove();
-      }, 500);
-    });
-    
-    // Auto dismiss after 10 seconds
-    setTimeout(() => {
-      if (document.body.contains(notification)) {
-        notification.style.transform = 'translateY(-100px)';
-        setTimeout(() => {
-          if (document.body.contains(notification)) {
-            notification.remove();
-          }
-        }, 500);
-      }
-    }, 10000);
-  }
-  
-  /**
-   * Mark sections that have been updated since last visit
-   */
-  markUpdatedSections(lastVisitedVersion) {
-    if (!this.isDataLoaded) return;
-    
-    // For each section, check if it was updated since last visit
-    Object.entries(this.sectionVersions).forEach(([sectionId, versionInfo]) => {
-      // If section version is newer than last visited version
-      if (this.compareVersions(versionInfo.version, lastVisitedVersion) > 0) {
-        const section = document.getElementById(sectionId);
-        if (!section) return;
-        
-        // Add "Updated" badge if not already present
-        if (!section.querySelector(`.${styles['updated-badge']}`)) {
-          // Create badge
-          const badge = document.createElement('span');
-          badge.className = styles['updated-badge'];
-          badge.textContent = 'UPDATED';
+        const versionElement = document.getElementById(`version-${version}`);
+        if (versionElement) {
+          versionElement.scrollIntoView({ behavior: 'smooth' });
+          versionElement.classList.add(styles.highlight);
           
-          // Add badge to heading
-          const heading = section.querySelector('h1, h2, h3, h4, h5, h6');
-          if (heading) {
-            heading.appendChild(badge);
-          }
-          
-          // Also mark the sidebar link
-          const sidebarLink = document.querySelector(`.sidebar a[href="#${sectionId}"]`);
-          if (sidebarLink && !sidebarLink.querySelector(`.${styles['updated-dot']}`)) {
-            const dot = document.createElement('span');
-            dot.className = styles['updated-dot'];
-            dot.textContent = '•';
-            
-            sidebarLink.appendChild(dot);
-          }
+          // Remove highlight after animation
+          setTimeout(() => {
+            versionElement.classList.remove(styles.highlight);
+          }, 2000);
         }
-      }
-    });
-  }
-  
-  /**
-   * Get all versions released since a specific version
-   */
-  getVersionsSince(sinceVersion) {
-    return Object.keys(this.changelog)
-      .filter(version => this.compareVersions(version, sinceVersion) > 0)
-      .sort((a, b) => this.compareVersions(b, a)); // Sort descending
-  }
-  
-  /**
-   * Compare two version strings
-   * @returns {number} 1 if a > b, -1 if a < b, 0 if equal
-   */
-  compareVersions(a, b) {
-    // Simple numeric comparison for our version format (YYYYMMDD.counter)
-    const aNum = parseFloat(a);
-    const bNum = parseFloat(b);
-    
-    if (aNum > bNum) return 1;
-    if (aNum < bNum) return -1;
-    return 0;
-  }
-  
-  /**
-   * Initialize the component
-   * This is the public method called from ui-main.js
-   */
-  initialize() {
-    console.log('VersionManager initialized');
-    
-    // The component automatically initializes in the constructor,
-    // so this method exists for API consistency with other components
-    
-    return this;
+      }, 300);
+    } catch (error) {
+      console.error('Error navigating to version:', error);
+    }
   }
 }
 
-export default new VersionManager(); 
+export default VersionManager; 

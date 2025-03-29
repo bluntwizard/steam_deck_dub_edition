@@ -1,0 +1,65 @@
+{
+  "name": "sdde-components",
+  "version": "0.1.0",
+  "description": "Steam Deck DUB Edition UI Component Library",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "test": "jest",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "generate-types": "tsc --emitDeclarationOnly"
+  },
+  "keywords": [
+    "ui",
+    "components",
+    "steam-deck",
+    "interface",
+    "accessibility",
+    "modular"
+  ],
+  "author": "Steam Deck DUB Edition Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.15.0",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@types/jest": "^27.0.1",
+    "autoprefixer": "^10.3.3",
+    "cssnano": "^5.0.8",
+    "eslint": "^7.32.0",
+    "jest": "^27.1.0",
+    "postcss": "^8.3.6",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.56.3",
+    "rollup-plugin-postcss": "^4.0.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "^4.4.2"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/steamdeckdubedition/sdde-components"
+  },
+  "bugs": {
+    "url": "https://github.com/steamdeckdubedition/sdde-components/issues"
+  },
+  "homepage": "https://github.com/steamdeckdubedition/sdde-components#readme"
+} 

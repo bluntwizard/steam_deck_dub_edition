@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Deck DUB Edition - Component Showcase</title>
+    <link rel="stylesheet" href="../styles/base.css">
+    <link rel="stylesheet" href="showcase.css">
+    <style>
+        :root {
+            --primary-color: #1a9fff;
+            --secondary-color: #3d4450;
+            --accent-color: #8a2be2;
+            --text-color: #f1f1f1;
+            --background-color: #121212;
+            --card-background: #1e1e1e;
+            --border-color: #2d2d2d;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --error-color: #f44336;
+            --info-color: #2196f3;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .component-section {
+            background-color: var(--card-background);
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+        }
+
+        .component-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .component-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .component-demo {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .control-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #0b86e0;
+        }
+
+        button.secondary {
+            background-color: var(--secondary-color);
+        }
+
+        button.secondary:hover {
+            background-color: #303742;
+        }
+
+        button.danger {
+            background-color: var(--error-color);
+        }
+
+        button.danger:hover {
+            background-color: #d32f2f;
+        }
+
+        input, select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .code-example {
+            background-color: #282c34;
+            border-radius: 4px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin-top: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+        }
+
+        .tab-navigation {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+
+        .tab-button {
+            padding: 0.5rem 1rem;
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .tab-button.active {
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        #loadingTestArea, #dialog-demo-area, #notification-demo-area, #error-demo-area {
+            min-height: 200px;
+            border: 1px dashed var(--border-color);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Steam Deck DUB Edition - Component Showcase</h1>
+    </header>
+
+    <div class="container">
+        <div class="component-section">
+            <div class="component-header">
+                <h2 class="component-title">Dialog</h2>
+            </div>
+            <p>The Dialog component provides a customizable modal dialog with support for various content types and actions.</p>
+            
+            <div class="component-demo">
+                <div class="control-panel">
+                    <button id="openSimpleDialog">Simple Dialog</button>
+                    <button id="openConfirmDialog">Confirmation Dialog</button>
+                    <button id="openCustomDialog">Custom Content Dialog</button>
+                </div>
+                <div id="dialog-demo-area">
+                    <p>Click one of the buttons above to demonstrate the Dialog component.</p>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <pre><code>// Create a simple dialog
+const dialog = new Dialog({
+  title: 'Information',
+  content: 'This is a simple information dialog',
+  onClose: () => console.log('Dialog closed')
+});
+
+dialog.show();</code></pre>
+            </div>
+        </div>
+
+        <div class="component-section">
+            <div class="component-header">
+                <h2 class="component-title">PageLoader</h2>
+            </div>
+            <p>The PageLoader component displays a fullscreen loading overlay with spinner, progress indicator, and custom messages.</p>
+            
+            <div class="component-demo">
+                <div class="control-panel">
+                    <button id="showLoader">Show Loader</button>
+                    <button id="showLoaderWithMessage">Show with Message</button>
+                    <button id="showLoaderWithProgress">Show with Progress</button>
+                    <button id="hideLoader">Hide Loader</button>
+                </div>
+                <div id="loadingTestArea">
+                    <p>Click one of the buttons above to demonstrate the PageLoader component.</p>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <pre><code>// Create a page loader
+const loader = new PageLoader({
+  container: document.getElementById('container'),
+  message: 'Loading content...',
+  showSpinner: true,
+  showProgress: true
+});
+
+// Show the loader
+loader.show();
+
+// Update progress
+loader.setProgress(75);
+
+// Set custom message
+loader.setMessage('Almost done...');
+
+// Hide when complete
+loader.hide();</code></pre>
+            </div>
+        </div>
+
+        <div class="component-section">
+            <div class="component-header">
+                <h2 class="component-title">NotificationSystem</h2>
+            </div>
+            <p>The NotificationSystem component provides a centralized way to display notifications to users.</p>
+            
+            <div class="component-demo">
+                <div class="control-panel">
+                    <button id="showInfoNotification">Info Notification</button>
+                    <button id="showSuccessNotification">Success Notification</button>
+                    <button id="showWarningNotification">Warning Notification</button>
+                    <button id="showErrorNotification">Error Notification</button>
+                    <input type="text" id="notificationText" placeholder="Custom notification text">
+                </div>
+                <div id="notification-demo-area">
+                    <p>Click one of the buttons above to demonstrate the NotificationSystem component.</p>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <pre><code>// Initialize the notification system
+const notificationSystem = new NotificationSystem({
+  container: document.body,
+  position: 'top-right',
+  timeout: 5000
+});
+
+// Show different types of notifications
+notificationSystem.showNotification('Info message', 'info');
+notificationSystem.showNotification('Success message', 'success');
+notificationSystem.showNotification('Warning message', 'warning');
+notificationSystem.showNotification('Error message', 'error');</code></pre>
+            </div>
+        </div>
+
+        <div class="component-section">
+            <div class="component-header">
+                <h2 class="component-title">ErrorHandler</h2>
+            </div>
+            <p>The ErrorHandler component provides centralized error handling, logging, and user feedback for application errors.</p>
+            
+            <div class="component-demo">
+                <div class="control-panel">
+                    <button id="triggerRuntimeError">Trigger Runtime Error</button>
+                    <button id="triggerCustomError">Trigger Custom Error</button>
+                    <button id="showErrorModal">Show Error Modal</button>
+                    <button id="triggerAsyncError">Trigger Async Error</button>
+                </div>
+                <div id="error-demo-area">
+                    <p>Click one of the buttons above to demonstrate the ErrorHandler component.</p>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <pre><code>// Create an error handler
+const errorHandler = new ErrorHandler({
+  captureGlobalErrors: true,
+  logErrors: true,
+  showNotifications: true,
+  notificationType: 'toast'
+});
+
+// Initialize the error handler
+errorHandler.init();
+
+// Handle specific errors
+try {
+  // Risky code here
+} catch (error) {
+  errorHandler.handleError(error, {
+    displayMode: 'modal',
+    userMessage: 'An error occurred while processing your request'
+  });
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="component-section">
+            <div class="component-header">
+                <h2 class="component-title">HelpCenter</h2>
+            </div>
+            <p>The HelpCenter component provides a popup help interface with searchable content and navigation.</p>
+            
+            <div class="component-demo">
+                <div class="control-panel">
+                    <button id="openHelpCenter">Open Help Center</button>
+                    <button id="openHelpTopic">Open Specific Topic</button>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <pre><code>// Create a help center
+const helpCenter = new HelpCenter({
+  container: document.body,
+  helpContentUrl: '/help-content/',
+  defaultTopic: 'getting-started'
+});
+
+// Initialize the help center
+helpCenter.initialize();
+
+// Open the help center
+helpCenter.open();
+
+// Open a specific topic
+helpCenter.openTopic('keyboard-shortcuts');</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import Dialog from '../components/Dialog/index.js';
+        import PageLoader from '../components/PageLoader/index.js';
+        import NotificationSystem from '../components/NotificationSystem/index.js';
+        import ErrorHandler from '../components/ErrorHandler/index.js';
+        import HelpCenter from '../components/HelpCenter/index.js';
+
+        // Initialize components
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dialog component demo
+            const dialogDemo = () => {
+                document.getElementById('openSimpleDialog').addEventListener('click', () => {
+                    const dialog = new Dialog({
+                        title: 'Simple Dialog',
+                        content: 'This is a basic dialog with just a message and a close button.',
+                        onClose: () => console.log('Simple dialog closed')
+                    });
+                    dialog.show();
+                });
+                
+                document.getElementById('openConfirmDialog').addEventListener('click', () => {
+                    const dialog = new Dialog({
+                        title: 'Confirmation',
+                        content: 'Are you sure you want to delete this item? This action cannot be undone.',
+                        actions: [
+                            {
+                                text: 'Delete',
+                                danger: true,
+                                onClick: () => {
+                                    console.log('Delete confirmed');
+                                    return true;
+                                }
+                            },
+                            {
+                                text: 'Cancel',
+                                onClick: () => {
+                                    console.log('Delete canceled');
+                                    return true;
+                                }
+                            }
+                        ]
+                    });
+                    dialog.show();
+                });
+                
+                document.getElementById('openCustomDialog').addEventListener('click', () => {
+                    const customContent = document.createElement('div');
+                    customContent.innerHTML = `
+                        <form id="demo-form">
+                            <div style="margin-bottom: 15px;">
+                                <label for="name" style="display: block; margin-bottom: 5px;">Name:</label>
+                                <input type="text" id="name" style="width: 100%; padding: 8px;" />
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="email" style="display: block; margin-bottom: 5px;">Email:</label>
+                                <input type="email" id="email" style="width: 100%; padding: 8px;" />
+                            </div>
+                        </form>
+                    `;
+                    
+                    const dialog = new Dialog({
+                        title: 'Custom Form Dialog',
+                        content: customContent,
+                        maxWidth: '400px',
+                        actions: [
+                            {
+                                text: 'Submit',
+                                primary: true,
+                                onClick: () => {
+                                    const name = customContent.querySelector('#name').value;
+                                    const email = customContent.querySelector('#email').value;
+                                    
+                                    if (!name || !email) {
+                                        alert('Please fill out all fields');
+                                        return false;
+                                    }
+                                    
+                                    console.log('Form submitted:', { name, email });
+                                    return true;
+                                }
+                            },
+                            {
+                                text: 'Cancel'
+                            }
+                        ]
+                    });
+                    dialog.show();
+                });
+            };
+            
+            // PageLoader component demo
+            const pageLoaderDemo = () => {
+                let loader = null;
+                
+                document.getElementById('showLoader').addEventListener('click', () => {
+                    loader = new PageLoader({
+                        container: document.getElementById('loadingTestArea'),
+                        autoInit: true
+                    });
+                    loader.show();
+                });
+                
+                document.getElementById('showLoaderWithMessage').addEventListener('click', () => {
+                    loader = new PageLoader({
+                        container: document.getElementById('loadingTestArea'),
+                        message: 'Loading content, please wait...',
+                        autoInit: true
+                    });
+                    loader.show();
+                });
+                
+                document.getElementById('showLoaderWithProgress').addEventListener('click', () => {
+                    loader = new PageLoader({
+                        container: document.getElementById('loadingTestArea'),
+                        message: 'Loading assets...',
+                        showProgress: true,
+                        autoInit: true
+                    });
+                    loader.show();
+                    
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += 10;
+                        loader.setProgress(progress);
+                        loader.setMessage(`Loading assets (${progress}%)...`);
+                        
+                        if (progress >= 100) {
+                            clearInterval(interval);
+                            setTimeout(() => {
+                                loader.hide();
+                            }, 500);
+                        }
+                    }, 500);
+                });
+                
+                document.getElementById('hideLoader').addEventListener('click', () => {
+                    if (loader) {
+                        loader.hide();
+                    }
+                });
+            };
+            
+            // NotificationSystem component demo
+            const notificationDemo = () => {
+                const notificationSystem = new NotificationSystem({
+                    container: document.getElementById('notification-demo-area'),
+                    position: 'top-right',
+                    autoInit: true
+                });
+                
+                document.getElementById('showInfoNotification').addEventListener('click', () => {
+                    const text = document.getElementById('notificationText').value || 'This is an info notification';
+                    notificationSystem.showNotification(text, 'info');
+                });
+                
+                document.getElementById('showSuccessNotification').addEventListener('click', () => {
+                    const text = document.getElementById('notificationText').value || 'Operation completed successfully!';
+                    notificationSystem.showNotification(text, 'success');
+                });
+                
+                document.getElementById('showWarningNotification').addEventListener('click', () => {
+                    const text = document.getElementById('notificationText').value || 'Warning: This action may have consequences';
+                    notificationSystem.showNotification(text, 'warning');
+                });
+                
+                document.getElementById('showErrorNotification').addEventListener('click', () => {
+                    const text = document.getElementById('notificationText').value || 'Error: Something went wrong!';
+                    notificationSystem.showNotification(text, 'error');
+                });
+            };
+            
+            // ErrorHandler component demo
+            const errorHandlerDemo = () => {
+                const errorHandler = new ErrorHandler({
+                    captureGlobalErrors: false, // Don't capture global errors in the demo
+                    logErrors: true,
+                    showNotifications: true,
+                    notificationType: 'toast',
+                    container: document.getElementById('error-demo-area'),
+                    autoInit: true
+                });
+                
+                document.getElementById('triggerRuntimeError').addEventListener('click', () => {
+                    try {
+                        // Intentionally cause an error
+                        const obj = null;
+                        console.log(obj.nonExistentProperty);
+                    } catch (error) {
+                        errorHandler.handleError(error, {
+                            displayMode: 'toast',
+                            userMessage: 'A runtime error occurred'
+                        });
+                    }
+                });
+                
+                document.getElementById('triggerCustomError').addEventListener('click', () => {
+                    const customError = new Error('This is a custom error message');
+                    customError.name = 'CustomError';
+                    errorHandler.handleError(customError, {
+                        displayMode: 'toast',
+                        userMessage: 'A custom error was triggered'
+                    });
+                });
+                
+                document.getElementById('showErrorModal').addEventListener('click', () => {
+                    const error = new Error('Detailed error information that would be logged but not shown to user');
+                    errorHandler.handleError(error, {
+                        displayMode: 'modal',
+                        userMessage: 'An error occurred while processing your request',
+                        actionButtons: [
+                            {
+                                text: 'Retry',
+                                onClick: () => console.log('Retry action')
+                            },
+                            {
+                                text: 'Cancel'
+                            }
+                        ]
+                    });
+                });
+                
+                document.getElementById('triggerAsyncError').addEventListener('click', () => {
+                    // Simulate an async operation that fails
+                    setTimeout(() => {
+                        const asyncError = new Error('Async operation failed');
+                        errorHandler.handleError(asyncError, {
+                            displayMode: 'toast',
+                            userMessage: 'Failed to complete the async operation'
+                        });
+                    }, 1000);
+                });
+            };
+            
+            // HelpCenter component demo
+            const helpCenterDemo = () => {
+                const helpCenter = new HelpCenter({
+                    container: document.body,
+                    helpContentUrl: '../help-content/',
+                    defaultTopic: 'getting-started',
+                    autoInit: true
+                });
+                
+                document.getElementById('openHelpCenter').addEventListener('click', () => {
+                    helpCenter.open();
+                });
+                
+                document.getElementById('openHelpTopic').addEventListener('click', () => {
+                    helpCenter.openTopic('keyboard-shortcuts');
+                });
+            };
+            
+            // Initialize all demos
+            dialogDemo();
+            pageLoaderDemo();
+            notificationDemo();
+            errorHandlerDemo();
+            helpCenterDemo();
+        });
+    </script>
+    
+    <!-- Showcase enhancer script -->
+    <script src="showcase.js"></script>
+</body>
+</html> 

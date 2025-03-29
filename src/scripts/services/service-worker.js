@@ -19,8 +19,8 @@ const CACHE_NAMES = {
 const STATIC_ASSETS = [
   '/', // Root path
   '/index.html',
-  '/styles.css',
-  '/scripts/services/preload.js',
+  '/main.js',
+  '/preload.js',
   '/offline.html', // Fallback page for when offline
   '/src/ui-main.js',
   '/src/utils.js',
