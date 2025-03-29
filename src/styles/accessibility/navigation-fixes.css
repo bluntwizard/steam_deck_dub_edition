@@ -1,0 +1,82 @@
+/**
+* Navigation Fixes for SDDE Guide
+* Resolves conflicts between header and sidebar
+*/
+
+/* Adjust content position based on navigation mode */
+.use-modern-nav .main-content {
+  margin-top: var(--header-height);
+  transition: margin-top var(--header-transition);
+}
+
+.use-modern-nav .sdde-header.expanded ~ .main-content {
+  margin-top: var(--header-expanded-height);
+}
+
+/* Traditional sidebar adjustments */
+body:not(.use-modern-nav) .sidebar {
+  top: var(--header-height);
+/* Position below header */
+  height: calc(100vh - var(--header-height));
+}
+
+/* When using compact sidebar mode */
+.compact-sidebar .sidebar {
+  width: 60;
+}
+
+.compact-sidebar .sidebar-active .main-content {
+  margin-left: 60;
+}
+
+.compact-sidebar .sidebar a span,
+.compact-sidebar .sidebar h3 {
+  display: none;
+}
+
+.compact-sidebar .sidebar a {
+  text-align: center;
+  padding: 15px 0;
+}
+
+/* Display tooltip on hover for compact sidebar */
+.compact-sidebar .sidebar a::after {
+  content: attr(data-title);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--dracula-background);
+  padding: 5px 10;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  z-index: 100;
+}
+
+.compact-sidebar .sidebar a:hover::after {
+  opacity: 1;
+}
+
+/* Mobile optimizations */
+@media (width <= 768px) {
+/* Duplicate selector (first used on line 7): .use-modern-nav .main-content */
+  margin-top: 60; /* Reduced header height on mobile */
+}
+
+/* Duplicate selector (first used on line 17): body:not(.use-modern-nav) .sidebar */
+width: 80vw;
+max-width: 300;
+
+/* Duplicate selector (first used on line 24): .compact-sidebar .sidebar */
+width: 100%;
+
+.compact-sidebar .sidebar a span,
+/* Duplicate selector (first used on line 33): .compact-sidebar .sidebar h3 */
+display: block.sidebaraspan,display
+}
+}.sidebaraspan,display
+}
+}

@@ -1,0 +1,226 @@
+/**
+* Progress Tracker CSS for Steam Deck DUB Edition
+* Provides styles for tracking user progress through guide content
+*/
+
+/* Section progress indicators */
+.progress-indicator {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 1rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: var(--background-lighter);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+.progress-indicator.completed {
+  background-color: var(--success-color-bg);
+  border-color: var(--success-color);
+}
+
+/* Custom checkbox styling */
+.progress-indicator input[type="checkbox"] {
+  appearance: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid var(--text-color);
+  border-radius: 0.25rem;
+  margin-right: 0.5rem;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.progress-indicator input[type="checkbox"]:focus {
+  box-shadow: 0 0 0 2px var(--focus-color);
+  outline: none;
+}
+
+.progress-indicator input[type="checkbox"]:checked {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+}
+
+.progress-indicator input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.progress-indicator label {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text-color);
+  user-select: none;
+}
+
+.progress-indicator.completed label {
+  color: var(--success-color);
+  font-weight: 500;
+}
+
+/* Overall progress container */
+.overall-progress-container {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 100;
+  background-color: var(--background-color);
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+}
+
+.overall-progress {
+  width: 200;
+  padding: 0.5rem;
+  background-color: var(--background-lighter);
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.sidebar .overall-progress,
+header .overall-progress {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+}
+
+/* Progress bar */
+.progress-bar {
+  height: 0.5rem;
+  background-color: var(--progress-bg);
+  border-radius: 0.25rem;
+  position: relative;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+.progress-low .progress-bar { background-color: var(--warning-color);
+}
+
+.progress-medium .progress-bar { background-color: var(--info-color);
+}
+
+.progress-high .progress-bar { background-color: var(--success-color-light);
+}
+
+.progress-complete .progress-bar { background-color: var(--success-color);
+}
+
+/* Progress text */
+.progress-text {
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  color: var(--text-color-light);
+}
+
+.progress-complete .progress-text {
+  color: var(--success-color);
+  font-weight: bold;
+}
+
+/* Settings specific styles */
+.settings-progress-bar {
+  width: 100%;
+  height: 0.5rem;
+  background-color: var(--background-lighter);
+  border-radius: 0.25rem;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.settings-progress-fill {
+  height: 100%;
+  background-color: var(--success-color);
+  transition: width 0.5s ease;
+}
+
+/* Accessibility enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .progress-bar,
+  .settings-progress-fill, .progress-indicator,
+/* Duplicate selector (first used on line 25): .progress-indicator input[type="checkbox"] */
+  transition: none;.settings-progress-fill,.progress-indicator,transition
+.settings-progress-fill, .progress-indicator { transition: none; }
+}
+
+/* High contrast mode */
+.high-contrast .progress-indicator { border: 2px solid currentcolor;
+}
+
+.high-contrast .progress-indicator.completed {
+  background-color: #000;
+  border-color: #fff;
+}
+
+.high-contrast .progress-indicator input[type="checkbox"] { border: 2px solid currentcolor;
+}
+
+.high-contrast .progress-indicator input[type="checkbox"]:checked {
+  background-color: #fff;
+  border-color: #000;
+}
+
+.high-contrast .progress-indicator input[type="checkbox"]:checked::after { color: #000;
+}
+
+.high-contrast .progress-bar { border: 1px solid currentcolor;
+}
+
+/* Print styles */
+@media print {
+  .progress-indicator,
+  .overall-progress-container,
+/* Duplicate selector (first used on line 83): .overall-progress */
+  display: none;.overall-progress-container,display
+  .overall-progress-container,display;
+}
+
+/* Responsive adjustments */
+@media (width <= 768px) {
+/* Duplicate selector (first used on line 7): .progress-indicator */
+  margin-left: 0.5rem;
+  padding: 0.15rem 0.3rem;
+}
+
+/* Duplicate selector (first used on line 25): .progress-indicator input[type="checkbox"] */
+width: 1rem;
+height: 1rem;
+
+/* Duplicate selector (first used on line 58): .progress-indicator label */
+font-size: 0.75rem;
+
+/* Duplicate selector (first used on line 71): .overall-progress-container */
+bottom: 0.5rem;
+right: 0.5rem;
+
+/* Duplicate selector (first used on line 83): .overall-progress */
+width: 150;
+
+/* Dark mode specific adjustments */
+[data-theme="dark"] .progress-indicator { background-color: rgb(255 255 255 / 5%);
+}
+
+[data-theme="dark"] .progress-indicator.completed { background-color: rgb(46 204 113 / 20%);
+}
+
+/* Light mode specific adjustments */
+[data-theme="light"] .progress-indicator { background-color: rgb(0 0 0 / 5%);
+}
+
+[data-theme="light"] .progress-indicator.completed { background-color: rgb(46 204 113 / 10%);
+}
+
+
+

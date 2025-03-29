@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ...existing code... -->
+    
+    <!-- Scripts in specified initialization order -->
+    <script src="../scripts/services/content-loader.js"></script>
+    <script src="../scripts/core/ui-improvements.js"></script>
+    <script src="../scripts/services/search.js"></script>
+    <!-- Assuming preferences-manager.js corresponds to preferences.js -->
+    <script src="../scripts/components/preferences.js"></script>
+    <!-- Assuming script.js corresponds to main.js -->
+    <script src="../scripts/core/main.js"></script>
+    <script src="../scripts/core/renderer.js"></script>
+    <script src="../scripts/core/layout.js"></script>
+    <script src="../scripts/utils/layout-utilities.js"></script>
+    <script src="../scripts/components/navigation.js"></script>
+    <script src="../scripts/services/offline.js"></script>
+    <script src="../scripts/utils/print-helper.js"></script>
+    <script src="../scripts/services/pdf-export.js"></script>
+    <script src="../scripts/services/version-manager.js"></script>
+    <script src="../scripts/services/progress-tracker.js"></script>
+    <script src="../scripts/utils/debug-helper.js"></script>
+    
+    <!-- Root scripts that may still be in root -->
+    <script src="../../preload.js"></script>
+    <script src="../../service-worker.js" defer></script>
+    <script src="../../ui-main.js"></script>
+    <!-- ...existing code... -->
+</head>
+<body>
+    <!-- Content index file - Maps all content sections -->
+    <div id='content-map' data-sections='getting-started,optimizations,gaming,decky-loader'></div>
+    <!-- Individual sections will be loaded dynamically based on the content map -->
+</body>
+</html>

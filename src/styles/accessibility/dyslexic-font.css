@@ -1,0 +1,149 @@
+/**
+* OpenDyslexic font support for the SDDE Guide
+* Only loaded when enabled through preferences
+*/
+
+@font-face {
+  font-family: OpenDyslexic;
+  src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/ttf/OpenDyslexic-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Duplicate selector (first used on line 6): @font-face */
+font-family: OpenDyslexic;
+src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/ttf/OpenDyslexic-Bold.ttf') format('truetype');
+font-weight: bold;
+font-style: normal;
+font-display: swap;
+
+/* Duplicate selector (first used on line 6): @font-face */
+font-family: OpenDyslexic;
+src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/ttf/OpenDyslexic-Italic.ttf') format('truetype');
+font-weight: normal;
+font-style: italic;
+font-display: swap;
+
+/* Duplicate selector (first used on line 6): @font-face */
+font-family: OpenDyslexic;
+src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/ttf/OpenDyslexic-BoldItalic.ttf') format('truetype');
+font-weight: bold;
+font-style: italic;
+font-display: swap;
+
+/* Preload the fonts to avoid FOIT (Flash of Invisible Text) */
+.dyslexic-font-preload {
+  opacity: 0;
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  font-family: OpenDyslexic, sans-serif;
+}
+
+/* Apply OpenDyslexic font to the entire document when enabled */
+body.use-dyslexic-font {
+  font-family: OpenDyslexic, sans-serif !important;
+/* Increased spacing improves readability for dyslexic users */
+  letter-spacing: 0.05em;
+  word-spacing: 0.15em;
+  line-height: 1.5;
+}
+
+/* Apply to headings */
+body.use-dyslexic-font h1,
+body.use-dyslexic-font h2,
+body.use-dyslexic-font h3,
+body.use-dyslexic-font h4,
+body.use-dyslexic-font h5,
+body.use-dyslexic-font h6 {
+  font-family: OpenDyslexic, sans-serif !important;
+/* Slightly reduce letter spacing for headings */
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  margin-bottom: 1em;
+/* Add more space after headings */;
+}
+
+/* Apply to navigation elements */
+  body.use-dyslexic-font .sidebar a,
+  body.use-dyslexic-font .header-nav a,
+  body.use-dyslexic-font .breadcrumbs a {
+    font-family: OpenDyslexic, sans-serif !important;
+  }
+
+/* Apply to buttons */
+  body.use-dyslexic-font button,
+  body.use-dyslexic-font .button,
+  body.use-dyslexic-font input[type="button"],
+  body.use-dyslexic-font input[type="submit"] {
+    font-family: OpenDyslexic, sans-serif !important;
+  }
+
+/* Apply to form elements */
+  body.use-dyslexic-font input[type="text"],
+  body.use-dyslexic-font input[type="search"],
+  body.use-dyslexic-font textarea,
+  body.use-dyslexic-font select {
+    font-family: OpenDyslexic, sans-serif !important;
+  }
+
+/* Additional readability enhancements for dyslexic users */
+/* Duplicate selector (first used on line 48): body.use-dyslexic-font */
+/* Slightly darker text on lighter backgrounds */
+  --text-color-on-light: #111;
+/* Slightly improved paragraph spacing */
+  --paragraph-spacing: 1.2em;
+
+  body.use-dyslexic-font p {
+    margin-bottom: var(--paragraph-spacing);
+  }
+
+/* Improve link highlighting for better visibility */
+  body.use-dyslexic-font a:hover,
+  body.use-dyslexic-font a:focus {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+/* Don't apply dyslexic font to code blocks - maintain monospace for code */
+  body.use-dyslexic-font pre,
+  body.use-dyslexic-font code,
+  body.use-dyslexic-font .code-block {
+    font-family: 'JetBrains Mono', monospace !important;
+/* But still improve spacing for readability */
+    line-height: 1.5;
+  }
+
+/* Apply dyslexic-font to specific elements for better readability */
+  html.dyslexic-font h1,
+  html.dyslexic-font h2,
+  html.dyslexic-font h3,
+  html.dyslexic-font h4,
+  html.dyslexic-font h5,
+  html.dyslexic-font h6,
+  html.dyslexic-font p,
+  html.dyslexic-font li,
+  html.dyslexic-font a,
+  html.dyslexic-font button,
+  html.dyslexic-font input,
+  html.dyslexic-font label,
+  html.dyslexic-font textarea,
+  html.dyslexic-font select,
+  html.dyslexic-font div {
+    font-family: OpenDyslexic, sans-serif !important;
+    letter-spacing: 0.5px;
+    word-spacing: 3px;
+    line-height: 1.4;
+  }
+
+/* Enhance focus states for better visibility */
+  html.dyslexic-font *:focus {
+    outline: 3px solid #4a90e2 !important;
+    outline-offset: 2px;
+  }
+}
+}
+}
+}

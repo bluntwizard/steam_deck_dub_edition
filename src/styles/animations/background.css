@@ -1,0 +1,273 @@
+/* Update background to use Dracula colors */
+
+:root {
+/* Using Dracula colors from dracula-theme.css - these are fallbacks */
+  --blob-color-1: #bd93f9;
+/* Purple */
+  --blob-color-2: #ff79c6;
+/* Pink */
+  --blob-color-3: #8be9fd;
+/* Cyan */
+  --blob-color-4: #50fa7b;
+/* Green */
+  --background-color: #282a36;
+/* Background */;
+}
+
+/* Main background container */
+  .background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+    background-color: var(--background-color);
+  }
+
+/* Add subtle particle effect to enhance depth */
+  .background-container::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3,.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Ccircle fill="%23ffffff" cx="50" cy="50" r="1"/%3E%3C/svg%3E');
+    background-size: 150 150;
+    opacity: 0.05;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+/* Individual blob elements with Dracula colors */
+  .blob {
+/* Existing properties */
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60);
+    opacity: 0.5;
+    mix-blend-mode: screen;
+/* Changed to screen for better blending with dark background */
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    will-change: transform;
+    transform: translateZ(0);
+/* Force GPU acceleration */;
+}
+
+/* Blob 1 - Top Left */
+    .blob-1 {
+/* Existing properties */
+      width: 45vw;
+      height: 45vw;
+      left: -15vw;
+      top: -15vw;
+      background: radial-gradient(circle at 30% 30%, var(--blob-color-1), var(--blob-color-2));
+      animation-name: blob-movement-1;
+      animation-duration: 25s;
+      backface-visibility: hidden;
+    }
+
+/* Blob 2 - Bottom Right */
+    .blob-2 {
+/* Existing properties */
+      width: 50vw;
+      height: 50vw;
+      right: -15vw;
+      bottom: -15vw;
+      background: radial-gradient(circle at 70% 70%, var(--blob-color-3), var(--blob-color-2));
+      animation-name: blob-movement-2;
+      animation-duration: 30s;
+      animation-delay: 2s;
+      backface-visibility: hidden;
+    }
+
+/* Blob 3 - Center */
+    .blob-3 {
+/* Existing properties */
+      width: 40vw;
+      height: 40vw;
+      left: 30vw;
+      top: 30vh;
+      background: radial-gradient(circle at 60% 40%, var(--blob-color-4), var(--blob-color-1));
+      animation-name: blob-movement-3;
+      animation-duration: 35s;
+      animation-delay: 1s;
+      backface-visibility: hidden;
+    }
+
+/* Blob 4 - Top Right */
+    .blob-4 {
+/* Existing properties */
+      width: 35vw;
+      height: 35vw;
+      right: 10vw;
+      top: 5vh;
+      background: radial-gradient(circle at 40% 60%, var(--blob-color-3), var(--blob-color-4));
+      animation-name: blob-movement-4;
+      animation-duration: 28s;
+      animation-delay: 3s;
+      backface-visibility: hidden;
+    }
+
+/* Additional small blobs for detail */
+    .blob-5 {
+/* Existing properties */
+      width: 25vw;
+      height: 25vw;
+      left: 10vw;
+      bottom: 10vh;
+      background: radial-gradient(circle at 50% 50%, var(--dracula-orange, #ffb86c), transparent);
+      animation-name: blob-movement-5;
+      animation-duration: 20s;
+      opacity: 0.3;
+      backface-visibility: hidden;
+    }
+
+/* Animation keyframes for each blob */
+@keyframes blob-movement-1 {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+
+  50% { transform: translate(10vw, 15vh) rotate(180deg) scale(1.2);
+  }
+
+  100% { transform: translate(5vw, 10vh) rotate(360deg) scale(0.8);
+  }
+
+@keyframes blob-movement-2 {
+/* Duplicate selector (first used on line 132): 0% */
+  transform: translate(0, 0) rotate(0deg) scale(1);
+}
+
+  33% { transform: translate(-10vw, -5vh) rotate(120deg) scale(1.1);
+  }
+
+  66% { transform: translate(-5vw, -15vh) rotate(240deg) scale(0.9);
+  }
+
+/* Duplicate selector (first used on line 140): 100% */
+  transform: translate(-8vw, -10vh) rotate(360deg) scale(1.2);
+
+@keyframes blob-movement-3 {
+/* Duplicate selector (first used on line 132): 0% */
+  transform: translate(0, 0) rotate(0deg) scale(1);
+}
+
+  25% { transform: translate(-8vw, 5vh) rotate(90deg) scale(1.15);
+  }
+
+/* Duplicate selector (first used on line 136): 50% */
+  transform: translate(8vw, -5vh) rotate(180deg) scale(0.85);
+
+  75% { transform: translate(4vw, 10vh) rotate(270deg) scale(1.1);
+  }
+
+/* Duplicate selector (first used on line 140): 100% */
+  transform: translate(-5vw, -10vh) rotate(360deg) scale(0.9);
+
+@keyframes blob-movement-4 {
+/* Duplicate selector (first used on line 132): 0% */
+  transform: translate(0, 0) rotate(0deg) scale(1);
+}
+
+  40% { transform: translate(-15vw, 10vh) rotate(144deg) scale(1.1);
+  }
+
+  80% { transform: translate(-5vw, 5vh) rotate(288deg) scale(0.9);
+  }
+
+/* Duplicate selector (first used on line 140): 100% */
+  transform: translate(-10vw, 15vh) rotate(360deg) scale(1.05);
+
+@keyframes blob-movement-5 {
+/* Duplicate selector (first used on line 132): 0% */
+  transform: translate(0, 0) rotate(0deg) scale(1);
+  opacity: 0.3;
+}
+
+/* Duplicate selector (first used on line 136): 50% */
+transform: translate(15vw, -10vh) rotate(180deg) scale(1.3);
+opacity: 0.4;
+
+/* Duplicate selector (first used on line 140): 100% */
+transform: translate(5vw, -15vh) rotate(360deg) scale(0.7);
+opacity: 0.2;
+
+/* Overlay mesh effect - update to Dracula colors */
+  .mesh-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+    linear-gradient(rgb(68 71 90 / 50%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(68 71 90 / 50%) 1px, transparent 1px);
+    background-size: 30 30;
+    z-index: -1;
+    opacity: 0.15;
+    pointer-events: none;
+    will-change: opacity;
+    image-rendering: optimizespeed;
+  }
+
+/* Add a subtle vignette effect */
+  .vignette {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgb(40 42 54 / 40%) 85%,
+    rgb(40 42 54 / 70%) 100%
+    );
+    pointer-events: none;
+  }
+
+/* Performance optimizations for animation */
+@media (prefers-reduced-motion: reduce) {
+/* Duplicate selector (first used on line 45): .blob */
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Responsive adjustments */
+@media (width <= 768px) {
+/* Duplicate selector (first used on line 45): .blob */
+  filter: blur(40);
+  animation-duration: 40s;
+/* Slower animations are less CPU intensive */;
+}
+
+/* Duplicate selector (first used on line 221): .mesh-overlay */
+  background-size: 15px 15px;
+  opacity: 0.08;
+/* Slightly reduce for better performance */
+
+@media (width <= 576px) {
+/* Duplicate selector (first used on line 45): .blob */
+  filter: blur(30);
+}
+
+.blob-1, .blob-2, .blob-3, .blob-4 {
+  width: 70vw;
+  height: 70vw;
+}
+
+/* Duplicate selector (first used on line 221): .mesh-overlay */
+background-size: 10 10; }
+
+
+
+
+;
+
+

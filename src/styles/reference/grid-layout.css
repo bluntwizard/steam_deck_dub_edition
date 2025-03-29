@@ -1,0 +1,237 @@
+/**
+* Grid Layout System for SDDE Guide
+* Provides responsive, flexible content layouts
+*/
+
+/* Base grid container */
+.grid-container {
+  display: grid;
+  gap: var(--grid-gap, 20);
+  width: 100%;
+}
+
+/* Standard grid layouts with auto-fit for responsiveness */
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 450), 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350), 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250), 1fr));
+}
+
+/* Fixed column grids for specific layouts */
+.grid-1-2 {
+  grid-template-columns: 1fr 2fr;
+}
+
+.grid-2-1 {
+  grid-template-columns: 2fr 1fr;
+}
+
+.grid-1-1-2 {
+  grid-template-columns: 1fr 1fr 2fr;
+}
+
+/* Responsive adjustments for fixed column grids */
+@media (width <= 768px) {
+  .grid-1-2,
+  .grid-2-1,
+/* Duplicate selector (first used on line 35): .grid-1-1-2 */
+  grid-template-columns: 1fr;
+}
+}
+
+/* Grid items */
+.grid-item {
+  background-color: var(--dracula-current-line-40, rgb(68 71 90 / 40%));
+  border-radius: 8px;
+  padding: 20;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.grid-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgb(0 0 0 / 20%);
+}
+
+/* Special grid items */
+.grid-feature {
+  grid-column: span 2;
+}
+
+/* Duplicate selector (first used on line 40): @media (width <= 768px) */
+/* Duplicate selector (first used on line 62): .grid-feature */
+grid-column: span 1;
+}
+}
+
+/* Grid with sidebar */
+.grid-with-sidebar {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 30;
+}
+
+@media (width <= 992px) {
+/* Duplicate selector (first used on line 73): .grid-with-sidebar */
+  grid-template-columns: 1fr;
+}
+
+.grid-sidebar {
+  order: -1;
+}
+}
+
+/* Content flow grids for article-like content */
+.content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(min-content, 740) minmax(0, 1fr);
+}
+
+.content-grid > * {
+  grid-column: 2px;
+}
+
+.content-grid > .full-width {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.content-grid > .wide {
+  grid-column: 1 / -1;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Auto layout grid for mixed content */
+.auto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250, 1fr));
+  grid-auto-rows: minmax(100, auto);
+  grid-auto-flow: dense;
+  gap: 20;
+}
+
+.auto-grid .span-2 {
+  grid-column: span 2;
+}
+
+.auto-grid .span-row-2 {
+  grid-row: span 2;
+}
+
+@media (width <= 576px) {
+/* Duplicate selector (first used on line 120): .auto-grid .span-2 */
+  grid-column: span 1;
+}
+
+/* Duplicate selector (first used on line 124): .auto-grid .span-row-2 */
+grid-row: span 1;
+}
+}
+
+/* Card grid with consistent heights */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280, 1fr));
+  gap: 20;
+  margin: 20 0;
+}
+
+.card-grid .card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-grid .card-body {
+  flex: 1;
+}
+
+/* Masonry-style layout for galleries */
+.masonry-grid {
+  columns: 3 200;
+  column-gap: 20;
+}
+
+.masonry-grid > * {
+  break-inside: avoid;
+  margin-bottom: 20;
+}
+
+/* Duplicate selector (first used on line 40): @media (width <= 768px) */
+/* Duplicate selector (first used on line 157): .masonry-grid */
+columns: 2 180;
+}
+}
+
+/* Duplicate selector (first used on line 128): @media (width <= 576px) */
+/* Duplicate selector (first used on line 157): .masonry-grid */
+columns: 1px;
+}
+}
+
+/* Enhanced section layouts */
+.section {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.section-header {
+  margin-bottom: 20;
+}
+
+.section-content {
+  display: grid;
+  gap: 20;
+}
+
+/* Holy grail layout */
+.holy-grail {
+  display: grid;
+  grid-template: "header header header" auto
+  "nav main aside" 1fr
+  "footer footer footer" auto / 200 1fr 200;
+  min-height: 100vh;
+}
+
+.holy-grail-header { grid-area: header; }
+.holy-grail-nav { grid-area: nav; }
+.holy-grail-main { grid-area: main; }
+.holy-grail-aside { grid-area: aside; }
+.holy-grail-footer { grid-area: footer; }
+
+/* Duplicate selector (first used on line 40): @media (width <= 768px) */
+/* Duplicate selector (first used on line 195): .holy-grail */
+grid-template: "header" auto
+"nav" auto
+"main" 1fr
+"aside" auto
+"footer" auto / 1fr;
+}
+}
+
+/* Forms grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300, 1fr));
+  gap: 20;
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200, 1fr));
+  gap: 15px;
+  align-items: end;
+}

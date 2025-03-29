@@ -1,0 +1,106 @@
+{
+  "app": {
+    "title": "Steam Deck Edición DUB",
+    "subtitle": "Una guía definitiva para Steam Deck",
+    "version": "Versión {{version}}"
+  },
+  "nav": {
+    "home": "Inicio",
+    "guide": "Guía",
+    "tutorials": "Tutoriales",
+    "settings": "Configuración",
+    "about": "Acerca de"
+  },
+  "search": {
+    "placeholder": "Buscar...",
+    "noResults": "No se encontraron resultados para \"{{query}}\"",
+    "results": "Resultados para \"{{query}}\"",
+    "searchHint": "Presiona '/' para buscar"
+  },
+  "settings": {
+    "title": "Configuración",
+    "appearance": "Apariencia",
+    "theme": {
+      "title": "Tema",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Predeterminado del sistema"
+    },
+    "language": {
+      "title": "Idioma",
+      "selectLanguage": "Seleccionar idioma",
+      "reloadMessage": "El cambio de idioma se aplicará completamente después de recargar la página.",
+      "reloadNow": "Recargar ahora"
+    },
+    "content": {
+      "title": "Contenido",
+      "offlineMode": "Modo sin conexión",
+      "clearCache": "Limpiar caché",
+      "updateContent": "Buscar actualizaciones de contenido",
+      "cachedResources": "Recursos en caché",
+      "totalCached": "Total en caché",
+      "items": "elementos",
+      "clearingCache": "Limpiando caché...",
+      "checkingUpdates": "Buscando actualizaciones...",
+      "cacheError": "Error al obtener información del caché",
+      "cacheNotSupported": "El almacenamiento en caché no es compatible en este navegador"
+    }
+  },
+  "accessibility": {
+    "title": "Accesibilidad",
+    "fontSize": {
+      "title": "Tamaño de fuente",
+      "description": "Ajusta el tamaño del texto en toda la aplicación",
+      "small": "Pequeño",
+      "medium": "Mediano",
+      "large": "Grande",
+      "xlarge": "Extra grande"
+    },
+    "dyslexicFont": {
+      "title": "Fuente para dislexia",
+      "description": "Utiliza la fuente OpenDyslexic para mejorar la legibilidad para usuarios con dislexia"
+    },
+    "highContrast": {
+      "title": "Modo de alto contraste",
+      "description": "Mejora la visibilidad con contrastes de color más fuertes y bordes más definidos"
+    },
+    "status": {
+      "on": "Activado",
+      "off": "Desactivado"
+    },
+    "resetSettings": "Restablecer configuración de accesibilidad"
+  },
+  "progress": {
+    "title": "Seguimiento de progreso",
+    "completed": "Completado",
+    "markComplete": "Marcar como completado",
+    "resetProgress": "Reiniciar progreso",
+    "resetConfirm": "¿Estás seguro de que quieres reiniciar todo el progreso? Esta acción no se puede deshacer.",
+    "progressSummary": "Has completado {{completed}} de {{total}} secciones ({{percentage}}%)."
+  },
+  "offline": {
+    "title": "Modo sin conexión",
+    "description": "Actualmente estás viendo contenido en caché en modo sin conexión.",
+    "reconnect": "Intentar reconectar"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "apply": "Aplicar",
+    "reset": "Reiniciar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "clear": "Limpiar",
+    "confirm": "Confirmar",
+    "success": "Éxito",
+    "error": "Error",
+    "warning": "Advertencia",
+    "info": "Información",
+    "enabled": "Habilitado",
+    "disabled": "Deshabilitado",
+    "on": "Activado",
+    "off": "Desactivado"
+  }
+}

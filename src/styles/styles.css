@@ -1,0 +1,36 @@
+/**
+ * Main stylesheet for Steam Deck DUB Edition
+ * 
+ * @version 1.0.0
+ * @author Steam Deck DUB Edition Team
+ */
+
+/* Core styles */
+@import './core/fonts.css';
+@import './core/reset.css';
+@import './core/variables.css';
+@import './core/base.css';
+@import './core/typography.css';
+@import './core/layout.css';
+@import './core/utilities.css';
+
+/* Components */
+@import './components/theme.css';
+@import './components/search.css';
+@import './components/code-blocks.css';
+@import './components/lazy-loader.css';
+@import './components/gallery.css';
+@import './components/progress-tracker.css';
+@import './components/buttons.css';
+@import './components/cards.css';
+@import './components/forms.css';
+@import './components/navigation.css';
+
+/* Vendor styles */
+@import './vendor/prism.css';  /* If using Prism.js */
+
+/* Accessibility styles */
+@import './accessibility.css';
+
+/* Print styles */
+@import './print.css'; 

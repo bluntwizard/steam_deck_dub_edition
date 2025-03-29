@@ -1,0 +1,1072 @@
+* {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  text-decoration: none;
+  list-style: none;
+  outline: none;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+
+/* Code block classes */
+p.code-1,
+p.code-2,
+p.code-3,
+p.code-4,
+p.code-5,
+p.code-6,
+p.code-7,
+p.code-8,
+p.code-9,
+p.code-10,
+p.code-11,
+p.code-12,
+p.code-13,
+p.code-14,
+p.code-15,
+p.code-16,
+p.code-17,
+p.code-18,
+p.code-19,
+p.code-20,
+p.code-21 { word-break: break-word;
+}
+
+/* Header container styles */
+div.cl-body {
+  --color-main: #ff9b71;
+  --color-primary: #f44;
+  --color-secondary: #e8e677;
+  --color-background: #0d1117;
+  --color-link: #fef29e;
+  --color-link-active: #f44;
+  height: 400;
+  width: 80%;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: radial-gradient(var(--color-main), var(--color-primary), var(--color-secondary));
+  animation: border 5s linear infinite;
+  background-size: 200% 200%;
+  background-position: 0 0;
+  border: 1px solid;
+  border-color: #0000;
+}
+
+/* Full height body alternative */
+div.cl2-body {
+  --color-main: #ff9b71;
+  --color-primary: #f44;
+  --color-secondary: #e8e677;
+  --color-background: #0d1117;
+  --color-link: #fef29e;
+  --color-link-active: #f44;
+  height: 100vh;
+  width: 100%;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: radial-gradient(var(--color-main), var(--color-primary), var(--color-secondary));
+  animation: border 5s linear infinite;
+  background-size: 200% 200%;
+  background-position: 0 0;
+  border: 24px solid;
+  border-color: var(--color-background);
+}
+
+/* Container styles */
+div.c1-container {
+  background: var(--color-background);
+  height: calc(100% - 10);
+  width: calc(100% - 10);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Heading styles */
+h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
+}
+
+h1 a { display: block;
+}
+
+h1 a span {
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.5, 0, 0.25, 1.25);
+  display: block;
+}
+
+h1 a span em { display: block;
+}
+
+h1 a span:nth-child(1) {
+  color: var(--color-main);
+  margin-bottom: 6px;
+  animation: intro 1.5s cubic-bezier(0.5, 0, 0.25, 1.3) -1s 1;
+}
+
+h1 a span:nth-child(1) em {
+  margin-top: 30;
+  line-height: 0;
+  margin-bottom: -10;
+}
+
+h1 a span:nth-child(2) {
+  color: var(--color-primary);
+  margin-bottom: 6px;
+  animation: intro 1.5s cubic-bezier(0.5, 0, 0.25, 1.2) -0.9s 1;
+}
+
+h1 a span:nth-child(2) em {
+  margin-top: -6px;
+  line-height: 1px;
+}
+
+h1 a span:nth-child(3) {
+  color: var(--color-secondary);
+  animation: intro 1.5s cubic-bezier(0.5, 0, 0.25, 1.1) -0.8s 1;
+}
+
+h1 a span:nth-child(3) em {
+  margin-top: -36px;
+  line-height: 3px;
+}
+
+h1 a:hover span,
+h1 a:focus span { transition: transform 0.125s cubic-bezier(0.5, 0, 0.25, 2.5);
+}
+
+h1 a:hover span:nth-child(1),
+h1 a:focus span:nth-child(1) { transform: translateX(1vw);
+}
+
+h1 a:hover span:nth-child(3),
+h1 a:focus span:nth-child(3) { transform: translateX(-1vw);
+}
+
+/* Items section */
+.items {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+ul {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-main);
+  font-weight: 700;
+  font-family: "Open Sans", sans-serif;
+}
+
+ul li {
+  display: flex;
+  letter-spacing: 0.125vw;
+}
+
+ul li a {
+  margin-left: 5px;
+  color: var(--color-link);
+}
+
+ul li a:hover,
+ul li a:focus { color: var(--color-link-active);
+}
+
+/* Wave animation */
+.hi {
+  display: inline-block;
+  transform-origin: 70% 70%;
+  animation: hi 3.5s linear -2s infinite;
+}
+
+/* Animations */
+@keyframes border {
+0% { background-position: 0 0; }
+20% { background-position: 100% 0; }
+40% { background-position: 100% 100%; }
+60% { background-position: 0 100%; }
+100% { background-position: 0 0; }
+
+@keyframes hi {
+25% { transform: rotate(0deg); }
+30% { transform: rotate(15deg); }
+35% { transform: rotate(0deg); }
+/* Duplicate selector (first used on line 205): 40% */
+45% { transform: rotate(0deg); }
+80% { transform: rotate(0deg); }
+85% { transform: rotate(15deg); }
+90% { transform: rotate(0deg); }
+95% { transform: rotate(15deg); }
+/* Duplicate selector (first used on line 207): 100% */; }
+
+@keyframes intro {
+0%, 75% { transform: translateX(-100vw); }
+/* Duplicate selector (first used on line 207): 100% */; }
+
+@keyframes fade {
+/* Duplicate selector (first used on line 224): 0%, 75% */
+/* Duplicate selector (first used on line 207): 100% */; }
+
+/* Media queries */
+@media (prefers-color-scheme: light) {
+  .body {
+    --color-main: #9B5DE5;
+    --color-primary: #F15BB5;
+    --color-secondary: #00BBF9;
+    --color-background: #fff;
+    --color-link: #00BBF9;
+    --color-link-active: #F15BB5;
+  }
+
+@media (prefers-reduced-motion) {
+/* Duplicate selector (first used on line 235): .body */
+  animation: none;
+}
+
+/* Duplicate selector (first used on line 195): .hi */
+animation: none;
+
+/* Duplicate selector (first used on line 179): ul li */
+opacity: 1;
+animation: none;
+
+h1 a span:nth-child(1),
+h1 a;aspan span:nth-child(2),
+/* Duplicate selector (first used on line 137): h1 a span:nth-child(3) */;
+animation: none;
+
+/* Font import */
+@import url("https://fonts.googleapis,.com/css?family=Roboto:300,400&display=swap");
+
+/* Base HTML and body styles */
+  html {
+    box-sizing: border-box;
+    font-size: 18px;
+    font-family: Roboto, sans-serif;
+  }
+
+  body {
+    background: #edf2f7;
+    color: #4a5568;
+    height: 100%;
+  }
+
+  *,
+  *::before,
+  *::after { box-sizing: inherit;
+  }
+
+/* Details/Summary elements - FIXED SYNTAX */
+  details {
+    font-size: 1rem;
+    box-shadow: 0 20 25px -5px rgb(0 0 0 / 10%), 0 10 10 -5px rgb(0 0 0 / 4%);
+    background: #fff;
+    border-radius: 8px;
+    position: relative;
+    width: 500;
+  }
+
+  details .summary-title { user-select: none;
+  }
+
+  details:hover { cursor: pointer;
+  }
+
+  details .summary-content {
+    border-top: 1px solid #e2e8f0;
+    cursor: default;
+    padding: 1em;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  details summary {
+    list-style: none;
+    padding: 1em;
+  }
+
+  details summary:focus { outline: none;
+  }
+
+  details summary:hover .summary-chevron-up svg { opacity: 1;
+  }
+
+  details .summary-chevron-up svg { opacity: 0.5;
+  }
+
+/* Chevron icons */
+  div.summary-chevron-up {
+    pointer-events: none;
+    position: relative;
+    background: #0d1117;
+    display: inline-block;
+  }
+
+  div.summary-chevron-up svg { display: flex;
+  }
+
+  div.summary-chevron-down {
+    pointer-events: none;
+    position: absolute;
+    right: 12%;
+    transform: translate(50%, -1000%);
+    background: #0d1117;
+    display: inline-block;
+  }
+
+  div.summary-chevron-down svg { display: flex;
+  }
+
+/* Hide default details marker */
+  ::-webkit-details-marker { display: none !important;
+  }
+
+/* Container styles */
+  div.w2-container {
+    background-color: #0000;
+    width: 100%;
+    max-width: 80vw;
+    margin: auto;
+  }
+
+  div.w3-container {
+    width: 100vw;
+    margin: auto;
+  }
+
+  div.w5-container {
+    background-color:#0000;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  div.center-section-iv {
+    width: 100%;
+    max-width: 80vw;
+    text-align: center;
+  }
+
+  div.summary-title-section-iv {
+    display: inline-block;
+    width: 75vw;
+  }
+
+  h2.section-iv { display: inline-block;
+  }
+
+/* Border styles */
+  div.bottom-boarder {
+    height: 4.7vh;
+    width: 100vw;
+    background-color: #0d1117;
+    position: fixed;
+    bottom: 0;
+  }
+
+  div.top-boarder {
+    height: 4.7vh;
+    width: 100vw;
+    background-color: #0d1117;
+    position: fixed;
+    top: 0;
+  }
+
+  div.left-boarder {
+    height: 100vh;
+    width: 3.8vw;
+    background-color: #0d1117;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+
+  div.right-boarder {
+    height: 100vh;
+    width: 3.8vw;
+    background-color: #0d1117;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+  }
+
+/* Text colors */
+  p, h2, h3, h4, h5, h6 { color: #fff;
+  }
+
+/* Navigation Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 5vh;
+    left: 0;
+    width: 250;
+    height: 90vh;
+    background-color: #0d1117;
+    overflow-y: auto;
+    z-index: 1000;
+    padding: 20 10;
+    border-right: 2px solid;
+    border-image: linear-gradient(var(--color-main), var(--color-primary), var(--color-secondary)) 1;
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar-hidden { transform: translateX(-250);
+  }
+
+  .toggle-sidebar {
+    position: fixed;
+    top: 5vh;
+    left: 250;
+    background: linear-gradient(var(--color-main), var(--color-primary));
+    color: #fff;
+    border: none;
+    padding: 10;
+    cursor: pointer;
+    z-index: 1001;
+    transition: left 0.3s ease;
+  }
+
+  .toggle-sidebar,.sidebar-hidden { left: 0;
+  }
+
+  .sidebar a {
+    display: block;
+    padding: 8px 10;
+    color: #fff;
+    border-left: 3px solid transparent;
+    margin-bottom: 5px;
+    transition: all 0.2s;
+  }
+
+  .sidebar a:hover,
+  .sidebar a.active {
+    background-color: rgb(255 255 255 / 10%);
+    border-left: 3px solid var(--color-primary);
+  }
+
+  .sidebar h3 {
+    margin: 20 0 10;
+    color: var(--color-main);
+    font-size: 1.2em;
+  }
+
+  .sidebar .sub-link {
+    padding-left: 20;
+    font-size: 0.9em;
+  }
+
+/* Main Content Area */
+  .main-content {
+    margin-left: 0;
+    padding: 20;
+    transition: margin-left 0.3s ease;
+  }
+
+/* Section Styling */
+  .section {
+    margin-bottom: 40;
+    background-color: rgb(13 17 23 / 70%);
+    padding: 20;
+    border-radius: 8px;
+    border: 1px solid #1f2937;
+  }
+
+  .section h2 {
+    margin-bottom: 20;
+    padding-bottom: 10;
+    border-bottom: 2px solid var(--color-main);
+  }
+
+/* Improved Details/Summary */
+  details.guide-section {
+    margin-bottom: 15px;
+    background-color: rgb(30 41 59 / 50%);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  details.guide-section summary {
+    padding: 15px;
+    cursor: pointer;
+    background: linear-gradient(90deg, rgb(255 155 113 / 10%), rgb(255 68 68 / 10%));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  details.guide-section summary::after {
+    content: "▼";
+    font-size: 0.8em;
+    transition: transform 0.3s;
+  }
+
+  details.guide-section[open] summary::after { transform: rotate(180deg);
+  }
+
+  details.guide-section .details-content { padding: 15px;
+  }
+
+/* Table of Contents */
+  .toc {
+    background-color: rgb(30 41 59 / 50%);
+    padding: 20;
+    border-radius: 8px;
+    margin-bottom: 30;
+  }
+
+  .toc h3 {
+    margin-bottom: 15px;
+    color: var(--color-main);
+  }
+
+  .toc ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .toc li { margin-bottom: 8px;
+  }
+
+  .toc a {
+    color: var(--color-link);
+    display: inline-block;
+    padding: 5px 0;
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  .toc a:hover {
+    color: var(--color-link-active);
+    transform: translateX(5px);
+  }
+
+/* Code Block Improvements */
+  .code-block {
+    background-color: #1a1a1a;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 15px 0;
+    overflow-x: auto;
+    border-left: 4px solid var(--color-primary);
+  }
+
+  .code-block pre {
+    margin: 0;
+    white-space: pre-wrap;
+  }
+
+  .copy-button {
+    background-color: rgb(255 255 255 / 10%);
+    border: none;
+    color: #fff;
+    padding: 5px 10;
+    font-size: 0.8em;
+    border-radius: 3px;
+    cursor: pointer;
+    float: right;
+    margin-top: -5px;
+    transition: background-color 0.2s;
+  }
+
+  .copy-button:hover { background-color: rgb(255 255 255 / 20%);
+  }
+
+/* Search Box */
+  .search-container {
+    top: 5vh;
+    padding: 15px;
+    background-color: #0d1117;
+    z-index: 999;
+    border-bottom: 1px solid #1f2937;
+    position: relative;
+  }
+
+  .search-box {
+    width: 100%;
+    padding: 10;
+    border: 1px solid #1f2937;
+    border-radius: 5px;
+    background-color: rgb(30 41 59 / 50%);
+    color: #fff;
+  }
+
+  .search-box:not(:placeholder-shown) + .clear-search { display: block;
+  }
+
+/* Clear Search Button */
+  .clear-search {
+    position: absolute;
+    right: 20;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #777;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0 5px;
+    display: none;
+  }
+
+  .clear-search:hover { color: var(--color-primary);
+  }
+
+/* Responsive Adjustments */
+@media (width <= 768px) {
+/* Duplicate selector (first used on line 441): .sidebar */
+  width: 200;
+}
+
+/* Duplicate selector (first used on line 460): .toggle-sidebar */
+left: 200;
+
+  .sidebar-active .main-content { margin-left: 200;
+  }
+
+/* Duplicate selector (first used on line 93): h1 */
+  font-size: 2rem;
+
+  h2 { font-size: 1.5rem;
+  }
+
+@media (width <= 576px) {
+/* Duplicate selector (first used on line 441): .sidebar */
+  width: 100%;
+  transform: translateX(-100%);
+}
+
+/* Duplicate selector (first used on line 460): .toggle-sidebar */
+left: 0;
+
+/* Duplicate selector (first used on line 675): .sidebar-active .main-content */
+margin-left: 0;
+
+/* Duplicate selector (first used on line 504): .main-content */
+padding: 15px;
+
+/* Duplicate selector (first used on line 511): .section */
+padding: 15px;
+
+/* Back to Top Button */
+  .back-to-top {
+    position: fixed;
+    bottom: 20;
+    right: 20;
+    background: linear-gradient(var(--color-main), var(--color-primary));
+    color: white;
+    width: 40;
+    height: 40;
+    text-align: center;
+    line-height: 40;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 30%);
+  }
+
+  .back-to-top:hover {
+    background: linear-gradient(var(--color-primary), var(--color-main));
+    transform: translateY(-2px);
+  }
+
+  .back-to-top,.visible { display: block;
+  }
+
+/* Add styles for no-results message */
+  #no-results-message {
+    display: none;
+    padding: 20;
+    background-color: rgb(255 68 68 / 10%);
+    border-left: 4px solid var(--color-primary);
+    margin: 20 0;
+    font-weight: bold;
+  }
+
+/* Additional styles for code copy button success */
+  .copy-button,.copied { background-color: rgb(40 167 69 / 30%);
+  }
+
+/* Add transition for details content */
+  .details-content {
+    transition: height 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+  }
+
+/* Modern CSS Features for Steam Deck DUB Edition */
+
+/* Use CSS custom properties for theme values */
+  :root {
+/* Basic layout measurements - use relative units */
+    --section-padding: clamp(20, 5vw, 30);
+    --content-max-width: min(1200, 90vw);
+    --heading-scale: clamp(1.8rem, 3vw, 2.5rem);
+    --card-border-radius: clamp(12px, 2vw, 16px);
+    --code-block-max-height: 400;
+  }
+
+/* Use modern CSS reset techniques */
+  *, *::before, *::after { box-sizing: border-box;
+  }
+
+/* Modern container queries for responsive components */
+  @container (min-width: 600) {
+    .code-section {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 20;
+    }
+
+/* Use CSS Grid for specific components */
+/* Duplicate selector (first used on line 778): .code-section */
+    container-type: inline-size;
+    container-name: code-section;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250, 1fr));
+      gap: 20;
+    }
+
+/* Two-column layout for wider screens */
+@media (width >= 992px) {
+  .two-column-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30;
+    align-items: start;
+  }
+
+  .sidebar-active .two-column-layout { grid-template-columns: 1fr;
+  }
+
+/* Implement aspect-ratio for responsive containers */
+  .header-container object,
+  .video-container iframe,
+  .image-container img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+  }
+
+/* Logo container with proper aspect ratio */
+  .logo-container {
+    aspect-ratio: 2 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+/* Use CSS scroll snap for better scrolling experience */
+  .section-container {
+    scroll-snap-type: y proximity;
+    overflow-y: auto;
+    height: 100vh;
+  }
+
+/* Duplicate selector (first used on line 511): .section */
+/* ...existing code... */
+  scroll-snap-align: start;
+  scroll-margin-top: 80;
+
+/* CSS Grid for feature layouts */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250, 1fr));
+    gap: 20;
+    margin: 30 0;
+  }
+
+  .feature-item {
+    background-color: var(--dracula-current-line-40, rgb(68 71 90 / 40%));
+    padding: 20;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--shadow-small, 0 2px 5px rgb(0 0 0 / 20%));
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium, 0 5px 15px rgb(0 0 0 / 20%));
+  }
+
+/* Use CSS subgrid for nested layouts (with fallback) */
+  @supports (grid-template-rows: subgrid) {
+    .nested-grid {
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: span 3;
+    }
+
+/* Sticky headers for sections */
+    .section-header {
+      position: sticky;
+      top: 0;
+      background-color: var(--dracula-background-80, rgb(40 42 54 / 80%));
+      padding: 15px;
+      backdrop-filter: blur(10);
+      z-index: 5;
+      margin: -20 -20 20;
+      border-radius: var(--card-border-radius) var(--card-border-radius) 0 0;
+    }
+
+/* Add CSS counters for automatic numbering */
+    .section-content { counter-reset: guide-item;
+    }
+
+    .guide-section > summary::before {
+      counter-increment: guide-item;
+      content: counter(guide-item) ". ";
+      color: var(--dracula-purple, #bd93f9);
+      font-weight: bold;
+    }
+
+/* Better code blocks with syntax highlighting support */
+/* Duplicate selector (first used on line 592): .code-block */
+    position: relative;
+    background-color: var(--dracula-background, #282a36);
+    border-radius: 8px;
+    margin: 15px 0;
+    border: 1px solid var(--dracula-current-line, #44475a);
+    max-height: var(--code-block-max-height);
+
+/* Duplicate selector (first used on line 601): .code-block pre */
+    margin: 0;
+    padding: 15px;
+    overflow-x: auto;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+
+    .code-block,.expandable { cursor: pointer;
+    }
+
+    .code-block,.expandable::after {
+      content: "Click to expand";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, var(--dracula-background, #282a36));
+      padding: 30 15px 10;
+      text-align: center;
+      color: var(--dracula-comment, #6272a4);
+      font-size: 0.8em;
+    }
+
+    .code-block,.expanded { max-height: none;
+    }
+
+    .code-block,.expanded::after { display: none;
+    }
+
+/* Grid layout for card collections */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280, 1fr));
+      gap: 20;
+      margin: 20 0;
+    }
+
+    .card {
+      background-color: var(--dracula-current-line-40, rgb(68 71 90 / 40%));
+      border-radius: var(--card-border-radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10 20 rgb(0 0 0 / 20%);
+    }
+
+    .card-header {
+      padding: 15px;
+      background-color: var(--dracula-current-line, #44475a);
+      border-bottom: 1px solid var(--dracula-comment, #6272a4);
+    }
+
+    .card-body {
+      padding: 15px;
+      flex: 1;
+    }
+
+    .card-footer {
+      padding: 15px;
+      background-color: rgb(40 42 54 / 40%);
+      border-top: 1px solid var(--dracula-comment, #6272a4);
+    }
+
+/* Modern image handling */
+    .image-container {
+      position: relative;
+      width: 100%;
+      margin: 20 0;
+    }
+
+/* Duplicate selector (first used on line 817): .image-container img */
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+
+    .image-container figcaption {
+      margin-top: 10;
+      color: var(--dracula-comment, #6272a4);
+      font-style: italic;
+      text-align: center;
+    }
+
+/* Use modern CSS selectors */
+    .toc li:where(:not(:last-child)) { margin-bottom: 8px;
+    }
+
+    .details-content > :where(p, ul, ol):not(:last-child) { margin-bottom: 15px;
+    }
+
+/* Support for dark mode preferences */
+@media (prefers-color-scheme: dark) {
+/* Duplicate selector (first used on line 762): :root */
+  color-scheme: dark;
+}
+
+/* Print styles */
+@media print {
+/* Duplicate selector (first used on line 504): .main-content */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.sidebar, .back-to-top, .toggle-sidebar, .search-container { display: none;
+}
+
+/* Duplicate selector (first used on line 511): .section */
+break-inside: avoid;
+page-break-inside: avoid;
+border: 1px solid #ddd;
+box-shadow: none;
+
+@page { margin: 2cm;
+}
+
+/* Modern loading skeletons */
+.skeleton-loading {
+  background: linear-gradient(
+  90deg,
+  var(--dracula-current-line-40, rgb(68 71 90 / 40%)) 25%,
+  var(--dracula-current-line, #44475a) 50%,
+  var(--dracula-current-line-40, rgb(68 71 90 / 40%)) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: 4px;
+  min-height: 20;
+}
+
+@keyframes skeleton-loading {
+/* Duplicate selector (first used on line 203): 0% */
+  background-position: 200% 0;
+}
+
+/* Duplicate selector (first used on line 207): 100% */
+background-position: -200% 0;
+
+/* Better font loading performance */
+@supports (font-display: swap) {
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-display: swap;
+  }
+
+/* PDF Export Button Styles */
+  .pdf-export-button {
+    position: fixed;
+    bottom: 120;
+    right: 20;
+    width: 40;
+    height: 40;
+    border-radius: 50%;
+    background-color: var(--dracula-pink, #ff79c6);
+    color: var(--dracula-background, #282a36);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    z-index: 990;
+    box-shadow: 0 3px 10 rgb(0 0 0 / 20%);
+    transition: transform 0.3s, background-color 0.3s;
+  }
+
+  .pdf-export-button:hover {
+    transform: translateY(-3px);
+    background-color: var(--dracula-purple, #bd93f9);
+    box-shadow: 0 5px 15px rgb(0 0 0 / 30%);
+  }
+
+  .pdf-export-button:focus {
+    outline: 2px solid var(--dracula-foreground, #f8f8f2);
+    outline-offset: 2px;
+  }
+
+/* PDF Export Dialog Styles */
+  .pdf-export-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--dracula-background, #282a36);
+    border: 1px solid var(--dracula-current-line, #44475a);
+    border-radius: 8px;
+    padding: 20;
+    width: 90%;
+    max-width: 500;
+    z-index: 10000;
+    box-shadow: 0 10 25px rgb(0 0 0 / 30%);
+  }
+
+/* Progress bar styles */
+  #pdf-progress-bar {
+    width: 0%;
+    height: 100%;
+    background-color: var(--dracula-green, #50fa7b);
+    transition: width 0.3s ease;
+    border-radius: 10;
+  }
+
+/* Hide PDF export button when printing */
+/* Duplicate selector (first used on line 1017): @media print */
+  .pdf-export-button,
+/* Duplicate selector (first used on line 1105): .pdf-export-dialog */
+display: none !important;display }
+}
+}
+}
+}
+}
+
+
+
+
+display;

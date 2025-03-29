@@ -1,0 +1,178 @@
+/**
+ * Steam Deck DUB Edition
+ * CSS Variables
+ * 
+ * This file contains all global CSS variables used throughout the application.
+ * Always import this file before any other CSS files.
+ */
+
+/* Import theme variables */
+@import '../themes/dracula/theme.css';
+@import '../themes/light/theme.css';
+
+:root {
+  /* Z-index Layers */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+
+  /* Border Radius */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.375rem;
+  --border-radius-lg: 0.5rem;
+  --border-radius-xl: 0.75rem;
+  --border-radius-2xl: 1rem;
+  --border-radius-full: 9999px;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  --line-height-loose: 2;
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+  --transition-bounce: 250ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Shadows */
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 1px 2px 0 var(--shadow-color);
+  --shadow-md: 0 4px 6px -1px var(--shadow-color);
+  --shadow-lg: 0 10px 15px -3px var(--shadow-color);
+  --shadow-xl: 0 20px 25px -5px var(--shadow-color);
+  --shadow-2xl: 0 25px 50px -12px var(--shadow-color);
+  --shadow-inner: inset 0 2px 4px 0 var(--shadow-color);
+
+  /* Container */
+  --container-padding: var(--spacing-md);
+  --container-max-width: 1200px;
+
+  /* Grid */
+  --grid-gap: var(--spacing-md);
+  --grid-columns: 12;
+
+  /* Breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* Print */
+  --print-margin: 2cm;
+  --print-font-size: 12pt;
+  --print-line-height: 1.5;
+}
+
+/* Light theme overrides */
+.light-theme {
+  /* Colors */
+  --primary-color: var(--catppuccin-blue);
+  --secondary-color: var(--catppuccin-sky);
+  --accent-color: var(--catppuccin-pink);
+  --success-color: var(--catppuccin-green);
+  --warning-color: var(--catppuccin-yellow);
+  --error-color: var(--catppuccin-red);
+  --info-color: var(--catppuccin-sky);
+  
+  /* Backgrounds */
+  --background-color: var(--catppuccin-base);
+  --background-secondary: var(--catppuccin-surface1);
+  --background-lighter: var(--catppuccin-surface0);
+  --background-darker: var(--catppuccin-mantle);
+  
+  /* Text */
+  --text-primary: var(--catppuccin-text);
+  --text-secondary: var(--catppuccin-subtext0);
+  --text-tertiary: var(--catppuccin-overlay0);
+  --text-link: var(--catppuccin-blue);
+  
+  /* Borders */
+  --border-color: var(--catppuccin-surface1);
+  --border-color-light: var(--catppuccin-surface2);
+  --border-color-dark: var(--catppuccin-overlay0);
+  
+  /* Shadows */
+  --shadow-color: rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 2px 0 var(--shadow-color);
+  --shadow-md: 0 4px 6px -1px var(--shadow-color);
+  --shadow-lg: 0 10px 15px -3px var(--shadow-color);
+  --shadow-xl: 0 20px 25px -5px var(--shadow-color);
+  --shadow-2xl: 0 25px 50px -12px var(--shadow-color);
+  --shadow-inner: inset 0 2px 4px 0 var(--shadow-color);
+  
+  /* Focus */
+  --focus-color: rgba(30, 102, 245, 0.2);
+}
+
+/* Dark theme overrides */
+.dark-theme {
+  /* Colors */
+  --primary-color: var(--dracula-cyan);
+  --secondary-color: var(--dracula-comment);
+  --accent-color: var(--dracula-green);
+  --success-color: var(--dracula-green);
+  --warning-color: var(--dracula-orange);
+  --error-color: var(--dracula-red);
+  --info-color: var(--dracula-cyan);
+  
+  /* Backgrounds */
+  --background-color: var(--dracula-background);
+  --background-secondary: var(--dracula-current);
+  --background-lighter: var(--dracula-background-lighter);
+  --background-darker: var(--dracula-background-darker);
+  
+  /* Text */
+  --text-primary: var(--dracula-foreground);
+  --text-secondary: var(--dracula-comment);
+  --text-tertiary: var(--dracula-comment);
+  --text-link: var(--dracula-cyan);
+  
+  /* Borders */
+  --border-color: var(--dracula-comment);
+  --border-color-light: var(--dracula-comment);
+  --border-color-dark: var(--dracula-current);
+  
+  /* Shadows */
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 1px 2px 0 var(--shadow-color);
+  --shadow-md: 0 4px 6px -1px var(--shadow-color);
+  --shadow-lg: 0 10px 15px -3px var(--shadow-color);
+  --shadow-xl: 0 20px 25px -5px var(--shadow-color);
+  --shadow-2xl: 0 25px 50px -12px var(--shadow-color);
+  --shadow-inner: inset 0 2px 4px 0 var(--shadow-color);
+  
+  /* Focus */
+  --focus-color: rgba(139, 233, 253, 0.5);
+} 

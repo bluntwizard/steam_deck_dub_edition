@@ -1,0 +1,230 @@
+/**
+* High Contrast Mode for Steam Deck DUB Edition Guide
+* Enhances visibility for users with visual impairments
+*/
+
+/* Apply high contrast styles to the entire document when enabled */
+body.high-contrast-mode {
+/* Core high contrast colors */
+  --high-contrast-bg: #000;
+  --high-contrast-text: #fff;
+  --high-contrast-link: #ff0;
+  --high-contrast-link-visited: #0ff;
+  --high-contrast-focus: #f0f;
+  --high-contrast-border: #fff;
+  --high-contrast-button: #000;
+  --high-contrast-button-text: #fff;
+  --high-contrast-button-hover: #fff;
+  --high-contrast-button-hover-text: #000;
+/* Override base colors with high contrast alternatives */
+  --background-color: var(--high-contrast-bg) !important;
+  --background-lighter: #111 !important;
+  --text-color: var(--high-contrast-text) !important;
+  --text-color-light: #ddd !important;
+  --link-color: var(--high-contrast-link) !important;
+  --link-color-hover: var(--high-contrast-focus) !important;
+  --border-color: var(--high-contrast-border) !important;
+/* Remove subtle visual effects */
+  --box-shadow: none !important;
+  --shadow-color: transparent !important;
+/* Increase border widths for better visibility */
+  --border-width: 2px !important;
+  --border-radius: 4px !important;
+/* Remove or simplify backgrounds */
+  background-color: var(--high-contrast-bg) !important;
+  color: var(--high-contrast-text) !important;
+}
+
+/* Remove decorative elements that may reduce contrast */
+body.high-contrast-mode .background-container,
+body.high-contrast-mode .blob,
+body.high-contrast-mode .mesh-overlay,
+body.high-contrast-mode .vignette,
+body.high-contrast-mode .header-particle,
+body.high-contrast-mode .header-decoration,
+body.high-contrast-mode .header-bg {
+  display: none !important;
+}
+
+/* Enhance text readability */
+body.high-contrast-mode p,
+body.high-contrast-mode li,
+body.high-contrast-mode span,
+body.high-contrast-mode label {
+  color: var(--high-contrast-text) !important;
+  font-weight: normal !important;
+}
+
+/* Make headings stand out more */
+body.high-contrast-mode h1,
+body.high-contrast-mode h2,
+body.high-contrast-mode h3,
+body.high-contrast-mode h4,
+body.high-contrast-mode h5,
+body.high-contrast-mode h6 {
+  color: var(--high-contrast-text) !important;
+  background-color: transparent !important;
+  border-bottom: var(--border-width) solid var(--high-contrast-border) !important;
+  padding-bottom: 0.5em !important;
+  margin-bottom: 0.75em !important;
+  font-weight: bold !important;
+}
+
+/* Enhanced focus indicators for better keyboard navigation */
+body.high-contrast-mode a:focus,
+body.high-contrast-mode button:focus,
+body.high-contrast-mode input:focus,
+body.high-contrast-mode select:focus,
+body.high-contrast-mode textarea:focus,
+body.high-contrast-mode [tabindex="0"]:focus {
+  outline: 3px solid var(--high-contrast-focus) !important;
+  outline-offset: 2px !important;
+  text-decoration: none !important;
+}
+
+/* Make links more visually distinct */
+body.high-contrast-mode a,
+body.high-contrast-mode a:link {
+  color: var(--high-contrast-link) !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+}
+
+body.high-contrast-mode a:visited {
+  color: var(--high-contrast-link-visited) !important;
+}
+
+body.high-contrast-mode a:hover,
+body.high-contrast-mode a:active {
+  color: var(--high-contrast-focus) !important;
+  text-decoration: underline !important;
+  background-color: #333 !important;
+}
+
+/* Enhance buttons for better visibility */
+body.high-contrast-mode button,
+body.high-contrast-mode .button,
+body.high-contrast-mode input[type="button"],
+body.high-contrast-mode input[type="submit"] {
+  background-color: var(--high-contrast-button) !important;
+  color: var(--high-contrast-button-text) !important;
+  border: var(--border-width) solid var(--high-contrast-border) !important;
+  padding: 0.5em 1em !important;
+  font-weight: bold !important;
+}
+
+body.high-contrast-mode button:hover,
+body.high-contrast-mode .button:hover,
+body.high-contrast-mode input[type="button"]:hover,
+body.high-contrast-mode input[type="submit"]:hover {
+  background-color: var(--high-contrast-button-hover) !important;
+  color: var(--high-contrast-button-hover-text) !important;
+}
+
+/* Make form elements more visible */
+body.high-contrast-mode input[type="text"],
+body.high-contrast-mode input[type="search"],
+body.high-contrast-mode input[type="email"],
+body.high-contrast-mode textarea,
+body.high-contrast-mode select {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+  padding: 0.5em !important;
+}
+
+/* Make checkboxes and radio buttons more visible */
+body.high-contrast-mode input[type="checkbox"],
+body.high-contrast-mode input[type="radio"] {
+  outline: 2px solid var(--high-contrast-border) !important;
+  width: 1.2em !important;
+  height: 1.2em !important;
+}
+
+/* Enhance code blocks for better readability */
+body.high-contrast-mode pre,
+body.high-contrast-mode code,
+body.high-contrast-mode .code-block {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+  border-radius: 0 !important;
+}
+
+/* Make tables more readable */
+body.high-contrast-mode table {
+  border-collapse: collapse !important;
+  border: 2px solid #fff !important;
+}
+
+body.high-contrast-mode th,
+body.high-contrast-mode td {
+  border: 2px solid #fff !important;
+  padding: 0.75em !important;
+}
+
+body.high-contrast-mode th {
+  background-color: #333 !important;
+  color: #fff !important;
+  font-weight: bold !important;
+}
+
+body.high-contrast-mode tr:nth-child(even) {
+  background-color: #111 !important;
+}
+
+/* Enhance navigation elements */
+body.high-contrast-mode .sidebar,
+body.high-contrast-mode .sdde-header {
+  background-color: #000 !important;
+  border: 2px solid #fff !important;
+}
+
+body.high-contrast-mode .sidebar a,
+body.high-contrast-mode .header-nav a {
+  color: var(--high-contrast-link) !important;
+  border-bottom: 1px solid #555 !important;
+  padding: 0.75em 1em !important;
+}
+
+body.high-contrast-mode .sidebar a.active,
+body.high-contrast-mode .header-nav a.active {
+  background-color: #333 !important;
+  border-left: 4px solid var(--high-contrast-link) !important;
+}
+
+/* Make progress indicators clearer */
+body.high-contrast-mode .progress-indicator {
+  background-color: #000 !important;
+  border: 2px solid #fff !important;
+}
+
+body.high-contrast-mode .progress-indicator.completed {
+  background-color: #333 !important;
+}
+
+/* Make status messages more prominent */
+body.high-contrast-mode .error-text,
+body.high-contrast-mode .warning-text {
+  background-color: #000 !important;
+  color: #f00 !important;
+  border: 2px solid #f00 !important;
+  padding: 0.5em !important;
+  font-weight: bold !important;
+}
+
+body.high-contrast-mode .success-text,
+body.high-contrast-mode .info-text {
+  background-color: #000 !important;
+  color: #0f0 !important;
+  border: 2px solid #0f0 !important;
+  padding: 0.5em !important;
+  font-weight: bold !important;
+}
+
+/* Remove blur effects that can reduce contrast */
+body.high-contrast-mode * {
+  filter: none !important;
+  backdrop-filter: none !important;
+}

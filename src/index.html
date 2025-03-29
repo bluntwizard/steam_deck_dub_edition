@@ -1,0 +1,142 @@
+ <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A comprehensive guide for Steam Deck customization and optimization">
+        <title>Steam Deck DUB Edition Guide</title>
+        <!-- Webpack will inject CSS and JS here -->
+        <link rel="icon" href="assets/sdde.svg" type="image/svg+xml">
+    </head>
+    <body>
+        <header class="main-header">
+            <div class="header-container">
+                <div class="logo-section">
+                    <img src="assets/sdde.svg" alt="Steam Deck DUB Edition Logo" class="logo" width="48" height="48" loading="eager">
+                    <h1 class="site-title">Steam Deck <span class="accent">DUB</span> Edition</h1>
+                </div>
+                <nav class="main-navigation">
+                    <ul class="nav-list">
+                        <li><a href="#getting-started" class="nav-link active">Getting Started</a></li>
+                        <li><a href="#guides" class="nav-link">Guides</a></li>
+                        <li><a href="#tweaks" class="nav-link">Tweaks</a></li>
+                        <li><a href="#resources" class="nav-link">Resources</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
+                    </ul>
+                </nav>
+                <div class="header-controls">
+                    <button id="search-toggle" class="icon-button" aria-label="Search">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                    <button id="theme-toggle" class="icon-button" aria-label="Toggle Dark Mode">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                    <button id="accessibility-toggle" class="icon-button" aria-label="Accessibility Options">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 8v4"></path>
+                            <path d="M12 16h.01"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <div class="container">
+                <section id="hero" class="hero-section">
+                    <h2 class="hero-title">Enhance Your Steam Deck Experience</h2>
+                    <p class="hero-subtitle">A comprehensive collection of optimizations, tweaks, and resources</p>
+                    <div class="hero-buttons">
+                        <a href="#getting-started" class="button primary">Get Started</a>
+                        <a href="#guides" class="button secondary">Browse Guides</a>
+                    </div>
+                </section>
+                
+                <section id="getting-started" class="content-section" data-content-src="sections/getting-started.html">
+                    <h2 class="section-title">Getting Started</h2>
+                    <p>Welcome to the Steam Deck DUB Edition guide. This comprehensive resource will help you optimize your Steam Deck experience.</p>
+                    
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-icon">📋</div>
+                            <h3 class="card-title">Setup Checklist</h3>
+                            <p class="card-description">Essential steps to set up your Steam Deck for the best experience</p>
+                            <a href="#checklist" class="card-link">View Checklist</a>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-icon">🔧</div>
+                            <h3 class="card-title">Basic Tweaks</h3>
+                            <p class="card-description">Simple optimizations that make a big difference</p>
+                            <a href="#basic-tweaks" class="card-link">Explore Tweaks</a>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-icon">🎮</div>
+                            <h3 class="card-title">Gaming Tips</h3>
+                            <p class="card-description">Get the most out of your games on Steam Deck</p>
+                            <a href="#gaming-tips" class="card-link">See Tips</a>
+                        </div>
+                    </div>
+                    
+                    <figure class="content-image">
+                        <img src="assets/images/steam-deck-guide-medium.jpg" 
+                             srcset="assets/images/steam-deck-guide-small.jpg 400w,
+                                     assets/images/steam-deck-guide-medium.jpg 800w,
+                                     assets/images/steam-deck-guide-large.jpg 1200w"
+                             sizes="(max-width: 600px) 100vw, 
+                                    (max-width: 1200px) 800px,
+                                    1200px"
+                             alt="Steam Deck Guide"
+                             width="800" 
+                             height="450"
+                             loading="lazy">
+                        <figcaption>Steam Deck DUB Edition provides comprehensive optimization guides</figcaption>
+                    </figure>
+                </section>
+                
+                <section id="guides" class="content-section" data-content-src="sections/optimizations.html">
+                    <h2 class="section-title">Guides</h2>
+                    <div class="loading-indicator">Loading guides...</div>
+                </section>
+                
+                <section id="tweaks" class="content-section" data-content-src="sections/gaming.html">
+                    <h2 class="section-title">Tweaks</h2>
+                    <div class="loading-indicator">Loading tweaks...</div>
+                </section>
+                
+                <section id="resources" class="content-section" data-content-src="sections/decky-loader.html">
+                    <h2 class="section-title">Resources</h2>
+                    <div class="loading-indicator">Loading resources...</div>
+                </section>
+                
+                <section id="about" class="content-section" data-content-src="sections/intro.html">
+                    <h2 class="section-title">About</h2>
+                    <div class="loading-indicator">Loading about section...</div>
+                </section>
+            </div>
+        </main>
+        
+        <footer class="main-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-info">
+                        <p>Steam Deck DUB Edition &copy; 2023</p>
+                        <p>A community-driven project for Steam Deck optimization</p>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#privacy">Privacy</a>
+                        <a href="#contribute">Contribute</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html> 

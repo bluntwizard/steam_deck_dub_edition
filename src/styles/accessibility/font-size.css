@@ -1,0 +1,135 @@
+/**
+* Font size accessibility styles for Steam Deck DUB Edition
+* Provides different font size options for better readability
+*/
+
+/* Base font size variables */
+:root {
+  --base-font-size: 16px;
+  --small-font-multiplier: 0.875;
+/* 14px */
+  --medium-font-multiplier: 1px;
+/* 16px (default) */
+  --large-font-multiplier: 1.25;
+/* 20 */
+  --xlarge-font-multiplier: 1.5;
+/* 24px */
+
+/* Line height adjustments for better readability at different sizes */
+  --small-line-height: 1.4;
+  --medium-line-height: 1.5;
+  --large-line-height: 1.6;
+  --xlarge-line-height: 1.7;
+}
+
+/* Default font size (medium) */
+html {
+  font-size: var(--base-font-size);
+  line-height: var(--medium-line-height);
+}
+
+/* Small font size */
+html.font-small {
+  font-size: calc(var(--base-font-size) * var(--small-font-multiplier));
+  line-height: var(--small-line-height);
+}
+
+/* Medium font size (default) */
+html.font-medium {
+  font-size: calc(var(--base-font-size) * var(--medium-font-multiplier));
+  line-height: var(--medium-line-height);
+}
+
+/* Large font size */
+html.font-large {
+  font-size: calc(var(--base-font-size) * var(--large-font-multiplier));
+  line-height: var(--large-line-height);
+}
+
+/* Extra large font size */
+html.font-xlarge {
+  font-size: calc(var(--base-font-size) * var(--xlarge-font-multiplier));
+  line-height: var(--xlarge-line-height);
+}
+
+/* Line spacing options */
+html.line-spacing-normal {
+  --line-spacing-multiplier: 1px;
+}
+
+html.line-spacing-wide {
+  --line-spacing-multiplier: 1.25;
+}
+
+html.line-spacing-wider {
+  --line-spacing-multiplier: 1.5;
+}
+
+/* Apply line spacing to paragraph elements */
+p, li, .content-text {
+  line-height: calc(var(--line-height, 1.5) * var(--line-spacing-multiplier, 1));
+}
+
+/* Reading guide styles */
+.reading-guide-element {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgb(255 255 0 / 30%);
+  z-index: 9999;
+  pointer-events: none;
+  box-shadow: 0 0 4px rgb(255 255 0 / 70%);
+}
+
+/* High contrast mode adjusts font weight for better visibility */
+html.high-contrast {
+  --font-weight-normal: 500;
+  --font-weight-bold: 700;
+}
+
+html:not(.high-contrast) {
+  --font-weight-normal: 400;
+  --font-weight-bold: 600;
+}
+
+/* Apply font weights */
+body {
+  font-weight: var(--font-weight-normal);
+}
+
+strong, b, h1, h2, h3, h4, h5, h6,
+.font-weight-bold, .btn, .nav-link.active {
+  font-weight: var(--font-weight-bold);
+}
+
+/* Ensure UI elements scale properly with font size */
+button, .btn, input, select, textarea {
+  font-size: inherit;
+}
+
+/* Adjust spacing for larger text sizes */
+html.font-large .container,
+html.font-xlarge .container {
+  max-width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/* Adjust header sizes for better proportion with body text */
+html.font-large h1, html.font-xlarge h1 {
+  font-size: 2em;
+}
+
+html.font-large h2, html.font-xlarge h2 {
+  font-size: 1.75em;
+}
+
+html.font-large h3, html.font-xlarge h3 {
+  font-size: 1.5em;
+}
+
+/* Ensure elements don't get too small in small font size setting */
+html.font-small .small-text {
+  font-size: 0.9em;
+}

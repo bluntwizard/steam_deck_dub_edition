@@ -1,0 +1,110 @@
+<div class="section" id="section-ii">
+    <h2>SECTION II: OPTIMIZATIONS</h2>
+    <p class="section-description"><strong><code>CONVERT FILE SYSTEM &amp; MODIFY SWAP TO OPTIMIZE READ/ WRITE &amp; ADD STORAGE</code></strong></p>
+    <hr>
+    
+    <div class="section-content">
+        <details class="guide-section">
+            <summary>1. CONVERT EXT4 TO BTRFS</summary>
+            <div class="details-content">
+                <h3>1. CONVERT YOUR STEAM DECK'S EXT4 FILESYSTEM TO BTRFS</h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>BTRFS OFFERS MULTIPLE ADVANTAGES OVER EXT4, INCLUDING BETTER COMPRESSION, SNAPSHOT CAPABILITIES, AND IMPROVED SSD LIFESPAN.</strong></p>
+                </blockquote>
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>sudo pacman -S btrfs-progs && sudo btrfs-convert /dev/mmcblk0p6</code></pre>
+                </div>
+                <p class="warning">⚠️ This operation is non-reversible and should be done with caution. Back up important data first.</p>
+            </div>
+        </details>
+        
+        <!-- New Step 2: Installing CryoUtilities -->
+        <details class="guide-section">
+            <summary>2. INSTALLING CRYOUTILITIES</summary>
+            <div class="details-content">
+                <h3>2. INSTALLING <a href="https://github.com/CryoByte33/steam-deck-utilities#cryoutilities">CRYOUTILITIES</a></h3>
+                
+                <blockquote class="explanation">
+                    <h4><strong>CYROUTILITIES IS A COLLECTION OF SCRIPTS &amp; UTILITIES TO IMPROVE PERFORMANCE &amp; MANAGE STORAGE ON THE STEAM DECK.</strong></h4>
+                </blockquote>
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>cd Desktop && echo "#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Install CryoUtilities
+Exec=curl https://raw.githubusercontent.com/CryoByte33/steam-deck-utilities/main/install.sh | bash -s --
+Icon=steamdeck-gaming-return
+Terminal=true
+Type=Application
+StartupNotify=false" >> InstallCryoUtilities.desktop && sudo gtk-launch EmuDeck.desktop</code></pre>
+                </div>
+                <p><strong>CHOOSE RECOMMENDED SETTINGS</strong></p>
+            </div>
+        </details>
+        
+        <!-- Renumbered Step 3 (was Step 2) -->
+        <details class="guide-section">
+            <summary>3. OPTIMIZE SWAP SETTINGS</summary>
+            <div class="details-content">
+                <h3>3. ADJUST SWAP SETTINGS FOR BETTER PERFORMANCE</h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>OPTIMIZING SWAP SETTINGS CAN IMPROVE PERFORMANCE WHEN MEMORY IS UNDER PRESSURE.</strong></p>
+                </blockquote>
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>echo 'vm.swappiness=10
+vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.d/99-sysctl.conf</code></pre>
+                </div>
+                <p>These settings will reduce how aggressively the system uses swap space and how quickly it drops file caches.</p>
+            </div>
+        </details>
+        
+        <!-- Renumbered Step 4 (was Step 3) -->
+        <details class="guide-section">
+            <summary>4. ENABLE ZRAM COMPRESSION</summary>
+            <div class="details-content">
+                <h3>4. ENABLE ZRAM FOR BETTER MEMORY MANAGEMENT</h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>ZRAM CREATES A COMPRESSED SWAP DEVICE IN RAM, WHICH CAN IMPROVE PERFORMANCE DURING MEMORY-INTENSIVE TASKS.</strong></p>
+                </blockquote>
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>sudo pacman -S zram-generator
+echo '[zram0]
+zram-size = ram / 2
+compression-algorithm = zstd
+swap-priority = 100' | sudo tee /etc/systemd/zram-generator.conf
+sudo systemctl restart systemd-zram-setup@zram0.service</code></pre>
+                </div>
+                <p>This creates a compressed swap device in RAM that's half the size of your physical RAM.</p>
+            </div>
+        </details>
+        
+        <!-- Renumbered Step 5 (was Step 4) -->
+        <details class="guide-section">
+            <summary>5. ENABLE TRIM FOR SSD HEALTH</summary>
+            <div class="details-content">
+                <h3>5. ENABLE PERIODIC TRIM FOR SSD HEALTH</h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>TRIM HELPS MAINTAIN SSD PERFORMANCE AND LONGEVITY BY PROPERLY MANAGING DELETED BLOCKS.</strong></p>
+                </blockquote>
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>sudo systemctl enable fstrim.timer
+sudo systemctl start fstrim.timer</code></pre>
+                </div>
+                <p>This enables a weekly TRIM operation to maintain optimal SSD performance.</p>
+            </div>
+        </details>
+    </div>
+</div>

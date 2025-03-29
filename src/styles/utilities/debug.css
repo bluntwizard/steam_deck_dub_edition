@@ -1,0 +1,188 @@
+/**
+* Debug Styles for Layout Issues
+* Add this stylesheet to diagnose layout problems
+*/
+
+/* Show element outlines for debugging */
+.debug-layout .section {
+  outline: 2px solid rgb(189 147 249 / 50%) !important;
+}
+
+.debug-layout .section > * {
+  outline: 1px dashed rgb(255 121 198 / 50%) !important;
+}
+
+.debug-layout .grid {
+  outline: 2px solid rgb(80 250 123 / 50%) !important;
+}
+
+.debug-layout .flex {
+  outline: 2px solid rgb(139 233 253 / 50%) !important;
+}
+
+.debug-layout .sidebar {
+  outline: 2px solid rgb(255 184 108 / 50%) !important;
+}
+
+/* Add visual indicators for layout types */
+.debug-layout .section::before {
+  content: "Section";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgb(189 147 249 / 80%);
+  color: #282a36;
+  font-size: 10;
+  padding: 2px 6px;
+  border-radius: 0 8px;
+  z-index: 100;
+}
+
+.debug-layout .section.section-hero::before {
+  content: "Hero Section";
+  background: rgb(80 250 123 / 80%);
+}
+
+.debug-layout .section.section-features::before {
+  content: "Features Section";
+  background: rgb(255 121 198 / 80%);
+}
+
+.debug-layout .section.section-gallery::before {
+  content: "Gallery Section";
+  background: rgb(139 233 253 / 80%);
+}
+
+.debug-layout .section.section-steps::before {
+  content: "Steps Section";
+  background: rgb(255 184 108 / 80%);
+}
+
+.debug-layout .grid::before {
+  content: "Grid";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgb(80 250 123 / 80%);
+  color: #282a36;
+  font-size: 10;
+  padding: 2px 6px;
+  z-index: 100;
+}
+
+.debug-layout .flex::before {
+  content: "Flex";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgb(139 233 253 / 80%);
+  color: #282a36;
+  font-size: 10;
+  padding: 2px 6px;
+  z-index: 100;
+}
+
+/* Fix for missing positioning context */
+.debug-layout .section,
+.debug-layout .grid,
+/* Duplicate selector (first used on line 19): .debug-layout .flex */
+position: relative;
+
+/* Display grid lines for debugging */
+
+/* Grid indicator removed to avoid duplication */
+
+/* Style for element dimensions tooltip */
+.debug-layout [class*="section-"] *:hover::after {
+  content: attr(class) " - " attr(style);
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  background: rgb(40 42 54 / 90%);
+  color: #f8f8f2;
+  font-size: 10;
+  padding: 2px 6px;
+  white-space: nowrap;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Debug console logger */
+.debug-layout::after {
+  content: "";
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30;
+  background: rgb(40 42 54 / 80%);
+  color: #f8f8f2;
+  font-family: monospace;
+  font-size: 12px;
+  padding: 5px 10;
+  z-index: 10000;
+  white-space: pre;
+}
+
+/* Default display type fixes */
+.debug-layout .gallery-grid:not([style*="display:"]) {
+  display: grid !important;
+}
+
+.debug-layout .features-grid:not([style*="display:"]) {
+  display: grid !important;
+}
+
+.debug-layout .cards-grid:not([style*="display:"]) {
+  display: grid !important;
+}
+
+/* Missing CSS properties warnings */
+.debug-layout .gallery-grid:not([style*="grid-template-columns"])::before {
+  content: "Missing grid-template-columns!";
+  color: #f55;
+  background: rgb(255 85 85 / 20%);
+  position: absolute;
+  top: -20;
+  left: 0;
+  font-size: 10;
+  padding: 2px 6px;
+}
+
+.debug-layout .features-grid:not([style*="grid-template-columns"])::before {
+  content: "Missing grid-template-columns!";
+  color: #f55;
+  background: rgb(255 85 85 / 20%);
+  position: absolute;
+  top: -20;
+  left: 0;
+  font-size: 10;
+  padding: 2px 6px;
+}
+
+/* Toggle debug mode button */
+#debug-toggle-button {
+  position: fixed;
+  bottom: 270;
+  right: 20;
+  width: 40;
+  height: 40;
+  border-radius: 50%;
+  background-color: rgb(255 85 85 / 80%);
+  color: white;
+  border: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10000;
+  font-size: 10;
+  box-shadow: 0 2px 10 rgb(0 0 0 / 20%);
+}
+
+#debug-toggle-button:hover {
+  background-color: rgb(255 85 85 / 100%);
+}.section,.debug-layout.grid,position
+}

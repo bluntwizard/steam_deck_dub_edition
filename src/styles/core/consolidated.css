@@ -1,0 +1,201 @@
+/**
+* Consolidated Styles for SDDE Guide
+* Combines and normalizes styles from multiple files
+*/
+
+/* ---------- Core Variables ---------- */
+:root {
+/* Primary Dracula Theme Colors */
+  --dracula-background: #282a36;
+  --dracula-current-line: #44475a;
+  --dracula-foreground: #f8f8f2;
+  --dracula-comment: #6272a4;
+  --dracula-cyan: #8be9fd;
+  --dracula-green: #50fa7b;
+  --dracula-orange: #ffb86c;
+  --dracula-pink: #ff79c6;
+  --dracula-purple: #bd93f9;
+  --dracula-red: #f55;
+  --dracula-yellow: #f1fa8c;
+/* Background transparency variants */
+  --dracula-background-80: rgb(40 42 54 / 80%);
+  --dracula-current-line-40: rgb(68 71 90 / 40%);
+  --dracula-comment-20: rgb(98 114 164 / 20%);
+  --dracula-purple-20: rgb(189 147 249 / 20%);
+/* Layout Constants */
+  --content-max-width: 1200;
+  --sidebar-width: 250;
+  --container-padding: 20;
+  --section-padding: clamp(20, 4vw, 30);
+  --card-border-radius: 8px;
+/* Navigation */
+  --header-height: 70;
+  --header-expanded-height: 350;
+}
+
+/* ---------- Reset & Base Styles ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 18px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  background-color: var(--dracula-background);
+  color: var(--dracula-foreground);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--dracula-cyan);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover { color: var(--dracula-pink);
+}
+
+/* ---------- Navigation Preferences ---------- */
+
+/* Modern navigation (header-only) mode */
+body.use-modern-nav .sidebar-optional { display: none;
+}
+
+body.use-modern-nav .toggle-sidebar { display: none;
+}
+
+body.use-modern-nav .main-content { margin-left: 0 !important;
+}
+
+/* Classic navigation (sidebar) mode */
+body:not(.use-modern-nav) .sdde-header .header-nav { display: none;
+}
+
+/* ---------- Layout Structure ---------- */
+.page-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: var(--container-padding);
+  transition: margin-left 0.3s ease, margin-top 0.3s ease;
+  margin-top: var(--header-height);
+}
+
+.sidebar-active .main-content { margin-left: var(--sidebar-width);
+}
+
+/* Adjust for expanded header */
+.sdde-header,.expanded ~ .main-content { margin-top: var(--header-expanded-height);
+}
+
+/* Remove all legacy header references */
+.legacy-header,
+.header:not(.sdde-header),
+.header-container:not(.sdde-header .header-container) { display: none !important;
+}
+
+/* ---------- Section Layouts ---------- */
+.section {
+  margin-bottom: 30;
+  padding: var(--section-padding);
+  background-color: rgb(40 42 54 / 70%);
+  border-radius: var(--card-border-radius);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--dracula-current-line);
+}
+
+/* Display property fixes for section layouts */
+.section-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30;
+  align-items: center;
+}
+
+.section-features .features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280, 1fr));
+  gap: 25px;
+}
+
+.section-gallery .gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200, 1fr));
+  gap: 15px;
+}
+
+.section-cards .cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280, 1fr));
+  gap: 25px;
+}
+
+.section-steps .steps-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20;
+}
+
+.section-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30;
+}
+
+.section-code {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20;
+}
+
+.section-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200, 1fr));
+  gap: 20;
+  text-align: center;
+}
+
+/* ---------- Responsive Adjustments ---------- */
+@media (width <= 992px) {
+  .section-hero,
+  .section-code,
+/* Duplicate selector (first used on line 156): .section-comparison */
+  grid-template-columns: 1fr;.section-code,grid-template-columns
+  .section-code,grid-template-columns;
+}
+
+@media (width <= 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    z-index: 1001;
+  }
+
+  .sidebar-active .sidebar { transform: translateX(0);
+  }
+
+/* Duplicate selector (first used on line 97): .sidebar-active .main-content */
+  margin-left: 0;
+}
+
+  .toggle-sidebar { left: 0;
+  }
+
+/* Ensure elements are properly stacked on mobile */
+/* Duplicate selector (first used on line 85): .page-container */
+  flex-direction: column;
+
+/* Utility class to hide elements on small screens */
+@media (width <= 640) {
+  .hide-on-mobile { display: none !important;
+  }
+}
+

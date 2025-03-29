@@ -1,0 +1,101 @@
+/* Main font definitions for Steam Deck DUB Edition */
+
+/* Montserrat - Display font */
+@font-face {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../../assets/fonts/montserrat/montserrat-regular.woff2') format('woff2');
+}
+
+/* Duplicate selector (first used on line 4): @font-face */
+font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+font-display: swap;
+src: url('../../assets/fonts/montserrat/montserrat-medium.woff2') format('woff2');
+
+/* Duplicate selector (first used on line 4): @font-face */
+font-family: Montserrat;
+font-style: normal;
+font-weight: 700;
+font-display: swap;
+src: url('../../assets/fonts/montserrat/montserrat-bold.woff2') format('woff2');
+
+/* Inter - Main text font */
+/* Duplicate selector (first used on line 4): @font-face */
+font-family: Inter;
+font-style: normal;
+font-weight: 400;
+font-display: swap;
+src: url('../../assets/fonts/inter/inter-regular.woff2') format('woff2');
+
+/* Duplicate selector (first used on line 4): @font-face */
+font-family: Inter;
+font-style: normal;
+font-weight: 500;
+font-display: swap;
+src: url('../../assets/fonts/inter/inter-medium.woff2') format('woff2');
+
+/* Duplicate selector (first used on line 4): @font-face */
+font-family: Inter;
+font-style: normal;
+font-weight: 700;
+font-display: swap;
+src: url('../../assets/fonts/inter/inter-bold.woff2') format('woff2');
+
+/* JetBrains Mono - Code font */
+/* Duplicate selector (first used on line 4): @font-face */
+font-family: 'JetBrains Mono';
+font-style: normal;
+font-weight: 400;
+font-display: swap;
+src: url('../../assets/fonts/jetbrains-mono/jetbrains-mono-regular.woff2') format('woff2');
+
+/* Duplicate selector (first used on line 4): @font-face */
+font-family: 'JetBrains Mono';
+font-style: normal;
+font-weight: 700;
+font-display: swap;
+src: url('../../assets/fonts/jetbrains-mono/jetbrains-mono-bold.woff2') format('woff2');
+
+/* OpenDyslexic - Accessibility font */
+/* Duplicate selector (first used on line 4): @font-face */
+font-family: OpenDyslexic;
+font-style: normal;
+font-weight: 400;
+font-display: swap;
+src: url('../../assets/fonts/opendyslexic/opendyslexic-regular.woff2') format('woff2');
+
+/* Duplicate selector (first used on line 4): @font-face */
+font-family: OpenDyslexic;
+font-style: normal;
+font-weight: 700;
+font-display: swap;
+src: url('../../assets/fonts/opendyslexic/opendyslexic-bold.woff2') format('woff2');
+
+/* Font variable for easy application throughout the site */
+:root {
+  --font-heading: 'Montserrat', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
+  --font-dyslexic: 'OpenDyslexic', serif;
+}
+
+/* Base font classes */
+.font-heading { font-family: var(--font-heading);
+}
+
+.font-body { font-family: var(--font-body);
+}
+
+.font-code { font-family: var(--font-code);
+}
+
+.font-dyslexic { font-family: var(--font-dyslexic);
+}
+
+
+
+

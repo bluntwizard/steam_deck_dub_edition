@@ -1,0 +1,82 @@
+/**
+ * SDDE Guide Cleanup Script
+ * Removes legacy elements and ensures clean DOM structure
+ */
+
+(function() {
+  // Run immediately when script loads
+  cleanupLegacyElements();
+  
+  // Also run when DOM is fully loaded
+  document.addEventListener('DOMContentLoaded', cleanupLegacyElements);
+  
+  // Run again after dynamic content is loaded
+  window.addEventListener('content-loaded', cleanupLegacyElements);
+})();
+
+/**
+ * Remove legacy elements from the DOM
+ */
+function cleanupLegacyElements() {
+  console.log('Running SDDE cleanup...');
+  
+  // Legacy header elements to remove
+  const legacySelectors = [
+    '.header:not(.sdde-header)',
+    '.header-container:not(.sdde-header .header-container)',
+    '.old-nav',
+    '.legacy-header',
+    // Add more legacy selectors as needed
+  ];
+  
+  // Process each selector
+  legacySelectors.forEach(selector => {
+    const elements = document.querySelectorAll(selector);
+    if (elements.length > 0) {
+      console.log(`Removing ${elements.length} legacy elements matching "${selector}"`);
+      elements.forEach(el => el.remove());
+    }
+  });
+  
+  // Fix any lingering styles
+  fixLegacyStyles();
+}
+
+/**
+ * Fix any lingering style issues
+ */
+function fixLegacyStyles() {
+  const mainContent = document.querySelector('.main-content');
+  if (mainContent) {
+    // Ensure main content has correct top margin based on header height
+    const header = document.querySelector('.sdde-header');
+    if (header) {
+      const headerHeight = header.classList.contains('expanded') ? 
+                          getComputedStyle(document.documentElement).getPropertyValue('--header-expanded-height') :
+                          getComputedStyle(document.documentElement).getPropertyValue('--header-height');
+      
+      mainContent.style.marginTop = headerHeight;
+    }
+  }
+  
+  // Remove any inline styles that might conflict with our layout
+  document.querySelectorAll('[style*="margin-top"]').forEach(el => {
+    // Skip main content which we just set
+    if (el === mainContent) return;
+    
+    // Check if this is a legitimate style we should keep
+    if (!el.classList.contains('sdde-header') && 
+        !el.classList.contains('header-container') &&
+        !el.closest('.sdde-header')) {
+      // Remove only margin-top from inline styles
+      const style = el.getAttribute('style');
+      const newStyle = style.replace(/margin-top:\s*[^;]+;?/g, '');
+      
+      if (newStyle.trim() === '') {
+        el.removeAttribute('style');
+      } else {
+        el.setAttribute('style', newStyle);
+      }
+    }
+  });
+}

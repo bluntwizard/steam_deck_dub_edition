@@ -1,0 +1,681 @@
+/* Main Layout Structure */
+body {
+  display: flex;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color, #282a36);
+  color: var(--color-text, #f8f8f2);
+  overflow-x: hidden;
+}
+
+/* Page Container */
+.page-container {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 250;
+  background-color: rgb(40 42 54 / 90%);
+  backdrop-filter: blur(10);
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 20 0;
+  border-right: 1px solid rgb(98 114 164 / 20%);
+  transition: transform 0.3s ease, width 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-inner {
+  padding: 0 15px;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-hidden {
+  transform: translateX(-250);
+}
+
+/* Toggle Button */
+.toggle-sidebar {
+  position: fixed;
+  top: 10;
+  left: 250;
+  background: linear-gradient(var(--dracula-purple, #bd93f9), var(--dracula-pink, #ff79c6));
+  color: #fff;
+  border: none;
+  padding: 10;
+  cursor: pointer;
+  z-index: 1001;
+  transition: left 0.3s ease;
+  border-radius: 0 5px 5px 0;
+  box-shadow: 2px 0 5px rgb(0 0 0 / 20%);
+}
+
+.toggle-sidebar.sidebar-hidden {
+  left: 0;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 20;
+  transition: margin-left 0.3s ease, width 0.3s ease;
+  width: 100%;
+  margin-left: 0;
+  min-height: 100vh;
+  background-color: transparent;
+  backdrop-filter: blur(5px);
+  box-shadow: none;
+  margin: 20 auto;
+  max-width: 1200;
+/* Add smooth scrolling behavior */
+  scroll-behavior: smooth;
+  scroll-padding-top: 80;
+/* Account for sticky header */;
+}
+
+.sidebar-active .main-content {
+margin-left: 250;
+width: calc(100% - 250);
+}
+
+/* Responsive Sections */
+  .section {
+    margin-bottom: 40;
+    background-color: rgb(68 71 90 / 70%);
+    padding: 30;
+    border-radius: 15px;
+    border: 1px solid rgb(248 248 242 / 10%);
+    box-shadow: 0 8px 20 rgb(0 0 0 / 15%);
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Add margin for scroll target */
+    scroll-margin-top: 80;
+  }
+
+  .section:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgb(0 0 0 / 20%);
+  }
+
+/* Flexbox for section content */
+  .section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20;
+    margin-top: 25px;
+  }
+
+/* Guide section layouts */
+  .guide-section {
+    width: 100%;
+    margin-bottom: 20;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .guide-section summary {
+    border-radius: 12px;
+/* Add improved focus state for keyboard navigation */
+    transition: background-color 0.2s ease;
+  }
+
+  .guide-section summary:focus {
+    outline: 2px solid var(--dracula-purple, #bd93f9);
+    background-color: rgb(189 147 249 / 20%);
+  }
+
+  .details-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .details-content h3 {
+    margin-top: 0;
+  }
+
+/* Code blocks in flexbox */
+  .code-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .code-block {
+    width: 100%;
+    overflow-x: auto;
+    margin: 15px 0;
+    border-radius: 10;
+/* Add focus indicator for code blocks */
+    position: relative;
+  }
+
+  .code-block:focus-within {
+    outline: 2px solid var(--dracula-pink, #ff79c6);
+    outline-offset: 2px;
+  }
+
+/* Copy button improvements */
+  .copy-button {
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  .copy-button:focus {
+    box-shadow: 0 0 0 2px var(--dracula-background, #282a36),
+    0 0 0 4px var(--dracula-pink, #ff79c6);
+    outline: none;
+  }
+
+  .copy-button:hover {
+    transform: translateY(-2px);
+  }
+
+/* Media queries for responsive design */
+@media (width <= 768px) {
+/* Duplicate selector (first used on line 23): .sidebar */
+  width: 240;
+}
+
+/* Duplicate selector (first used on line 53): .toggle-sidebar */
+left: 240;
+}
+
+/* Duplicate selector (first used on line 91): .sidebar-active .main-content */
+margin-left: 240;
+width: calc(100% - 240);
+}
+
+/* Duplicate selector (first used on line 97): .section */
+padding: 20;
+}
+
+.intro-content {
+  margin: 15px 0;
+}
+
+.title-header {
+  font-size: 1.8em;
+}
+}
+
+@media (width <= 576px) {
+/* Duplicate selector (first used on line 23): .sidebar */
+  width: 80%;
+  max-width: 300;
+}
+
+/* Duplicate selector (first used on line 91): .sidebar-active .main-content */
+margin-left: 0;
+width: 100%;
+opacity: 0.3;
+pointer-events: none;
+}
+
+/* Duplicate selector (first used on line 73): .main-content */
+padding: 15px;
+}
+}
+
+/* Search container with flexbox */
+.search-container {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  padding: 15px 20;
+  background-color: rgb(40 42 54 / 80%);
+  backdrop-filter: blur(10);
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  margin-bottom: 20;
+  box-shadow: 0 4px 20 rgb(0 0 0 / 20%);
+  border: 1px solid;
+  border-image: linear-gradient(to right, var(--dracula-purple, #bd93f9), var(--dracula-pink, #ff79c6)) 1;
+}
+
+.search-box {
+  flex: 1;
+  padding: 10 15px;
+  border-radius: 5px;
+  background-color: rgb(68 71 90 / 60%);
+  color: var(--dracula-foreground, #f8f8f2);
+  border: 1px solid rgb(98 114 164 / 30%);
+}
+
+/* Table of Contents with flexbox */
+.toc {
+  display: flex;
+  flex-direction: column;
+  gap: 10;
+  border-radius: 15px;
+  background-color: rgb(68 71 90 / 50%);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 6px 15px rgb(0 0 0 / 10%);
+  border: 1px solid rgb(248 248 242 / 5%);
+  padding: 20;
+}
+
+.toc ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 10;
+}
+
+.toc li {
+  margin-bottom: 12px;
+}
+
+/* Header responsiveness */
+.header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 30 0;
+  padding: 20;
+  border-radius: 20;
+  background-color: rgb(40 42 54 / 40%);
+  backdrop-filter: blur(7px);
+  box-shadow: 0 5px 25px rgb(0 0 0 / 15%);
+  overflow: hidden;
+}
+
+/* SVG object container - only style the container, not SVG content */
+.header-svg {
+  width: 100%;
+  height: auto;
+  max-width: 800;
+  display: block;
+  margin: 0 auto;
+/* Avoid styles that would affect SVG internal rendering */
+  pointer-events: auto;
+/* Ensure SVG interactions work if any exist */;
+}
+
+/* Add SVG loading states */
+
+/* SVG loading states */
+  .svg-loading .header-svg {
+    min-height: 200;
+    background: rgb(30 41 59 / 30%);
+    border-radius: 8px;
+    position: relative;
+  }
+
+  .svg-loading .header-svg::after {
+    content: 'Loading...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-main);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+  }
+
+  .svg-error .svg-fallback {
+    display: flex;
+  }
+
+/* Ensure SVG fallback works */
+  .svg-fallback {
+    display: none;
+    width: 100%;
+    max-width: 800;
+    padding: 30;
+    background: linear-gradient(135deg, var(--color-main), var(--color-primary));
+    border-radius: 8px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+/* Add loading indicator styles */
+
+/* Loading indicator */
+  .loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300;
+    width: 100%;
+    padding: 40;
+    text-align: center;
+    color: var(--dracula-foreground, #f8f8f2);
+  }
+
+  .loading-indicator .spinner {
+    width: 60;
+    height: 60;
+    margin-bottom: 20;
+    border: 6px solid rgb(189 147 249 / 20%);
+    border-radius: 50%;
+    border-top-color: var(--dracula-purple, #bd93f9);
+    border-left-color: var(--dracula-pink, #ff79c6);
+    animation: spinner-animation 1.2s linear infinite;
+  }
+
+@keyframes spinner-animation {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+.loading-indicator p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--dracula-purple, #bd93f9);
+}
+
+/* Error message */
+.error-message {
+  background-color: rgb(255 85 85 / 20%);
+  border-left: 4px solid var(--dracula-red, #f55);
+  padding: 20;
+  margin: 20 0;
+  border-radius: 4px;
+}
+
+.error-message h3 {
+  color: var(--dracula-red, #f55);
+  margin-top: 0;
+}
+
+.error-message button {
+  background-color: var(--dracula-purple, #bd93f9);
+  color: var(--dracula-foreground, #f8f8f2);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10;
+  transition: background-color 0.2s;
+}
+
+.error-message button:hover {
+  background-color: var(--dracula-pink, #ff79c6);
+}
+
+/* Style for glossary list */
+.glossary-list dt {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: var(--dracula-pink, #ff79c6);
+  margin-top: 20;
+  margin-bottom: 8px;
+  border-bottom: 1px dashed rgb(255 121 198 / 30%);
+  padding-bottom: 3px;
+}
+
+.glossary-list dd {
+  margin-left: 0;
+  margin-bottom: 15px;
+  padding-left: 15px;
+  border-left: 2px solid rgb(189 147 249 / 30%);
+}
+
+/* Style for plugin and flatpak lists */
+.plugin-list, .flatpak-list {
+  padding-left: 20;
+}
+
+.plugin-list li, .flatpak-list li, .plugin-recommendation-list li {
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 20;
+  list-style-type: none;
+}
+
+.plugin-list li::before, .flatpak-list li::before, .plugin-recommendation-list li::before {
+  content: "•";
+  color: var(--dracula-green, #50fa7b);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  font-size: 1.2em;
+}
+
+.plugin-list li strong, .flatpak-list li strong, .plugin-recommendation-list li strong {
+  color: var(--dracula-cyan, #8be9fd);
+  font-weight: bold;
+}
+
+/* Transitions for content loading */
+#dynamic-content {
+  transition: opacity 0.3s ease;
+  position: relative;
+}
+
+#dynamic-content.loading {
+  opacity: 0.6;
+}
+
+/* Content loading indicator position */
+#dynamic-content .loading-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+/* CSS for loaded content state */
+.content-loaded #dynamic-content {
+  opacity: 1;
+}
+
+/* Style for content loading transition */
+@keyframes content-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply animation to sections */
+  .content-loaded .section {
+    animation: content-fade-in 0.4s ease forwards;
+  }
+
+/* Stagger animations for sections */
+.content-loaded .section:nth-child(1) { animation-delay: 0.1s; }
+.content-loaded .section:nth-child(2) { animation-delay: 0.2s; }
+.content-loaded .section:nth-child(3) { animation-delay: 0.3s; }
+.content-loaded .section:nth-child(4) { animation-delay: 0.4s; }
+.content-loaded .section:nth-child(5) { animation-delay: 0.5s; }
+
+/* Accessibility improvements */
+
+/* Better focus states for interactive elements */
+a:focus, button:focus, input:focus, .code-block:focus-within {
+  outline: 2px solid var(--dracula-pink, #ff79c6);
+  outline-offset: 2px;
+}
+
+/* Improved keyboard navigation for details elements */
+/* Duplicate selector (first used on line 137): .guide-section summary:focus */
+background-color: rgb(189 147 249 / 20%);
+outline: 2px solid var(--dracula-purple, #bd93f9);
+}
+
+/* Enhanced contrast for link hover states */
+a:hover, a:focus {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Better keyboard focus styling for copy buttons */
+/* Duplicate selector (first used on line 178): .copy-button:focus */
+box-shadow: 0 0 0 2px var(--dracula-background, #282a36),
+0 0 0 4px var(--dracula-pink, #ff79c6);
+outline: none;
+}
+
+/* Skip to content link for keyboard users */
+.skip-to-content {
+  position: absolute;
+  top: -40;
+  left: 0;
+  background: var(--dracula-pink, #ff79c6);
+  color: var(--dracula-background, #282a36);
+  padding: 8px;
+  z-index: 2000;
+  transition: top 0.3s;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* ...existing code... */
+
+/* Duplicate selector (first used on line 211): .title-header */
+text-align: center;
+margin-bottom: 20;
+}
+
+.title-divider {
+  margin: 20 0;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(
+  to right,
+  rgb(189 147 249 / 0%),
+  rgb(189 147 249 / 75%),
+  rgb(189 147 249 / 0%)
+  );
+}
+
+.intro-section {
+  text-align: center;
+}
+
+/* Duplicate selector (first used on line 207): .intro-content */
+margin: 20 0;
+}
+
+.warning-text, .action-text {
+  margin: 15px 0;
+}
+
+.section-description {
+  margin: 15px 0;
+  font-size: 1.1em;
+}
+
+.note {
+  color: var(--dracula-cyan, #8be9fd);
+  font-style: italic;
+  margin: 10 0;
+}
+
+.instruction, .explanation {
+  margin: 15px 0;
+  padding: 15px;
+  background-color: rgb(189 147 249 / 10%);
+  border-left: 3px solid var(--dracula-purple, #bd93f9);
+  border-radius: 0 5px 5px 0;
+}
+
+.explanation p {
+  margin-bottom: 10;
+}
+
+.explanation p:last-child {
+  margin-bottom: 0;
+}
+
+/* Better formatting for headings */
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 15px;
+  line-height: 1.2;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+/* Notification area for search results */
+#no-results-message {
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Top level SVG container */
+.svg-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 20 0;
+}
+
+/* Fix for nested flexbox items */
+ul li {
+  flex-wrap: wrap;
+}
+
+/* Back to top button with improved styling */
+.back-to-top {
+  position: fixed;
+  bottom: 20;
+  right: 20;
+  width: 40;
+  height: 40;
+  border-radius: 50%;
+  background: linear-gradient(var(--dracula-purple, #bd93f9), var(--dracula-pink, #ff79c6));
+  color: var(--dracula-foreground, #f8f8f2);
+  box-shadow: 0 3px 15px rgb(0 0 0 / 30%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20);
+  transition: opacity 0.3s, transform 0.3s, box-shadow 0.2s;
+  z-index: 100;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20 rgb(0 0 0 / 40%);
+}
+
+.back-to-top:focus {
+  outline: 2px solid var(--dracula-foreground, #f8f8f2);
+  outline-offset: 2px;
+}
+
+/* Improve visibility for keyboard users */
+.keyboard-user *:focus {
+  outline: 3px solid var(--dracula-pink, #ff79c6) !important;
+  outline-offset: 3px !important;
+}

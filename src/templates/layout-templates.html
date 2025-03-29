@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDDE Layout Templates</title>
+    <link rel="stylesheet" href="dracula-theme.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="grid-layout.css">
+    <link rel="stylesheet" href="section-layouts.css">
+    <style>
+        /* Demo page styles only */
+        body {
+            padding: 20px;
+            background-color: var(--dracula-background, #282a36);
+            color: var(--dracula-foreground, #f8f8f2);
+            font-family: 'Open Sans', sans-serif;
+        }
+        .template-section {
+            margin-bottom: 60px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--dracula-current-line, #44475a);
+        }
+        .template-title {
+            color: var(--dracula-purple, #bd93f9);
+            margin-bottom: 20px;
+        }
+        .template-description {
+            margin-bottom: 30px;
+            max-width: 800px;
+        }
+        code {
+            background-color: rgba(40, 42, 54, 0.7);
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h1>SDDE Layout Templates</h1>
+    <p>This page contains example templates for various section layouts that can be used in the SDDE guide.</p>
+    
+    <!-- Hero Section Template -->
+    <div class="template-section">
+        <h2 class="template-title">Hero Section</h2>
+        <p class="template-description">Use this for introduction sections or key feature highlights. Best used at the beginning of a major section.</p>
+        
+        <section class="section section-hero">
+            <div class="hero-content">
+                <h2 class="hero-title">Steam Deck DUB Edition</h2>
+                <h3 class="hero-subtitle">Optimized Gaming Experience</h3>
+                <p class="hero-description">The Steam Deck DUB Edition guide provides you with all the optimizations and enhancements you need to take your Steam Deck to the next level. Follow our carefully curated steps to improve performance, battery life, and overall gaming experience.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">Get Started</button>
+                    <button class="btn btn-secondary">Learn More</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://placekitten.com/500/300" alt="Steam Deck">
+            </div>
+        </section>
+        
+        <pre><code>&lt;section class="section section-hero"&gt;
+    &lt;div class="hero-content"&gt;
+        &lt;h2 class="hero-title"&gt;Steam Deck DUB Edition&lt;/h2&gt;
+        &lt;h3 class="hero-subtitle"&gt;Optimized Gaming Experience&lt;/h3&gt;
+        &lt;p class="hero-description"&gt;Description text here...&lt;/p&gt;
+        &lt;div class="hero-buttons"&gt;
+            &lt;button class="btn btn-primary"&gt;Get Started&lt;/button&gt;
+            &lt;button class="btn btn-secondary"&gt;Learn More&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="hero-image"&gt;
+        &lt;img src="image-url.jpg" alt="Steam Deck"&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+    
+    <!-- Feature Grid Template -->
+    <div class="template-section">
+        <h2 class="template-title">Feature Grid</h2>
+        <p class="template-description">Use this to showcase multiple features or benefits in an organized grid layout.</p>
+        
+        <section class="section section-features">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Performance Boost</h3>
+                    <p class="feature-description">Optimize your Steam Deck for maximum performance with our carefully tested settings.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔋</div>
+                    <h3 class="feature-title">Extended Battery Life</h3>
+                    <p class="feature-description">Get more gaming time with our power-saving optimizations and tweaks.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎮</div>
+                    <h3 class="feature-title">Enhanced Controls</h3>
+                    <p class="feature-description">Customize your controls for a better gaming experience with our recommended layouts.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔧</div>
+                    <h3 class="feature-title">Advanced Tweaks</h3>
+                    <p class="feature-description">Access hidden features and settings to fully customize your device.</p>
+                </div>
+            </div>
+        </section>
+        
+        <pre><code>&lt;section class="section section-features"&gt;
+    &lt;h2&gt;Key Features&lt;/h2&gt;
+    &lt;div class="features-grid"&gt;
+        &lt;div class="feature-item"&gt;
+            &lt;div class="feature-icon"&gt;⚡&lt;/div&gt;
+            &lt;h3 class="feature-title"&gt;Performance Boost&lt;/h3&gt;
+            &lt;p class="feature-description"&gt;Description text here...&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;!-- Additional feature items... --&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+    
+    <!-- Step-by-Step Guide Template -->
+    <div class="template-section">
+        <h2 class="template-title">Step-by-Step Guide</h2>
+        <p class="template-description">Perfect for tutorials and instructions that need to be followed in sequence.</p>
+        
+        <section class="section section-steps">
+            <h2>Installing Decky Loader</h2>
+            <div class="step-item">
+                <h3 class="step-title">Enter Desktop Mode</h3>
+                <div class="step-content">
+                    <p>Press and hold the power button and select "Switch to Desktop" from the menu.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <h3 class="step-title">Open Browser</h3>
+                <div class="step-content">
+                    <p>Launch Firefox or Chrome browser from the desktop.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <h3 class="step-title">Download Decky Loader</h3>
+                <div class="step-content">
+                    <p>Navigate to the Decky Loader website and download the latest release.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <h3 class="step-title">Run the Installer</h3>
+                <div class="step-content">
+                    <p>Execute the downloaded file and follow the on-screen instructions to complete the installation.</p>
+                </div>
+            </div>
+        </section>
+        
+        <pre><code>&lt;section class="section section-steps"&gt;
+    &lt;h2&gt;Installing Decky Loader&lt;/h2&gt;
+    &lt;div class="step-item"&gt;
+        &lt;h3 class="step-title"&gt;Enter Desktop Mode&lt;/h3&gt;
+        &lt;div class="step-content"&gt;
+            &lt;p&gt;Step instructions here...&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- Additional steps... --&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+    
+    <!-- Cards Grid Template -->
+    <div class="template-section">
+        <h2 class="template-title">Cards Grid</h2>
+        <p class="template-description">Use this to display a collection of related items, like recommended games or plugins.</p>
+        
+        <section class="section section-cards">
+            <h2>Recommended Plugins</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-header-title">PowerTools</h3>
+                    </div>
+                    <img src="https://placekitten.com/300/180" alt="PowerTools" class="card-image">
+                    <div class="card-body">
+                        <p>Advanced power management and performance tuning for your Steam Deck.</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-small">Learn More</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-header-title">CSS Loader</h3>
+                    </div>
+                    <img src="https://placekitten.com/301/180" alt="CSS Loader" class="card-image">
+                    <div class="card-body">
+                        <p>Customize the look and feel of your Steam Deck UI with themes and tweaks.</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-small">Learn More</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-header-title">ProtonDB Badges</h3>
+                    </div>
+                    <img src="https://placekitten.com/302/180" alt="ProtonDB Badges" class="card-image">
+                    <div class="card-body">
+                        <p>See compatibility ratings from ProtonDB directly in your Steam library.</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-small">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <pre><code>&lt;section class="section section-cards"&gt;
+    &lt;h2&gt;Recommended Plugins&lt;/h2&gt;
+    &lt;div class="cards-grid"&gt;
+        &lt;div class="card"&gt;
+            &lt;div class="card-header"&gt;
+                &lt;h3 class="card-header-title"&gt;PowerTools&lt;/h3&gt;
+            &lt;/div&gt;
+            &lt;img src="image-url.jpg" alt="PowerTools" class="card-image"&gt;
+            &lt;div class="card-body"&gt;
+                &lt;p&gt;Card content here...&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class="card-footer"&gt;
+                &lt;button class="btn btn-small"&gt;Learn More&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;!-- Additional cards... --&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+    
+    <!-- FAQ Accordion Template -->
+    <div class="template-section">
+        <h2 class="template-title">FAQ Accordion</h2>
+        <p class="template-description">Perfect for frequently asked questions or sections that need to be collapsible.</p>
+        
+        <section class="section section-faq">
+            <h2>Frequently Asked Questions</h2>
+            <details class="faq-item">
+                <summary class="faq-question">What is Steam Deck DUB Edition?</summary>
+                <div class="faq-answer">
+                    <p>Steam Deck DUB Edition is a comprehensive guide and collection of optimizations to enhance your Steam Deck experience. It includes performance tweaks, battery life improvements, and quality-of-life enhancements.</p>
+                </div>
+            </details>
+            <details class="faq-item">
+                <summary class="faq-question">Is it safe to apply these optimizations?</summary>
+                <div class="faq-answer">
+                    <p>Yes, all optimizations in this guide have been thoroughly tested. However, some advanced tweaks may void your warranty or cause stability issues if not followed correctly. We clearly mark these sections with appropriate warnings.</p>
+                </div>
+            </details>
+            <details class="faq-item">
+                <summary class="faq-question">Do I need to be technically proficient?</summary>
+                <div class="faq-answer">
+                    <p>Most optimizations are designed to be user-friendly. We provide step-by-step instructions for all procedures, with clear explanations of what each step does. Some advanced tweaks may require basic command line knowledge.</p>
+                </div>
+            </details>
+            <details class="faq-item">
+                <summary class="faq-question">Will these tweaks survive a system update?</summary>
+                <div class="faq-answer">
+                    <p>Most tweaks will persist through standard system updates. However, major SteamOS updates may revert some changes. We provide instructions for re-applying optimizations after major updates.</p>
+                </div>
+            </details>
+        </section>
+        
+        <pre><code>&lt;section class="section section-faq"&gt;
+    &lt;h2&gt;Frequently Asked Questions&lt;/h2&gt;
+    &lt;details class="faq-item"&gt;
+        &lt;summary class="faq-question"&gt;What is Steam Deck DUB Edition?&lt;/summary&gt;
+        &lt;div class="faq-answer"&gt;
+            &lt;p&gt;Answer content here...&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/details&gt;
+    &lt;!-- Additional FAQ items... --&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+    
+    <!-- Comparison Table Template -->
+    <div class="template-section">
+        <h2 class="template-title">Comparison Layout</h2>
+        <p class="template-description">Use this to compare different options, before/after scenarios, or pros and cons.</p>
+        
+        <section class="section section-comparison">
+            <div class="comparison-header">
+                <h2>SteamOS vs Windows on Steam Deck</h2>
+                <p>Compare the pros and cons of each operating system for your Steam Deck.</p>
+            </div>
+            <div class="comparison-column">
+                <h3 class="comparison-title">SteamOS</h3>
+                <ul>
+                    <li>✅ Optimized specifically for Steam Deck hardware</li>
+                    <li>✅ Better battery life in most cases</li>
+                    <li>✅ Gaming Mode UI designed for controller input</li>
+                    <li>✅ Seamless suspend/resume functionality</li>
+                    <li>✅ Regular updates from Valve</li>
+                    <li>❌ Some Windows-only games require tweaking</li>
+                    <li>❌ Limited software compatibility outside of Steam</li>
+                </ul>
+            </div>
+            <div class="comparison-column">
+                <h3 class="comparison-title">Windows</h3>
+                <ul>
+                    <li>✅ Wider game compatibility</li>
+                    <li>✅ Native support for all Windows applications</li>
+                    <li>✅ Better for non-Steam gaming platforms</li>
+                    <li>✅ More familiar to most users</li>
+                    <li>❌ Worse battery life than SteamOS</li>
+                    <li>❌ Not optimized for handheld use</li>
+                    <li>❌ More complex setup and configuration</li>
+                </ul>
+            </div>
+        </section>
+        
+        <pre><code>&lt;section class="section section-comparison"&gt;
+    &lt;div class="comparison-header"&gt;
+        &lt;h2&gt;SteamOS vs Windows on Steam Deck&lt;/h2&gt;
+        &lt;p&gt;Comparison description...&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="comparison-column"&gt;
+        &lt;h3 class="comparison-title"&gt;SteamOS&lt;/h3&gt;
+        &lt;ul&gt;
+            &lt;li&gt;✅ Benefit 1&lt;/li&gt;
+            &lt;li&gt;❌ Drawback 1&lt;/li&gt;
+            &lt;!-- More items... --&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class="comparison-column"&gt;
+        &lt;h3 class="comparison-title"&gt;Windows&lt;/h3&gt;
+        &lt;ul&gt;
+            &lt;li&gt;✅ Benefit 1&lt;/li&gt;
+            &lt;li&gt;❌ Drawback 1&lt;/li&gt;
+            &lt;!-- More items... --&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+    
+    <!-- Statistics Grid Template -->
+    <div class="template-section">
+        <h2 class="template-title">Statistics Grid</h2>
+        <p class="template-description">Use this to showcase important metrics, numbers, or statistics in an engaging way.</p>
+        
+        <section class="section section-stats">
+            <div class="stat-item">
+                <div class="stat-value">75%</div>
+                <div class="stat-label">Performance Improvement</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">2+ hrs</div>
+                <div class="stat-label">Extra Battery Life</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">30+</div>
+                <div class="stat-label">Optimizations</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Free & Open Source</div>
+            </div>
+        </section>
+        
+        <pre><code>&lt;section class="section section-stats"&gt;
+    &lt;div class="stat-item"&gt;
+        &lt;div class="stat-value"&gt;75%&lt;/div&gt;
+        &lt;div class="stat-label"&gt;Performance Improvement&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- Additional stat items... --&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+    
+    <!-- Call to Action Template -->
+    <div class="template-section">
+        <h2 class="template-title">Call to Action</h2>
+        <p class="template-description">Use this to encourage users to take a specific action, like contributing to the project.</p>
+        
+        <section class="section section-cta">
+            <h2 class="cta-title">Ready to Transform Your Steam Deck?</h2>
+            <p class="cta-description">Start applying these optimizations today and experience what your Steam Deck is truly capable of. Our guide is regularly updated with new tips and tricks.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary">Get Started Now</button>
+                <button class="btn btn-secondary">Contribute to the Guide</button>
+            </div>
+        </section>
+        
+        <pre><code>&lt;section class="section section-cta"&gt;
+    &lt;h2 class="cta-title"&gt;Ready to Transform Your Steam Deck?&lt;/h2&gt;
+    &lt;p class="cta-description"&gt;Description text here...&lt;/p&gt;
+    &lt;div class="cta-buttons"&gt;
+        &lt;button class="btn btn-primary"&gt;Get Started Now&lt;/button&gt;
+        &lt;button class="btn btn-secondary"&gt;Contribute to the Guide&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+    
+    <!-- Code with Explanation Template -->
+    <div class="template-section">
+        <h2 class="template-title">Code with Explanation</h2>
+        <p class="template-description">Perfect for showing code examples alongside explanations of what the code does.</p>
+        
+        <section class="section section-code">
+            <div class="code-explanation">
+                <h3 class="code-explanation-title">Changing TDP Limits</h3>
+                <p>This command modifies the Thermal Design Power (TDP) limits for your Steam Deck's APU. Lowering this value reduces power consumption and heat generation, potentially extending battery life at the cost of some performance.</p>
+                <p>The example sets a 9-watt limit, which is a good balance for most 2D games and less demanding 3D titles.</p>
+                <div class="explanation-note">
+                    <strong>Note:</strong> Values below 8 watts may cause performance issues in more demanding games. Values above 15 watts are not recommended for extended use.
+                </div>
+            </div>
+            <div class="code-container">
+                <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                <pre class="code-block"><code>echo 9000000 | sudo tee /sys/class/powercap/intel-rapl/intel-rapl:0/constraint_0_power_limit_uw</code></pre>
+            </div>
+        </section>
+        
+        <pre><code>&lt;section class="section section-code"&gt;
+    &lt;div class="code-explanation"&gt;
+        &lt;h3 class="code-explanation-title"&gt;Changing TDP Limits&lt;/h3&gt;
+        &lt;p&gt;Explanation text here...&lt;/p&gt;
+        &lt;div class="explanation-note"&gt;
+            &lt;strong&gt;Note:&lt;/strong&gt; Additional notes here...
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="code-container"&gt;
+        &lt;button class="copy-button" onclick="copyToClipboard(this)"&gt;Copy&lt;/button&gt;
+        &lt;pre class="code-block"&gt;&lt;code&gt;echo 9000000 | sudo tee /sys/class/powercap/intel-rapl/intel-rapl:0/constraint_0_power_limit_uw&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+</body>
+</html>

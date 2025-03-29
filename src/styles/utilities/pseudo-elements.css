@@ -1,0 +1,91 @@
+/**
+* Pseudo-Element Color Fix for SDDE Guide
+* Ensures theme colors are correctly applied to ::before and ::after content
+*/
+
+/* Target all pseudo-elements in section content */
+.section *::before,
+.section *::after {
+/* Ensure colors are inherited properly */
+  color: inherit;
+}
+
+/* Specific fixes for different element types */
+h1::before, h1::after,
+h2::before, h2::after,
+h3::before, h3::after,
+h4::before, h4::after,
+h5::before, h5::after,
+h6::before, h6::after { color: var(--dracula-purple, #bd93f9);
+}
+
+p::before, p::after { color: var(--dracula-foreground, #f8f8f2);
+}
+
+a::before, a::after { color: var(--dracula-cyan, #8be9fd);
+}
+
+blockquote::before, blockquote::after,
+.explanation::before, .explanation::after { color: var(--dracula-comment, #6272a4);
+}
+
+code::before, code::after,
+pre::before, pre::after { color: var(--dracula-green, #50fa7b);
+}
+
+/* Guide section elements */
+.guide-section summary::before,
+.guide-section summary::after { color: var(--dracula-orange, #ffb86c);
+}
+
+/* Force direct text content to use theme colors */
+.section h1, .section h2, .section h3,
+.section h4, .section h5, .section h6 { color: var(--dracula-purple, #bd93f9) !important;
+}
+
+.section p, .section span, .section div { color: var(--dracula-foreground, #f8f8f2);
+}
+
+.section a { color: var(--dracula-cyan, #8be9fd);
+}
+
+.section code, .section pre { color: var(--dracula-green, #50fa7b);
+}
+
+.section blockquote, .section .explanation { color: var(--dracula-comment, #6272a4);
+}
+
+/* Ensure strong text is correctly colored */
+.section strong { color: var(--dracula-pink, #ff79c6);
+}
+
+/* Special case for code within paragraphs */
+.section p code {
+  color: var(--dracula-green, #50fa7b);
+  background-color: var(--dracula-current-line, #44475a);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+/* Special case for code blocks */
+.section .code-block {
+  background-color: var(--dracula-current-line, #44475a);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.section .code-block pre { margin: 0;
+}
+
+.section .code-block code {
+  display: block;
+  padding: 15px;
+  overflow-x: auto;
+}
+
+/* Debug styles to identify pseudo-content */
+.debug-pseudo-elements .section *::before,
+.debug-pseudo-elements .section *::after {
+  outline: 1px dotted red !important;
+  background-color: rgb(255 0 0 / 20%) !important;
+}

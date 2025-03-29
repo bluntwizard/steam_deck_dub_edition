@@ -1,0 +1,137 @@
+/**
+* Version Display Styles
+* For Steam Deck DUB Edition
+*/
+
+/* Main version display container */
+.version-display {
+  padding: 20px 0 10px;
+  font-size: 0.85rem;
+  color: var(--dracula-comment, #6272a4);
+  border-top: 1px solid var(--dracula-current-line, #44475a);
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* Version text display */
+.version-text {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+/* Check updates button */
+.check-updates-btn {
+  background-color: var(--dracula-purple, #bd93f9);
+  color: var(--dracula-background, #282a36);
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 5px;
+}
+
+.check-updates-btn:hover {
+  background-color: var(--dracula-pink, #ff79c6);
+  transform: translateY(-1px);
+}
+
+.check-updates-btn:active {
+  transform: translateY(0);
+}
+
+/* Update notification */
+.update-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: var(--dracula-purple, #bd93f9);
+  color: var(--dracula-background, #282a36);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  max-width: 350px;
+  font-weight: bold;
+  transform: translateY(-100px);
+  transition: transform 0.5s ease;
+}
+
+/* Updated badge */
+.updated-badge {
+  background-color: var(--dracula-green, #50fa7b);
+  color: var(--dracula-background, #282a36);
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-left: 10px;
+  vertical-align: middle;
+  display: inline-block;
+  animation: pulse-badge 2s infinite;
+}
+
+/* Changelog dialog */
+.changelog-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--dracula-background, #282a36);
+  border: 1px solid var(--dracula-current-line, #44475a);
+  border-radius: 8px;
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 10000;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.changelog-entry {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--dracula-current-line, #44475a);
+}
+
+.changelog-entry:last-child {
+  border-bottom: none;
+}
+
+.changelog-title {
+  color: var(--dracula-cyan, #8be9fd);
+  margin-bottom: 10px;
+}
+
+/* High contrast mode adjustments */
+:global(html.high-contrast) .version-display {
+  color: var(--high-contrast-text, #fff);
+  border-color: var(--high-contrast-border, #fff);
+}
+
+:global(html.high-contrast) .check-updates-btn {
+  background-color: var(--high-contrast-action-bg, #fff);
+  color: var(--high-contrast-action-text, #000);
+  border: 1px solid var(--high-contrast-border, #fff);
+}
+
+/* Print styles */
+@media print {
+  .version-display {
+    color: #666 !important;
+    border-color: #ccc !important;
+  }
+  
+  .check-updates-btn {
+    display: none !important;
+  }
+  
+  .updated-badge {
+    background-color: #ddd !important;
+    color: #333 !important;
+    animation: none !important;
+  }
+} 

@@ -1,0 +1,178 @@
+/* Dracula Component Styles for Steam Deck DUB Edition */
+
+/* Card */
+.card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
+  transition: border-color var(--transition-fast);
+}
+
+.card:hover {
+  border-color: var(--border-color-hover);
+}
+
+/* Button */
+.button {
+  background-color: var(--primary-color);
+  color: var(--dracula-foreground);
+  border: none;
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.button:hover {
+  background-color: var(--primary-color-hover);
+}
+
+.button:active {
+  background-color: var(--primary-color-active);
+}
+
+/* Input */
+.input {
+  background-color: var(--surface-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm);
+  transition: border-color var(--transition-fast);
+}
+
+.input:focus {
+  border-color: var(--focus-ring-color);
+  outline: none;
+}
+
+/* Code highlighting */
+.highlight {
+  background-color: var(--code-background);
+  color: var(--code-text);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  overflow-x: auto;
+}
+
+.highlight .keyword {
+  color: var(--code-keyword);
+}
+
+.highlight .string {
+  color: var(--code-string);
+}
+
+.highlight .comment {
+  color: var(--code-comment);
+}
+
+.highlight .function {
+  color: var(--code-function);
+}
+
+.highlight .number {
+  color: var(--code-number);
+}
+
+.highlight .operator {
+  color: var(--code-operator);
+}
+
+.highlight .class {
+  color: var(--code-class);
+}
+
+.highlight .variable {
+  color: var(--code-variable);
+}
+
+/* Navigation */
+.nav-link {
+  color: var(--text-color);
+  text-decoration: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  transition: background-color var(--transition-fast);
+}
+
+.nav-link:hover {
+  background-color: var(--surface-color-hover);
+}
+
+.nav-link.active {
+  background-color: var(--surface-color-active);
+  color: var(--primary-color);
+}
+
+/* Modal */
+.modal {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+}
+
+.modal-overlay {
+  background-color: var(--overlay-color);
+}
+
+/* Tooltip */
+.tooltip {
+  background-color: var(--surface-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm);
+  box-shadow: var(--shadow-md);
+}
+
+/* Progress bar */
+.progress-bar {
+  background-color: var(--surface-color);
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  background-color: var(--primary-color);
+  height: 100%;
+  transition: width var(--transition-normal);
+}
+
+/* Status indicators */
+.status-success {
+  color: var(--status-success);
+}
+
+.status-warning {
+  color: var(--status-warning);
+}
+
+.status-error {
+  color: var(--status-error);
+}
+
+.status-info {
+  color: var(--status-info);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--dracula-comment);
+  border-radius: var(--border-radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dracula-purple);
+} 

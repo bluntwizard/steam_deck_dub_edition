@@ -1,0 +1,450 @@
+/**
+* Preferences Dialog Styles
+* For Steam Deck DUB Edition
+*/
+
+/* Preferences Button */
+.preferences-button {
+  position: fixed;
+  bottom: 220px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--dracula-comment, #6272a4);
+  color: var(--dracula-background, #282a36);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  cursor: pointer;
+  z-index: 990;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.preferences-button:hover {
+  transform: translateY(-3px);
+  background-color: var(--dracula-cyan, #8be9fd);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.preferences-button:focus {
+  outline: 2px solid var(--dracula-foreground, #f8f8f2);
+  outline-offset: 2px;
+}
+
+/* Preferences Dialog */
+.preferences-dialog {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.preferences-dialog-content {
+  background-color: var(--dracula-background, #282a36);
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 25px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+  animation: scaleIn 0.3s ease;
+}
+
+.dialog-description {
+  color: var(--dracula-comment, #6272a4);
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.preferences-dialog h3 {
+  color: var(--dracula-pink, #ff79c6);
+  margin-top: 0;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.preferences-dialog h4 {
+  color: var(--dracula-cyan, #8be9fd);
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--dracula-current-line, #44475a);
+  padding-bottom: 5px;
+}
+
+/* Tabs */
+.preferences-tabs {
+  display: flex;
+  margin: 20px 0;
+  border-bottom: 1px solid var(--dracula-current-line, #44475a);
+  position: relative;
+}
+
+.tab-button {
+  padding: 10px 15px;
+  background: none;
+  border: none;
+  color: var(--dracula-comment, #6272a4);
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.tab-button:hover {
+  color: var(--dracula-cyan, #8be9fd);
+}
+
+.tab-button.active {
+  color: var(--dracula-foreground, #f8f8f2);
+  font-weight: bold;
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--dracula-purple, #bd93f9);
+}
+
+.tab-button:focus-visible,
+.action-button:focus-visible,
+.preferences-btn:focus-visible {
+  outline: 2px solid var(--dracula-foreground, #f8f8f2);
+  outline-offset: 2px;
+}
+
+.preferences-tab-content {
+  display: none;
+}
+
+.preferences-tab-content.active {
+  display: block;
+  animation: fadeContentIn 0.3s ease;
+}
+
+@keyframes fadeContentIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Preference Groups */
+.preference-group {
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--dracula-current-line, #44475a);
+}
+
+.preference-group:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+/* Preference Items */
+.preference-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.preference-item:hover {
+  background-color: rgba(68, 71, 90, 0.2);
+}
+
+.preference-item:last-child {
+  margin-bottom: 0;
+}
+
+.preference-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--dracula-foreground, #f8f8f2);
+}
+
+.preference-description {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--dracula-comment, #6272a4);
+  max-width: 250px;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-left: 10px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--dracula-selection, #44475a);
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.toggle-slider::before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--dracula-background-darker, #191a21);
+  transition: .4s;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+input:checked + .toggle-slider {
+  background-color: var(--dracula-green, #50fa7b);
+}
+
+input:focus + .toggle-slider {
+  box-shadow: 0 0 0 2px var(--dracula-purple, #bd93f9);
+}
+
+input:checked + .toggle-slider::before {
+  transform: translateX(26px);
+}
+
+/* Select Wrapper */
+.select-wrapper {
+  position: relative;
+  min-width: 150px;
+}
+
+.select-wrapper select {
+  appearance: none;
+  background-color: var(--dracula-background-lighter, #383a59);
+  color: var(--dracula-foreground, #f8f8f2);
+  border: 1px solid var(--dracula-current-line, #44475a);
+  padding: 8px 35px 8px 12px;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.select-wrapper::after {
+  content: "▼";
+  font-size: 0.7rem;
+  color: var(--dracula-comment, #6272a4);
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.select-wrapper select:hover {
+  border-color: var(--dracula-cyan, #8be9fd);
+}
+
+/* Action Buttons */
+.action-button {
+  background-color: var(--dracula-background-lighter, #383a59);
+  color: var(--dracula-foreground, #f8f8f2);
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-top: 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.action-button:hover {
+  background-color: var(--dracula-selection, #44475a);
+}
+
+/* Button Actions */
+.preferences-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--dracula-current-line, #44475a);
+}
+
+.preferences-btn {
+  background-color: var(--dracula-background-lighter, #383a59);
+  color: var(--dracula-foreground, #f8f8f2);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-left: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.preferences-btn-primary {
+  background-color: var(--dracula-purple, #bd93f9);
+  color: var(--dracula-background, #282a36);
+}
+
+.preferences-btn-primary:hover {
+  background-color: var(--dracula-pink, #ff79c6);
+}
+
+.preferences-btn-danger {
+  background-color: var(--dracula-red, #ff5555);
+  color: var(--dracula-background, #282a36);
+}
+
+.preferences-btn-danger:hover {
+  background-color: #ff3333;
+}
+
+/* Notifications */
+.preferences-notification {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: var(--dracula-green, #50fa7b);
+  color: var(--dracula-background, #282a36);
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  z-index: 10000;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  animation: notificationFade 3s forwards 1s;
+}
+
+.preferences-notification.error {
+  background-color: var(--dracula-red, #ff5555);
+}
+
+@keyframes notificationFade {
+  0% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+/* Confirm Dialog */
+.confirm-dialog {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.confirm-dialog-content {
+  background-color: var(--dracula-background, #282a36);
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  padding: 25px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+  animation: scaleIn 0.3s ease;
+}
+
+.confirm-dialog h3 {
+  color: var(--dracula-pink, #ff79c6);
+  margin-top: 0;
+  font-size: 1.3rem;
+}
+
+.confirm-dialog p {
+  margin-bottom: 25px;
+  color: var(--dracula-foreground, #f8f8f2);
+}
+
+.confirm-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .preferences-dialog-content {
+    width: 95%;
+    padding: 15px;
+  }
+  
+  .preference-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .preference-item > div:last-child {
+    margin-top: 10px;
+    align-self: flex-end;
+  }
+  
+  .preference-description {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .preferences-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .tab-button {
+    flex: 1 0 40%;
+    text-align: center;
+    padding: 8px 5px;
+  }
+  
+  .preferences-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .preferences-actions > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .preferences-btn {
+    margin-left: 0;
+  }
+} 

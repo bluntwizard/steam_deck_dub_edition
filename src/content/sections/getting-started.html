@@ -1,0 +1,193 @@
+<div class="section" id="section-i">
+    <h2>SECTION I: GETTING STARTED</h2>
+    <p class="section-description"><strong><code>SUDO, RETAINING PACKAGES BETWEEN UPDATES, TRUST ISSUES, PACMAN &amp; YAY</code></strong></p>
+    <hr>
+    
+    <div class="section-content">
+        <details class="guide-section">
+            <summary>1. SETTING ADMIN/SUDO PASSWORD</summary>
+            <div class="details-content">
+                <h3>1. SETTING ADMIN/ <a href="https://wiki.archlinux.org/title/sudo">SUDO</a> PASSWORD WITHIN KONSOLE/ <a href="https://en.wikipedia.org/wiki/Terminal_emulator">TERMINAL EMULATOR</a></h3>
+                
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>passwd</code></pre>
+                </div>
+                <blockquote class="instruction">
+                    <h4><strong>ENTER NEW ADMIN PASSWORD</strong></h4>
+                </blockquote>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>2. INSTALLING RWFUS: READ-WRITE OVERLAY FILESYSTEM</summary>
+            <div class="details-content">
+                <h3>2. INSTALLING <a href="https://github.com/ValShaped/rwfus">RWFUS: READ-WRITE OVERLAY FILESYSTEM</a></h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>STEAMOS IS AN <a href="https://kairos.io/blog/2023/03/22/understanding-immutable-linux-os-benefits-architecture-and-challenges/#what-is-an-immutable-linux-os">IMMUTABLE OPERATING SYSTEM</a>, RWFUS COVERS THE /usr/ DIRECTORY [AND SOME OTHERS] ALLOWING PACMAN TO BE INITIALIZED WITHOUT LOSING PACKAGES WHEN THE NEXT UPDATE COMES OUT.</strong></p>
+                </blockquote>
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>git clone https://github.com/ValShaped/rwfus.git && cd rwfus && ./rwfus -iI && sudo reboot</code></pre>
+                </div>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>3. INSTALLING DEPENDENCIES</summary>
+            <div class="details-content">
+                <h3>3. INSTALLING <a href="https://askubuntu.com/questions/361741/what-are-dependencies#:~:text=Sometimes%20when%20you%20install%20programs%2C%20they%20rely%20on%20other%20programs%20to%20work.%20These%20other%20programs%20are%20called%20dependencies.">DEPENDENCIES</a></h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>DOWNLOAD, POPULATE, &amp; REFRESH KEYS FROM UBUNTU&#39;S KEYSERVER.</strong></p>
+                    <p><strong>[GCC/ CLANG/ GLIBC/ MAKE - MAY BE REDUNDANT.]</strong></p>
+                </blockquote>
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>sudo echo "keyserver hkps://keyserver.ubuntu.com" >> /etc/pacman.d/gnupg/gpg.conf && sudo pacman-key --init && sudo pacman-key --populate && sudo pacman-key --refresh-keys && sudo pacman -S base-devel && sudo pacman -S gcc && sudo pacman -S clang && sudo pacman -S make && sudo pacman -S glibc</code></pre>
+                </div>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>4. FIXING TRUST ISSUES</summary>
+            <div class="details-content">
+                <h3>4. FIXING TRUST ISSUES</h3>
+                
+                <blockquote class="explanation">
+                    <h3><strong>THE MAIN ISSUE:</strong></h3>
+                    <h4><strong><a href="https://www.secureideas.com/blog/how-to-verify-pgp-signatures#:~:text=Verifying%20PGP%20signatures%20allows%20us,need%20the%20signer's%20public%20key.">PGP KEY VERIFICATION</a> IS BROKEN, FAILING DURING PACKAGE INSTALLATION.</strong></h4>
+                    <h4><strong>THIS IS BECAUSE THE CORE ARCHLINUX-KEYRING IS OUT OF DATE. PACMAN/GNUPG WILL SHOW THAT ANY PACKAGE YOU ARE TRYING TO INSTALL IS OUT OF DATE, CORRUPT, OR OF MARGINAL TRUST.</strong></h4>
+                    <h4><strong>CHANGING REPOS TO OFFICIAL ARCH WOULD FIX THIS, BUT THAT WOULD CHANGE THE KERNEL &amp; OTHER CORE PACKAGES.</strong></h4>
+                    <h4><strong>WE COULD TURN OFF PGP VERIFICATION, BUT THIS IS INSECURE.</strong></h4>
+                    <h4><strong>SO WE MUST MANUALLY INSTALL IT.</strong></h4>
+                </blockquote>
+                <h6>COPY/PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>sudo cd Download https://archlinux.org/packages/core/any/archlinux-keyring/download && sudo pacman -U archlinux-keyring-20220713-2-any.pkg.tar.zst</code></pre>
+                </div>
+                
+                <blockquote class="explanation">
+                    <h3><a href="https://wiki.archlinux.org/title/Pacman">PACMAN</a> IS NOW READY.</h3>
+                    <h4>USER CAN NOW BUILD AND INSTALL PACKAGES FROM <a href="https://wiki.archlinux.org/title/Arch_User_Repository#:~:text=The%20Arch%20User%20Repository%20(AUR)%20is%20a%20community%2Ddriven%20repository%20for%20Arch%20users.">THE AUR</a>.</h4>
+                    <h4>IN CONJUNCTION WITH RWFUS THESE PACKAGES WILL NOT BE WIPED ON NEXT UPDATE.</h4>
+                </blockquote>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>5. INSTALLING YAY [OPTIONAL]</summary>
+            <div class="details-content">
+                <h3>5. INSTALLING <a href="https://github.com/Jguer/yay#yay">YAY</a> [OPTIONAL]</h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>YAY : Yet Another Yogurt - An <a href="https://wiki.archlinux.org/title/AUR_helpers#:~:text=AUR%20helpers%20automate%20usage%20of%20the%20Arch%20User%20Repository.">AUR Helper</a> Written in Go.</strong></p>
+                </blockquote>
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si</code></pre>
+                </div>
+                <p>Once installed, you can use YAY to install packages from the AUR with a syntax similar to pacman.</p>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code># Example usage
+yay -S package-name</code></pre>
+                </div>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>6. CONFIGURING PACMAN</summary>
+            <div class="details-content">
+                <h3>6. CONFIGURING PACMAN FOR BETTER PERFORMANCE</h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>OPTIMIZE PACMAN FOR FASTER PACKAGE OPERATIONS AND PARALLEL DOWNLOADS.</strong></p>
+                </blockquote>
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>sudo sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 10/g' /etc/pacman.conf && 
+sudo sed -i '/\[options\]/a ILoveCandy' /etc/pacman.conf</code></pre>
+                </div>
+                <p>This enables parallel downloads in pacman and adds a fun Pac-Man animation to your terminal during package operations.</p>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>7. INSTALLING FLATPAK</summary>
+            <div class="details-content">
+                <h3>7. SETTING UP FLATPAK FOR APPLICATION INSTALLATION</h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>FLATPAK IS A UTILITY FOR SOFTWARE DEPLOYMENT AND PACKAGE MANAGEMENT FOR LINUX. IT PROVIDES A SANDBOX ENVIRONMENT ISOLATED FROM THE REST OF THE SYSTEM.</strong></p>
+                </blockquote>
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>sudo pacman -S flatpak && 
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</code></pre>
+                </div>
+                <p>After installation, you can install applications using the following command format:</p>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code># Example usage
+flatpak install flathub app.id.name</code></pre>
+                </div>
+                <p>For a list of recommended Flatpak applications, see the <a href="#flatpaks">Recommended Flatpak List</a> section.</p>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>8. RETAINING CHANGES AFTER STEAMOS UPDATES</summary>
+            <div class="details-content">
+                <h3>8. ENSURING MODIFICATIONS PERSIST THROUGH SYSTEM UPDATES</h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>SINCE STEAMOS IS AN IMMUTABLE OS, SYSTEM UPDATES CAN REVERT CHANGES. RWFUS HELPS RETAIN YOUR MODIFICATIONS ACROSS UPDATES, BUT SOME ADDITIONAL STEPS MAY BE NEEDED.</strong></p>
+                </blockquote>
+                <h6>CREATE A POST-UPDATE SCRIPT</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>mkdir -p ~/.config/systemd/user/
+cat > ~/.config/systemd/user/post-update-script.service << 'EOF'
+[Unit]
+Description=Run post update script
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/deck/post-update.sh
+
+[Install]
+WantedBy=default.target
+EOF
+
+cat > ~/post-update.sh << 'EOF'
+#!/bin/bash
+# Script to run after SteamOS updates
+# Add commands here to restore your customizations
+
+# Example: re-enable RWFUS if necessary
+if [ -f "/home/deck/rwfus/rwfus" ]; then
+    cd /home/deck/rwfus && ./rwfus -iI
+fi
+
+# Add more commands as needed
+
+EOF
+
+chmod +x ~/post-update.sh
+systemctl --user enable post-update-script.service</code></pre>
+                </div>
+                <p>This creates a systemd service that runs your post-update script after each system boot, allowing you to automatically restore any changes that might be lost during a SteamOS update.</p>
+            </div>
+        </details>
+    </div>
+</div>

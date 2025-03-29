@@ -1,0 +1,383 @@
+/*
+* Dracula Theme CSS
+* A comprehensive color scheme and style foundation based on the popular Dracula theme
+* For Steam Deck Dub Edition
+*/
+
+@import 'components.css';
+
+:root {
+/* Core Dracula Color Palette */
+--dracula-background: #282A36;
+--dracula-current: #44475A;
+--dracula-selection: #44475a;
+--dracula-foreground: #F8F8F2;
+--dracula-comment: #6272A4;
+--dracula-cyan: #8BE9FD;
+--dracula-green: #50FA7B;
+--dracula-orange: #FFB86C;
+--dracula-pink: #FF79C6;
+--dracula-purple: #BD93F9;
+--dracula-red: #FF5555;
+--dracula-yellow: #F1FA8C;
+/* Extended Color Variations */
+--dracula-background-lighter: #353746;
+--dracula-background-darker: #21222c;
+--dracula-purple-transparent: rgb(189 147 249 / 70%);
+--dracula-pink-transparent: rgb(255 121 198 / 70%);
+--dracula-cyan-transparent: rgb(139 233 253 / 70%);
+--dracula-green-transparent: rgb(80 250 123 / 70%);
+/* Gradient Mixes */
+--dracula-gradient-purple-pink: linear-gradient(135deg, var(--dracula-purple) 0%, var(--dracula-pink) 100%);
+--dracula-gradient-cyan-green: linear-gradient(135deg, var(--dracula-cyan) 0%, var(--dracula-green) 100%);
+--dracula-gradient-pink-orange: linear-gradient(135deg, var(--dracula-pink) 0%, var(--dracula-orange) 100%);
+--dracula-gradient-green-yellow: linear-gradient(135deg, var(--dracula-green) 0%, var(--dracula-yellow) 100%);
+/* UI Elements */
+--dracula-border-radius: 6px;
+--dracula-box-shadow: 0 4px 10px rgb(0 0 0 / 30%);
+--dracula-transition: all 0.3s ease;
+/* Blobs Configuration (for background effects) */
+--blob-color-1: var(--dracula-purple);
+--blob-color-2: var(--dracula-pink);
+--blob-color-3: var(--dracula-cyan);
+--blob-color-4: var(--dracula-green);
+--background-color: var(--dracula-background);
+/* Typography */
+--dracula-font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+--dracula-font-size-base: 16px;
+--dracula-line-height: 1.5;
+--dracula-font-weight-normal: 400;
+--dracula-font-weight-medium: 500;
+--dracula-font-weight-bold: 700;
+
+/* Application Colors */
+--primary-color: var(--dracula-purple);
+--primary-color-hover: #A78BFA;
+--primary-color-active: #8B5CF6;
+--secondary-color: var(--dracula-cyan);
+--accent-color: var(--dracula-pink);
+--success-color: var(--dracula-green);
+--warning-color: var(--dracula-yellow);
+--error-color: var(--dracula-red);
+--info-color: var(--dracula-cyan);
+
+/* Background Colors */
+--surface-color: var(--dracula-current);
+--surface-color-hover: #4A4D5A;
+--surface-color-active: #525561;
+--surface-color-dark: #1E1F26;
+--surface-color-light: var(--dracula-foreground);
+
+/* Text Colors */
+--text-color: var(--dracula-foreground);
+--text-color-muted: var(--dracula-comment);
+--text-color-inverse: var(--dracula-background);
+--text-color-link: var(--dracula-cyan);
+--text-color-link-hover: var(--dracula-purple);
+
+/* Border Colors */
+--border-color: var(--dracula-comment);
+--border-color-light: rgba(98, 114, 164, 0.2);
+--border-color-dark: rgba(98, 114, 164, 0.4);
+--border-color-hover: var(--dracula-purple);
+
+/* Code Colors */
+--code-background: var(--dracula-current);
+--code-text: var(--dracula-foreground);
+--code-keyword: var(--dracula-pink);
+--code-string: var(--dracula-yellow);
+--code-comment: var(--dracula-comment);
+--code-function: var(--dracula-green);
+--code-number: var(--dracula-purple);
+--code-operator: var(--dracula-foreground);
+--code-class: var(--dracula-cyan);
+--code-variable: var(--dracula-orange);
+
+/* Overlay Colors */
+--overlay-color: rgba(40, 42, 54, 0.8);
+--overlay-color-light: rgba(40, 42, 54, 0.5);
+--overlay-color-dark: rgba(40, 42, 54, 0.9);
+
+/* Focus Colors */
+--focus-ring-color: var(--dracula-purple);
+--focus-ring-color-light: rgba(189, 147, 249, 0.3);
+
+/* Selection Colors */
+--selection-background: var(--dracula-purple);
+--selection-text: var(--dracula-foreground);
+
+/* Status Colors */
+--status-success: var(--dracula-green);
+--status-warning: var(--dracula-yellow);
+--status-error: var(--dracula-red);
+--status-info: var(--dracula-cyan);
+}
+
+/* ========== Base Styles ========== */
+
+body {
+background-color: var(--dracula-background);
+color: var(--dracula-foreground);
+font-family: var(--dracula-font-family);
+font-size: var(--dracula-font-size-base);
+line-height: var(--dracula-line-height);
+margin: 0;
+padding: 0;
+transition: var(--dracula-transition);
+}
+
+/* ========== Typography Styles ========== */
+
+h1, h2, h3, h4, h5, h6 {
+color: var(--dracula-purple);
+font-weight: var(--dracula-font-weight-bold);
+margin-top: 0;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+margin-bottom: 1rem;
+color: var(--dracula-foreground);
+}
+
+a {
+color: var(--dracula-cyan);
+text-decoration: none;
+transition: var(--dracula-transition);
+}
+
+a:hover {
+color: var(--dracula-pink);
+text-decoration: underline;
+}
+
+code, pre {
+font-family: 'Fira Code', 'Courier New', monospace;
+background-color: var(--dracula-current);
+border-radius: var(--dracula-border-radius);
+}
+
+code {
+padding: 0.2em 0.4em;
+font-size: 0.9em;
+}
+
+pre {
+padding: 1rem;
+overflow-x: auto;
+}
+
+/* ========== UI Elements ========== */
+
+/* Buttons */
+.dracula-btn {
+background-color: var(--dracula-purple);
+color: var(--dracula-foreground);
+border: none;
+border-radius: var(--dracula-border-radius);
+padding: 0.5rem 1rem;
+font-size: 1rem;
+font-weight: var(--dracula-font-weight-medium);
+cursor: pointer;
+transition: var(--dracula-transition);
+}
+
+.dracula-btn:hover {
+background-color: var(--dracula-pink);
+transform: translateY(-2px);
+box-shadow: var(--dracula-box-shadow);
+}
+
+.dracula-btn:focus {
+outline: none;
+box-shadow: 0 0 0 3px var(--dracula-purple-transparent);
+}
+
+/* Button Variants */
+.dracula-btn-outline {
+background-color: transparent;
+border: 2px solid var(--dracula-purple);
+color: var(--dracula-purple);
+}
+
+.dracula-btn-outline:hover {
+background-color: var(--dracula-purple);
+color: var(--dracula-foreground);
+}
+
+.dracula-btn-green {
+background-color: var(--dracula-green);
+color: var(--dracula-background);
+}
+
+.dracula-btn-green:hover {
+background-color: var(--dracula-cyan);
+}
+
+.dracula-btn-pink {
+background-color: var(--dracula-pink);
+}
+
+.dracula-btn-pink:hover {
+background-color: var(--dracula-purple);
+}
+
+/* Cards */
+.dracula-card {
+background-color: var(--dracula-current);
+border-radius: var(--dracula-border-radius);
+padding: 1.5rem;
+box-shadow: var(--dracula-box-shadow);
+transition: var(--dracula-transition);
+}
+
+.dracula-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 15px rgb(0 0 0 / 40%);
+}
+
+/* Form Elements */
+input, select, textarea {
+background-color: var(--dracula-background-lighter);
+border: 2px solid var(--dracula-comment);
+border-radius: var(--dracula-border-radius);
+color: var(--dracula-foreground);
+padding: 0.5rem 1rem;
+font-family: var(--dracula-font-family);
+}
+
+input:focus, select:focus, textarea:focus {
+outline: none;
+border-color: var(--dracula-purple);
+box-shadow: 0 0 0 3px var(--dracula-purple-transparent);
+}
+
+/* ========== Utility Classes ========== */
+
+/* Background Colors */
+.bg-dracula { background-color: var(--dracula-background) !important; }
+.bg-current-line { background-color: var(--dracula-current) !important; }
+.bg-purple { background-color: var(--dracula-purple) !important; }
+.bg-pink { background-color: var(--dracula-pink) !important; }
+.bg-cyan { background-color: var(--dracula-cyan) !important; }
+.bg-green { background-color: var(--dracula-green) !important; }
+.bg-orange { background-color: var(--dracula-orange) !important; }
+.bg-red { background-color: var(--dracula-red) !important; }
+.bg-yellow { background-color: var(--dracula-yellow) !important; }
+
+/* Text Colors */
+.text-foreground { color: var(--dracula-foreground) !important; }
+.text-comment { color: var(--dracula-comment) !important; }
+.text-purple { color: var(--dracula-purple) !important; }
+.text-pink { color: var(--dracula-pink) !important; }
+.text-cyan { color: var(--dracula-cyan) !important; }
+.text-green { color: var(--dracula-green) !important; }
+.text-orange { color: var(--dracula-orange) !important; }
+.text-red { color: var(--dracula-red) !important; }
+.text-yellow { color: var(--dracula-yellow) !important; }
+
+/* Gradient Backgrounds */
+.bg-gradient-purple-pink { background-image: var(--dracula-gradient-purple-pink) !important; }
+.bg-gradient-cyan-green { background-image: var(--dracula-gradient-cyan-green) !important; }
+.bg-gradient-pink-orange { background-image: var(--dracula-gradient-pink-orange) !important; }
+.bg-gradient-green-yellow { background-image: var(--dracula-gradient-green-yellow) !important; }
+
+/* Border Colors */
+.border-purple { border-color: var(--dracula-purple) !important; }
+.border-pink { border-color: var(--dracula-pink) !important; }
+.border-cyan { border-color: var(--dracula-cyan) !important; }
+.border-green { border-color: var(--dracula-green) !important; }
+
+/* ========== Visual Enhancements ========== */
+
+/* Glow Effects */
+.glow-purple {
+box-shadow: 0 0 10px var(--dracula-purple-transparent);
+}
+
+.glow-pink {
+box-shadow: 0 0 10px var(--dracula-pink-transparent);
+}
+
+.glow-cyan {
+box-shadow: 0 0 10px var(--dracula-cyan-transparent);
+}
+
+.glow-green {
+box-shadow: 0 0 10px var(--dracula-green-transparent);
+}
+
+/* Hover Effects */
+.hover-lift {
+transition: transform var(--dracula-transition);
+}
+
+.hover-lift:hover {
+transform: translateY(-5px);
+}
+
+/* Dividers */
+.dracula-divider {
+height: 1px;
+background: linear-gradient(
+to right,
+transparent,
+var(--dracula-purple),
+transparent
+);
+margin: 2rem 0;
+}
+
+/* Focus Styles */
+.dracula-focus {
+outline: none;
+}
+
+.dracula-focus:focus {
+box-shadow: 0 0 0 3px var(--dracula-purple-transparent);
+}
+
+/* ========== Animations ========== */
+
+@keyframes glow-pulse {
+0% {
+box-shadow: 0 0 5px var(--dracula-purple-transparent);
+}
+
+50% {
+box-shadow: 0 0 20px var(--dracula-purple-transparent);
+}
+
+100% {
+box-shadow: 0 0 5px var(--dracula-purple-transparent);
+}
+}
+
+.animate-glow-pulse {
+animation: glow-pulse 2s infinite;
+}
+
+/* ========== Media Queries ========== */
+
+@media (prefers-color-scheme: dark) {
+:root {
+--background-color: var(--dracula-background-darker);
+}
+}
+
+@media (print) {
+body {
+background-color: white;
+color: black;
+}
+
+.no-print {
+display: none;
+}
+}

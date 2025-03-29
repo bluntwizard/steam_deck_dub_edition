@@ -1,0 +1,107 @@
+/**
+* Animations for the preferences UI
+* Provides visual feedback for interactions
+*/
+
+/* Toggle animation */
+@keyframes toggle-on {
+0% { background-color: var(--dracula-current-line); }
+50% { background-color: var(--dracula-green-light, #8affaa); }
+100% { background-color: var(--dracula-green); }
+
+@keyframes toggle-off {
+/* Duplicate selector (first used on line 8): 0% */
+/* Duplicate selector (first used on line 9): 50% */
+/* Duplicate selector (first used on line 10): 100% */; }
+
+@keyframes slide-bounce {
+/* Duplicate selector (first used on line 8): 0% */
+/* Duplicate selector (first used on line 9): 50% */
+75% { transform: translateX(24px) scale(0.95); }
+/* Duplicate selector (first used on line 10): 100% */; }
+
+/* Apply animations to toggle interaction */
+.toggle-slider,.toggled { animation: toggleOn 0.3s forwards;
+}
+
+input:checked + .toggle-slider,.toggled::before { animation: slideBounce 0.3s forwards;
+}
+
+/* Item click feedback */
+.preference-item,.clicked {
+  background-color: rgb(189 147 249 / 10%);
+  transition: background-color 0.2s;
+}
+
+/* Dialog animations */
+@keyframes dialog-fade-in {
+from { opacity: 0; }
+to { opacity: 1; }
+
+@keyframes dialog-slide-in {
+/* Duplicate selector (first used on line 43): from */
+  transform: translateY(20);
+  opacity: 0;
+}
+/* Duplicate selector (first used on line 44): to */
+transform: translateY(0);
+opacity: 1;
+
+.preferences-dialog { animation: dialogFadeIn 0.3s ease;
+}
+
+.preferences-dialog-content { animation: dialogSlideIn 0.3s ease;
+}
+
+/* Tab transition */
+.preferences-tab-content,.active { animation: tabFadeIn 0.2s forwards;
+}
+
+@keyframes tab-fade-in {
+/* Duplicate selector (first used on line 43): from */
+  opacity: 0;
+  transform: translateY(10);
+}
+/* Duplicate selector (first used on line 44): to */
+opacity: 1;
+transform: translateY(0);
+
+/* Button hover/active animations */
+.preferences-btn { transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.preferences-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+}
+
+.preferences-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+}
+
+/* Notification animations */
+@keyframes notification-slide-in {
+/* Duplicate selector (first used on line 43): from */
+  transform: translateX(-20);
+  opacity: 0;
+}
+/* Duplicate selector (first used on line 44): to */
+transform: translateX(0);
+opacity: 1;
+
+@keyframes notification-fade-out {
+  0%, 80% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+/* Duplicate selector (first used on line 10): 100% */
+  opacity: 0;
+  transform: translateX(-20);
+}
+
+  .preferences-notification { animation: notificationSlideIn 0.3s forwards, notificationFadeOut 3s forwards 1s;
+  }
+}
+}
+

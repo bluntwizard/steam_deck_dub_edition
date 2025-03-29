@@ -1,0 +1,111 @@
+/**
+* Theme styles for Steam Deck DUB Edition
+* Light and dark mode support
+*/
+
+/* Default light theme variables */
+:root {
+  --primary-color: #1a9fff;
+  --secondary-color: #00c853;
+  --background-color: #fff;
+  --surface-color: #f5f5f7;
+  --text-color: #333;
+  --text-secondary-color: #666;
+  --border-color: #e0e0e0;
+  --shadow-color: rgb(0 0 0 / 10%);
+  --code-background: #f0f0f0;
+  --card-background: #fff;
+  --header-background: rgb(255 255 255 / 90%);
+  --sidebar-background: #f5f5f7;
+  --sidebar-active: #e0e0e0;
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+  --primary-color: #2aa9ff;
+  --secondary-color: #00e676;
+  --background-color: #121212;
+  --surface-color: #1e1e1e;
+  --text-color: #e0e0e0;
+  --text-secondary-color: #aaa;
+  --border-color: #333;
+  --shadow-color: rgb(0 0 0 / 30%);
+  --code-background: #2d2d2d;
+  --card-background: #262626;
+  --header-background: rgb(18 18 18 / 90%);
+  --sidebar-background: #1a1a1a;
+  --sidebar-active: #333;
+}
+
+/* Base styles using theme variables */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+  background-color: var(--header-background);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar {
+  background-color: var(--sidebar-background);
+  border-right: 1px solid var(--border-color);
+}
+
+.sidebar a.active { background-color: var(--sidebar-active);
+}
+
+.card {
+  background-color: var(--card-background);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+pre, code { background-color: var(--code-background);
+}
+
+/* Theme toggle button styles */
+.theme-toggle-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 15px;
+}
+
+#theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 5px;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--surface-color);
+  transition: background-color 0.3s ease;
+}
+
+#theme-toggle:hover { background-color: var(--sidebar-active);
+}
+
+.theme-toggle-dark,
+.theme-toggle-light {
+  position: absolute;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show/hide appropriate icon based on theme */
+[data-theme="light"] .theme-toggle-dark,
+[data-theme="dark"] .theme-toggle-light {
+  opacity: 0;
+  transform: scale(0);
+}
+
+[data-theme="light"] .theme-toggle-light,
+[data-theme="dark"] .theme-toggle-dark {
+  opacity: 1;
+  transform: scale(1);
+}

@@ -1,0 +1,151 @@
+/**
+ * SvgHeader Component Styles
+ * CSS Module for SVG header styling and animations
+ */
+
+/* Define CSS variables */
+:root {
+  --color-main: #bd93f9; /* Purple */
+  --color-primary: #ff79c6; /* Pink */
+  --color-secondary: #8be9fd; /* Cyan */
+  --color-background: #282a36; /* Background */
+  --color-link: #50fa7b; /* Green */
+  --color-link-active: #ffb86c; /* Orange */
+}
+
+/* External wrapper for SVG object */
+.header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 30px 0;
+  background-color: rgba(13, 17, 23, 0.2);
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+}
+
+.header-svg {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Fallback styling for when SVG fails to load */
+.svg-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background: linear-gradient(var(--color-main), var(--color-primary));
+  color: white;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.svg-fallback h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Wave animation class */
+.hi {
+  display: inline-block;
+  transform-origin: 70% 70%;
+  animation: hi 3.5s linear -2s infinite;
+}
+
+/* Animation keyframes */
+@keyframes border {
+  0% { background-position: 0 0; }
+  20% { background-position: 100% 0; }
+  40% { background-position: 100% 100%; }
+  60% { background-position: 0 100%; }
+  100% { background-position: 0 0; }
+}
+
+@keyframes hi {
+  0%, 20% { transform: rotate(0deg); }
+  25% { transform: rotate(15deg); }
+  30% { transform: rotate(0deg); }
+  35% { transform: rotate(15deg); }
+  40%, 45% { transform: rotate(0deg); }
+  50%, 70% { transform: rotate(0deg); }
+  80% { transform: rotate(0deg); }
+  85% { transform: rotate(15deg); }
+  90% { transform: rotate(0deg); }
+  95% { transform: rotate(15deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes intro {
+  0%, 75% { transform: translateX(-100vw); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes fade {
+  0%, 75% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 15px;
+    margin: 20px 0;
+  }
+
+  .header-svg {
+    max-width: 100%;
+  }
+  
+  .svg-fallback h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 10px;
+  }
+
+  .svg-fallback {
+    height: 150px;
+    padding: 15px;
+  }
+  
+  .svg-fallback h2 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion) {
+  .hi {
+    animation: none !important;
+  }
+}
+
+/* Dark theme compatibility */
+:global(.dark-theme) .svg-fallback {
+  background: linear-gradient(#bd93f9, #ff79c6);
+}
+
+/* High contrast mode enhancements */
+:global(.high-contrast) .header-container {
+  box-shadow: 0 0 0 2px #fff;
+}
+
+:global(.high-contrast) .svg-fallback {
+  border: 2px solid #fff;
+} 

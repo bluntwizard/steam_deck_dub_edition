@@ -1,0 +1,260 @@
+/**
+ * SettingsSection Component Styles
+ * CSS Module for settings layout and controls
+ */
+
+/* Main Settings Section */
+.settings-section {
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Main Settings Container */
+.settings-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background-color: var(--bg-color, #fff);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Settings Groups */
+.settings-group {
+  margin-bottom: 2rem;
+}
+
+.settings-group h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color, #ddd);
+}
+
+/* Setting Items */
+.setting-item {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.setting-item:last-child {
+  margin-bottom: 0;
+}
+
+.setting-item label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-color, #333);
+}
+
+/* Form Elements */
+.settings-section select,
+.settings-section input[type="text"],
+.settings-section input[type="number"] {
+  padding: 0.6rem;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 4px;
+  background-color: var(--input-bg, #fff);
+  color: var(--text-color, #333);
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Toggle Styles */
+.toggle-switch {
+  width: 60px;
+  height: 34px;
+  position: relative;
+  display: inline-block;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.toggle-switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.toggle-switch input:checked + .slider {
+  background-color: var(--primary-color, #1a73e8);
+}
+
+.toggle-switch input:focus + .slider {
+  box-shadow: 0 0 1px var(--primary-color, #1a73e8);
+}
+
+.toggle-switch input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Toggle status text spacing */
+.toggle-status {
+  margin-left: 0.5rem;
+}
+
+/* Button Styles */
+.btn-secondary {
+  background-color: var(--secondary-btn-bg, #f1f1f1);
+  color: var(--secondary-btn-text, #333);
+  border: 1px solid var(--border-color, #ddd);
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-btn-hover, #e5e5e5);
+}
+
+/* Font Size Grid for Better Spacing */
+.button-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Settings Toggle Button */
+.settings-toggle:hover {
+  color: var(--primary-color, #1a73e8);
+}
+
+/* Notification Styles */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--notification-bg, #333);
+  color: var(--notification-text, #fff);
+  padding: 12px 16px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.notification.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.notification-action {
+  margin-left: 10px;
+  background-color: var(--notification-action-bg, #fff);
+  color: var(--notification-action-text, #333);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+/* High Contrast Mode Adjustments */
+:global(.high-contrast) .settings-container {
+  box-shadow: 0 0 0 2px var(--high-contrast-border, #000);
+}
+
+:global(.high-contrast) .settings-group h2 {
+  border-bottom-width: 2px;
+}
+
+:global(.high-contrast) .toggle-switch {
+  outline: 2px solid var(--high-contrast-border, #000);
+}
+
+:global(.high-contrast) .btn-secondary {
+  border-width: 2px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .settings-container {
+    padding: 1rem;
+  }
+  
+  .settings-group h2 {
+    font-size: 1.3rem;
+  }
+  
+  .button-group {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .button-group {
+    grid-template-columns: 1fr;
+  }
+  
+  .toggle-switch-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .toggle-status {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  
+  .notification {
+    left: 20px;
+    right: 20px;
+    max-width: none;
+  }
+}
+
+/* Dark Theme Adjustments */
+:global(.dark-theme) .settings-container {
+  background-color: var(--dark-bg, #222);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+:global(.dark-theme) .settings-group h2 {
+  border-bottom-color: var(--dark-border, #444);
+}
+
+:global(.dark-theme) .setting-item label {
+  color: var(--dark-text, #eee);
+}
+
+:global(.dark-theme) .btn-secondary {
+  background-color: var(--dark-btn-bg, #333);
+  color: var(--dark-btn-text, #eee);
+  border-color: var(--dark-border, #444);
+}
+
+:global(.dark-theme) .btn-secondary:hover {
+  background-color: var(--dark-btn-hover, #444);
+} 

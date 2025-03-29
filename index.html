@@ -1,639 +1,549 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
     <head>
-	    
-	    <link rel="stylesheet" type="text/css" href="styles.css">
-        <!-- update 10 -->
-
-
-
-
-
-
-
-
-
-	    
-<script>
-// Define the styles for the outer and inner borders
-var outerBorderStyle = {
-  position: "fixed",
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  zIndex: 9999,
-  backgroundColor: "#0d1117"
-};
-
-var innerBorderStyle = {
-  position: "fixed",
-  top: 10,
-  left: 10,
-  right: 10,
-  bottom: 10,
-  zIndex: 10000,
-  backgroundImage: "radial-gradient(#ff9b71, #ff4444, #e8e677)"
-};
-
-// Use media queries to adjust the border sizes for different screen sizes and orientations
-var mediaQuery1 = window.matchMedia("(max-width: 600px)");
-var mediaQuery2 = window.matchMedia("(orientation: landscape)");
-
-function handleMediaQuery1(e) {
-  if (e.matches) {
-    // If the screen width is less than or equal to 600px, make the inner border smaller
-    innerBorderStyle.top = 5;
-    innerBorderStyle.left = 5;
-    innerBorderStyle.right = 5;
-    innerBorderStyle.bottom = 5;
-  } else {
-    // Otherwise, use the default values
-    innerBorderStyle.top = 10;
-    innerBorderStyle.left = 10;
-    innerBorderStyle.right = 10;
-    innerBorderStyle.bottom = 10;
-  }
-}
-
-function handleMediaQuery2(e) {
-  if (e.matches) {
-    // If the screen orientation is landscape, make the inner border larger
-    innerBorderStyle.top = 20;
-    innerBorderStyle.left = 20;
-    innerBorderStyle.right = 20;
-    innerBorderStyle.bottom = 20;
-  } else {
-    // Otherwise, use the default values
-    innerBorderStyle.top = 10;
-    innerBorderStyle.left = 10;
-    innerBorderStyle.right = 10;
-    innerBorderStyle.bottom = 10;
-  }
-}
-
-// Add event listeners for the media queries
-mediaQuery1.addEventListener("change", handleMediaQuery1);
-mediaQuery2.addEventListener("change", handleMediaQuery2);
-
-// Call the handlers once to set the initial values
-handleMediaQuery1(mediaQuery1);
-handleMediaQuery2(mediaQuery2);
-
-// Create the SVG elements for the border shapes
-var outerBorderSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-var outerBorderPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-outerBorderSVG.setAttribute("class", "outer-border");
-outerBorderSVG.setAttribute("viewBox", "0 0 100 100");
-outerBorderSVG.setAttribute("preserveAspectRatio", "none");
-outerBorderPath.setAttribute("d", "M0,0 L100,0 L100,100 L0,100 Z M2.5,2.5 L97.5,2.5 L97.5,97.5 L2.5,97.5 Z");
-outerBorderPath.setAttribute("fill-rule", "evenodd");
-outerBorderPath.setAttribute("fill-opacity", "0");
-outerBorderSVG.appendChild(outerBorderPath);
-
-var innerBorderSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-var innerBorderPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-innerBorderSVG.setAttribute("class", "inner-border");
-innerBorderSVG.setAttribute("viewBox", "0 0 100 100");
-innerBorderSVG.setAttribute("preserveAspectRatio", "none");
-innerBorderPath.setAttribute("d", "M0,0 L100,0 L100,100 L0,100 Z M12.5,12.5 L87.5,12.5 L87.5,87.5 L12.5,87.5 Z");
-innerBorderPath.setAttribute("fill-rule", "evenodd");
-innerBorderPath.setAttribute("fill-opacity", "0");
-innerBorderSVG.appendChild(innerBorderPath);
-
-// Apply the styles to the SVG elements
-function applyStyle(element, style) {
-  for (var property in style) {
-    element.style[property] = style[property];
-  }
-}
-
-applyStyle(outerBorderSVG, outerBorderStyle);
-applyStyle(innerBorderSVG, innerBorderStyle);
-
-// Append the SVG elements to the document body
-document.body.appendChild(outerBorderSVG);
-document.body.appendChild(innerBorderSVG);
-</script>
-
-
-
-
-
-
-
-	    
-
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A comprehensive guide for Steam Deck customization and optimization">
+        <title>Steam Deck DUB Edition Guide</title>
+        
+        <!-- CSS Files will be injected by webpack in production -->
+        <!-- For development, we still list them to maintain proper cascade -->
+        <!-- First load the fonts -->
+        <link rel="stylesheet" type="text/css" href="src/styles/core/fonts.css">
+        
+        <!-- Then load variables and base styles -->
+        <link rel="stylesheet" type="text/css" href="src/styles/core/variables.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/core/base.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/core/consolidated.css">
+        
+        <!-- Then load layout styles -->
+        <link rel="stylesheet" type="text/css" href="src/styles/layouts/main-layout.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/layouts/header.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/layouts/sidebar.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/layouts/sections.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/layouts/footer.css">
+        
+        <!-- Then load component styles -->
+        <link rel="stylesheet" type="text/css" href="src/styles/components/svg-header.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/components/buttons.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/components/search.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/components/version-manager.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/components/progress-tracker.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/components/preferences-dialog.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/components/lightbox.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/components/accessibility-controls.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/components/settings-tabs.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/components/notifications.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/components/settings-section.css">
+        
+        <!-- Then load animations -->
+        <link rel="stylesheet" type="text/css" href="src/styles/animations/transitions.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/animations/background.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/animations/preferences.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/animations/loading.css">
+        
+        <!-- Finally load utilities -->
+        <link rel="stylesheet" type="text/css" href="src/styles/utilities/spacing.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/utilities/typography.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/utilities/display.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/utilities/position.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/utilities/pseudo-elements.css">
+        <link rel="stylesheet" type="text/css" href="src/styles/utilities/debug.css">
+        
+        <!-- Theme overrides -->
+        <link rel="stylesheet" type="text/css" href="src/themes/dracula/theme.css">
+        <link rel="stylesheet" type="text/css" href="dyslexic-font.css">
+        <link rel="stylesheet" type="text/css" href="high-contrast.css">
+        <link rel="stylesheet" type="text/css" href="font-size.css">
+        
+        <!-- Favicon -->
+        <link rel="icon" href="assets/sdde.svg" type="image/svg+xml">
     </head>
-	
     <body>
-	    <div class="w5-container">
-<svg width="100%" height="100%" viewBox="0 0 100 100">
-  <rect x="0" y="0" width="100" height="100" stroke="white" stroke-width="5" fill="none" pointer-events="all" z-index="100" position="fixed"/>
-  <rect x="10" y="10" width="80" height="80" stroke="none" fill="white" />
-</svg>
-	    </div>
-
-
-
-
-
-
-
-	    
-
-	<!-- CHATGPT4-BING::Use SVG to create the border shapes -->
-<svg class="outer-border" viewBox="0 0 100 100" preserveAspectRatio="none">
-<path d="M0,0 L100,0 L100,100 L0,100 Z M2.5,2.5 L97.5,2.5 L97.5,97.5 L2.5,97.5 Z" fill-rule="evenodd" />
-</svg>
-<svg class="inner-border" viewBox="0 0 100 100" preserveAspectRatio="none">
-<path d="M0,0 L100,0 L100,100 L0,100 Z M12.5,12.5 L87.5,12.5 L87.5,87.5 L12.5,87.5 Z" fill-rule="evenodd" />
-</svg>
-
-
-
-
-
-
-
-
-	    
-        <div class="w2-container">
-        <div class="w3-container">
-        <br>
-        <br>
-        <svg fill="none" viewBox="0 0 600 400" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-  <foreignObject width="100%" height="100%">
-  <div xmlns="http://www.w3.org/1999/xhtml">
-    
-    <div class='cl-body'>
-      <div class='c1-container'>
-        <h1>
-          <a href="">
-            <span><em>Steam Deck</em></span>
-            <span><em>Steam Deck</em></span>
-            <span><em>Steam Deck</em></span>
-          </a>
-        </h1>
-        <section class='items'>
-          <ul>
-            <li>DUB Edition</li>
-          </ul>
-          <ul>
-            <li>By <a href="https://github.com/bluntwizard/">BluntWizard</a></li>
-          </ul>
-          <ul>
-          <br>
-            <li><a href="" role="button"><span class='hi'>👋</span></a></li>
-          </ul>
-          <br>
-          <br>
-          <ul>
-          <li>"Throw some D's on that bitch."
-          </ul>
-        </section>
-      </div>
-    </div>
-  </div>
-  </foreignObject>
-</svg>
+        <!-- Background elements -->
+        <div class="background-container">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+            <div class="blob blob-4"></div>
+            <div class="blob blob-5"></div>
+            <div class="mesh-overlay"></div>
+            <div class="vignette"></div>
         </div>
         
-        <div class="w4-container">
-        <br>
-        <br>
-        <h1><p align="center"> THE DEFINITIVE GUIDE </p></h1>
-<br>
-<hr>
-<br>
-<blockquote>
-<h5><strong>THIS GUIDE IS INTENDED AS A DEFINITIVE START GUIDE REGARDING VARIOUS AVENUES OF INTEREST ON THE STEAM DECK.</strong></h5>
-<h5><strong>FROM INSTALLING PACKAGES AND RETAINING THEM BETWEEN UPDATES, TO EMULATION AND SOFTWARE MODIFICATIONS/ PLUGINS.</strong></h5>
-<h3><p align="center"><em><code>⚠︎⚠︎⚠︎ ROUGHLY INTENDED AS A STEP-BY-STEP GUIDE. ⚠︎⚠︎⚠︎</code></em></p></h3>
-<h3><p align="center"><strong><code>IF YOU FEEL THERE IS SOMETHING MISSING, PLEASE MAKE A COMMIT.</code></strong></p></h3>
-</blockquote>
-<hr>
-<table>
-<thead>
-<tr>
-<th>TABLE OF CONTENTS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://github.com/bluntwizard/steam_deck_dub_edition#section-i-getting-started"><strong>SECTION I</strong> : GETTING STARTED</a></td>
-</tr>
-<tr>
-<td><a href="https://github.com/bluntwizard/steam_deck_dub_edition#section-ii-optimizations"><strong>SECTION II</strong> : OPTIMIZATIONS</a></td>
-</tr>
-<tr>
-<td><a href="https://github.com/bluntwizard/steam_deck_dub_edition#section-iii-gaming"><strong>SECTION III</strong> : GAMING</a></td>
-</tr>
-<tr>
-<td><a href=""><strong>SECTION IV</strong> : DECKY LOADER</a></td>
-</tr>
-<tr>
-<td></td>
-</tr>
-<tr>
-<td></td>
-</tr>
-<tr>
-<td></td>
-</tr>
-<tr>
-<td></td>
-</tr>
-<tr>
-<td><a href="">X: GLOSSARY</a></td>
-</tr>
-<tr>
-<td><a href="">X: RECOMMENDED FLATPAK LIST</a></td>
-</tr>
-<tr>
-<td><a href="#decky-loader-plugins">X: DEKCY LOADER PLUGIN LIST</a></td>
-</tr>
-</tbody>
-</table>
-<hr>
-<hr>
-<h2 id="section-i-getting-started">SECTION I: GETTING STARTED</h2>
-<p class="code-1"><strong><code>SUDO, RETAINING PACKAGES BETWEEN UPDATES, TRUST ISSUES, PACMAN &amp; YAY</code></strong></p>
-<hr>
-<h3 id="1-setting-admin-sudo-https-wiki-archlinux-org-title-sudo-password-within-konsole-terminal-emulator-https-en-wikipedia-org-wiki-terminal_emulator-">1. SETTING ADMIN/ <a href="https://wiki.archlinux.org/title/sudo">SUDO</a> PASSWORD WITHIN KONSOLE/ <a href="https://en.wikipedia.org/wiki/Terminal_emulator">TERMINAL EMULATOR</a></h3>
-<p>#</p>
-<h6 id="copy-paste">COPY/ PASTE</h6>
-<p class="code-2"><code><span class="hljs-attribute">passwd</span>
-</code></p><blockquote>
-<h4 id="-enter-new-admin-password-"><strong>ENTER NEW ADMIN PASSWORD</strong></h4>
-</blockquote>
-<p>#</p>
-<h3 id="2-installing-rwfus-read-write-overlay-filesystem-https-github-com-valshaped-rwfus-">2. INSTALLING <a href="https://github.com/ValShaped/rwfus">RWFUS: READ-WRITE OVERLAY FILESYSTEM</a></h3>
-<p>#</p>
-<blockquote>
-<p><strong>STEAMOS IS AN <a href="https://kairos.io/blog/2023/03/22/understanding-immutable-linux-os-benefits-architecture-and-challenges/#what-is-an-immutable-linux-os">IMMUTABLE OPERATING SYSTEM</a>, RWFUS COVERS THE /usr/ DIRECTORY [AND SOME OTHERS] ALLOWING PACMAN TO BE INITIALIZED WITHOUT LOSING PACKAGES WHEN THE NEXT UPDATE COMES OUT.</strong></p>
-</blockquote>
-<h6 id="copy-paste">COPY/ PASTE</h6>
-<p class="code-3"><code>git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/ValShaped/rwfus.git &amp;&amp; cd rwfus &amp;&amp; ./rwfus -iI &amp;&amp; sudo reboot
-</code></p><p>#</p>
-<h3 id="3-installing-dependencies-https-askubuntu-com-questions-361741-what-are-dependencies-text-sometimes-20when-20you-20install-20programs-2c-20they-20rely-20on-20other-20programs-20to-20work-20these-20other-20programs-20are-20called-20dependencies-">3. INSTALLING <a href="https://askubuntu.com/questions/361741/what-are-dependencies#:~:text=Sometimes%20when%20you%20install%20programs%2C%20they%20rely%20on%20other%20programs%20to%20work.%20These%20other%20programs%20are%20called%20dependencies.">DEPENDENCIES</a></h3>
-<p>#</p>
-<blockquote>
-<p><strong>DOWNLOAD, POPULATE, &amp; REFRESH KEYS FROM UBUNTU&#39;S KEYSERVER.</strong></p>
-<p><strong>[GCC/ CLANG/ GLIBC/ MAKE - MAY BE REDUNDANT.]</strong></p>
-</blockquote>
-<h6 id="copy-paste">COPY/ PASTE</h6>
-<p class="code-4"><code>sudo echo <span class="hljs-string">"keyserver hkps://keyserver.ubuntu.com"</span> &gt;&gt; /etc/pacman.d/gnupg/gpg.conf &amp;&amp; sudo pacman-<span class="hljs-built_in">key</span> --init &amp;&amp; sudo pacman-<span class="hljs-built_in">key</span> --populate &amp;&amp; sudo pacman-<span class="hljs-built_in">key</span> --refresh-keys &amp;&amp; sudo pacman -S base-devel &amp;&amp; sudo pacman -S gcc &amp;&amp; sudo pacman -S clang &amp;&amp; sudo pacman -S <span class="hljs-built_in">make</span> &amp;&amp; sudo pacman -S glibc
-</code></p><p>#</p>
-<h3 id="4-fixing-trust-issues">4. FIXING TRUST ISSUES</h3>
-<p>#</p>
-<blockquote>
-<h3 id="-the-main-issue-"><strong>THE MAIN ISSUE:</strong></h3>
-<h4 id="-pgp-key-verification-https-www-secureideas-com-blog-how-to-verify-pgp-signatures-text-verifying-20pgp-20signatures-20allows-20us-need-20the-20signer-s-20public-20key-is-broken-failing-during-package-installation-"><strong><a href="https://www.secureideas.com/blog/how-to-verify-pgp-signatures#:~:text=Verifying%20PGP%20signatures%20allows%20us,need%20the%20signer&#39;s%20public%20key.">PGP KEY VERIFICATION</a> IS BROKEN, FAILING DURING PACKAGE INSTALLATION.</strong></h4>
-<h4 id="-this-is-because-the-core-archlinux-keyring-is-out-of-date-pacman-gnupg-will-show-that-any-package-you-are-trying-to-install-is-out-of-date-corrupt-or-of-marginal-trust-"><strong>THIS IS BECAUSE THE CORE ARCHLINUX-KEYRING IS OUT OF DATE. PACMAN/GNUPG WILL SHOW THAT ANY PACKAGE YOU ARE TRYING TO INSTALL IS OUT OF DATE, CORRUPT, OR OF MARGINAL TRUST.</strong></h4>
-<h4 id="-changing-repos-to-official-arch-would-fix-this-but-that-would-change-the-kernel-other-core-packages-"><strong>CHANGING REPOS TO OFFICIAL ARCH WOULD FIX THIS, BUT THAT WOULD CHANGE THE KERNEL &amp; OTHER CORE PACKAGES.</strong></h4>
-<h4 id="-we-could-turn-off-pgp-verification-but-this-is-insecure-"><strong>WE COULD TURN OFF PGP VERIFICATION, BUT THIS IS INSECURE.</strong></h4>
-<h4 id="-so-we-must-manually-install-it-"><strong>SO WE MUST MANUALLY INSTALL IT.</strong></h4>
-</blockquote>
-<h6 id="copy-paste">COPY/PASTE</h6>
-<p class="code-5"><code>sudo cd Download https:<span class="hljs-regexp">//</span>archlinux.org<span class="hljs-regexp">/packages/</span>core<span class="hljs-regexp">/any/</span>archlinux-keyring<span class="hljs-regexp">/download &amp;&amp; sudo pacman -U archlinux-keyring-20220713-2-any.pkg.tar.zst</span>
-</code></p>
-<p><blockquote>
-<p><a href="https://wiki.archlinux.org/title/Pacman">Pacman</a> is now ready.</p>
-<p>User can now build and install packages from <a href="https://wiki.archlinux.org/title/Arch_User_Repository">the A.U.R.</a></p>
-<p id="in-conjunction-with-rwfus-these-packages-will-not-be-wiped-on-next-update-">IN CONJUNCTION WITH RWFUS THESE PACKAGES WILL NOT BE WIPED ON NEXT UPDATE.</p>
-</blockquote></p>
-<h3 id="5-installing-yay-https-github-com-jguer-yay-yay-optional-">5. INSTALLING <a href="https://github.com/Jguer/yay#yay">YAY</a> [OPTIONAL]</h3>
-<p>#</p>
-<blockquote>
-<p><strong>YAY : Yet Another Yogurt - An <a href="https://wiki.archlinux.org/title/AUR_helpers#:~:text=AUR%20helpers%20automate%20usage%20of%20the%20Arch%20User%20Repository.">AUR Helper</a> Written in Go.</strong></p>
-</blockquote>
-<h6 id="copy-paste">COPY/ PASTE</h6>
-<p class="code-6"><code>git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://aur.archlinux.org/yay.git &amp;&amp; cd yay &amp;&amp; makepkg -si
-</code></p><hr>
-<hr>
-<h2 id="section-ii-optimizations">SECTION II: OPTIMIZATIONS</h2>
-<p class="code-7"><strong><code>CONVERT FILE SYSTEM &amp; MODIFY SWAP TO OPTIMIZE READ/ WRITE &amp; ADD STORAGE</code></strong></p>
-<hr>
-<h3 id="1-installing-steamos-brtfs-https-gitlab-com-popsulfr-steamos-btrfs-">1. INSTALLING <a href="https://gitlab.com/popsulfr/steamos-btrfs">STEAMOS-BRTFS</a></h3>
-<p>#</p>
-<blockquote>
-<h4 id="-converts-filesystem-from-ext4-https-en-wikipedia-org-wiki-ext4-to-btrfs-https-en-wikipedia-org-wiki-btrfs-"><strong>CONVERTS FILESYSTEM FROM <a href="https://en.wikipedia.org/wiki/Ext4">EXT4</a> TO <a href="https://en.wikipedia.org/wiki/Btrfs">BTRFS</a>.</strong></h4>
-<h4 id="-can-increase-storage-up-to-33-"><strong>CAN INCREASE STORAGE UP TO 33%.</strong></h4>
-<h4 id="-personal-experience-mileage-my-vary-with-file-type-and-size-"><strong>[PERSONAL EXPERIENCE - MILEAGE MY VARY WITH FILE TYPE AND SIZE.]</strong></h4>
-</blockquote>
-<h3 id="-requirements">-REQUIREMENTS</h3>
-<p>#</p>
-<blockquote>
-<h4 id="-at-least-20-free-space-"><strong>AT LEAST 20% FREE SPACE.</strong></h4>
-<h4 id="-chose-all-available-options-"><strong>CHOSE ALL AVAILABLE OPTIONS.</strong></h4>
-<h4 id="-reboot-when-prompted-"><strong>REBOOT WHEN PROMPTED.</strong></h4>
-<h4 id="-process-can-take-up-to-30-minutes-"><strong>PROCESS CAN TAKE UP TO 30 MINUTES.</strong></h4>
-</blockquote>
-<h6 id="copy-paste">COPY/ PASTE</h6>
-<p class="code-8"><code>t=<span class="hljs-string">"<span class="hljs-variable">$(mktemp -d)</span>"</span> &amp;&amp; curl <span class="hljs-_">-s</span>SL https://gitlab.com/popsulfr/steamos-btrfs/-/archive/main/steamos-btrfs-main.tar.gz | tar -xzf - -C <span class="hljs-string">"<span class="hljs-variable">$t</span>"</span> --strip-components=1 &amp;&amp; <span class="hljs-string">"<span class="hljs-variable">$t</span>/install.sh"</span> &amp;&amp; rm -rf <span class="hljs-string">"<span class="hljs-variable">$t</span>"</span>
-</code></p><p>#</p>
-<h3 id="2-installing-cryoutilities-https-github-com-cryobyte33-steam-deck-utilities-cryoutilities-">2. INSTALLING <a href="https://github.com/CryoByte33/steam-deck-utilities#cryoutilities">CRYOUTILITIES</a></h3>
-<p>#</p>
-<blockquote>
-<h4 id="-cyroutilities-is-a-collection-of-scripts-utilities-to-improve-performance-manage-storage-on-the-steam-deck-"><strong>CYROUTILITIES IS A COLLECTION OF SCRIPTS &amp; UTILITIES TO IMPROVE PERFORMANCE &amp; MANAGE STORAGE ON THE STEAM DECK.</strong></h4>
-</blockquote>
-<h6 id="copy-paste">COPY/ PASTE</h6>
-<p class="code-9"><code><span class="hljs-keyword">cd</span> Desktop &amp;&amp; <span class="hljs-keyword">echo</span> <span class="hljs-comment">"#!/usr/bin/env xdg-open</span>
-[Desktop Entry]
-Name=Install CryoUtilities
-Exec=curl http<span class="hljs-variable">s:</span>//raw.githubusercontent.<span class="hljs-keyword">com</span>/CryoByte33/steam-deck-utilities/main/install.<span class="hljs-keyword">sh</span> | bash -s --
-Icon=steamdeck-gaming-<span class="hljs-keyword">return</span>
-Terminal=true
-Type=Application
-StartupNotify=false<span class="hljs-comment">" &gt;&gt; InstallCryoUtilities.desktop &amp;&amp; sudo gtk-launch EmuDeck.desktop</span>
-</code></p><p class="code-10"><code><span class="hljs-attribute">CHOSE RECOMMENDED SETTINGS</span>
-</code></p><hr>
-<hr>
-<h2 id="section-iii-gaming">SECTION III: GAMING</h2>
-<blockquote>
-<p class="code-11"><strong><code>EMULATION, NON-STEAM GAMES, NON-STEAM LAUNCHERS, WINDOWS SOFTWARE, CONSOLE STREAMING &amp; FLASHPOINT</code></strong></p>
-</blockquote>
-<hr>
-<h3 id="1-installing-emudeck">1. INSTALLING EMUDECK</h3>
-<p>#</p>
-<blockquote>
-<h4 id="-installs-emulators-from-the-discover-store-official-repositories-"><strong>INSTALLS EMULATORS FROM THE DISCOVER STORE &amp; OFFICIAL REPOSITORIES.</strong></h4>
-<h4 id="-creates-emulation-directory-with-folders-for-bios-roms-"><strong>CREATES ~/Emulation DIRECTORY WITH FOLDERS FOR BIOS ROMS.</strong></h4>
-<h4 id="-provides-generic-steam-input-profiles-for-emulators-"><strong>PROVIDES GENERIC STEAM INPUT PROFILES FOR EMULATORS.</strong></h4>
-<h4 id="-pre-optimizes-emulators-allows-the-user-to-change-these-settings-"><strong>PRE-OPTIMIZES EMULATORS, ALLOWS THE USER TO CHANGE THESE SETTINGS.</strong></h4>
-</blockquote>
-<p>#</p>
-<blockquote>
-<h3 id="-includes-steam-rom-manager-"><strong>INCLUDES <code>STEAM ROM MANAGER</code>.</strong></h3>
-<h4 id="-steam-rom-manager-easily-adds-your-non-steam-games-to-your-steam-library-"><strong><code>STEAM ROM MANAGER</code> EASILY ADDS YOUR NON-STEAM GAMES TO YOUR STEAM LIBRARY.</strong></h4>
-<h4 id="-steam-rom-manager-automatically-creates-collections-for-each-console-in-your-library-"><strong><code>STEAM ROM MANAGER</code> AUTOMATICALLY CREATES COLLECTIONS FOR EACH CONSOLE IN YOUR LIBRARY.</strong></h4>
-<h4 id="-steam-rom-manager-automatically-fetches-artwork-for-games-"><strong><code>STEAM ROM MANAGER</code> AUTOMATICALLY FETCHES ARTWORK FOR GAMES.</strong></h4>
-</blockquote>
-<h6 id="copy-paste">COPY/ PASTE</h6>
-<p class="code-12"><code>sudo cd Desktop &amp;&amp; sudo wget -<span class="hljs-selector-tag">q</span> https:<span class="hljs-comment">//www.emudeck.com/EmuDeck.desktop -O ~/Desktop/EmuDeck.desktop &amp;&amp; sudo gtk-launch EmuDeck.desktop</span>
-</code></p><h3 id="-setup-"><strong>SETUP</strong></h3>
-<blockquote>
-<h4 id="-choose-manual-setup-"><strong>CHOOSE MANUAL SETUP.</strong></h4>
-<h4 id="-select-all-emulators-listed-"><strong>SELECT ALL EMULATORS LISTED.</strong></h4>
-<h4 id="-change-any-other-wanted-settings-"><strong>CHANGE ANY OTHER WANTED SETTINGS.</strong></h4>
-</blockquote>
-<p>#</p>
-<h3 id="2-replacing-yuzu-the-nintento-switch-emulator-with-yuzu-early-access-enabling-auto-update">2. REPLACING YUZU - THE NINTENTO SWITCH EMULATOR, WITH YUZU EARLY ACCESS, ENABLING AUTO UPDATE</h3>
-<p>#</p>
-<h6 id="copy-paste">COPY/ PASTE</h6>
-<p class="code-13"><code>curl -s https:<span class="hljs-regexp">//</span>api.github.com<span class="hljs-regexp">/repos/</span>pineappleEA<span class="hljs-regexp">/pineapple-src/</span>releases<span class="hljs-regexp">/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/</span>Applications<span class="hljs-regexp">/yuzu.AppImage -i - &amp;&amp;  awk -v prepend="&lt;curl -s https:/</span><span class="hljs-regexp">/api.github.com/</span>repos<span class="hljs-regexp">/pineappleEA/</span>pineapple-src<span class="hljs-regexp">/releases/</span>latest | jq -r <span class="hljs-string">".assets[0] | .browser_download_url"</span> | wget -qO <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/Applications/yu</span>zu.AppImage -i -&gt;<span class="hljs-string">" 'NR==2{print prepend $0;next};1' $HOME/Emulation/tools/launchers/yuzu.sh</span>
-</code></p><p>#</p>
-<h6 id="above-code-possibly-replaces-these">ABOVE CODE POSSIBLY REPLACES THESE</h6>
-<p class="code-14"><code>Download Yuzu <span class="hljs-keyword">ea</span>
-<span class="hljs-keyword">copy</span>/ paste
-
-    curl -s http<span class="hljs-variable">s:</span>//api.github.<span class="hljs-keyword">com</span>/repos/pineappleEA/pineapple-src/releases/latest | jq -r <span class="hljs-string">".assets[0] | .browser_download_url"</span> | wget -qO $HOME/Applications/yuzu.AppImage -i -
-</code></p><p><code><span class="hljs-keyword">edit</span> yuzu.<span class="hljs-keyword">sh</span>
-<span class="hljs-keyword">copy</span> paste beneath bin/bash
-
-    curl -s http<span class="hljs-variable">s:</span>//api.github.<span class="hljs-keyword">com</span>/repos/pineappleEA/pineapple-src/releases/latest | jq -r <span class="hljs-string">".assets[0] | .browser_download_url"</span> | wget -qO $HOME/Applications/yuzu.AppImage -i -
-</code></p><p>#</p>
-<h3 id="3-isntalling-xenia">3. ISNTALLING XENIA</h3>
-<p>#</p>
-<blockquote>
-<h4 id="-the-microsoft-xbox-360-emulator-"><strong>THE MICROSOFT XBOX 360 EMULATOR.</strong></h4>
-</blockquote>
-<p class="code-15"><code><span class="hljs-keyword">START</span> <span class="hljs-string">'EMUDECK'</span>
-<span class="hljs-keyword">SELECT</span> <span class="hljs-string">'MANAGE EMULATORS'</span>
-<span class="hljs-keyword">SELECT</span> &amp; <span class="hljs-keyword">INSTALL</span> <span class="hljs-string">'XENIA'</span>
-</code></p><p>#</p>
-<h3 id="3-a-replacing-xenia">3-a. REPLACING XENIA</h3>
-<p>#</p>
-<blockquote>
-<h4 id="-current-xenia-builds-crash-on-steam-deck-when-loading-xbla-titles-"><strong>CURRENT XENIA BUILDS CRASH ON STEAM DECK WHEN LOADING XBLA TITLES.</strong></h4>
-</blockquote>
-<h6 id="copy-paste">COPY/ PASTE</h6>
-<p class="code-16"><code> sudo wget -q https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/xenia-canary/</span>xenia-canary<span class="hljs-regexp">/releases/</span>tag<span class="hljs-regexp">/190cef9 -O ~/</span>emulation<span class="hljs-regexp">/roms/</span>xbox360<span class="hljs-regexp">/xenia_canary.exe</span>
-</code></p><p>#</p>
-<h3 id="3-b-unlock-full-xbla-game-access">3-b. UNLOCK FULL XBLA GAME ACCESS</h3>
-<p>#</p>
-<blockquote>
-<p><strong>BY DEFAULT XENIA REPORTS NO LICENSE FOR XBLA TITLES.</strong></p>
-<p><strong>NO LICENSE WILL CAUSE XBLA TITLES TO START IN DEMO MODE/ NOT AT ALL.*</strong></p>
-</blockquote>
-<h6 id="copy-paste">COPY/ PASTE</h6>
-<p class="code-17"><code>awk <span class="hljs-string">'{gsub(/license_mask = 0/, "license_mask = 1"); print}'</span> xenia-canary<span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.toml</span> &gt; xenia-canary<span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.toml</span>
-</code></p><p>#</p>
-<h6 id="above-code-possibly-replaces-this">ABOVE CODE POSSIBLY REPLACES THIS</h6>
-<p class="code-18"><code>    edit xenia-canary.config.toml inside ~/Emulation/roms/xbox360
-
-    <span class="hljs-keyword">change</span>
-
-        [<span class="hljs-keyword">Content</span>]
-        license_mask = <span class="hljs-number">0</span>
-
-    <span class="hljs-keyword">to</span>
-
-        [<span class="hljs-keyword">Content</span>]
-        license_mask = <span class="hljs-number">1</span>
-</code></p><hr>
-<hr>
-<h2 id="section-iv-decky-loader">SECTION IV: DECKY LOADER</h2>
-<hr>
-<h3 id="1-installing-decky-loader">1. INSTALLING DECKY LOADER</h3>
-<br>
-<blockquote>
-<h4 id="-homebrew-plugin-launcher-for-the-steam-deck-"><strong>HOMEBREW PLUGIN LAUNCHER FOR THE STEAM DECK.</strong></h4>
-<h4 id="-can-be-used-to-stylize-menus-change-system-sounds-adjust-screen-saturation-change-additional-system-settings-and-much-more-"><strong>CAN BE USED TO STYLIZE MENUS, CHANGE SYSTEM SOUNDS, ADJUST SCREEN SATURATION, CHANGE ADDITIONAL SYSTEM SETTINGS, AND MUCH MORE.</strong></h4>
-</blockquote>
-<h6 id="copy-paste">COPY/ PASTE</h6>
-<p class="code-19"><code>sudo cd Desktop &amp;&amp; sudo wget -q https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/SteamDeckHomebrew/</span>decky-installer<span class="hljs-regexp">/releases/</span>latest<span class="hljs-regexp">/download/</span>decky_installer.desktop &amp;&amp; sudo gtk-launch decky_installer.desktop
-</code></p><hr>
-<hr>
-
-
-      
-<details>
-	<summary>
-	<div class=center-section-iv>
-		<div class="summary-title-section-iv"><h2>SECTION IV: DECKY LOADER&nbsp;<img src="https://decky.xyz/static/icon-45ca1f5aea376a9ad37e92db906f283e.png" style="vertical-align:middle" height="30"></h2></div>
-		<div class="summary-chevron-up">
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-		</div>
-		</div>
-	</summary>
-
-	<div class="summary-content">
-        <hr>
-        <h3 id="1-installing-decky-loader">1. INSTALLING DECKY LOADER</h3>
-        <br>
-        <blockquote>
-            <h4 id="-homebrew-plugin-launcher-for-the-steam-deck-"><strong>HOMEBREW PLUGIN LAUNCHER FOR THE STEAM DECK.</strong></h4>
-            <h4 id="-can-be-used-to-stylize-menus-change-system-sounds-adjust-screen-saturation-change-additional-system-settings-and-much-more-"><strong>CAN BE USED TO STYLIZE MENUS, CHANGE SYSTEM SOUNDS, ADJUST SCREEN SATURATION, CHANGE ADDITIONAL SYSTEM SETTINGS, AND MUCH MORE.</strong></h4>
-        </blockquote>
-        <h6 id="copy-paste">COPY/ PASTE</h6>
-        <p class="code-20"><code>sudo cd Desktop &amp;&amp; sudo wget -q https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/SteamDeckHomebrew/</span>decky-installer<span class="hljs-regexp">/releases/</span>latest<span class="hljs-regexp">/download/</span>decky_installer.desktop &amp;&amp; sudo gtk-launch decky_installer.desktop
-        </code></p></div>
-        <br>
-	<div class="summary-chevron-down">
-		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg>
-
-</details>
-
+        <!-- New Header -->
+        <header class="sdde-header">
+            <div class="header-container">
+                <!-- Logo Area -->
+                <div class="header-logo">
+                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <use href="steam-deck-icon.svg#svgView(viewBox(0,0,50,50))"></use>
+                    </svg>
+                </div>
+                
+                <!-- Title Area -->
+                <div class="header-title">
+                    <h1>Steam Deck DUB Edition</h1>
+                    <p class="subtitle">The ultimate guide to optimizing your Steam Deck experience</p>
+                </div>
+                
+                <!-- Actions Area -->
+                <div class="header-actions">
+                    <button type="button" id="theme-toggle" title="Toggle Dark/Light Mode" aria-label="Toggle dark mode">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"></path>
+                        </svg>
+                    </button>
+                    
+                    <button id="search-toggle" title="Search Guide">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                    
+                    <button class="header-toggle-btn" id="header-toggle" title="Toggle Menu">
+                        <span></span>
+                    </button>
+                </div>
+                
+                <!-- Hero Content Area (Visible when expanded) -->
+                <div class="header-hero">
+                    <!-- Navigation Panel -->
+                    <div class="header-nav">
+                        <div class="nav-section">
+                            <h3>Getting Started</h3>
+                            <a href="#section-i">Introduction</a>
+                            <a href="#initial-setup">Initial Setup</a>
+                            <a href="#desktop-mode">Desktop Mode</a>
+                        </div>
+                        
+                        <div class="nav-section">
+                            <h3>Optimizations</h3>
+                            <a href="#section-ii">Overview</a>
+                            <a href="#performance">Performance</a>
+                            <a href="#battery-life">Battery Life</a>
+                        </div>
+                        
+                        <div class="nav-section">
+                            <h3>Gaming</h3>
+                            <a href="#section-iii">Best Practices</a>
+                            <a href="#game-controls">Game Controls</a>
+                            <a href="#steam-settings">Steam Settings</a>
+                        </div>
+                        
+                        <div class="nav-section">
+                            <h3>Advanced</h3>
+                            <a href="#section-iv">Decky Loader</a>
+                            <a href="#plugin-system">Plugin System</a>
+                            <a href="#custom-themes">Custom Themes</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Content Panel -->
+                    <div class="header-featured">
+                        <h3>Featured: Battery Life Optimization</h3>
+                        <p>Learn how to maximize your Steam Deck's battery life with our comprehensive guide to power settings, performance profiles, and recommended tweaks.</p>
+                        <a href="#battery-life" class="featured-link">
+                            Learn More
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
             
-<details>
-  <summary><h2 align="center">DECKY LOADER PLUGINS&nbsp;<img src="https://decky.xyz/static/icon-45ca1f5aea376a9ad37e92db906f283e.png" style="vertical-align:middle" height="30"></h2></summary>
+            <!-- Decorative Elements -->
+            <div class="header-bg">
+                <div class="header-particle"></div>
+                <div class="header-particle"></div>
+                <div class="header-particle"></div>
+                <div class="header-particle"></div>
+                <div class="header-particle"></div>
+                <div class="header-particle"></div>
+            </div>
+            <div class="header-decoration"></div>
+        </header>
+        
+        <div class="page-container">
+            <!-- Sidebar Navigation -->
+            <nav class="sidebar sidebar-optional">
+                <div class="sidebar-inner">
+                    <h3>SDDE Guide</h3>
+                    <a href="#top" class="active">Home</a>
+                    <h3>Guide Sections</h3>
+                    <a href="#section-i">Section I: Getting Started</a>
+                    <a href="#section-ii">Section II: Optimizations</a>
+                    <a href="#section-iii">Section III: Gaming</a>
+                    <a href="#section-iv">Section IV: Decky Loader</a>
+                    <h3>References</h3>
+                    <a href="#decky-loader-plugins">Decky Loader Plugins</a>
+                    <a href="#glossary">Glossary</a>
+                    <a href="#flatpaks">Recommended Flatpaks</a>
+                </div>
+            </nav>
+            <button class="toggle-sidebar" title="Toggle Legacy Sidebar">☰</button>
+            <main class="main-content">
+                <div class="container">
+                    <!-- Settings Section -->
+                    <section id="settings-section" class="settings-section" style="display:none;">
+                        <div class="settings-container">
+                            <h1 class="section-title" data-i18n="settings.title">Settings</h1>
+                            
+                            <div class="settings-tabs">
+                                <button class="tab-button active" data-tab="general">General</button>
+                                <button class="tab-button" data-tab="accessibility">Accessibility</button>
+                                <button class="tab-button" data-tab="content">Content</button>
+                            </div>
+                            
+                            <div class="tab-content">
+                                <div id="general-settings" class="tab-pane active">
+                                    <!-- General settings content -->
+                                    <div class="settings-group">
+                                        <h2 data-i18n="settings.appearance">Appearance</h2>
+                                        <div class="setting-item">
+                                            <label data-i18n="settings.theme.title">Theme</label>
+                                            <select id="theme-selector">
+                                                <option value="light" data-i18n="settings.theme.light">Light</option>
+                                                <option value="dark" data-i18n="settings.theme.dark">Dark</option>
+                                                <option value="system" data-i18n="settings.theme.system">System Default</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="settings-group">
+                                        <h2 data-i18n="settings.language.title">Language</h2>
+                                        <div class="setting-item">
+                                            <label data-i18n="settings.language.selectLanguage">Select Language</label>
+                                            <select id="language-selector">
+                                                <option value="en">English</option>
+                                                <option value="es">Español</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div id="accessibility-settings" class="tab-pane">
+                                    <!-- Accessibility settings will be populated by our component -->
+                                </div>
+                                
+                                <div id="content-settings" class="tab-pane">
+                                    <!-- Content settings -->
+                                    <div class="settings-group">
+                                        <h2 data-i18n="settings.content.title">Content</h2>
+                                        <div class="setting-item">
+                                            <label data-i18n="settings.content.offlineMode">Offline Mode</label>
+                                            <div class="toggle-switch-container">
+                                                <label class="toggle-switch">
+                                                    <input type="checkbox" id="offline-mode-toggle">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="setting-item">
+                                            <button id="clear-cache-btn" class="btn btn-secondary" data-i18n="settings.content.clearCache">Clear Cache</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                
+                    <!-- Home content container -->
+                    <div id="home-content" class="content-container">
+                        <!-- Search Box -->
+                        <div class="search-container">
+                            <input type="text" class="search-box" placeholder="Search the guide... (Press '/' key)" id="search-input">
+                            <button id="clear-search" class="clear-search">✕</button>
+                            <!-- Search navigation will be added by JavaScript -->
+                        </div>
+                        <!-- No Results Message -->
+                        <div id="no-results-message"></div>
+                        <!-- Dynamic Content Container - Content will be loaded here by content-loader.js -->
+                        <div id="dynamic-content">
+                            <!-- Initial loading indicator -->
+                            <div class="loading-indicator">
+                                <div class="spinner"></div>
+                                <p>Loading guide content...</p>
+                            </div>
+                        </div>
+                        <!-- Back to Top Button -->
+                        <div class="back-to-top" id="back-to-top">↑</div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        
+        <!-- Add cleanup script early to prevent FOUC (Flash of Unstyled Content) -->
+        <script src="src/scripts/utils/cleanup.js"></script>
+        
+        <!-- Add font-loader.js early in script execution order -->
+        <script src="src/scripts/core/font-loader.js"></script>
+        
+        <!-- JavaScript for functionality - Order matters for proper initialization -->
+        <script src="src/scripts/services/content-loader.js"></script>
+        <script src="src/scripts/core/ui-improvements.js"></script>
+        <script src="src/scripts/services/search.js"></script>
+        <script src="src/scripts/components/preferences.js"></script>
+        <script src="src/scripts/core/main.js"></script>
+        <script src="src/scripts/core/renderer.js"></script>
+        <script src="src/scripts/core/layout.js"></script>
+        <script src="src/scripts/utils/layout-utilities.js"></script>
+        <script src="src/scripts/components/navigation.js"></script>
+        <script src="src/scripts/services/offline.js"></script>
+        <script src="src/scripts/utils/print-helper.js"></script>
+        <script src="src/scripts/services/pdf-export.js"></script>
+        <script src="src/scripts/services/version-manager.js"></script>
+        <script src="src/scripts/services/progress-tracker.js"></script>
+        <script src="src/scripts/utils/debug-helper.js"></script>
 
-<p align="center">
-  <a href="https://github.com/SteamDeckHomebrew/decky-loader/releases"><img src="https://img.shields.io/github/downloads/SteamDeckHomebrew/decky-loader/total" /></a>
-  <a href="https://github.com/SteamDeckHomebrew/decky-loader/stargazers"><img src="https://img.shields.io/github/stars/SteamDeckHomebrew/decky-loader" /></a>
-  <a href="https://github.com/SteamDeckHomebrew/decky-loader/commits/main"><img src="https://img.shields.io/github/last-commit/SteamDeckHomebrew/decky-loader.svg" /></a>
-  <a href="https://weblate.werwolv.net/engage/decky/"><img src="https://weblate.werwolv.net/widgets/decky/-/decky/svg-badge.svg" alt="Translation status" /></a>
-  <a href="https://github.com/SteamDeckHomebrew/decky-loader/blob/main/LICENSE"><img src="https://img.shields.io/github/license/SteamDeckHomebrew/decky-loader" /></a>
-  <a href="https://deckbrew.xyz/discord"><img src="https://img.shields.io/discord/960281551428522045?color=%235865F2&label=discord" /></a>
-  <br>
-  <br>
-  <img src="https://media.discordapp.net/attachments/966017112244125756/1012466063893610506/main.jpg" alt="Decky screenshot" width="80%">
-</p>
+        <!-- Initialize copy to clipboard functionality -->
+        <script>
+            function copyToClipboard(button) {
+                const codeBlock = button.nextElementSibling;
+                const codeText = codeBlock.textContent;
+                
+                navigator.clipboard.writeText(codeText).then(() => {
+                    // Change button text temporarily
+                    const originalText = button.textContent;
+                    button.textContent = "Copied!";
+                    button.classList.add("copied");
+                    // Revert button text after 2 seconds
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.classList.remove("copied");
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                    button.textContent = "Failed!";
+                    setTimeout(() => {
+                        button.textContent = "Copy";
+                    }, 2000);
+                });
+            }
+        </script>
 
-<details>
-    <summary alig="center"><h3>PRIMARY REPOSITORY</h3></summary>
-    <br><hr>
-    <b><a href="">ANIMATION CHANGER</a></b> - A BOOT/ SUSPEND ANIMATION MANAGEMENT PLUGIN.
-    <br><hr>
-    <b><a href="">AUDIO LOADER</a></b> - REPLACES STEAM UI SOUND EFFECTS WITH CUSTOM SOUNDS AND ADDS MUSIC TO MENUS.
-    <br><hr>
-    <b><a href="">AUTOFLATPAKS</a></b> - A PLUGIN TO MANAGE, NOTIFY, AND AUTOMATICALLY UPDATE FLATPAKS ON YOUR STEAMDECK CONSOLE
-    <br><hr>
-    <b><a href="">AUTOSUSPEND</a></b> - AUTOMATICALLY SUSPEND ON LOW POWER.
-    <br><hr>
-    <b><a href="">BASH SHORTCUTS</a></b> - MANAGER FOR SHORTCUTS IN THE QUICK ACCESS MENU! USES BASH UNDER THE HOOD.
-    <br><hr>
-    <b><a href="">BLUETOOTH</a></b> - QUICKLY CONNECT TO YOUR ALREADY PAIRED BLUETOOTH DEVICES.
-    <br><hr>
-    <b><a href="">BOOKMARKS</a></b> - REMEMBER HARD-TO-REACH PAGES IN STEAM&#39;S UI, AND OPEN WEB PAGES.
-    <br><hr>
-    <b><a href="">CONTROLLER TOOLS</a></b> - THE MISSING GAME CONTROLLER MENU. DISPLAYS THE CURRENT BATTERY % AND CHARGING STATUS. SUPPORTS: DUALSENSE, DUALSHOCK 4, NINTENDO SWITCH PRO CONTROLLER
-    <br><hr>
-    <b><a href="">CSSLOADER</a></b> - LOADS CSS (THEMES) DYNAMICALLY INTO THE STEAM DECK GAME UI
-    AUDIO LOADER REPLACES STEAM UI SOUND EFFECTS WITH CUSTOM SOUNDS AND ADDS MUSIC TO MENUS.
-    <br><hr>
-    <b><a href="">DECKFAQS</a></b> - A GAMEFAQS BROWSER FOR THE STEAM DECK (BOTH STEAM AND NON-STEAM GAMES)
-    <br><hr>
-    <b><a href="">DECKYFILESERVER</a></b> - START YOUR OWN FILE SERVER FROM YOUR STEAM DECK TO EASILY TRANSFER FILES FROM YOUR STEAM DECK.
-    <br><hr>
-    <b><a href="">DECKMTP</a></b> - A PLUGIN THAT ALLOWS YOUR STEAM DECK TO TRANSFER FILES TO YOUR PC VIA MTP AND USB
-    <br><hr>
-    <b><a href="">DECKROULETTE</a></b> - A PLUGIN THAT ALLOWS YOU TO NAVIGATE TO A RANDOM GAME IN YOUR LIVRARY OR A STEAM COLLECTION.
-    <br><hr>
-    <b><a href="">DECKY CLOUD SAVE</a></b> - MANAGE CLOUD SAVES FOR GAMES THAT DO NOT SUPPORT IT IN [CURRENT YEAR]
-    <br><hr>
-    <b><a href="">DECKY RECORDER</a></b> - RECORD YOUR GAMES WITH DECKY RECORDER
-    <br><hr>
-    <b><a href="">DISCORD STATUS</a></b> - DISPLAYS CURRENT STEAM DECK GAME IN DISCORD
-    <br><hr>
-    <b><a href="">EMUCHIEVEMENTS</a></b> - PLUGIN FOR VIEWING RETROACHIEVEMENTS PROGRESS. PART OF THE EMUDECK PROJECT
-    <br><hr>
-    <b><a href="">FANTASTIC</a></b> - FAN CONTROLS
-    <br><hr>
-    <b><a href="">FREE GAMES</a></b> - A PLUGIN TO NOTIFY YOU OF FREE GAMES AVAILABLE ON THE EPIC GAMES STORE.
-    <br><hr>
-    <b><a href="">FRIENDSFIX</a></b> - FIXES THE MISSING FRIENDS UI BUG.
-    <br><hr>
-    <b><a href="">GAMEVIEW MUSIC</a></b> - ADDS BACKGROUND MUSIC TO THE GAME PAGE
-    <br><hr>
-    <b><a href="">GAME THEME MUSIC</a></b> - PLAY THEME SONGS ON YOUR GAME PAGES
-    <br><hr>
-    <b><a href="">HTLB FOR DECK</a></b> - A PLUGIN TO SHOW YOU GAME LENGTHS ACCORDING TO HOW LONG TO BEAT
-    <br><hr>
-    <b><a href="">MANGOPEEL</a></b> - A DECKY PLUGIN FOR CUSTOM PERFORMANCE MONITORING STYLE.
-    <br><hr>
-    <b><a href="">MEMORY DECK</a></b> - A SIMPLISTIC SCANMEM WRAPPER FOR DECKY. ENABLING SCANNING FOR AND EDITING VALUES IN MEMORY.
-    <br><hr>
-    <b><a href="">METADECK</a></b> - PLUGIN FOR VIEWING METADATA FOR NON STEAM GAMES FROM IGDB. PART OF THE EMUDECK PROJECT
-    <br><hr>
-    <b><a href="">MOONDECK</a></b> - MOONDECK IS AN AUTOMATION TOOL THAT WILL SIMPLIFY LAUNCHING YOUR STEAM GAMES VIA THE MOONLIGHT CLIENT FOR STEAMING.
-    <br><hr>
-    <b><a href="">MUSICCONTROL</a></b> - CONTROL RUNNING MEDIA PLAYERS USING THE DBUS INTERFACE (MPRIS). MEDIA PLAYER HAS TO BE STARTED THROUGH GAME MODE.
-    <br><hr>
-    <b><a href="">NETWORK INFO</a></b> - VIEW DETAILED INFORMATION ABOUT YOUR STEAM DECK&#39;S NETWORK INTERFACES.
-    <br><hr>
-    <b><a href="">NOTEBOOK</a></b> - QUICKLY SCRIBBLE DOWN IMPORTANT CODES OR NOTES DURING YOUR PLAY SESSIONS.
-    <br><hr>
-    <b><a href="">PAUSE GAMES</a></b> - PAUSE/ RESUME GAMES TO REDIRECT RESOURCES AND EVEN PLAY/ STOP APPS THAT DON&#39;T NATIVELY HABE AN IMMEDIATE OPTION TO DO SO.
-    <br><hr>
-    <b><a href="">POWERTOOLS</a></b> - POWER TWEAKS FOR POWER USERS
-    <br><hr>
-    <b><a href="">PROTONDB BADGES</a></b> - DISPLAY TAPPABLE PROTONDB BADGES ON YOUR GAME PAGES
-    <br><hr>
-    <b><a href="">QUICK LAUNCH</a></b> - QUICKLY LAUNCH NON-STEAM-APPS FROM THE QUICK ACCESS MENU WITHOUT ADDING THEM AS SHORTCUTS, OR ADD THEM TO THE STEAM LIBRARY.
-    <br><hr>
-    <b><a href="">SHOTTY</a></b> - A PLUGIN FOR COPYING OVER SCREENSHOTS TO THE PICTURES FOLDER
-    <br><hr>
-    <b><a href="">STEAMBACK</a></b> - AUTOMATIC SAVE GAME SNAPSHOT/ RESTORE FOR STEAM
-    <br><hr>
-    <b><a href="">STEAMGRIDDB</a></b> - CUSTOM LIVRARY ART FOR STEAM APPS AND NON-STEAM SHORTCUTS FROM STEAMGRIDDB OR YOUR LOCAL FILES.
-    <br><hr>
-    <b><a href="">STORAGE CLEANER</a></b> - QUICKLY VISUALIZE, SELECT AND CLEAR SHADER CACHE AND COMPATIBILITY DATA.
-    <br><hr>
-    <b><a href="">SYSTEM TOOLBOX</a></b> - HELPFUL TOOLS TO CONTROL VARIOUS SETTINGS OF THE STEAM DECK
-    <br><hr>
-    <b><a href="">TABMASTER</a></b> - GIVES YOU FULL CONTROL OVER YOUR STEAM LIBRARY! SUPPORT FOR CUSTOMIZING, ADDING, AND HIDING LIBRARY TABS.
-    <br><hr>
-    <b><a href="">TAILSCALE CONTROL</a></b> - A DECKY PLUGIN TO ACTIVATE AND DEACTIVATE TAILSCALE, WHILE STAYING IN GAMING MODE. [NOTE: TAILSCALE NEEDS TO BE INSTALLED, THIS WORKS ONLY LIKE A SWITCH FOR THE SAME.
-    <br><hr>
-    <b><a href="">TUNNELDECK</a></b> - ENABLES VPN SUPPORT WITHIN GAMING MODE AND ACTIVATES OPENVPN SUPPORT FOR NETWORK MANAGER.
-    <br><hr>
-    <b><a href="">VIBRANTDECK</a></b> - ADJUST COLOR SETTINGS OF YOUR DECK
-    <br><hr>
-    <b><a href="">VOLUME BOOST</a></b> - A DECKY PLUGIN TO BOOST VOLUME.
-    <br><hr>
-    <b><a href="">VOLUME MIXER</a></b> - CONTROL THE COLUME OF APPLICATIONS AND CONNECTED BLUETOOTH SOURCES.
-    <br><hr>
-    <b><a href="">WEB BROWSER</a></b> - A WEB BRPWSER WITH MULTIPLE FEATURES INCLUDING TABS!, LIMITED GAMEPAD SUPPORT, FAVORITES AND A MULTIFUNCTION SEARCH/ URL BAR.
-    <br><hr>
-</details>
-
-<details>
-<br><hr>
-<summary align="center"><h3>PRE-RELEASE/ TESTING</h3></summary>
-<br><hr>
-<b><a href="">DECKSETTINGS</a></b> - PLUGIN TO BROWSE RECOMMENDED STEAM DECK GAME SETTINGS FROM SHAREDECK AND STEAMDECKHQ.
-<br><hr>
-<b><a href="">FREE LOADER</a></b> - PLUGIN TO PROVIDE NOTIFICATIONS FOR AND EASY ACCESS TO FREE GAMES ON THE STEAM STORE.
-<br><hr>
-<b><a href="">MICROSDECK</a></b> - A PLUGIN TO MANAGE MICROSD CARDS.
-<br><hr>
-<b><a href="">TS3 QUICKACCESS</a></b> - A TEAMSPEAK 3 CLIENT PLUGIN THAT INTEGRATES TEAMSPEAK 3 INTO STEAM DECK&#39;S QUICK ACCESS MENU.
-<br><hr>
-
-</details>
-
-<hr>
-<p>#</p>
-<h3 id="-discover-store-flatpaks">■ DISCOVER STORE FLATPAKS</h3>
-<p class="code-21"><code>CHROME<span class="hljs-comment">//FIREFOX</span>
-DISCORD
-PEAZIP
-JDOWNLOADER
-HEROIC LAUNCHER
-</code></p><hr>
-<hr>
-</body>
+        <!-- Core Components -->
+        <script type="module" src="src/i18n.js"></script>
+        <script type="module" src="src/components/modal.js"></script>
+        <script type="module" src="src/components/guide-navigation.js"></script>
+        <script type="module" src="src/components/progress-tracking.js"></script>
+        <script type="module" src="src/components/accessibility.js"></script>
+        <script type="module" src="src/components/accessibility-ui.js"></script>
+        <script type="module" src="src/components/settings-manager.js"></script>
+        <script type="module" src="src/accessibility.js"></script>
+        <script type="module" src="src/components/app-initialization.js"></script>
+        
+        <!-- Service Worker Registration -->
+        <script>
+            // Register service worker for offline support
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/service-worker.js')
+                        .then(registration => {
+                            console.log('Service Worker registered with scope:', registration.scope);
+                            
+                            // Check for updates
+                            registration.addEventListener('updatefound', () => {
+                                const newWorker = registration.installing;
+                                console.log('Service Worker update found!');
+                                // Show update notification when ready
+                                newWorker.addEventListener('statechange', () => {
+                                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                        showUpdateNotification();
+                                    }
+                                });
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Service Worker registration failed:', error);
+                        });
+                    
+                    // Listen for controller change
+                    navigator.serviceWorker.addEventListener('controllerchange', () => {
+                        console.log('Service Worker controller changed - reloading page');
+                        window.location.reload();
+                    });
+                });
+                
+                // Function to show update notification
+                function showUpdateNotification() {
+                    // Create update notification
+                    const updateNotification = document.createElement('div');
+                    updateNotification.className = 'update-notification';
+                    updateNotification.innerHTML = `
+                        <div class="update-notification-content">
+                            <p>A new version of the guide is available!</p>
+                            <button id="update-button">Update Now</button>
+                            <button id="dismiss-update">Later</button>
+                        </div>
+                    `;
+                    
+                    // Style the notification
+                    updateNotification.style.cssText = `
+                        position: fixed;
+                        bottom: 20px;
+                        right: 20px;
+                        background-color: var(--dracula-purple, #bd93f9);
+                        color: var(--dracula-background, #282a36);
+                        padding: 15px;
+                        border-radius: 8px;
+                        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                        z-index: 10000;
+                        max-width: 300px;
+                    `;
+                    
+                    // Add to body
+                    document.body.appendChild(updateNotification);
+                    
+                    // Add event listeners
+                    document.getElementById('update-button').addEventListener('click', () => {
+                        if (navigator.serviceWorker.controller) {
+                            // Send message to skip waiting
+                            navigator.serviceWorker.controller.postMessage('skipWaiting');
+                        }
+                        updateNotification.remove();
+                    });
+                    
+                    document.getElementById('dismiss-update').addEventListener('click', () => {
+                        updateNotification.remove();
+                    });
+                }
+                
+                // Check for online/offline status
+                window.addEventListener('online', () => {
+                    document.body.classList.remove('offline');
+                    console.log('You are now online');
+                    
+                    // Show notification
+                    const onlineNotification = document.createElement('div');
+                    onlineNotification.className = 'status-notification online';
+                    onlineNotification.textContent = 'You are now online';
+                    
+                    // Style notification
+                    onlineNotification.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background-color: var(--dracula-green, #50fa7b);
+                        color: var(--dracula-background, #282a36);
+                        padding: 10px 15px;
+                        border-radius: 4px;
+                        font-weight: bold;
+                        z-index: 10000;
+                        animation: fadeOut 3s forwards;
+                    `;
+                    
+                    document.body.appendChild(onlineNotification);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        onlineNotification.remove();
+                    }, 3000);
+                });
+                
+                window.addEventListener('offline', () => {
+                    document.body.classList.add('offline');
+                    console.log('You are now offline');
+                    
+                    // Show notification
+                    const offlineNotification = document.createElement('div');
+                    offlineNotification.className = 'status-notification offline';
+                    offlineNotification.textContent = 'You are now offline - showing cached content';
+                    
+                    // Style notification
+                    offlineNotification.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background-color: var(--dracula-orange, #ffb86c);
+                        color: var(--dracula-background, #282a36);
+                        padding: 10px 15px;
+                        border-radius: 4px;
+                        font-weight: bold;
+                        z-index: 10000;
+                        animation: fadeOut 3s forwards;
+                    `;
+                    
+                    document.body.appendChild(offlineNotification);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        offlineNotification.remove();
+                    }, 3000);
+                });
+                
+                // Add fadeOut animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fadeOut {
+                        0% { opacity: 1; }
+                        70% { opacity: 1; }
+                        100% { opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                // Set initial offline status
+                if (!navigator.onLine) {
+                    document.body.classList.add('offline');
+                }
+            }
+        </script>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Header toggle functionality
+                const headerToggle = document.getElementById('header-toggle');
+                const header = document.querySelector('.sdde-header');
+                
+                headerToggle.addEventListener('click', function() {
+                    header.classList.toggle('expanded');
+                });
+                
+                // Theme toggle functionality
+                const themeToggle = document.getElementById('theme-toggle');
+                themeToggle.addEventListener('click', function() {
+                    document.body.classList.toggle('light-theme');
+                    
+                    // Save preference to localStorage
+                    const isLightTheme = document.body.classList.contains('light-theme');
+                    localStorage.setItem('lightTheme', isLightTheme);
+                });
+                
+                // Search toggle functionality
+                const searchToggle = document.getElementById('search-toggle');
+                const searchInput = document.getElementById('search-input');
+                
+                searchToggle.addEventListener('click', function() {
+                    searchInput.focus();
+                    header.classList.remove('expanded');
+                });
+                
+                // Restore theme preference
+                if (localStorage.getItem('lightTheme') === 'true') {
+                    document.body.classList.add('light-theme');
+                }
+            });
+        </script>
+        
+        <script type="module">
+            // Initialize components
+            import i18n from './src/i18n.js';
+            import accessibilityManager from './src/accessibility.js';
+            
+            document.addEventListener('DOMContentLoaded', async () => {
+                // Initialize i18n
+                await i18n.initializeI18n();
+                
+                // Initialize accessibility manager
+                await accessibilityManager.initialize();
+                
+                // Any additional initialization can go here
+                console.log('Application initialized');
+            });
+        </script>
+    </body>
 </html>
-</details>
-</div>
-</div>
-
-<details>
-	<summary>
-		<span class="summary-title">Details element with custom arrow!</span>
-		<div class="summary-chevron-up">
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-		</div>
-	</summary>
-
-	<div class="summary-content">Give me attention or face the wrath of my claws give me attention or face the wrath of my claws and pretend not to be evil cats go for world domination allways wanting food. Eat owner's food playing with balls of wool and meow and walk away, and bleghbleghvomit
-		my furball really tie the room together. Cuddle no cuddle cuddle love scratch scratch cat</div>
-	<div class="summary-chevron-down">
-		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg>
-		
-</details>
-

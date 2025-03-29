@@ -1,0 +1,299 @@
+/**
+* Unified Layout System for SDDE Guide
+* Combines flexbox and grid layouts into a single coherent system
+*/
+
+/* ==================== GENERAL LAYOUT UTILITIES ==================== */
+
+/* Base container */
+.container {
+  width: 100%;
+  max-width: var(--content-max-width, 1200);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding, 20);
+  padding-right: var(--container-padding, 20);
+}
+
+/* Full width container */
+.full-width {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Gap utilities */
+.gap-none { gap: 0; }
+.gap-small { gap: 10; }
+.gap-medium { gap: 20; }
+.gap-large { gap: 30; }
+
+/* ==================== FLEXBOX LAYOUTS ==================== */
+
+/* Basic flex container */
+.flex,
+.flex-row,
+.flex-column,
+.flex-center,
+.flex-between { display: flex;
+}
+
+/* Direction */
+.flex-row { flex-direction: row; }
+.flex-column { flex-direction: column; }
+.flex-row-reverse { flex-direction: row-reverse; }
+.flex-column-reverse { flex-direction: column-reverse; }
+
+/* Wrapping */
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+
+/* Justify content (main axis) */
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.justify-evenly { justify-content: space-evenly; }
+
+/* Align items (cross axis) */
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.items-center { align-items: center; }
+.items-baseline { align-items: baseline; }
+.items-stretch { align-items: stretch; }
+
+/* Flex item utilities */
+.flex-1 { flex: 1; }
+.flex-auto { flex: auto; }
+.flex-initial { flex: initial; }
+.flex-none { flex: none; }
+
+.grow { flex-grow: 1; }
+.grow-0 { flex-grow: 0; }
+.shrink { flex-shrink: 1; }
+.shrink-0 { flex-shrink: 0; }
+
+/* Common flexbox layouts */
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+/* Duplicate selector (first used on line 37): .flex-between */
+align-items: center;
+justify-content: space-between;
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==================== GRID LAYOUTS ==================== */
+
+/* Basic grid container */
+.grid,
+.grid-2,
+.grid-3,
+.grid-4,
+.grid-1-2,
+.grid-2-1, .grid-sidebar,
+.auto-grid,
+.content-grid { display: grid;
+}
+
+/* Predefined grid templates */
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 450), 1fr));
+  gap: var(--grid-gap, 20);
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350), 1fr));
+  gap: var(--grid-gap, 20);
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250), 1fr));
+  gap: var(--grid-gap, 20);
+}
+
+/* Fixed column ratios */
+.grid-1-2 {
+  grid-template-columns: 1fr 2fr;
+  gap: var(--grid-gap, 20);
+}
+
+.grid-2-1 {
+  grid-template-columns: 2fr 1fr;
+  gap: var(--grid-gap, 20);
+}
+
+.grid-sidebar {
+  grid-template-columns: 3fr 1fr;
+  gap: var(--grid-gap, 30);
+}
+
+/* Auto-placement grid */
+.auto-grid {
+  grid-template-columns: repeat(auto-fill, minmax(250, 1fr));
+  grid-auto-rows: minmax(100, auto);
+  grid-auto-flow: dense;
+  gap: 20;
+}
+
+/* Content grid with centered content */
+/* Duplicate selector (first used on line 104): .content-grid */
+grid-template-columns: minmax(0, 1fr) minmax(min-content, 740) minmax(0, 1fr);
+
+.content-grid > * { grid-column: 2px;
+}
+
+.content-grid > .full-width { grid-column: 1 / -1;
+}
+
+/* Grid item span controls */
+.col-span-2 { grid-column: span 2; }
+.col-span-3 { grid-column: span 3; }
+.col-span-all { grid-column: 1 / -1; }
+
+.row-span-2 { grid-row: span 2; }
+.row-span-3 { grid-row: span 3; }
+
+/* ==================== SECTION LAYOUTS ==================== */
+
+/* Section layout base properties */
+.section { position: relative;
+}
+
+/* Gallery grid layout */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200, 1fr));
+  gap: 15px;
+}
+
+.gallery-item {
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  aspect-ratio: 1px;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+/* Features grid layout */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280, 1fr));
+  gap: 25px;
+}
+
+.feature-item {
+  background-color: rgb(68 71 90 / 30%);
+  border-radius: 10;
+  padding: 25px;
+  box-shadow: 0 4px 10 rgb(0 0 0 / 10%);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Cards grid layout */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background-color: rgb(68 71 90 / 20%);
+  border-radius: 10;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Step items layout */
+.step-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20;
+  margin-bottom: 30;
+  position: relative;
+}
+
+/* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+
+/* Responsive adjustments for grid layouts */
+@media (width <= 768px) {
+  .grid-1-2,
+  .grid-2-1,
+/* Duplicate selector (first used on line 135): .grid-sidebar */
+  grid-template-columns: 1fr;.grid-2-1,grid-template-columns
+  .grid-2-1,grid-template-columns;
+}
+
+.sidebar-area { order: -1;
+}
+
+/* Responsive padding */
+.p-responsive { padding: clamp(1rem, 5vw, 3rem);
+}
+
+/* Responsive visibility */
+@media (width <= 640) {
+.hide-xs { display: none !important; }
+
+@media (width >= 641px) and (width <= 768px) {
+.hide-sm { display: none !important; }
+
+@media (width >= 769px) and (width <= 1024px) {
+.hide-md { display: none !important; }
+
+@media (width >= 1025px) {
+.hide-lg { display: none !important; }
+
+/* Responsive order controls */
+/* Duplicate selector (first used on line 242): @media (width <= 768px) */
+.order-first-mobile { order: -1; }
+.order-last-mobile { order: 999; }
+
+/* Fix for section layout default display properties */
+.section-hero { display: grid;
+}
+
+.section-gallery .gallery-grid { display: grid;
+}
+
+.section-features .features-grid { display: grid;
+}
+
+.section-cards .cards-grid { display: grid;
+}
+
+.section-steps .steps-container { display: grid;
+}
+
+.section-stats { display: grid;
+}
+
+.section-code { display: grid;
+}
+
+.section-comparison { display: grid;
+}
+
+/* Debugging utilities */
+.debug * { outline: 1px solid rgb(255 85 85 / 50%);
+}
+}
+}
+
+}
+}

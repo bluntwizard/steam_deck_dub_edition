@@ -1,0 +1,144 @@
+/**
+ * Theme styles for Steam Deck DUB Edition
+ */
+
+/* Theme toggle button */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.theme-toggle-btn:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Theme icon container */
+.theme-icon-container {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Theme icons */
+.theme-icon {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.theme-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  transition: transform 0.5s ease;
+}
+
+/* Show/hide appropriate icon based on theme */
+:global(.dark-theme) .light-icon,
+:global(.light-theme) .dark-icon,
+:global(.system-theme) .dark-icon,
+:global(.system-theme) .light-icon {
+  opacity: 0;
+  transform: scale(0);
+}
+
+:global(.dark-theme) .dark-icon,
+:global(.light-theme) .light-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+:global(.dark-theme) .system-icon,
+:global(.light-theme) .system-icon {
+  opacity: 0;
+  transform: scale(0);
+}
+
+:global([data-theme-preference="system"]) .system-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+:global([data-theme-preference="system"]) .dark-icon,
+:global([data-theme-preference="system"]) .light-icon {
+  opacity: 0;
+  transform: scale(0);
+}
+
+/* Theme selector radio buttons */
+.theme-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: var(--color-bg-subtle);
+  border-radius: var(--border-radius);
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+}
+
+.theme-option input[type="radio"] {
+  margin-right: 0.5rem;
+}
+
+.theme-option label {
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Theme transition */
+:global(html) {
+  --theme-transition-props: color, background-color, border-color, box-shadow;
+  --theme-transition-duration: 0.3s;
+  --theme-transition-timing: ease;
+  transition: var(--theme-transition-props) var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+:global(body),
+:global(.themed-transition) {
+  transition: var(--theme-transition-props) var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+/* Prevent transitions on page load */
+:global(.preload) * {
+  transition: none !important;
+} 

@@ -1,0 +1,106 @@
+{
+  "app": {
+    "title": "Steam Deck DUB Edition",
+    "subtitle": "A definitive guide for Steam Deck",
+    "version": "Version {{version}}"
+  },
+  "nav": {
+    "home": "Home",
+    "guide": "Guide",
+    "tutorials": "Tutorials",
+    "settings": "Settings",
+    "about": "About"
+  },
+  "search": {
+    "placeholder": "Search...",
+    "noResults": "No results found for \"{{query}}\"",
+    "results": "Results for \"{{query}}\"",
+    "searchHint": "Press '/' to search"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "theme": {
+      "title": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System Default"
+    },
+    "language": {
+      "title": "Language",
+      "selectLanguage": "Select Language",
+      "reloadMessage": "Language change will be fully applied after page reload.",
+      "reloadNow": "Reload Now"
+    },
+    "content": {
+      "title": "Content",
+      "offlineMode": "Offline Mode",
+      "clearCache": "Clear Cache",
+      "updateContent": "Check for Content Updates",
+      "cachedResources": "Cached Resources",
+      "totalCached": "Total Cached",
+      "items": "items",
+      "clearingCache": "Clearing cache...",
+      "checkingUpdates": "Checking for updates...",
+      "cacheError": "Error getting cache information",
+      "cacheNotSupported": "Cache storage not supported in this browser"
+    }
+  },
+  "accessibility": {
+    "title": "Accessibility",
+    "fontSize": {
+      "title": "Font Size",
+      "description": "Adjust the size of text throughout the application",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large",
+      "xlarge": "Extra Large"
+    },
+    "dyslexicFont": {
+      "title": "Dyslexic-friendly Font",
+      "description": "Uses OpenDyslexic font to improve readability for users with dyslexia"
+    },
+    "highContrast": {
+      "title": "High Contrast Mode",
+      "description": "Enhances visibility with stronger color contrasts and more defined borders"
+    },
+    "status": {
+      "on": "Enabled",
+      "off": "Disabled"
+    },
+    "resetSettings": "Reset Accessibility Settings"
+  },
+  "progress": {
+    "title": "Progress Tracking",
+    "completed": "Completed",
+    "markComplete": "Mark Complete",
+    "resetProgress": "Reset Progress",
+    "resetConfirm": "Are you sure you want to reset all progress? This cannot be undone.",
+    "progressSummary": "You've completed {{completed}} out of {{total}} sections ({{percentage}}%)."
+  },
+  "offline": {
+    "title": "Offline Mode",
+    "description": "You are currently viewing cached content in offline mode.",
+    "reconnect": "Try to Reconnect"
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "apply": "Apply",
+    "reset": "Reset",
+    "back": "Back",
+    "next": "Next",
+    "clear": "Clear",
+    "confirm": "Confirm",
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Information",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "on": "On",
+    "off": "Off"
+  }
+}

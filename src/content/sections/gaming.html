@@ -1,0 +1,205 @@
+<div class="section" id="section-iii">
+    <h2>SECTION III: GAMING</h2>
+    <p class="section-description"><strong><code>EMULATION, NON-STEAM GAMES, NON-STEAM LAUNCHERS, WINDOWS SOFTWARE, CONSOLE STREAMING &amp; FLASHPOINT</code></strong></p>
+    <hr>
+    
+    <div class="section-content">
+        <details class="guide-section">
+            <summary>1. INSTALLING EMUDECK</summary>
+            <div class="details-content">
+                <h3>1. INSTALLING EMUDECK</h3>
+                
+                <blockquote class="explanation">
+                    <h4><strong>INSTALLS EMULATORS FROM THE DISCOVER STORE &amp; OFFICIAL REPOSITORIES.</strong></h4>
+                    <h4><strong>CREATES ~/Emulation DIRECTORY WITH FOLDERS FOR BIOS ROMS.</strong></h4>
+                    <h4><strong>PROVIDES GENERIC STEAM INPUT PROFILES FOR EMULATORS.</strong></h4>
+                    <h4><strong>PRE-OPTIMIZES EMULATORS, ALLOWS THE USER TO CHANGE THESE SETTINGS.</strong></h4>
+                </blockquote>
+                
+                <blockquote class="explanation">
+                    <h3><strong>INCLUDES <code>STEAM ROM MANAGER</code>.</strong></h3>
+                    <h4><strong><code>STEAM ROM MANAGER</code> EASILY ADDS YOUR NON-STEAM GAMES TO YOUR STEAM LIBRARY.</strong></h4>
+                    <h4><strong><code>STEAM ROM MANAGER</code> AUTOMATICALLY CREATES COLLECTIONS FOR EACH CONSOLE IN YOUR LIBRARY.</strong></h4>
+                    <h4><strong><code>STEAM ROM MANAGER</code> AUTOMATICALLY FETCHES ARTWORK FOR GAMES.</strong></h4>
+                </blockquote>
+                
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>sudo cd Desktop && sudo wget -q https://www.emudeck.com/EmuDeck.desktop -O ~/Desktop/EmuDeck.desktop && sudo gtk-launch EmuDeck.desktop</code></pre>
+                </div>
+                
+                <h3><strong>SETUP</strong></h3>
+                <blockquote class="explanation">
+                    <h4><strong>CHOOSE MANUAL SETUP.</strong></h4>
+                    <h4><strong>SELECT ALL EMULATORS LISTED.</strong></h4>
+                    <h4><strong>CHANGE ANY OTHER WANTED SETTINGS.</strong></h4>
+                </blockquote>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>2. REPLACING YUZU - THE NINTENDO SWITCH EMULATOR</summary>
+            <div class="details-content">
+                <h3>2. REPLACING YUZU - THE NINTENDO SWITCH EMULATOR, WITH YUZU EARLY ACCESS, ENABLING AUTO UPDATE</h3>
+                
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>curl -s https://api.github.com/repos/pineappleEA/pineapple-src/releases/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/Applications/yuzu.AppImage -i - &&  awk -v prepend="<curl -s https://api.github.com/repos/pineappleEA/pineapple-src/releases/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/Applications/yuzu.AppImage -i ->" 'NR==2{print prepend $0;next};1' $HOME/Emulation/tools/launchers/yuzu.sh</code></pre>
+                </div>
+                
+                <p><strong>ABOVE CODE POSSIBLY REPLACES THESE TWO SEPARATE STEPS:</strong></p>
+                
+                <p>Download Yuzu ea:</p>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>curl -s https://api.github.com/repos/pineappleEA/pineapple-src/releases/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/Applications/yuzu.AppImage -i -</code></pre>
+                </div>
+                
+                <p>Edit yuzu.sh (copy paste beneath bin/bash):</p>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>curl -s https://api.github.com/repos/pineappleEA/pineapple-src/releases/latest | jq -r ".assets[0] | .browser_download_url" | wget -qO $HOME/Applications/yuzu.AppImage -i -</code></pre>
+                </div>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>3. INSTALLING XENIA</summary>
+            <div class="details-content">
+                <h3>3. INSTALLING XENIA</h3>
+                
+                <blockquote class="explanation">
+                    <h4><strong>THE MICROSOFT XBOX 360 EMULATOR.</strong></h4>
+                </blockquote>
+                
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>START 'EMUDECK'
+SELECT 'MANAGE EMULATORS'
+SELECT & INSTALL 'XENIA'</code></pre>
+                </div>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>3-a. REPLACING XENIA</summary>
+            <div class="details-content">
+                <h3>3-a. REPLACING XENIA</h3>
+                
+                <blockquote class="explanation">
+                    <h4><strong>CURRENT XENIA BUILDS CRASH ON STEAM DECK WHEN LOADING XBLA TITLES.</strong></h4>
+                </blockquote>
+                
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>sudo wget -q https://github.com/xenia-canary/xenia-canary/releases/tag/190cef9 -O ~/emulation/roms/xbox360/xenia_canary.exe</code></pre>
+                </div>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>3-b. UNLOCK FULL XBLA GAME ACCESS</summary>
+            <div class="details-content">
+                <h3>3-b. UNLOCK FULL XBLA GAME ACCESS</h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>BY DEFAULT XENIA REPORTS NO LICENSE FOR XBLA TITLES.</strong></p>
+                    <p><strong>NO LICENSE WILL CAUSE XBLA TITLES TO START IN DEMO MODE/ NOT AT ALL.</strong></p>
+                </blockquote>
+                
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>awk '{gsub(/license_mask = 0/, "license_mask = 1"); print}' xenia-canary.config.toml > xenia-canary.config.toml</code></pre>
+                </div>
+                
+                <p><strong>ABOVE CODE POSSIBLY REPLACES THIS:</strong></p>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>edit xenia-canary.config.toml inside ~/Emulation/roms/xbox360
+    
+change
+
+    [Content]
+    license_mask = 0
+
+to
+
+    [Content]
+    license_mask = 1</code></pre>
+                </div>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>4. INSTALLING HEROIC GAMES LAUNCHER</summary>
+            <div class="details-content">
+                <h3>4. INSTALLING HEROIC GAMES LAUNCHER</h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>HEROIC IS AN OPEN SOURCE LAUNCHER FOR EPIC AND GOG GAMES.</strong></p>
+                </blockquote>
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>flatpak install flathub com.heroicgameslauncher.hgl</code></pre>
+                </div>
+                <p>After installation, you can add the Heroic launcher as a non-Steam game to access it from gaming mode.</p>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>5. SETTING UP LUTRIS</summary>
+            <div class="details-content">
+                <h3>5. INSTALLING LUTRIS FOR ADDITIONAL GAME STORES AND LAUNCHERS</h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>LUTRIS IS AN OPEN SOURCE GAMING PLATFORM THAT HELPS YOU INSTALL AND MANAGE VARIOUS GAMES.</strong></p>
+                </blockquote>
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>flatpak install flathub net.lutris.Lutris</code></pre>
+                </div>
+                <p>Lutris can help manage games from various sources like Battle.net, Origin, Ubisoft Connect, and more.</p>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>6. SETTING UP CHIAKI FOR PS4/PS5 REMOTE PLAY</summary>
+            <div class="details-content">
+                <h3>6. INSTALLING CHIAKI FOR PLAYSTATION REMOTE PLAY</h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>CHIAKI IS AN OPEN SOURCE PLAYSTATION REMOTE PLAY CLIENT FOR LINUX.</strong></p>
+                </blockquote>
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>flatpak install flathub re.chiaki.Chiaki</code></pre>
+                </div>
+                <p>After installation, you'll need to register your PlayStation console with Chiaki to use Remote Play.</p>
+            </div>
+        </details>
+        
+        <details class="guide-section">
+            <summary>7. INSTALLING BOTTLES FOR WINDOWS APPLICATIONS</summary>
+            <div class="details-content">
+                <h3>7. SETTING UP BOTTLES FOR WINDOWS APPLICATIONS</h3>
+                
+                <blockquote class="explanation">
+                    <p><strong>BOTTLES ALLOWS YOU TO RUN WINDOWS SOFTWARE ON LINUX USING WINE IN A CONTAINERIZED ENVIRONMENT.</strong></p>
+                </blockquote>
+                <h6>COPY/ PASTE</h6>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+                    <pre><code>flatpak install flathub com.usebottles.bottles</code></pre>
+                </div>
+                <p>Bottles provides pre-configured environments for gaming, software development, and general application use.</p>
+            </div>
+        </details>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+node_modules/
+build/
+dist/
+src/assets/fonts/**
+temp-garbage/ 

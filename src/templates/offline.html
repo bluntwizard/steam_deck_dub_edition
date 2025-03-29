@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:;">
+    <title>Offline - Steam Deck DUB Edition</title>
+    <link rel="stylesheet" type="text/css" href="src/styles/theme.css">
+    <link rel="icon" type="image/svg+xml" href="sdde.svg">
+    <style>
+        :root {
+            --offline-icon-size: 5rem;
+            --container-width: 800px;
+            --container-padding: 2rem;
+            --border-radius: 8px;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Open Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .offline-container {
+            max-width: var(--container-width);
+            width: 90%;
+            padding: var(--container-padding);
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px var(--shadow-color);
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+        
+        .icon {
+            font-size: var(--offline-icon-size);
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .button {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.5rem;
+        }
+        
+        .button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .cached-content {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .cached-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        #cached-list {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+        
+        #cached-list li {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s;
+            border-radius: 4px;
+        }
+        
+        #cached-list li:hover {
+            background-color: var(--surface-color);
+        }
+        
+        #cached-list a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: block;
+        }
+        
+        #cached-list a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .theme-toggle-container {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+        
+        #theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--surface-color);
+            position: relative;
+        }
+        
+        .theme-toggle-dark,
+        .theme-toggle-light {
+            position: absolute;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        [data-theme="light"] .theme-toggle-dark,
+        [data-theme="dark"] .theme-toggle-light {
+            opacity: 0;
+            transform: scale(0);
+        }
+        
+        [data-theme="light"] .theme-toggle-light,
+        [data-theme="dark"] .theme-toggle-dark {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: var(--surface-color);
+            border-radius: 4px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            height: 8px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .status-message {
+            margin-top: 1rem;
+            font-style: italic;
+            color: var(--text-secondary-color);
+        }
+        
+        @media (max-width: 600px) {
+            .offline-container {
+                width: 95%;
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .icon {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle-container">
+        <button id="theme-toggle" aria-label="Toggle dark mode">
+            <span class="theme-toggle-dark">🌙</span>
+            <span class="theme-toggle-light">☀️</span>
+        </button>
+    </div>
+    
+    <div class="offline-container">
+        <div class="icon">📡</div>
+        <h1 id="offline-title">You're Offline</h1>
+        <p id="offline-message">Unfortunately, you're currently offline and we couldn't fetch the content you requested. However, you can still access previously visited pages from the cache.</p>
+        
+        <div>
+            <button class="button" id="retry-button">Retry Connection</button>
+            <button class="button" id="home-button">Go to Home</button>
+        </div>
+        
+        <div class="progress-container" id="connection-progress">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <p class="status-message" id="status-message">Checking connection status...</p>
+        
+        <div class="cached-content">
+            <h2 id="cached-title">Available Offline Pages</h2>
+            <p id="cached-subtitle">These pages have been cached and are available offline:</p>
+            <ul id="cached-list">
+                <li>Loading cached pages...</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Theme support
+        (function() {
+            // Get saved theme from localStorage or use system preference
+            function getThemePreference() {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    return savedTheme;
+                }
+                
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            
+            // Set theme on document and save to localStorage
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            }
+            
+            // Initialize with saved theme
+            const currentTheme = getThemePreference();
+            setTheme(currentTheme);
+            
+            // Toggle theme when button is clicked
+            const toggleButton = document.getElementById('theme-toggle');
+            if (toggleButton) {
+                toggleButton.addEventListener('click', function() {
+                    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                    setTheme(newTheme);
+                });
+            }
+            
+            // Listen for system theme changes
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            mediaQuery.addEventListener('change', e => {
+                if (!localStorage.getItem('theme')) {
+                    setTheme(e.matches ? 'dark' : 'light');
+                }
+            });
+        })();
+        
+        // Internationalization support
+        const translations = {
+            'en': {
+                'title': 'You\'re Offline',
+                'message': 'Unfortunately, you\'re currently offline and we couldn\'t fetch the content you requested. However, you can still access previously visited pages from the cache.',
+                'retry': 'Retry Connection',
+                'home': 'Go to Home',
+                'cached-title': 'Available Offline Pages',
+                'cached-subtitle': 'These pages have been cached and are available offline:',
+                'loading': 'Loading cached pages...',
+                'no-pages': 'No pages available offline yet. Visit some pages while online first.',
+                'error': 'Error loading cached pages. Please try again later.',
+                'no-support': 'Your browser does not support caching. Please go online to view content.',
+                'checking': 'Checking connection status...',
+                'connecting': 'Attempting to reconnect...',
+                'connected': 'Connection restored! Redirecting...',
+                'failed': 'Connection failed. Please try again later.'
+            },
+            'es': {
+                'title': 'Estás sin conexión',
+                'message': 'Desafortunadamente, estás sin conexión y no pudimos obtener el contenido solicitado. Sin embargo, aún puedes acceder a las páginas visitadas anteriormente desde la caché.',
+                'retry': 'Reintentar conexión',
+                'home': 'Ir al inicio',
+                'cached-title': 'Páginas disponibles sin conexión',
+                'cached-subtitle': 'Estas páginas han sido almacenadas en caché y están disponibles sin conexión:',
+                'loading': 'Cargando páginas en caché...',
+                'no-pages': 'Aún no hay páginas disponibles sin conexión. Visita algunas páginas mientras estás en línea primero.',
+                'error': 'Error al cargar las páginas en caché. Por favor, inténtalo de nuevo más tarde.',
+                'no-support': 'Tu navegador no admite el almacenamiento en caché. Por favor, conéctate para ver el contenido.',
+                'checking': 'Comprobando el estado de la conexión...',
+                'connecting': 'Intentando reconectar...',
+                'connected': '¡Conexión restaurada! Redirigiendo...',
+                'failed': 'Falló la conexión. Por favor, inténtalo de nuevo más tarde.'
+            }
+        };
+        
+        // Get user locale or default to English
+        const userLocale = (localStorage.getItem('locale') || navigator.language || 'en-US').split('-')[0];
+        const t = key => (translations[userLocale] && translations[userLocale][key]) || translations['en'][key];
+        
+        // Update UI with translations
+        document.getElementById('offline-title').textContent = t('title');
+        document.getElementById('offline-message').textContent = t('message');
+        document.getElementById('retry-button').textContent = t('retry');
+        document.getElementById('home-button').textContent = t('home');
+        document.getElementById('cached-title').textContent = t('cached-title');
+        document.getElementById('cached-subtitle').textContent = t('cached-subtitle');
+        document.getElementById('status-message').textContent = t('checking');
+        
+        // Get the cache version from the service worker
+        const CACHE_VERSION = '2'; // Default, will be updated from service worker if possible
+        const CONTENT_CACHE = `content-cache-v${CACHE_VERSION}`;
+        const STATIC_CACHE = `static-cache-v${CACHE_VERSION}`;
+        
+        // Handle retry connection button
+        document.getElementById('retry-button').addEventListener('click', checkConnection);
+        
+        // Handle home button
+        document.getElementById('home-button').addEventListener('click', function() {
+            window.location.href = '/';
+        });
+        
+        // Check connection on page load after a short delay
+        setTimeout(checkConnection, 1000);
+        
+        let connectionAttempts = 0;
+        const MAX_ATTEMPTS = 3;
+        
+        // Connection check function with progress bar
+        function checkConnection() {
+            const statusMessage = document.getElementById('status-message');
+            const progressBar = document.getElementById('progress-bar');
+            
+            statusMessage.textContent = t('connecting');
+            connectionAttempts++;
+            
+            // Reset and start progress animation
+            progressBar.style.width = '0%';
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 2;
+                progressBar.style.width = `${Math.min(progress, 95)}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                }
+            }, 100);
+            
+            // Try to fetch a small resource from the server
+            fetch('/sdde.svg', { method: 'HEAD', cache: 'no-store' })
+                .then(response => {
+                    clearInterval(progressInterval);
+                    progressBar.style.width = '100%';
+                    
+                    if (response.ok) {
+                        statusMessage.textContent = t('connected');
+                        
+                        // Redirect back to the home page after a short delay
+                        setTimeout(() => {
+                            window.location.href = '/';
+                        }, 1500);
+                    } else {
+                        handleConnectionFailure(statusMessage);
+                    }
+                })
+                .catch(() => {
+                    clearInterval(progressInterval);
+                    progressBar.style.width = '0%';
+                    handleConnectionFailure(statusMessage);
+                });
+        }
+        
+        function handleConnectionFailure(statusMessage) {
+            if (connectionAttempts >= MAX_ATTEMPTS) {
+                statusMessage.textContent = t('failed');
+            } else {
+                statusMessage.textContent = `${t('failed')} (${connectionAttempts}/${MAX_ATTEMPTS})`;
+            }
+        }
+        
+        // List available cached pages
+        if ('caches' in window) {
+            // Check all caches for available content
+            Promise.all([
+                caches.open(`content-cache-v${CACHE_VERSION}`).then(cache => cache.keys()),
+                caches.open(`static-cache-v${CACHE_VERSION}`).then(cache => cache.keys())
+            ])
+            .then(results => {
+                const [contentKeys, staticKeys] = results;
+                const cachedList = document.getElementById('cached-list');
+                const allKeys = [...contentKeys, ...staticKeys];
+                
+                if (allKeys.length === 0) {
+                    cachedList.innerHTML = `<li>${t('no-pages')}</li>`;
+                    return;
+                }
+                
+                // Clear loading message
+                cachedList.innerHTML = '';
+                
+                // Add home page first if available
+                const homeRequest = allKeys.find(request => 
+                    request.url.endsWith('/') || 
+                    request.url.endsWith('/index.html')
+                );
+                
+                if (homeRequest) {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = homeRequest.url;
+                    a.textContent = 'Home';
+                    li.appendChild(a);
+                    cachedList.appendChild(li);
+                }
+                
+                // Filter to HTML pages and sort alphabetically
+                const htmlPages = allKeys.filter(request => 
+                    request.url.endsWith('.html') && 
+                    !request.url.endsWith('/index.html') &&
+                    !request.url.endsWith('/offline.html')
+                ).sort((a, b) => a.url.localeCompare(b.url));
+                
+                // Process and display cached pages
+                htmlPages.forEach(request => {
+                    const url = new URL(request.url);
+                    const pathname = url.pathname;
+                    
+                    // Skip service worker and non-html files
+                    if (pathname.includes('service-worker.js') || 
+                        !pathname.endsWith('.html')) {
+                        return;
+                    }
+                    
+                    // Extract a friendly name from the path
+                    let pageName = pathname.split('/').pop().replace('.html', '');
+                    pageName = pageName.replace(/-/g, ' ').replace(/_/g, ' ');
+                    
+                    // Capitalize words
+                    pageName = pageName.split(' ').map(word => 
+                        word.charAt(0).toUpperCase() + word.slice(1)
+                    ).join(' ');
+                    
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = pathname;
+                    a.textContent = pageName;
+                    li.appendChild(a);
+                    cachedList.appendChild(li);
+                });
+                
+                // If no HTML pages found after filtering
+                if (cachedList.children.length === 0) {
+                    cachedList.innerHTML = `<li>${t('no-pages')}</li>`;
+                }
+            })
+            .catch(function(error) {
+                console.error('Error listing cached pages:', error);
+                document.getElementById('cached-list').innerHTML = 
+                    `<li>${t('error')}</li>`;
+            });
+        } else {
+            document.getElementById('cached-list').innerHTML = 
+                `<li>${t('no-support')}</li>`;
+        }
+    </script>
+</body>
+</html>

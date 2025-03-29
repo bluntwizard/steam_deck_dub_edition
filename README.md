@@ -1,5 +1,5 @@
 <div style="width: 100%;">
-    <img src="sdde.svg" style="width: 100%;">
+    <img src="src/assets/images/sdde.svg" style="width: 100%;">
 </div>
 
 
@@ -7,7 +7,7 @@
 
 # <p align="center"> THE DEFINITIVE GUIDE </p>
 
-# <p align="center"><img src="https://raw.githubusercontent.com/bluntwizard/steam_deck_dub_edition/f9e102fc2dec0f986433a9f33ff7bbbb05cb9d6d/Steam_Deck_colored_logo.svg" alt="alt text" width="25%" height="25%"><img src="https://github.com/bluntwizard/steam_deck_dub_edition/blob/main/dub_edition.png?raw=true" alt="alt text" width="20%" height="20%"> EDITION </p>
+# <p align="center"><img src="src/assets/images/Steam_Deck_colored_logo.svg" alt="alt text" width="25%" height="25%"><img src="src/assets/images/dub_edition.png" alt="alt text" width="20%" height="20%"> EDITION </p>
 
 > ### <p align="center">"THROW SOME D'S ON THAT BITCH."</p>
 
@@ -507,5 +507,42 @@ HEROIC LAUNCHER
 ```
 
 ------
+
+------
+
+## FOR DEVELOPERS
+
+The codebase has been reorganized for better maintainability. See [CONSOLIDATION.md](docs/CONSOLIDATION.md) for details on the code structure.
+
+### Project Structure
+
+- `src/` - Source code
+  - `styles/` - CSS files
+  - `components/` - UI components
+  - `js/` - JavaScript files
+  - `assets/` - Images, icons, and other assets
+  - `templates/` - HTML templates
+- `scripts/` - Utility scripts
+- `docs/` - Documentation
+- `config/` - Configuration files
+
+### Quick Commands
+
+```bash
+# Start the app
+npm start
+
+# Development mode
+npm run dev
+
+# Fix CSS issues
+npm run fix:css
+
+# Fix all issues
+npm run fix:all
+
+# Run tests
+npm test
+```
 
 ------

@@ -1,0 +1,29 @@
+
+<!-- Before (problematic) -->
+<!--
+<div class="section" id="section-example">
+    <h2>SECTION EXAMPLE</h2>
+    <p class="section-description"><strong><code>THIS TEXT MIGHT NOT BE COLORED CORRECTLY</code></strong></p>
+</div>
+-->
+
+<!-- After (fixed) -->
+<div class="section" id="section-example">
+    <h2>SECTION EXAMPLE</h2>
+    <p class="section-description"><strong><code>THIS TEXT WILL BE COLORED CORRECTLY</code></strong></p>
+    <hr>
+    
+    <div class="section-content">
+        <!-- Content goes here -->
+        <p>This text will inherit the proper theme colors from the parent elements.</p>
+        
+        <blockquote class="explanation">
+            <p><strong>This is an explanation that will have the correct colors.</strong></p>
+        </blockquote>
+        
+        <div class="code-block">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code>echo "This code will have the correct syntax highlighting"</code></pre>
+        </div>
+    </div>
+</div>

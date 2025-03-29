@@ -1,0 +1,324 @@
+/**
+* Print styles for the Steam Deck DUB Edition Guide
+* Optimizes the guide for printing with clean, readable formatting
+*/
+
+@media print {
+/* Reset body for printing */
+  html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+    font-family: Georgia, serif;
+    line-height: 1.5;
+  }
+
+/* Hide elements that don't need to be printed */
+  .background-container,
+  .sidebar,
+  .toggle-sidebar,
+  .back-to-top,
+  .search-container,
+  .skip-to-content,
+  .copy-button,
+  .scroll-progress,
+  .offline-banner,
+  .cache-status-button,
+  .status-notification,
+  .update-notification,
+  .keyboard-shortcuts-help {
+    display: none !important;
+  }
+
+/* Layout adjustments */
+  .page-container {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+  }
+
+  .main-content {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible;
+    float: none;
+    display: block;
+    box-shadow: none;
+    transform: none;
+  }
+
+/* Style for sections */
+  .section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin: 2em 0;
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+  }
+
+/* Force section headers to not break */
+  h1, h2, h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+    orphans: 3px;
+    widows: 3px;
+  }
+
+/* Style section headings for print */
+  h1 {
+    font-size: 24pt;
+    margin-top: 3em;
+    margin-bottom: 1em;
+    text-align: center;
+    border-bottom: 1pt solid #000;
+    padding-bottom: 0.5em;
+  }
+
+  h2 {
+    font-size: 18pt;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    border-bottom: 0.5pt solid #444;
+    padding-bottom: 0.25em;
+  }
+
+  h3 {
+    font-size: 14pt;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+/* Ensure details elements are expanded when printing */
+  details.guide-section {
+    display: block;
+  }
+
+  details.guide-section[open] .details-content,
+  details.guide-section .details-content {
+    display: block !important;
+    height: auto !important;
+    opacity: 1 !important;
+  }
+
+  details.guide-section > summary {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    padding: 0;
+    background: none;
+    display: list-item;
+    list-style-position: outside;
+  }
+
+  details.guide-section > summary::before {
+    color: black;
+  }
+
+/* Style for links */
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+    word-wrap: break-word;
+  }
+
+/* Add URL after links for better reference */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 90%;
+    font-style: italic;
+  }
+
+/* Don't add URL for internal links */
+  a[href^="#"]::after {
+    content: "";
+  }
+
+/* Format code blocks */
+  .code-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin: 1em 0;
+    padding: 0.5em;
+    border: 1pt solid #ccc;
+    background-color: #f8f8f8 !important;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Courier New', monospace;
+    font-size: 10pt;
+    line-height: 1.4;
+  }
+
+  .code-block pre {
+    margin: 0;
+    white-space: pre-wrap;
+    overflow-x: visible;
+  }
+
+  .code-block code {
+    color: #000 !important;
+    background: none;
+    white-space: pre-wrap;
+  }
+
+/* Remove max-height limitation for code blocks */
+  .code-block.expandable,
+  .code-block.expanded {
+    max-height: none !important;
+  }
+
+  .code-block.expandable::after {
+    display: none;
+  }
+
+/* Style tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  table th,
+  table td {
+    padding: 0.5em;
+    text-align: left;
+    border: 1pt solid #ccc;
+  }
+
+  table th {
+    font-weight: bold;
+    background-color: #f0f0f0 !important;
+  }
+
+/* Adjust images */
+  img, svg {
+    max-width: 100%;
+    height: auto;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+/* Style for notes and warnings */
+  .note,
+  .warning-text,
+  .action-text,
+  .instruction,
+  .explanation {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    padding: 0.5em;
+    margin: 1em 0;
+    border: 1pt solid #ccc;
+  }
+
+  .note {
+    font-style: italic;
+    background-color: #f0f0f0 !important;
+  }
+
+  .warning-text {
+    border-left: 4pt solid #c00;
+    padding-left: 1em;
+  }
+
+  .instruction, .explanation {
+    border-left: 4pt solid #aaa;
+    padding-left: 1em;
+    background-color: #f8f8f8 !important;
+  }
+
+/* Glossary list styling */
+  .glossary-list dt {
+    font-weight: bold;
+    margin-top: 1em;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .glossary-list dd {
+    margin-left: 2em;
+    margin-bottom: 0.5em;
+  }
+
+/* Plugin and flatpak lists */
+  .plugin-list li,
+  .flatpak-list li,
+  .plugin-recommendation-list li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+/* Cards grid converted to linear list */
+  .card-grid {
+    display: block;
+  }
+
+  .card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin: 1em 0;
+    padding: 0.5em;
+    border: 1pt solid #ccc;
+    background: none !important;
+    box-shadow: none;
+  }
+
+/* Set page margins and other print-specific properties */
+  @page {
+    margin: 2cm;
+    size: a4;
+  }
+
+/* Add page numbers */
+/* Duplicate selector (first used on line 277): @page */
+  @bottom-center {
+    content: "Page " counter(page);
+  }
+}
+
+/* Add header with title */
+/* Duplicate selector (first used on line 277): @page */
+  @top-center {
+    content: "Steam Deck DUB Edition Guide";
+    font-family: Georgia, serif;
+    font-size: 10pt;
+  }
+
+/* First page should have no header */
+  @page:first {
+/* Duplicate selector (first used on line 291): @top-center */
+    content: "";
+  }
+
+/* Add space for binding */
+  @page:left {
+    margin-right: 1.5cm;
+  }
+
+  @page:right {
+    margin-left: 1.5cm;
+  }
+
+/* Add title page */
+  body::before {
+    content: "Steam Deck DUB Edition Guide";
+    display: block;
+    text-align: center;
+    font-size: 24pt;
+    font-weight: bold;
+    margin: 3cm 0 1cm;
+    page-break-after: always;
+  }
+}
+}
+}

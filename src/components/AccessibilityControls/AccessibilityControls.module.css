@@ -1,0 +1,274 @@
+/**
+* Accessibility Controls Stylesheet
+* For Steam Deck DUB Edition
+*/
+
+/* Accessibility Panel */
+.accessibility-panel {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 300px;
+  background-color: var(--bg-color, #fff);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  overflow: hidden;
+  display: none;
+}
+
+/* Accessibility Header */
+.accessibility-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: var(--primary-color, #1a73e8);
+  color: white;
+  border-bottom: 1px solid var(--border-color, #ddd);
+}
+
+.accessibility-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Accessibility Options Container */
+.accessibility-options {
+  padding: 15px;
+}
+
+/* Settings Groups */
+.option-group {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color, #ddd);
+}
+
+.option-group:last-child { 
+  border-bottom: none;
+}
+
+/* Settings Labels */
+.option-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-color, #333);
+}
+
+/* Settings Descriptions */
+.settings-description {
+  margin-bottom: 1rem;
+  color: var(--text-secondary, #666);
+  font-size: 0.9em;
+}
+
+/* Button Groups */
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Size and Spacing Buttons */
+.btn-size,
+.btn-spacing {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color, #ddd);
+  background-color: var(--bg-secondary, #f5f5f5);
+  color: var(--text-color, #333);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-size:hover,
+.btn-spacing:hover { 
+  background-color: var(--bg-hover, #e9e9e9);
+}
+
+.btn-size.active,
+.btn-spacing.active {
+  background-color: var(--primary-color, #1a73e8);
+  color: white;
+  border-color: var(--primary-color, #1a73e8);
+}
+
+/* Toggle Switch Container */
+.toggle-switch-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Toggle Status Text */
+.toggle-status { 
+  color: var(--text-secondary, #666);
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #ccc;
+  transition: .4s;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked + .slider { 
+  background-color: var(--primary-color, #1a73e8);
+}
+
+input:focus + .slider { 
+  box-shadow: 0 0 1px var(--primary-color, #1a73e8);
+}
+
+input:checked + .slider::before { 
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round { 
+  border-radius: 34px;
+}
+
+.slider.round::before { 
+  border-radius: 50%;
+}
+
+/* Reset Button */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.btn-secondary {
+  padding: 0.6rem 1.2rem;
+  background-color: var(--secondary-color, #f1f1f1);
+  color: var(--text-color, #333);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover { 
+  background-color: var(--secondary-color-hover, #e5e5e5);
+}
+
+/* High Contrast Mode Styles */
+:global(html.high-contrast) .option-group label { 
+  color: var(--high-contrast-text, #000);
+}
+
+:global(html.high-contrast) .settings-description { 
+  color: var(--high-contrast-text-secondary, #333);
+}
+
+:global(html.high-contrast) .btn-size:not(.active),
+:global(html.high-contrast) .btn-spacing:not(.active) {
+  border-color: var(--high-contrast-border, #000);
+  color: var(--high-contrast-text, #000);
+}
+
+:global(html.high-contrast) .btn-secondary {
+  border-color: var(--high-contrast-border, #000);
+  color: var(--high-contrast-text, #000);
+}
+
+/* Accessibility Toggle Button */
+.accessibility-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: var(--primary-color, #1a73e8);
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.5rem;
+  position: relative;
+}
+
+.accessibility-toggle:hover,
+.accessibility-toggle:focus {
+  background-color: var(--primary-color-hover, #1967d2);
+  transform: scale(1.05);
+}
+
+.accessibility-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.4);
+}
+
+/* Visually hidden class for screen readers */
+:global(.visually-hidden) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .accessibility-panel {
+    top: 60px;
+    right: 10px;
+    width: calc(100% - 20px);
+    max-width: 300px;
+  }
+
+  .toggle-switch-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-size,
+  .btn-spacing {
+    width: 100%;
+    text-align: center;
+  }
+} 
