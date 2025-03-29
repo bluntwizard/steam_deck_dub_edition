@@ -11,6 +11,7 @@ The Steam Deck DUB Edition (SDDE) is a project aimed at creating a modern, modul
 - **Modular Components**: Dialog, PageLoader, NotificationSystem, ErrorHandler, and HelpCenter
 - **Consistent Design**: Unified styling system across all components
 - **Accessibility**: Built with a11y best practices in mind
+- **Progressive Web App**: Offline support and installable on mobile and desktop
 - **Documentation**: Comprehensive guides with visual examples
 - **Testing**: Unit tests and end-to-end testing
 
@@ -60,6 +61,16 @@ npm run dev
 ```
 
 And visit `http://localhost:3000/examples/` in your browser.
+
+## Progressive Web App Features
+
+SDDE can be installed as a Progressive Web App on desktop and mobile devices, offering:
+
+- **Offline Access**: Continue using the app without an internet connection
+- **Desktop Installation**: Install on your computer for quick access
+- **Mobile Support**: Use on Android and iOS devices
+- **Automatic Updates**: Receive notifications when new versions are available
+- **Background Sync**: Synchronize data when coming back online
 
 ## Documentation
 
