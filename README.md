@@ -508,41 +508,30 @@ HEROIC LAUNCHER
 
 ------
 
-------
+## Building for Different Platforms
 
-## FOR DEVELOPERS
+Steam Deck DUB Edition can be built for Windows, macOS, and Linux platforms:
 
-The codebase has been reorganized for better maintainability. See [CONSOLIDATION.md](docs/CONSOLIDATION.md) for details on the code structure.
+### Prerequisites
 
-### Project Structure
+- Node.js 16+ and npm
+- For icon generation: ImageMagick (`sudo apt install imagemagick` on Linux, `brew install imagemagick` on macOS)
+- For macOS builds: A macOS machine is recommended for proper .icns file creation
 
-- `src/` - Source code
-  - `styles/` - CSS files
-  - `components/` - UI components
-  - `js/` - JavaScript files
-  - `assets/` - Images, icons, and other assets
-  - `templates/` - HTML templates
-- `scripts/` - Utility scripts
-- `docs/` - Documentation
-- `config/` - Configuration files
+### Build Commands
 
-### Quick Commands
-
-```bash
-# Start the app
-npm start
-
-# Development mode
-npm run dev
-
-# Fix CSS issues
-npm run fix:css
-
-# Fix all issues
-npm run fix:all
-
-# Run tests
-npm test
+Build for all platforms:
 ```
+npm run build
+```
+
+Build for specific platforms:
+```
+npm run build:win    # Windows (.exe, portable)
+npm run build:mac    # macOS (.dmg)
+npm run build:linux  # Linux (.AppImage, .deb)
+```
+
+The built applications will be located in the `dist` directory.
 
 ------
