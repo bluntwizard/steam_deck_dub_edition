@@ -68,4 +68,46 @@
 
 .shortcutKey + .shortcutKey {
   margin-left: 0.25em;
+}
+
+/* Help Button */
+.helpButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: var(--text-inverse);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: var(--z-index-floating);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.helpButton:hover {
+  transform: scale(1.1);
+  background-color: var(--primary-color-hover);
+}
+
+.helpButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.3);
+}
+
+@media (max-width: 768px) {
+  .helpButton {
+    bottom: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+  }
 } 
