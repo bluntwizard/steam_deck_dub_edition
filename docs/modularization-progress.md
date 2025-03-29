@@ -65,9 +65,9 @@ This document tracks the progress of modularizing the Steam Deck DUB Edition cod
 | Asset optimization | ❌ | Optimize images, fonts, and other assets |
 | Bundle size monitoring | ❌ | Track and manage bundle size over time |
 | **CI/CD Pipeline** |  |  |
-| Automated testing | ❌ | Run component tests on commit/PR |
-| Deployment workflow | ❌ | Automate build and deployment process |
-| Version management | ❌ | Semantic versioning for components |
+| Automated testing | ✅ | GitHub Actions workflow for automated tests on PR/commit |
+| Deployment workflow | ✅ | Automated build and deployment to staging/production |
+| Version management | ✅ | Semantic versioning with automated changelog |
 | **Internationalization (i18n)** |  |  |
 | Translation framework | ⚠️ | Basic structure in place, needs expansion |
 | RTL language support | ❌ | Ensure layout works for RTL languages |
