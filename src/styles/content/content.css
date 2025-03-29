@@ -2,58 +2,39 @@
  * Steam Deck DUB Edition
  * Content Base Styles
  * 
- * Shared styles for all content sections
+ * This file contains base styles for content sections of the guide.
  */
 
-/* Base Content Containers */
 .content-section {
-  margin-bottom: 3rem;
-  padding: 1.5rem;
-  border-radius: var(--border-radius);
-  background-color: var(--background-secondary);
+  padding: var(--spacing-md);
+  color: var(--text-body);
+  line-height: var(--line-height-normal);
+  max-width: var(--container-max-width);
+  margin: 0 auto;
 }
 
-/* Content Typography */
-.content-section h1 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin-bottom: 1.5rem;
-  color: var(--text-heading);
-}
-
-.content-section h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 2rem 0 1rem;
-  color: var(--text-heading);
-}
-
-.content-section h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 1.5rem 0 0.75rem;
-  color: var(--text-subheading);
-}
-
-.content-section h4 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: 1.25rem 0 0.5rem;
-  color: var(--text-subheading);
-}
-
+/* Typography */
+.content-section h1, 
+.content-section h2, 
+.content-section h3, 
+.content-section h4, 
 .content-section h5, 
 .content-section h6 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 1rem 0 0.5rem;
-  color: var(--text-subheading);
+  color: var(--text-heading);
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
+  font-weight: var(--font-weight-bold);
 }
 
+.content-section h1 { font-size: var(--font-size-4xl); }
+.content-section h2 { font-size: var(--font-size-3xl); }
+.content-section h3 { font-size: var(--font-size-2xl); }
+.content-section h4 { font-size: var(--font-size-xl); }
+.content-section h5 { font-size: var(--font-size-lg); }
+.content-section h6 { font-size: var(--font-size-base); }
+
 .content-section p {
-  margin-bottom: 1rem;
-  line-height: 1.6;
-  color: var(--text-body);
+  margin-bottom: var(--spacing-md);
 }
 
 .content-section a {
@@ -67,133 +48,112 @@
   text-decoration: underline;
 }
 
-.content-section strong {
-  font-weight: 600;
+.content-section strong, 
+.content-section b {
   color: var(--text-strong);
+  font-weight: var(--font-weight-bold);
 }
 
-.content-section em {
+.content-section em, 
+.content-section i {
   font-style: italic;
 }
 
-.content-section code {
-  font-family: var(--font-mono);
-  font-size: 0.9em;
-  padding: 0.2em 0.4em;
-  border-radius: 3px;
-  background-color: var(--background-code);
-  color: var(--text-code);
-}
-
-/* Content Lists */
+/* Lists */
 .content-section ul,
 .content-section ol {
-  margin: 1rem 0 1.5rem 1.5rem;
-  line-height: 1.6;
-}
-
-.content-section ul {
-  list-style-type: disc;
-}
-
-.content-section ol {
-  list-style-type: decimal;
+  margin: var(--spacing-md) 0;
+  padding-left: var(--spacing-lg);
 }
 
 .content-section li {
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing-xs);
 }
 
-.content-section li > ul,
-.content-section li > ol {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+.content-section ul li {
+  list-style-type: disc;
 }
 
-/* Content Blockquotes */
-.content-section blockquote {
-  border-left: 4px solid var(--border-blockquote);
-  padding: 0.5rem 1rem;
-  margin: 1.5rem 0;
-  background-color: var(--background-blockquote);
-  color: var(--text-blockquote);
+.content-section ol li {
+  list-style-type: decimal;
 }
 
-.content-section blockquote p {
-  margin-bottom: 0;
-}
-
-/* Content Dividers */
-.content-section hr {
-  margin: 2rem 0;
-  border: 0;
-  height: 1px;
-  background-color: var(--border-color);
-}
-
-/* Content Tables */
+/* Tables */
 .content-section table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.5rem 0;
-}
-
-.content-section th,
-.content-section td {
-  padding: 0.75rem;
+  margin: var(--spacing-md) 0;
   border: 1px solid var(--border-color);
-  text-align: left;
+  border-radius: var(--border-radius);
+  overflow: hidden;
 }
 
 .content-section th {
   background-color: var(--background-table-header);
-  font-weight: 600;
   color: var(--text-table-header);
+  font-weight: var(--font-weight-semibold);
+  text-align: left;
+  padding: var(--spacing-sm);
+}
+
+.content-section td {
+  padding: var(--spacing-sm);
+  border-top: 1px solid var(--border-color);
 }
 
 .content-section tr:nth-child(even) {
   background-color: var(--background-table-alternate);
 }
 
-/* Media Content */
+/* Blockquotes */
+.content-section blockquote {
+  margin: var(--spacing-md) 0;
+  padding: var(--spacing-md);
+  border-left: 4px solid var(--border-blockquote);
+  background-color: var(--background-blockquote);
+  color: var(--text-blockquote);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.content-section blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Images */
 .content-section img {
   max-width: 100%;
   height: auto;
   border-radius: var(--border-radius);
-  margin: 1.5rem 0;
+  margin: var(--spacing-md) 0;
 }
 
-.content-section figure {
-  margin: 1.5rem 0;
+/* Inline Code */
+.content-section code {
+  font-family: var(--font-mono);
+  background-color: var(--background-code);
+  color: var(--text-code);
+  padding: 0.2em 0.4em;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.9em;
 }
 
-.content-section figcaption {
-  font-size: 0.9rem;
-  text-align: center;
-  margin-top: 0.5rem;
-  color: var(--text-secondary);
-}
-
-/* Mobile Responsive Adjustments */
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .content-section {
-    padding: 1rem;
-  }
-  
-  .content-section h1 {
-    font-size: 2rem;
-  }
-  
-  .content-section h2 {
-    font-size: 1.75rem;
-  }
-  
-  .content-section h3 {
-    font-size: 1.35rem;
+    padding: var(--spacing-sm);
   }
   
   .content-section table {
     display: block;
     overflow-x: auto;
   }
+}
+
+@media (max-width: 480px) {
+  .content-section h1 { font-size: var(--font-size-3xl); }
+  .content-section h2 { font-size: var(--font-size-2xl); }
+  .content-section h3 { font-size: var(--font-size-xl); }
+  .content-section h4 { font-size: var(--font-size-lg); }
+  .content-section h5 { font-size: var(--font-size-base); }
+  .content-section h6 { font-size: var(--font-size-sm); }
 } 

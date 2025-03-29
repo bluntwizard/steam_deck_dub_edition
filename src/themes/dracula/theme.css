@@ -111,6 +111,97 @@
 --status-warning: var(--dracula-yellow);
 --status-error: var(--dracula-red);
 --status-info: var(--dracula-cyan);
+
+/* Theme Base */
+--background: var(--dracula-background);
+--background-lighter: var(--dracula-background-lighter);
+--background-darker: var(--dracula-background-darker);
+--background-secondary: var(--dracula-current);
+--border: var(--dracula-comment);
+--border-light: rgba(98, 114, 164, 0.2);
+--border-dark: rgba(98, 114, 164, 0.4);
+--text: var(--dracula-foreground);
+--text-muted: var(--dracula-comment);
+--text-inverse: var(--dracula-background);
+--text-link: var(--dracula-cyan);
+--text-link-hover: var(--dracula-purple);
+--heading: var(--dracula-purple);
+--primary: var(--dracula-purple);
+--secondary: var(--dracula-cyan);
+--accent: var(--dracula-pink);
+--success: var(--dracula-green);
+--warning: var(--dracula-orange);
+--error: var(--dracula-red);
+--info: var(--dracula-cyan);
+
+/* Interface Elements */
+--button-primary-bg: var(--dracula-purple);
+--button-primary-text: var(--dracula-foreground);
+--button-primary-hover: #a78bfa;
+--button-secondary-bg: var(--dracula-current);
+--button-secondary-text: var(--dracula-foreground);
+--button-secondary-hover: #4a4d5a;
+--input-bg: var(--dracula-background-lighter);
+--input-text: var(--dracula-foreground);
+--input-border: var(--dracula-comment);
+--input-focus: var(--dracula-purple);
+
+/* Code Highlighting */
+--code-bg: var(--dracula-current);
+--code-text: var(--dracula-foreground);
+--code-keyword: var(--dracula-pink);
+--code-string: var(--dracula-yellow);
+--code-comment: var(--dracula-comment);
+--code-function: var(--dracula-green);
+--code-number: var(--dracula-purple);
+--code-operator: var(--dracula-foreground);
+--code-class: var(--dracula-cyan);
+--code-variable: var(--dracula-orange);
+
+/* Typography */
+--font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+--font-family-code: 'Fira Code', 'Courier New', monospace;
+--font-size-base: 16px;
+--line-height: 1.5;
+--font-weight-normal: 400;
+--font-weight-medium: 500;
+--font-weight-semibold: 600;
+--font-weight-bold: 700;
+
+/* Border Radius */
+--border-radius-sm: 4px;
+--border-radius-md: 6px;
+--border-radius-lg: 8px;
+--border-radius-xl: 12px;
+--border-radius-full: 9999px;
+
+/* Focus & Selection */
+--focus-ring: var(--dracula-purple);
+--focus-ring-transparent: rgba(189, 147, 249, 0.3);
+--selection-bg: var(--dracula-selection);
+--selection-text: var(--dracula-foreground);
+
+/* Content-specific variables */
+--primary-rgb: 189, 147, 249; /* dracula-purple in RGB */
+--border-blockquote: var(--dracula-purple);
+--background-blockquote: var(--dracula-background-lighter);
+--text-blockquote: var(--dracula-foreground);
+--background-code-block: var(--dracula-current);
+--border-color-code: var(--dracula-comment);
+--background-code-header: var(--dracula-background-darker);
+--text-code-title: var(--dracula-foreground);
+--background-terminal: var(--dracula-background-darker);
+--text-terminal: var(--dracula-foreground);
+--border-color-terminal: var(--dracula-comment);
+--background-command: var(--dracula-background-darker);
+--border-color-command: var(--dracula-comment);
+--text-command: var(--dracula-foreground);
+--background-code-language: var(--dracula-pink);
+--text-code-language: var(--dracula-background);
+--background-table-header: var(--dracula-current);
+--text-table-header: var(--dracula-foreground);
+--background-table-alternate: var(--dracula-background-lighter);
+--syntax-punctuation: var(--dracula-foreground);
 }
 
 /* ========== Base Styles ========== */

@@ -1,196 +1,196 @@
 /**
  * Steam Deck DUB Edition
- * Guide Section Styles
+ * Guide Sections Styles
  * 
- * Styles for guide sections with collapsible details
+ * This file contains styles for the collapsible guide sections
+ * and related elements.
  */
 
-/* Section Base */
-.section {
-  margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.section:last-child {
-  border-bottom: none;
-}
-
-.section h2 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--text-heading);
-  margin-bottom: 1rem;
-}
-
-.section-description {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-bottom: 1.5rem;
-}
-
-.section-content {
-  margin-top: 1.5rem;
-}
-
-/* Collapsible Guide Sections */
-details.guide-section {
-  margin-bottom: 1.5rem;
+/* Guide Section Container */
+.guide-section {
+  margin-bottom: var(--spacing-lg);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
+  overflow: hidden;
   background-color: var(--background-secondary);
+}
+
+/* Section Header */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: var(--background-secondary);
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+}
+
+.section-header:hover {
+  background-color: var(--background-lighter);
+}
+
+.section-title {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-heading);
+}
+
+.section-icon {
+  transition: transform 0.3s ease;
+}
+
+.section-header[aria-expanded="true"] .section-icon {
+  transform: rotate(180deg);
+}
+
+/* Section Content */
+.section-content {
+  padding: var(--spacing-md);
+  background-color: var(--background-color);
+}
+
+/* Collapsible Details */
+details.guide-details {
+  margin: var(--spacing-md) 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
   overflow: hidden;
 }
 
-details.guide-section[open] {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+details.guide-details summary {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--background-secondary);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-details.guide-section > summary {
+details.guide-details summary::after {
+  content: "▼";
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+}
+
+details.guide-details[open] summary::after {
+  transform: rotate(180deg);
+}
+
+details.guide-details summary:hover {
+  background-color: var(--background-lighter);
+}
+
+details.guide-details .details-content {
+  padding: var(--spacing-md);
+  background-color: var(--background-color);
+}
+
+/* Instruction Block */
+.instruction-block {
+  background-color: var(--background-lighter);
+  border-left: 4px solid var(--primary);
+  padding: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.instruction-title {
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-heading);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.instruction-block ul {
+  padding-left: var(--spacing-md);
+  margin: var(--spacing-sm) 0;
+}
+
+/* Note Block */
+.note-block {
+  background-color: var(--background-lighter);
+  border-left: 4px solid var(--info);
+  padding: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.note-title {
+  color: var(--info);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+/* Warning Block */
+.warning-block {
+  background-color: var(--background-lighter);
+  border-left: 4px solid var(--warning);
+  padding: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.warning-title {
+  color: var(--warning);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+/* Step-by-Step Guide */
+.steps-list {
+  counter-reset: steps-counter;
+  list-style-type: none;
+  padding-left: 0;
+  margin: var(--spacing-md) 0;
+}
+
+.steps-list li {
+  position: relative;
+  padding-left: 2.5rem;
+  margin-bottom: var(--spacing-md);
+  min-height: 2rem;
+}
+
+.steps-list li::before {
+  content: counter(steps-counter);
+  counter-increment: steps-counter;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--primary);
+  color: var(--text-inverse);
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  padding: 1rem;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: var(--text-subheading);
-  background-color: var(--background-summary);
-  transition: background-color 0.2s ease;
-  position: relative;
-  list-style: none;
+  justify-content: center;
+  font-weight: var(--font-weight-semibold);
 }
 
-details.guide-section > summary::-webkit-details-marker {
-  display: none;
-}
-
-details.guide-section > summary::before {
-  content: "▶";
-  font-size: 0.8rem;
-  margin-right: 0.75rem;
-  color: var(--text-accent);
-  transition: transform 0.2s ease;
-}
-
-details.guide-section[open] > summary::before {
-  content: "▼";
-  transform: rotate(0deg);
-}
-
-details.guide-section > summary:hover {
-  background-color: var(--background-summary-hover);
-}
-
-details.guide-section .details-content {
-  padding: 1.5rem;
-  border-top: 1px solid var(--border-color-light);
-}
-
-/* Guide Section Headers */
-.guide-section h3 {
-  font-size: 1.35rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--text-subheading);
-}
-
-.guide-section h4 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin: 1.5rem 0 0.75rem;
-  color: var(--text-subheading);
-}
-
-.guide-section h5, 
-.guide-section h6 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 1.25rem 0 0.5rem;
-  color: var(--text-subheading);
-}
-
-/* Guide Section Typography */
-.guide-section p {
-  margin-bottom: 1rem;
-  line-height: 1.6;
-}
-
-.guide-section a {
-  color: var(--text-link);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.guide-section a:hover {
-  color: var(--text-link-hover);
-  text-decoration: underline;
-}
-
-/* Instruction Blocks */
-.instruction {
-  background-color: var(--background-instruction);
-  border-left: 4px solid var(--border-instruction);
-  padding: 1rem;
-  margin: 1.5rem 0;
-  border-radius: 0 var(--border-radius) var(--border-radius) 0;
-}
-
-.instruction h4 {
-  margin-top: 0;
-  color: var(--text-instruction-heading);
-}
-
-.instruction p {
-  margin-bottom: 0.5rem;
-  color: var(--text-instruction);
-}
-
-.instruction p:last-child {
-  margin-bottom: 0;
-}
-
-/* Warning and Note Blocks */
-.warning-block {
-  background-color: var(--background-warning);
-  border-left: 4px solid var(--border-warning);
-  padding: 1rem;
-  margin: 1.5rem 0;
-  border-radius: 0 var(--border-radius) var(--border-radius) 0;
-}
-
-.note-block {
-  background-color: var(--background-note);
-  border-left: 4px solid var(--border-note);
-  padding: 1rem;
-  margin: 1.5rem 0;
-  border-radius: 0 var(--border-radius) var(--border-radius) 0;
-}
-
-/* Mobile Adjustments */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .section h2 {
-    font-size: 1.5rem;
+  .guide-section {
+    margin-bottom: var(--spacing-md);
   }
   
-  .section-description {
-    font-size: 1rem;
+  .section-header {
+    padding: var(--spacing-sm);
   }
   
-  details.guide-section > summary {
-    padding: 0.75rem;
-    font-size: 1rem;
+  .section-content {
+    padding: var(--spacing-sm);
   }
   
-  details.guide-section .details-content {
-    padding: 1rem;
+  .section-title {
+    font-size: var(--font-size-lg);
   }
   
-  .guide-section h3 {
-    font-size: 1.25rem;
-  }
-  
-  .guide-section h4 {
-    font-size: 1.05rem;
+  .instruction-block,
+  .note-block,
+  .warning-block {
+    padding: var(--spacing-sm);
   }
 } 

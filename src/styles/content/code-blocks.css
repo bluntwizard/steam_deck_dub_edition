@@ -1,18 +1,20 @@
 /**
  * Steam Deck DUB Edition
- * Code Block Styles
+ * Code Blocks Styles
  * 
- * Styles for code blocks, commands, and terminal outputs
+ * This file contains styles for code blocks, command blocks, 
+ * and syntax highlighting in the guide content.
  */
 
-/* Base Code Block */
+/* Code Block Container */
 .code-block {
-  position: relative;
-  background-color: var(--background-code-block);
+  margin: var(--spacing-md) 0;
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color-code);
-  margin: 1.5rem 0;
   overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  line-height: 1.5;
 }
 
 /* Code Block Header */
@@ -20,177 +22,169 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 1rem;
   background-color: var(--background-code-header);
+  padding: var(--spacing-xs) var(--spacing-sm);
   border-bottom: 1px solid var(--border-color-code);
 }
 
 .code-block-title {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   color: var(--text-code-title);
 }
 
-/* Copy Button */
-.copy-button {
+.code-block-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.code-block-action {
   background-color: var(--background-button-secondary);
   color: var(--text-button-secondary);
   border: none;
-  border-radius: 4px;
-  padding: 0.3rem 0.6rem;
-  font-size: 0.8rem;
+  border-radius: var(--border-radius-sm);
+  padding: 0.15rem 0.4rem;
+  font-size: 0.8em;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
-.copy-button:hover {
+.code-block-action:hover {
   background-color: var(--background-button-secondary-hover);
 }
 
-.copy-button:active {
-  transform: translateY(1px);
-}
-
-.copy-button.copied {
+.code-block-action.copy-success {
   background-color: var(--background-button-success);
   color: var(--text-button-success);
 }
 
 /* Code Content */
-.code-block pre {
-  margin: 0;
-  padding: 1rem;
-  overflow-x: auto;
-  background-color: transparent;
-}
-
-.code-block code {
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  line-height: 1.5;
+.code-block-content {
+  padding: var(--spacing-sm);
+  background-color: var(--background-code-block);
   color: var(--text-code);
-  background-color: transparent;
-  padding: 0;
+  overflow-x: auto;
 }
 
-/* Terminal Output Styling */
+.code-block-content code {
+  display: block;
+  font-family: var(--font-mono);
+  white-space: pre;
+  tab-size: 2;
+}
+
+/* Language Indicator */
+.code-language {
+  display: inline-block;
+  background-color: var(--background-code-language);
+  color: var(--text-code-language);
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.75em;
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  margin-left: var(--spacing-xs);
+}
+
+/* Terminal Output */
 .terminal-output {
   background-color: var(--background-terminal);
   color: var(--text-terminal);
-  border: 1px solid var(--border-color-terminal);
-  padding: 1rem;
-  margin: 1.5rem 0;
+  padding: var(--spacing-sm);
   border-radius: var(--border-radius);
+  border: 1px solid var(--border-color-terminal);
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: 0.9em;
   line-height: 1.5;
-  white-space: pre-wrap;
   overflow-x: auto;
+  margin: var(--spacing-md) 0;
 }
 
-/* Command Snippets */
-.command-snippet {
-  display: flex;
-  align-items: center;
+/* Command Block */
+.command-block {
   background-color: var(--background-command);
+  color: var(--text-command);
+  padding: var(--spacing-sm);
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color-command);
-  padding: 0.5rem 1rem;
-  margin: 1rem 0;
-}
-
-.command-snippet code {
-  flex: 1;
   font-family: var(--font-mono);
-  font-size: 0.9rem;
-  color: var(--text-command);
-  background-color: transparent;
-  padding: 0;
-}
-
-.command-snippet .copy-button {
-  margin-left: 0.5rem;
-}
-
-/* Expandable Code Blocks */
-.code-block.expandable {
-  max-height: 300px;
-  overflow: hidden;
+  font-size: 0.9em;
+  line-height: 1.5;
+  overflow-x: auto;
+  margin: var(--spacing-md) 0;
   position: relative;
 }
 
-.code-block.expandable::after {
-  content: "Show more";
-  display: block;
-  text-align: center;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    var(--background-code-block)
-  );
+.command-block::before {
+  content: "$ ";
+  opacity: 0.7;
+}
+
+.command-copy {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 10px;
-  color: var(--text-link);
+  top: var(--spacing-xs);
+  right: var(--spacing-xs);
+  background-color: var(--background-button-secondary);
+  color: var(--text-button-secondary);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  padding: 0.15rem 0.4rem;
+  font-size: 0.8em;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.code-block.expanded {
-  max-height: none;
-}
-
-.code-block.expanded::after {
-  content: "Show less";
-  background: none;
-  padding-top: 10px;
-}
-
-/* Language Label */
-.code-language-label {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  background-color: var(--background-code-language);
-  color: var(--text-code-language);
-  border-bottom-left-radius: var(--border-radius);
-  opacity: 0.8;
+.command-copy:hover {
+  background-color: var(--background-button-secondary-hover);
 }
 
 /* Syntax Highlighting */
-.code-block .keyword { color: var(--syntax-keyword); }
-.code-block .string { color: var(--syntax-string); }
-.code-block .comment { color: var(--syntax-comment); }
-.code-block .function { color: var(--syntax-function); }
-.code-block .number { color: var(--syntax-number); }
-.code-block .operator { color: var(--syntax-operator); }
-.code-block .variable { color: var(--syntax-variable); }
-.code-block .property { color: var(--syntax-property); }
-.code-block .punctuation { color: var(--syntax-punctuation); }
+.syntax-keyword {
+  color: var(--syntax-keyword);
+}
 
-/* Mobile Adjustments */
-@media (max-width: 768px) {
-  .code-block pre {
-    padding: 0.75rem;
-  }
-  
-  .code-block code,
-  .terminal-output,
-  .command-snippet code {
-    font-size: 0.8rem;
-  }
-  
+.syntax-string {
+  color: var(--syntax-string);
+}
+
+.syntax-comment {
+  color: var(--syntax-comment);
+  font-style: italic;
+}
+
+.syntax-function {
+  color: var(--syntax-function);
+}
+
+.syntax-number {
+  color: var(--syntax-number);
+}
+
+.syntax-operator {
+  color: var(--syntax-operator);
+}
+
+.syntax-variable {
+  color: var(--syntax-variable);
+}
+
+.syntax-property {
+  color: var(--syntax-property);
+}
+
+.syntax-punctuation {
+  color: var(--syntax-punctuation);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
   .code-block-header {
-    padding: 0.4rem 0.75rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
   }
   
-  .copy-button {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
+  .code-block-actions {
+    width: 100%;
+    justify-content: flex-end;
   }
 } 

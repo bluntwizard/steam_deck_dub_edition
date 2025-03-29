@@ -146,6 +146,28 @@
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.05);
   --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.1);
   --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  /* Content-specific variables */
+  --primary-rgb: 30, 102, 245; /* catppuccin-blue in RGB */
+  --border-blockquote: var(--catppuccin-blue);
+  --background-blockquote: var(--catppuccin-surface0);
+  --text-blockquote: var(--catppuccin-text);
+  --background-code-block: var(--catppuccin-mantle);
+  --border-color-code: var(--catppuccin-surface1);
+  --background-code-header: var(--catppuccin-surface1);
+  --text-code-title: var(--catppuccin-text);
+  --background-terminal: var(--catppuccin-crust);
+  --text-terminal: var(--catppuccin-text);
+  --border-color-terminal: var(--catppuccin-surface1);
+  --background-command: var(--catppuccin-crust);
+  --border-color-command: var(--catppuccin-surface1);
+  --text-command: var(--catppuccin-text);
+  --background-code-language: var(--catppuccin-blue);
+  --text-code-language: var(--catppuccin-base);
+  --background-table-header: var(--catppuccin-surface1);
+  --text-table-header: var(--catppuccin-text);
+  --background-table-alternate: var(--catppuccin-surface0);
+  --syntax-punctuation: var(--catppuccin-text);
 }
 
 /* Base Styles */
