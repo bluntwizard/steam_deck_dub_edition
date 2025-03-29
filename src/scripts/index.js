@@ -14,3 +14,14 @@ import './utils/print-helper.js';
 import './services/pdf-export.js';
 import './services/progress-tracker.js';
 import './utils/debug-helper.js';
+
+// Core initialization function
+export function initialize() {
+  console.log('Initializing Steam Deck DUB Edition');
+  // Core functionalities are automatically initialized through imports
+}
+
+// Export default object for compatibility
+export default {
+  initialize
+};

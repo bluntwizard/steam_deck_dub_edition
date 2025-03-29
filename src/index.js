@@ -4,7 +4,7 @@
  */
 
 // Import core JavaScript functionality
-import { initialize } from './js';
+import { initialize } from './scripts';
 
 // Import accessibility features 
 import './accessibility';

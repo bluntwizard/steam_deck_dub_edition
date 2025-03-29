@@ -60,3 +60,31 @@ For each component, follow these steps:
 - Use kebab-case for CSS class names
 - Keep component files focused on single responsibility
 - Document component APIs with JSDoc comments 
+
+## JavaScript Structure Reorganization
+
+As part of the modularization effort, we have also reorganized the JavaScript files:
+
+### Directory Structure
+
+- Moved files from `src/js` and `src/js/core` to the `src/scripts` directory structure
+- Organized files by their function into subdirectories:
+  - `src/scripts/core` - Core application functionality
+  - `src/scripts/services` - Service-related files like preload and service workers
+  - `src/scripts/components` - Component-specific JavaScript
+  - `src/scripts/utils` - Utility functions
+
+### Specific Files Moved
+
+- `src/js/core/ui-main.js` → `src/scripts/core/ui-main.js`
+- `src/js/main.js` → `src/scripts/core/electron-main.js` (renamed to avoid conflict)
+- `src/js/preload.js` → `src/scripts/services/preload.js`
+- `src/js/service-worker.js` → `src/scripts/services/service-worker.js`
+
+### Benefits
+
+- Consolidated all JavaScript code into a consistent directory structure
+- Improved code organization by functional category
+- Eliminated redundant directory structures
+- Simplified imports and dependencies
+- Enhanced maintainability by providing clearer file locations 

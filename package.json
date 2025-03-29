@@ -2,7 +2,7 @@
   "name": "steam-deck-dub-edition",
   "version": "1.0.0",
   "description": "Steam Deck DUB Edition - A comprehensive guide and utility for Steam Deck users",
-  "main": "src/js/main.js",
+  "main": "src/scripts/core/electron-main.js",
   "scripts": {
     "start": "electron .",
     "dev": "NODE_ENV=development electron .",
@@ -102,7 +102,7 @@
     },
     "files": [
       "dist/**/*",
-      "src/js/**/*",
+      "src/scripts/**/*",
       "package.json"
     ],
     "asarUnpack": [
