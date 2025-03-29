@@ -55,5 +55,8 @@ import './utilities/debug.css';
 // Global styles
 import './theme.css';
 
+// Content styles
+import './content';
+
 // Note: Theme files will be loaded separately with webpack
 console.log('CSS files loaded'); 

@@ -1,0 +1,196 @@
+/**
+ * Steam Deck DUB Edition
+ * Code Block Styles
+ * 
+ * Styles for code blocks, commands, and terminal outputs
+ */
+
+/* Base Code Block */
+.code-block {
+  position: relative;
+  background-color: var(--background-code-block);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color-code);
+  margin: 1.5rem 0;
+  overflow: hidden;
+}
+
+/* Code Block Header */
+.code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--background-code-header);
+  border-bottom: 1px solid var(--border-color-code);
+}
+
+.code-block-title {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-code-title);
+}
+
+/* Copy Button */
+.copy-button {
+  background-color: var(--background-button-secondary);
+  color: var(--text-button-secondary);
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+  background-color: var(--background-button-secondary-hover);
+}
+
+.copy-button:active {
+  transform: translateY(1px);
+}
+
+.copy-button.copied {
+  background-color: var(--background-button-success);
+  color: var(--text-button-success);
+}
+
+/* Code Content */
+.code-block pre {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  background-color: transparent;
+}
+
+.code-block code {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-code);
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Terminal Output Styling */
+.terminal-output {
+  background-color: var(--background-terminal);
+  color: var(--text-terminal);
+  border: 1px solid var(--border-color-terminal);
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: var(--border-radius);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+/* Command Snippets */
+.command-snippet {
+  display: flex;
+  align-items: center;
+  background-color: var(--background-command);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color-command);
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+}
+
+.command-snippet code {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-command);
+  background-color: transparent;
+  padding: 0;
+}
+
+.command-snippet .copy-button {
+  margin-left: 0.5rem;
+}
+
+/* Expandable Code Blocks */
+.code-block.expandable {
+  max-height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.code-block.expandable::after {
+  content: "Show more";
+  display: block;
+  text-align: center;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--background-code-block)
+  );
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 10px;
+  color: var(--text-link);
+  cursor: pointer;
+}
+
+.code-block.expanded {
+  max-height: none;
+}
+
+.code-block.expanded::after {
+  content: "Show less";
+  background: none;
+  padding-top: 10px;
+}
+
+/* Language Label */
+.code-language-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  background-color: var(--background-code-language);
+  color: var(--text-code-language);
+  border-bottom-left-radius: var(--border-radius);
+  opacity: 0.8;
+}
+
+/* Syntax Highlighting */
+.code-block .keyword { color: var(--syntax-keyword); }
+.code-block .string { color: var(--syntax-string); }
+.code-block .comment { color: var(--syntax-comment); }
+.code-block .function { color: var(--syntax-function); }
+.code-block .number { color: var(--syntax-number); }
+.code-block .operator { color: var(--syntax-operator); }
+.code-block .variable { color: var(--syntax-variable); }
+.code-block .property { color: var(--syntax-property); }
+.code-block .punctuation { color: var(--syntax-punctuation); }
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .code-block pre {
+    padding: 0.75rem;
+  }
+  
+  .code-block code,
+  .terminal-output,
+  .command-snippet code {
+    font-size: 0.8rem;
+  }
+  
+  .code-block-header {
+    padding: 0.4rem 0.75rem;
+  }
+  
+  .copy-button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+} 

@@ -1,0 +1,196 @@
+/**
+ * Steam Deck DUB Edition
+ * Guide Section Styles
+ * 
+ * Styles for guide sections with collapsible details
+ */
+
+/* Section Base */
+.section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 1rem;
+}
+
+.section-description {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.section-content {
+  margin-top: 1.5rem;
+}
+
+/* Collapsible Guide Sections */
+details.guide-section {
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--background-secondary);
+  overflow: hidden;
+}
+
+details.guide-section[open] {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+details.guide-section > summary {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--text-subheading);
+  background-color: var(--background-summary);
+  transition: background-color 0.2s ease;
+  position: relative;
+  list-style: none;
+}
+
+details.guide-section > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.guide-section > summary::before {
+  content: "▶";
+  font-size: 0.8rem;
+  margin-right: 0.75rem;
+  color: var(--text-accent);
+  transition: transform 0.2s ease;
+}
+
+details.guide-section[open] > summary::before {
+  content: "▼";
+  transform: rotate(0deg);
+}
+
+details.guide-section > summary:hover {
+  background-color: var(--background-summary-hover);
+}
+
+details.guide-section .details-content {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-color-light);
+}
+
+/* Guide Section Headers */
+.guide-section h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-subheading);
+}
+
+.guide-section h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+  color: var(--text-subheading);
+}
+
+.guide-section h5, 
+.guide-section h6 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.5rem;
+  color: var(--text-subheading);
+}
+
+/* Guide Section Typography */
+.guide-section p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.guide-section a {
+  color: var(--text-link);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.guide-section a:hover {
+  color: var(--text-link-hover);
+  text-decoration: underline;
+}
+
+/* Instruction Blocks */
+.instruction {
+  background-color: var(--background-instruction);
+  border-left: 4px solid var(--border-instruction);
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.instruction h4 {
+  margin-top: 0;
+  color: var(--text-instruction-heading);
+}
+
+.instruction p {
+  margin-bottom: 0.5rem;
+  color: var(--text-instruction);
+}
+
+.instruction p:last-child {
+  margin-bottom: 0;
+}
+
+/* Warning and Note Blocks */
+.warning-block {
+  background-color: var(--background-warning);
+  border-left: 4px solid var(--border-warning);
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.note-block {
+  background-color: var(--background-note);
+  border-left: 4px solid var(--border-note);
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .section-description {
+    font-size: 1rem;
+  }
+  
+  details.guide-section > summary {
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+  
+  details.guide-section .details-content {
+    padding: 1rem;
+  }
+  
+  .guide-section h3 {
+    font-size: 1.25rem;
+  }
+  
+  .guide-section h4 {
+    font-size: 1.05rem;
+  }
+} 
