@@ -1,0 +1,239 @@
+/**
+ * Steam Deck DUB Edition
+ * Dialog Module CSS
+ * 
+ * Styles for modal dialogs used across service components
+ */
+
+.dialogOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-index-modal);
+}
+
+.dialog {
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: var(--spacing-lg);
+  position: relative;
+  animation: dialogFadeIn 0.3s ease-in-out;
+}
+
+@keyframes dialogFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dialog Headers */
+.dialogTitle {
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.dialogSubtitle {
+  color: var(--secondary-color);
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Dialog Content */
+.dialogContent {
+  margin-bottom: var(--spacing-md);
+}
+
+.dialogSection {
+  margin-bottom: var(--spacing-md);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.selectGroup {
+  margin-top: var(--spacing-md);
+}
+
+.selectLabel {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-primary);
+}
+
+.select {
+  width: 100%;
+  padding: var(--spacing-xs);
+  background-color: var(--background-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+/* Progress Bar */
+.progressContainer {
+  margin-top: var(--spacing-md);
+}
+
+.progressLabel {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-primary);
+}
+
+.progressBar {
+  width: 100%;
+  height: 20px;
+  background-color: var(--background-secondary);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.progressBarInner {
+  height: 100%;
+  background-color: var(--success-color);
+  transition: width 0.3s ease;
+}
+
+.progressStatus {
+  text-align: center;
+  margin-top: var(--spacing-xs);
+  font-size: 0.9em;
+  color: var(--text-secondary);
+}
+
+/* Lists */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.listItem {
+  padding: var(--spacing-xs) 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.listItemLink {
+  color: var(--text-link);
+  text-decoration: none;
+  display: block;
+}
+
+.listItemLink:hover {
+  color: var(--text-link-hover);
+}
+
+/* Actions */
+.dialogActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--spacing-lg);
+}
+
+.buttonPrimary {
+  background-color: var(--primary-color);
+  color: var(--text-inverse);
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.buttonPrimary:hover {
+  background-color: var(--primary-color-hover);
+}
+
+.buttonSecondary {
+  background-color: var(--secondary-color);
+  color: var(--text-inverse);
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.buttonSecondary:hover {
+  background-color: var(--secondary-color-hover);
+}
+
+.buttonDanger {
+  background-color: var(--error-color);
+  color: var(--text-inverse);
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.buttonDanger:hover {
+  opacity: 0.9;
+}
+
+/* Status Icons */
+.statusIcon {
+  font-size: 4em;
+  margin-bottom: var(--spacing-md);
+}
+
+.centerText {
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dialog {
+    width: 95%;
+    padding: var(--spacing-md);
+  }
+  
+  .dialogActions {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .dialogActions button {
+    width: 100%;
+  }
+} 
