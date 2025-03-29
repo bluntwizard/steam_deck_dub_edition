@@ -3,7 +3,7 @@
  * Provides utilities for handling print functionality
  */
 
-import dialogStyles from '../../components/Dialog/Dialog.module.css';
+import Dialog from '../../components/Dialog/Dialog';
 
 /**
  * Initialize the print helper with custom options
@@ -67,68 +67,126 @@ export function initPrintHelper(options = {}) {
  * @param {Object} config - Print configuration
  */
 function showPrintDialog(config) {
-  // Create overlay
-  const overlay = document.createElement('div');
-  overlay.className = dialogStyles.dialogOverlay;
+  // Create dialog content
+  const content = document.createElement('div');
   
-  // Create dialog
-  const dialog = document.createElement('div');
-  dialog.className = dialogStyles.dialog;
+  // Print options
+  const printOptions = document.createElement('div');
   
-  // Create dialog content with options
-  dialog.innerHTML = `
-    <h3 class="${dialogStyles.dialogTitle}">Print Options</h3>
-    
-    <div class="${dialogStyles.dialogContent}">
-      <h4 class="${dialogStyles.dialogSubtitle}">Include in Print:</h4>
-      
-      <div class="${dialogStyles.checkboxGroup}">
-        <label class="${dialogStyles.checkboxLabel}">
-          <input type="checkbox" id="print-images" checked>
-          Images
-        </label>
-        
-        <label class="${dialogStyles.checkboxLabel}">
-          <input type="checkbox" id="print-code" checked>
-          Code blocks
-        </label>
-        
-        <label class="${dialogStyles.checkboxLabel}">
-          <input type="checkbox" id="print-links-url" checked>
-          Link URLs (as footnotes)
-        </label>
-      </div>
-      
-      <h4 class="${dialogStyles.dialogSubtitle}">Print Sections:</h4>
-      
-      <div class="${dialogStyles.checkboxGroup}">
-        <label class="${dialogStyles.checkboxLabel}">
-          <input type="checkbox" id="print-all" checked>
-          All sections
-        </label>
-        
-        <label class="${dialogStyles.checkboxLabel}">
-          <input type="checkbox" id="print-visible" disabled>
-          Only visible sections
-        </label>
-        
-        <label class="${dialogStyles.checkboxLabel}">
-          <input type="checkbox" id="print-completed" disabled>
-          Only completed sections
-        </label>
-      </div>
-    </div>
-    
-    <div class="${dialogStyles.dialogActions}">
-      <button id="cancel-print" class="${dialogStyles.buttonSecondary}">Cancel</button>
-      <button id="confirm-print" class="${dialogStyles.buttonPrimary}">Print</button>
-    </div>
-  `;
+  // Include section
+  const includeSection = document.createElement('div');
+  const includeTitle = document.createElement('h4');
+  includeTitle.textContent = 'Include in Print:';
+  includeSection.appendChild(includeTitle);
   
-  overlay.appendChild(dialog);
-  document.body.appendChild(overlay);
+  const checkboxGroupInclude = document.createElement('div');
   
-  // Add event listeners
+  // Images checkbox
+  const imagesLabel = document.createElement('label');
+  const imagesCheckbox = document.createElement('input');
+  imagesCheckbox.type = 'checkbox';
+  imagesCheckbox.id = 'print-images';
+  imagesCheckbox.checked = true;
+  imagesLabel.appendChild(imagesCheckbox);
+  imagesLabel.append(' Images');
+  checkboxGroupInclude.appendChild(imagesLabel);
+  
+  // Code blocks checkbox
+  const codeLabel = document.createElement('label');
+  const codeCheckbox = document.createElement('input');
+  codeCheckbox.type = 'checkbox';
+  codeCheckbox.id = 'print-code';
+  codeCheckbox.checked = true;
+  codeLabel.appendChild(codeCheckbox);
+  codeLabel.append(' Code blocks');
+  checkboxGroupInclude.appendChild(codeLabel);
+  
+  // Link URLs checkbox
+  const linksLabel = document.createElement('label');
+  const linksCheckbox = document.createElement('input');
+  linksCheckbox.type = 'checkbox';
+  linksCheckbox.id = 'print-links-url';
+  linksCheckbox.checked = true;
+  linksLabel.appendChild(linksCheckbox);
+  linksLabel.append(' Link URLs (as footnotes)');
+  checkboxGroupInclude.appendChild(linksLabel);
+  
+  includeSection.appendChild(checkboxGroupInclude);
+  printOptions.appendChild(includeSection);
+  
+  // Print sections
+  const sectionsSection = document.createElement('div');
+  const sectionsTitle = document.createElement('h4');
+  sectionsTitle.textContent = 'Print Sections:';
+  sectionsSection.appendChild(sectionsTitle);
+  
+  const checkboxGroupSections = document.createElement('div');
+  
+  // All sections checkbox
+  const allLabel = document.createElement('label');
+  const allCheckbox = document.createElement('input');
+  allCheckbox.type = 'checkbox';
+  allCheckbox.id = 'print-all';
+  allCheckbox.checked = true;
+  allLabel.appendChild(allCheckbox);
+  allLabel.append(' All sections');
+  checkboxGroupSections.appendChild(allLabel);
+  
+  // Visible sections checkbox
+  const visibleLabel = document.createElement('label');
+  const visibleCheckbox = document.createElement('input');
+  visibleCheckbox.type = 'checkbox';
+  visibleCheckbox.id = 'print-visible';
+  visibleCheckbox.disabled = true;
+  visibleLabel.appendChild(visibleCheckbox);
+  visibleLabel.append(' Only visible sections');
+  checkboxGroupSections.appendChild(visibleLabel);
+  
+  // Completed sections checkbox
+  const completedLabel = document.createElement('label');
+  const completedCheckbox = document.createElement('input');
+  completedCheckbox.type = 'checkbox';
+  completedCheckbox.id = 'print-completed';
+  completedCheckbox.disabled = true;
+  completedLabel.appendChild(completedCheckbox);
+  completedLabel.append(' Only completed sections');
+  checkboxGroupSections.appendChild(completedLabel);
+  
+  sectionsSection.appendChild(checkboxGroupSections);
+  printOptions.appendChild(sectionsSection);
+  
+  content.appendChild(printOptions);
+  
+  // Create dialog using the Dialog component
+  const dialog = new Dialog({
+    title: 'Print Options',
+    content: content,
+    actions: [
+      {
+        text: 'Cancel',
+        primary: false
+      },
+      {
+        text: 'Print',
+        primary: true,
+        onClick: () => {
+          const options = {
+            printImages: document.getElementById('print-images').checked,
+            printCode: document.getElementById('print-code').checked,
+            printLinksUrl: document.getElementById('print-links-url').checked,
+            printAll: document.getElementById('print-all').checked,
+            printVisible: document.getElementById('print-visible').checked,
+            printCompleted: document.getElementById('print-completed').checked
+          };
+          
+          handlePrint(config, options);
+          return true; // close dialog
+        }
+      }
+    ]
+  });
+  
+  // Add event listeners for checkboxes
   const printAllCheckbox = document.getElementById('print-all');
   const printVisibleCheckbox = document.getElementById('print-visible');
   const printCompletedCheckbox = document.getElementById('print-completed');
@@ -158,24 +216,8 @@ function showPrintDialog(config) {
     }
   });
   
-  document.getElementById('cancel-print').addEventListener('click', () => {
-    document.body.removeChild(overlay);
-  });
-  
-  document.getElementById('confirm-print').addEventListener('click', () => {
-    document.body.removeChild(overlay);
-    
-    const options = {
-      printImages: document.getElementById('print-images').checked,
-      printCode: document.getElementById('print-code').checked,
-      printLinksUrl: document.getElementById('print-links-url').checked,
-      printAll: document.getElementById('print-all').checked,
-      printVisible: document.getElementById('print-visible').checked,
-      printCompleted: document.getElementById('print-completed').checked
-    };
-    
-    handlePrint(config, options);
-  });
+  // Show the dialog
+  dialog.show();
 }
 
 /**
