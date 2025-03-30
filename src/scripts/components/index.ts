@@ -7,13 +7,12 @@
 import { initNavigation, initScrollHandlers, handleUrlHash } from './navigation.js';
 import { loadPreferences, applyPreferences, userPreferences, showPreferencesDialog } from './preferences.js';
 import { initSidebar } from './sidebar.js';
+import progressTracker from './progress-tracker.js';
+import versionDisplay from './version-display.js';
 
-// Import the remaining components
-// We'll handle these differently since they have mixed export patterns
-// Some are ESM (export default) and some are CommonJS (module.exports)
-const gallery = require('./gallery.js').default;
-const progressTracker = require('./progress-tracker.js').default;
-const versionDisplay = require('./version-display.js');
+// For components not yet migrated, import from JavaScript files
+// code-blocks.js appears to be empty or not a proper module
+// gallery.js is still using the old format
 
 // Create navigation component object with exported functions
 const navigation = {
@@ -39,6 +38,11 @@ const sidebar = {
 // create a placeholder object until it's migrated
 const codeBlocks = {
   // Will be implemented in TypeScript migration
+};
+
+// Gallery import placeholder
+const gallery = {
+  // Will be replaced with proper TypeScript implementation
 };
 
 // Export all components
