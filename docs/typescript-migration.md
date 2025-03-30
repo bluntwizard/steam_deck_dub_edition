@@ -82,7 +82,7 @@ The TypeScript migration will be considered complete when:
 |------------------------|------------|----------|----------|
 | Core                   | 10         | 10       | 100%     |
 | Components             | 7          | 7        | 100%     |
-| Utils                  | 12         | 8        | 66.7%    |
+| Utils                  | 12         | 9        | 75.0%    |
 | Services               | 9          | 2        | 22.2%    |
 | Router                 | 3          | 3        | 100%     |
 | API Integration        | 2          | 2        | 100%     |
@@ -90,7 +90,7 @@ The TypeScript migration will be considered complete when:
 | Service Workers        | 1          | 1        | 100%     |
 | Tests                  | 26         | 26       | 100%     |
 
-**Overall Progress: 88.9%**
+**Overall Progress: 90.3%**
 
 ## Remaining Tasks
 
@@ -110,10 +110,10 @@ We still have several files to migrate:
 - code-blocks.js
 - gallery.js
 
-### Utils (4 remaining)
+### Utils (3 remaining)
 - ✅ cleanup.js
 - ✅ lazy-loader.js
-- search.js
+- ✅ search.js
 - print-helper.js
 - accessibility-ui.js
 - layout-utilities.js
@@ -122,7 +122,6 @@ We still have several files to migrate:
 ### Services (7 remaining)
 - settings.js
 - preload.js
-- search.js
 - pdf-export.js
 - content-loader.js
 - progress-tracker.js
