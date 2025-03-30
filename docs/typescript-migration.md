@@ -58,7 +58,7 @@ The migration will follow a progressive approach:
 | Setup & Configuration | 4 | 4 | 0 | 0 |
 | Type Definitions | 10 | 10 | 0 | 0 |
 | Utility Functions | 5 | 5 | 0 | 0 |
-| Components | TBD | 1 | 1 | TBD |
+| Components | TBD | 2 | 0 | TBD |
 | API Layer | TBD | 0 | 0 | TBD |
 | State Management | TBD | 0 | 0 | TBD |
 | Testing | TBD | 0 | 0 | TBD |
@@ -126,6 +126,11 @@ The migration will follow a progressive approach:
    - Base button component with variants
    - Type-safe props interface
    - Support for icons and disabled states
+
+2. **PageLoader Component** - `src/components/PageLoader/PageLoader.ts`
+   - Full-page loading overlay with customizable options
+   - Progress tracking system with custom load steps
+   - Error handling and automatic page load detection
 
 ## Next Steps
 
