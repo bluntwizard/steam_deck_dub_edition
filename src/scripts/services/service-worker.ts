@@ -14,6 +14,11 @@
  * or another tool to properly build service workers in TypeScript.
  */
 
+/// <reference path="../../types/service-worker.d.ts" />
+
+// Type declarations for service worker
+declare const self: ServiceWorkerGlobalScope;
+
 // @ts-ignore - Ignore TypeScript errors for service worker globals
 import {
   CacheConfig,
@@ -22,11 +27,31 @@ import {
   PendingRequest
 } from '../../types/service-worker';
 
+// Define extended NotificationOptions to include actions
+interface ExtendedNotificationOptions extends NotificationOptions {
+  actions?: NotificationAction[];
+}
+
+// Define extended WindowClient to include focus method
+interface ExtendedWindowClient extends WindowClient {
+  focus(): Promise<WindowClient>;
+}
+
 // Cache version - increment this when making significant changes
 const CACHE_VERSION: string = '3';
 
 // Cache names for different types of assets
-const CACHE_NAMES: CacheConfig = {
+interface CacheNames {
+  static: string;
+  content: string;
+  dynamic: string;
+  images: string;
+  locales: string;
+  fonts: string;
+  documents: string;
+}
+
+const CACHE_NAMES: CacheNames = {
   static: `static-cache-v${CACHE_VERSION}`,
   content: `content-cache-v${CACHE_VERSION}`,
   dynamic: `dynamic-cache-v${CACHE_VERSION}`,
@@ -268,26 +293,21 @@ self.addEventListener('push', (event: PushEvent) => {
     return;
   }
   
-  const data = event.data.json();
+  const data: PushNotificationData = event.data.json();
   console.log('[Service Worker] Push received:', data);
   
   const title = data.title || 'Steam Deck DUB Edition';
-  // @ts-ignore - Service Worker API NotificationOptions has additional properties in the Service Worker context
-  const options: NotificationOptions = {
+  const options: ExtendedNotificationOptions = {
     body: data.body || 'New notification from SDDE',
     icon: data.icon || '/icons/icon-192x192.png',
-    badge: data.badge || '/icons/icon-72x72.png',
-    tag: data.tag,
-    data: data.data,
-    actions: data.actions,
-    requireInteraction: data.requireInteraction,
-    renotify: data.renotify,
-    silent: data.silent,
-    timestamp: data.timestamp
+    badge: '/icons/badge-icon.png',
+    data: data.data || {},
+    actions: data.actions || [],
+    tag: data.tag || 'default',
+    requireInteraction: data.requireInteraction || false
   };
   
   event.waitUntil(
-    // @ts-ignore - Service Worker API
     self.registration.showNotification(title, options)
   );
 });
@@ -317,37 +337,34 @@ self.addEventListener('message', (event: ExtendableMessageEvent) => {
   }
 });
 
-// Notification click handler
+// Notification click event
 // @ts-ignore - Service Worker API
 self.addEventListener('notificationclick', (event: NotificationEvent) => {
+  console.log('[Service Worker] Notification click received');
+  
   event.notification.close();
   
-  // Handle notification action if present
-  if (event.action) {
-    console.log('[Service Worker] Notification action clicked:', event.action);
-    // Custom action handling can go here
-  } else {
-    // Default action - open the app
-    event.waitUntil(
-      // @ts-ignore - Service Worker API
-      self.clients.matchAll({ type: 'window', includeUncontrolled: true })
-        .then((clientList: Client[]) => {
-          // If we have an open window, focus it
-          for (const client of clientList) {
-            if ('focus' in client) {
-              return client.focus();
-            }
-          }
-          // Otherwise open a new window
-          // @ts-ignore - Service Worker API
-          if (self.clients.openWindow) {
-            // @ts-ignore - Service Worker API
-            return self.clients.openWindow('/');
-          }
-          return null;
-        })
-    );
-  }
+  // This looks to see if the target URL is already open and focuses if it is
+  event.waitUntil(
+    self.clients.matchAll({
+      type: 'window'
+    })
+    .then(clientList => {
+      const notificationData = event.notification.data as PushNotificationData;
+      const url = notificationData && notificationData.url ? notificationData.url : '/';
+      
+      for (let i = 0; i < clientList.length; i++) {
+        const client = clientList[i] as ExtendedWindowClient;
+        if (client.url === url && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      
+      if (self.clients.openWindow) {
+        return self.clients.openWindow(url);
+      }
+    })
+  );
 });
 
 // =====================================
