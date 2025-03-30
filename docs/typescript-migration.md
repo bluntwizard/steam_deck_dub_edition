@@ -14,10 +14,10 @@ This document outlines the plan for migrating the Steam Deck DUB Edition codebas
 
 | Category            | Completed | Total | Progress |
 |---------------------|-----------|-------|----------|
-| Components          | 7         | 10    | 70%      |
+| Components          | 9         | 11    | 82%      |
 | Utility Functions   | 3         | 5     | 60%      |
 | Core Application    | 0         | 5     | 0%       |
-| Total               | 15        | 20    | 75%      |
+| Total               | 17        | 21    | 81%      |
 
 ## Migration Plan
 
@@ -30,7 +30,8 @@ This document outlines the plan for migrating the Steam Deck DUB Edition codebas
 - ✅ PageLoader
 - ✅ HelpCenter
 - ✅ VersionDisplay
-- ⬜ PreferencesDialog
+- ✅ SettingsTabs
+- ✅ PreferencesDialog
 - ⬜ ProgressTracker
 - ⬜ SvgHeader
 
@@ -61,7 +62,7 @@ This document outlines the plan for migrating the Steam Deck DUB Edition codebas
 
 ## Next Steps
 
-1. Continue component migration with PreferencesDialog and ProgressTracker
+1. Continue component migration with ProgressTracker
 2. Begin migrating core application logic, starting with app initialization
 3. Update test suite to TypeScript
 4. Enhance state management with TypeScript interfaces
