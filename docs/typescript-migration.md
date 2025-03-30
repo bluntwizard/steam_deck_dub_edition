@@ -14,12 +14,12 @@ This document outlines the plan for migrating the Steam Deck DUB Edition from Ja
 
 | Category | Completed | Total | Progress |
 |----------|-----------|-------|----------|
-| Components | 6 | 10 | 60% |
+| Components | 8 | 10 | 80% |
 | Utilities | 5 | 8 | 62.5% |
 | Core Application Logic | 2 | 5 | 40% |
 | Testing | 0 | 3 | 0% |
 | Build System | 2 | 4 | 50% |
-| **Overall** | **15** | **30** | **50%** |
+| **Overall** | **17** | **30** | **56.7%** |
 
 ## Migration Plan
 
@@ -31,10 +31,10 @@ This document outlines the plan for migrating the Steam Deck DUB Edition from Ja
 - ✅ NotificationSystem
 - ✅ HelpCenter
 - ✅ ButtonDemo
-- ⬜ PageLoader
+- ✅ PageLoader
+- ✅ LanguageSelector
 - ⬜ ProgressTracker
 - ⬜ VersionDisplay
-- ⬜ PreferencesDialog
 
 ### Utilities
 
@@ -79,7 +79,7 @@ This document outlines the plan for migrating the Steam Deck DUB Edition from Ja
 
 ## Next Steps
 
-1. Migrate remaining components (PageLoader, ProgressTracker, etc.)
+1. Migrate remaining components (ProgressTracker, VersionDisplay)
 2. Complete core application logic migration (Routing, State Management)
 3. Update the test suite to TypeScript
 4. Enhance the build system for TypeScript

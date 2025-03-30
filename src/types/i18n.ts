@@ -1,30 +1,109 @@
 /**
- * Type definitions for the i18n system
+ * i18n (Internationalization) Type Definitions
  */
 
 /**
- * Represents a supported locale in the application
+ * Information about a specific locale/language
  */
 export interface LocaleInfo {
   /**
-   * ISO language code (e.g., 'en', 'es', 'ar')
+   * Locale code (e.g., 'en-US', 'fr', 'ar')
    */
   code: string;
   
   /**
-   * English name of the language
+   * English name of the language (e.g., 'English', 'French', 'Arabic')
    */
   name: string;
   
   /**
-   * Native name of the language (in its own script)
+   * Native name of the language (e.g., 'English', 'Français', 'العربية')
    */
   nativeName: string;
   
   /**
-   * Text direction: 'ltr' (left-to-right) or 'rtl' (right-to-left)
+   * Text direction for this locale ('ltr' or 'rtl')
    */
   direction: 'ltr' | 'rtl';
+  
+  /**
+   * Optional - Whether this locale is the default
+   */
+  isDefault?: boolean;
+}
+
+/**
+ * Translation function type
+ */
+export type TranslationFunction = (key: string, params?: Record<string, string>) => string;
+
+/**
+ * i18n Manager Interface
+ */
+export interface I18nManager {
+  /**
+   * Get the current locale code
+   */
+  getCurrentLocale(): string;
+  
+  /**
+   * Get list of supported locales
+   */
+  getSupportedLocales(): LocaleInfo[];
+  
+  /**
+   * Get text direction for current locale
+   */
+  getDirection(): 'ltr' | 'rtl';
+  
+  /**
+   * Change the active locale
+   * @param localeCode The locale to switch to
+   * @returns Promise that resolves to true if successful
+   */
+  setLocale(localeCode: string): Promise<boolean>;
+  
+  /**
+   * Translate a key
+   * @param key Translation key
+   * @param params Optional parameters for interpolation
+   */
+  t: TranslationFunction;
+}
+
+/**
+ * Configuration for i18n initialization
+ */
+export interface I18nConfig {
+  /**
+   * Default locale to use
+   */
+  defaultLocale: string;
+  
+  /**
+   * Path to locale files
+   */
+  localesPath: string;
+  
+  /**
+   * List of supported locales
+   */
+  supportedLocales: LocaleInfo[];
+  
+  /**
+   * Whether to detect browser language
+   */
+  detectBrowserLanguage?: boolean;
+  
+  /**
+   * Whether to persist language choice
+   */
+  persistLanguage?: boolean;
+  
+  /**
+   * Storage key for persisted language
+   */
+  languageStorageKey?: string;
 }
 
 /**
