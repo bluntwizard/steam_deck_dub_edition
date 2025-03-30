@@ -80,17 +80,58 @@ The TypeScript migration will be considered complete when:
 
 | Category               | File Count | Migrated | Progress |
 |------------------------|------------|----------|----------|
-| Core                   | 12         | 12       | 100%     |
-| Components             | 32         | 28       | 87.5%    |
-| Utils                  | 15         | 15       | 100%     |
-| Services               | 8          | 7        | 87.5%    |
-| Router                 | 4          | 4        | 100%     |
-| API Integration        | 6          | 6        | 100%     |
-| State Management       | 5          | 5        | 100%     |
+| Core                   | 10         | 3        | 30%      |
+| Components             | 7          | 0        | 0%       |
+| Utils                  | 12         | 6        | 50%      |
+| Services               | 9          | 2        | 22.2%    |
+| Router                 | 3          | 3        | 100%     |
+| API Integration        | 2          | 2        | 100%     |
+| State Management       | 4          | 4        | 100%     |
 | Service Workers        | 1          | 1        | 100%     |
 | Tests                  | 25         | 25       | 100%     |
 
-**Overall Progress: 96.3%**
+**Overall Progress: 64.4%**
+
+## Remaining Tasks
+
+We still have several files to migrate:
+
+### Core (7 remaining)
+- main.js
+- font-loader.js
+- electron-main.js
+- renderer.js
+- layout.js
+- ui-improvements.js
+- ui-main.js
+
+### Components (7 remaining)
+- preferences.js
+- navigation.js
+- sidebar.js
+- index.js
+- version-display.js
+- progress-tracker.js
+- code-blocks.js
+- gallery.js
+
+### Utils (6 remaining)
+- cleanup.js
+- lazy-loader.js
+- search.js
+- print-helper.js
+- accessibility-ui.js
+- layout-utilities.js
+- debug-helper.js
+
+### Services (7 remaining)
+- settings.js
+- preload.js
+- search.js
+- pdf-export.js
+- content-loader.js
+- progress-tracker.js
+- offline.js
 
 ## Tests
 
