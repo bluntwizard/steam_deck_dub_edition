@@ -81,7 +81,7 @@ This document tracks the progress of modularizing the Steam Deck DUB Edition cod
 |------|--------|-------|
 | **TypeScript Migration** |  |  |
 | Component interfaces | ✅ | Created comprehensive type definitions for all component props |
-| Core utilities migration | ❌ | Convert utility functions to TypeScript |
+| Core utilities migration | ⚠️ | Converted 3/5 utility functions (Performance, Images, DOM) |
 | Component migration | ❌ | Gradually migrate components to TypeScript |
 | Type checking in build | ⚠️ | TypeScript configuration added, integration with build process pending |
 | **State Management** |  |  |
