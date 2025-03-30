@@ -80,7 +80,7 @@ The TypeScript migration will be considered complete when:
 
 | Category               | File Count | Migrated | Progress |
 |------------------------|------------|----------|----------|
-| Core                   | 10         | 9        | 90%      |
+| Core                   | 10         | 10       | 100%     |
 | Components             | 7          | 1        | 14.3%    |
 | Utils                  | 12         | 6        | 50%      |
 | Services               | 9          | 2        | 22.2%    |
@@ -90,15 +90,14 @@ The TypeScript migration will be considered complete when:
 | Service Workers        | 1          | 1        | 100%     |
 | Tests                  | 26         | 26       | 100%     |
 
-**Overall Progress: 76.0%**
+**Overall Progress: 77.8%**
 
 ## Remaining Tasks
 
 We still have several files to migrate:
 
-### Core (1 remaining)
-- electron-main.js
-- ui-main.js
+### Core (0 remaining)
+✅ All core files have been migrated to TypeScript!
 
 ### Components (6 remaining)
 - preferences.js
