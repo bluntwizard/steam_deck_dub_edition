@@ -58,7 +58,7 @@ The migration will follow a progressive approach:
 | Setup & Configuration | 4 | 4 | 0 | 0 |
 | Type Definitions | 10 | 10 | 0 | 0 |
 | Utility Functions | 5 | 5 | 0 | 0 |
-| Components | TBD | 2 | 0 | TBD |
+| Components | TBD | 3 | 0 | TBD |
 | API Layer | TBD | 0 | 0 | TBD |
 | State Management | TBD | 0 | 0 | TBD |
 | Testing | TBD | 0 | 0 | TBD |
@@ -131,6 +131,18 @@ The migration will follow a progressive approach:
    - Full-page loading overlay with customizable options
    - Progress tracking system with custom load steps
    - Error handling and automatic page load detection
+
+3. **LanguageSelector Component** - `src/components/LanguageSelector.tsx`
+   - Multi-variant language selection interface (dropdown, buttons, select)
+   - Internationalization integration with the i18n system
+   - RTL language support with appropriate document direction handling
+
+## Additional Migrations
+
+1. **i18n System** - `src/i18n.ts`
+   - Type-safe internationalization system
+   - Locale management with RTL language support
+   - Date and number formatting utilities
 
 ## Next Steps
 
