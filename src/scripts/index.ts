@@ -6,8 +6,8 @@
  */
 
 // Core modules
-import './core/ui-improvements.ts';  // Recently migrated
-import './core/main.js';
+import './core/ui-improvements.ts';  // Migrated
+import './core/main.ts';  // Migrated
 import './core/renderer.js';
 import './core/layout.ts';  // Migrated
 
