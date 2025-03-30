@@ -114,7 +114,7 @@ We still have several files to migrate:
 - ✅ cleanup.js
 - ✅ lazy-loader.js
 - ✅ search.js
-- print-helper.js
+- ✅ print-helper.js
 - accessibility-ui.js
 - layout-utilities.js
 - debug-helper.js
