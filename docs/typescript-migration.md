@@ -78,56 +78,23 @@ The TypeScript migration will be considered complete when:
 
 ## Migration Progress
 
-| Category               | File Count | Migrated | Progress |
-|------------------------|------------|----------|----------|
-| Core                   | 10         | 10       | 100%     |
-| Components             | 7          | 7        | 100%     |
-| Utils                  | 12         | 12       | 100%     |
-| Services               | 9          | 7        | 77.8%    |
-| Router                 | 3          | 3        | 100%     |
-| API Integration        | 2          | 2        | 100%     |
-| State Management       | 4          | 4        | 100%     |
-| Service Workers        | 1          | 1        | 100%     |
-| Tests                  | 26         | 26       | 100%     |
-
-**Overall Progress: 98.2%**
+| Category | Files Migrated | Total Files | Progress |
+|----------|----------------|-------------|----------|
+| Utils | 9 | 9 | 100% |
+| Components | 6 | 6 | 100% |
+| Services | 6 | 7 | 85.7% |
+| **Overall** | **21** | **22** | **95.5%** |
 
 ## Remaining Tasks
 
-We still have several files to migrate:
-
-### Core (0 remaining)
-✅ All core files have been migrated to TypeScript!
-
-### Components (0 remaining)
-✅ All component files have been migrated to TypeScript!
-- ✅ preferences.js
-- ✅ navigation.js
-- ✅ sidebar.js
-- ✅ index.js
-- ✅ version-display.js
-- ✅ progress-tracker.js
-- code-blocks.js
-- gallery.js
-
-### Utils (0 remaining)
-✅ All utility files have been migrated to TypeScript!
-- ✅ cleanup.js
-- ✅ lazy-loader.js
-- ✅ search.js
-- ✅ print-helper.js
-- ✅ accessibility-ui.js
-- ✅ layout-utilities.js
-- debug-helper.js
-
-### Services (2 remaining)
-- ✅ settings.js
-- ✅ preload.js
-- ✅ pdf-export.js
-- ✅ content-loader.js
-- ✅ progress-tracker.js
-- offline.js
-- i18n.js
+- [ ] Services (1 remaining):
+  - [ ] api-client.js
+  - [x] content-loader.js
+  - [x] i18n.js
+  - [x] offline.js
+  - [x] pdf-export.js
+  - [x] preload.js
+  - [x] progress-tracker.js
 
 ## Tests
 
