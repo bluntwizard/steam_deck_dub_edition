@@ -16,8 +16,8 @@ This document outlines the plan for migrating the Steam Deck DUB Edition codebas
 |---------------------|-----------|-------|----------|
 | Components          | 11        | 11    | 100%     |
 | Utility Functions   | 5         | 5     | 100%     |
-| Core Application    | 3         | 5     | 60%      |
-| Total               | 19        | 21    | 90.5%    |
+| Core Application    | 4         | 5     | 80%      |
+| Total               | 20        | 21    | 95.2%    |
 
 ## Migration Plan
 
@@ -48,7 +48,7 @@ This document outlines the plan for migrating the Steam Deck DUB Edition codebas
 - ✅ App initialization
 - ✅ Routing logic
 - ✅ State management
-- ⬜ Service workers
+- ✅ Service workers
 - ⬜ API integrations
 
 ## Migration Guidelines
@@ -62,10 +62,9 @@ This document outlines the plan for migrating the Steam Deck DUB Edition codebas
 
 ## Next Steps
 
-1. Continue migrating core application logic, focusing on service workers
+1. Complete API integrations migration
 2. Update test suite to TypeScript
-3. Complete API integrations migration
-4. Complete documentation of the TypeScript migration process
+3. Complete documentation of the TypeScript migration process
 
 ## Completion Criteria
 
