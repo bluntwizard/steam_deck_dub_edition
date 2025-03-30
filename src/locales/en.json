@@ -2,14 +2,19 @@
   "app": {
     "title": "Steam Deck DUB Edition",
     "subtitle": "A definitive guide for Steam Deck",
-    "version": "Version {{version}}"
+    "version": "Version {{version}}",
+    "description": "A collection of community enhancements for Steam Deck"
   },
   "nav": {
     "home": "Home",
     "guide": "Guide",
     "tutorials": "Tutorials",
     "settings": "Settings",
-    "about": "About"
+    "about": "About",
+    "store": "Store",
+    "library": "Library",
+    "community": "Community",
+    "profile": "Profile"
   },
   "search": {
     "placeholder": "Search...",
@@ -19,6 +24,7 @@
   },
   "settings": {
     "title": "Settings",
+    "general": "General",
     "appearance": "Appearance",
     "theme": {
       "title": "Theme",
@@ -44,10 +50,18 @@
       "checkingUpdates": "Checking for updates...",
       "cacheError": "Error getting cache information",
       "cacheNotSupported": "Cache storage not supported in this browser"
-    }
+    },
+    "performance": "Performance",
+    "powerSaving": "Power Saving",
+    "notifications": "Notifications",
+    "about": "About"
   },
   "accessibility": {
     "title": "Accessibility",
+    "textSize": "Text Size",
+    "contrast": "Contrast",
+    "screenReader": "Screen Reader",
+    "keyboardNavigation": "Keyboard Navigation",
     "fontSize": {
       "title": "Font Size",
       "description": "Adjust the size of text throughout the application",
@@ -101,6 +115,43 @@
     "enabled": "Enabled",
     "disabled": "Disabled",
     "on": "On",
-    "off": "Off"
+    "off": "Off",
+    "ok": "OK",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "settings": "Settings"
+  },
+  "direction": "ltr",
+  "errors": {
+    "unknown": "An unknown error occurred",
+    "notFound": "Page not found",
+    "offline": "You are offline",
+    "serverError": "A server error occurred",
+    "retry": "Retry"
+  },
+  "library": {
+    "all": "All Games",
+    "recent": "Recent Games",
+    "favorites": "Favorites",
+    "installed": "Installed",
+    "collections": "Collections",
+    "noGames": "No Games"
+  },
+  "store": {
+    "featured": "Featured",
+    "categories": "Categories",
+    "deals": "Deals",
+    "wishlist": "Wishlist",
+    "cart": "Cart"
+  },
+  "profile": {
+    "title": "Profile",
+    "editProfile": "Edit Profile",
+    "friends": "Friends",
+    "achievements": "Achievements",
+    "games": "Games",
+    "badges": "Badges",
+    "activity": "Activity"
   }
 }

@@ -490,3 +490,10 @@ async function registerPeriodicSync() {
 // Try to register for periodic sync
 registerPeriodicSync().catch(console.error);
 
+
+
+
+
+
+
+

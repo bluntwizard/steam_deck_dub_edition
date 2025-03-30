@@ -38,7 +38,16 @@
     "prepare-icons": "node scripts/prepare-icons.js",
     "test:browser": "playwright test",
     "serve:demo": "http-server src/demo -p 8080",
-    "test:browser:report": "npx playwright show-report test-results/html-report"
+    "test:browser:report": "npx playwright show-report test-results/html-report",
+    "ci": "npm run lint && npm test && npm run test:browser",
+    "ci:coverage": "npm run test:coverage -- --ci",
+    "deploy": "npm run build:web:prod && node scripts/deploy.js",
+    "deploy:staging": "npm run build:web:prod && node scripts/deploy.js --staging",
+    "deploy:prod": "npm run build:web:prod && node scripts/deploy.js --production",
+    "release:patch": "npm version patch",
+    "release:minor": "npm version minor",
+    "release:major": "npm version major",
+    "postversion": "git push && git push --tags"
   },
   "keywords": [
     "steam-deck",

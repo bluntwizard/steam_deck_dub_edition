@@ -2,14 +2,19 @@
   "app": {
     "title": "Steam Deck Edición DUB",
     "subtitle": "Una guía definitiva para Steam Deck",
-    "version": "Versión {{version}}"
+    "version": "Versión {{version}}",
+    "description": "Una colección de mejoras comunitarias para Steam Deck"
   },
   "nav": {
     "home": "Inicio",
     "guide": "Guía",
     "tutorials": "Tutoriales",
     "settings": "Configuración",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "store": "Tienda",
+    "library": "Biblioteca",
+    "community": "Comunidad",
+    "profile": "Perfil"
   },
   "search": {
     "placeholder": "Buscar...",
@@ -19,6 +24,7 @@
   },
   "settings": {
     "title": "Configuración",
+    "general": "General",
     "appearance": "Apariencia",
     "theme": {
       "title": "Tema",
@@ -44,10 +50,18 @@
       "checkingUpdates": "Buscando actualizaciones...",
       "cacheError": "Error al obtener información del caché",
       "cacheNotSupported": "El almacenamiento en caché no es compatible en este navegador"
-    }
+    },
+    "performance": "Rendimiento",
+    "powerSaving": "Ahorro de energía",
+    "notifications": "Notificaciones",
+    "about": "Acerca de"
   },
   "accessibility": {
     "title": "Accesibilidad",
+    "textSize": "Tamaño del texto",
+    "contrast": "Contraste",
+    "screenReader": "Lector de pantalla",
+    "keyboardNavigation": "Navegación por teclado",
     "fontSize": {
       "title": "Tamaño de fuente",
       "description": "Ajusta el tamaño del texto en toda la aplicación",
@@ -101,6 +115,43 @@
     "enabled": "Habilitado",
     "disabled": "Deshabilitado",
     "on": "Activado",
-    "off": "Desactivado"
+    "off": "Desactivado",
+    "ok": "Aceptar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "search": "Buscar",
+    "settings": "Configuración"
+  },
+  "direction": "ltr",
+  "errors": {
+    "unknown": "Ocurrió un error desconocido",
+    "notFound": "Página no encontrada",
+    "offline": "Estás sin conexión",
+    "serverError": "Ocurrió un error en el servidor",
+    "retry": "Reintentar"
+  },
+  "library": {
+    "all": "Todos los juegos",
+    "recent": "Juegos recientes",
+    "favorites": "Favoritos",
+    "installed": "Instalados",
+    "collections": "Colecciones",
+    "noGames": "No hay juegos"
+  },
+  "store": {
+    "featured": "Destacados",
+    "categories": "Categorías",
+    "deals": "Ofertas",
+    "wishlist": "Lista de deseos",
+    "cart": "Carrito"
+  },
+  "profile": {
+    "title": "Perfil",
+    "editProfile": "Editar perfil",
+    "friends": "Amigos",
+    "achievements": "Logros",
+    "games": "Juegos",
+    "badges": "Insignias",
+    "activity": "Actividad"
   }
 }

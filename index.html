@@ -19,6 +19,13 @@
         
         <!-- Application manifest -->
         <link rel="manifest" href="manifest.json">
+        
+        <!-- Progressive Web App meta tags -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-title" content="SDDE">
+        <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+        <meta name="theme-color" content="#1a9fff">
     </head>
     <body>
         <!-- Background elements -->
@@ -196,16 +203,35 @@
             
             // Register service worker for offline support
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/service-worker.js')
+                navigator.serviceWorker.register('/src/scripts/services/service-worker.js')
                     .then(registration => {
-                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                        console.log('Service Worker registered with scope:', registration.scope);
+                        
+                        // Check for updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            console.log('Service Worker update found!');
+                            
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // New content is available, show refresh notification
+                                    appInit.showUpdateNotification();
+                                }
+                            });
+                        });
                     })
                     .catch(error => {
-                        appInit.components.errorHandler.handleError(error, {
-                            context: 'Service Worker registration',
-                            source: 'Main script'
-                        });
+                        console.error('Service Worker registration failed:', error);
                     });
+                    
+                // Handle refresh request from user
+                let refreshing = false;
+                navigator.serviceWorker.addEventListener('controllerchange', () => {
+                    if (!refreshing) {
+                        refreshing = true;
+                        window.location.reload();
+                    }
+                });
             }
         </script>
     </body>

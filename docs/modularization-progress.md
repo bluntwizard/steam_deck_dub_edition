@@ -96,6 +96,17 @@ This document tracks the progress of modularizing the Steam Deck DUB Edition cod
 | Error reporting system | ❌ | Collect and analyze errors |
 | Performance metrics | ❌ | Monitor and improve application performance |
 
+## Internationalization and Localization
+
+- [x] Enhanced i18n module with RTL support
+- [x] Language selector component
+- [x] RTL CSS support
+- [x] Arabic locale file
+- [x] Hebrew locale file
+- [x] Language switching mechanism
+- [x] Direction attributes management
+- [x] Documentation for i18n and RTL support
+
 ## Legend
 - ✅ Complete
 - ⚠️ In Progress

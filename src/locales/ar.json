@@ -1,0 +1,148 @@
+{
+  "app": {
+    "title": "ستيم دك - إصدار دب",
+    "subtitle": "تحسينات مجتمعية لجهاز ستيم دك",
+    "description": "مجموعة من الإضافات والتحسينات لجهاز ستيم دك مقدمة من المجتمع",
+    "version": "الإصدار {{version}}"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "store": "المتجر",
+    "library": "المكتبة",
+    "community": "المجتمع",
+    "profile": "الملف الشخصي",
+    "guide": "الدليل",
+    "tutorials": "الدروس",
+    "settings": "الإعدادات",
+    "about": "حول"
+  },
+  "search": {
+    "placeholder": "بحث...",
+    "noResults": "لا توجد نتائج لـ \"{{query}}\"",
+    "results": "نتائج البحث عن \"{{query}}\"",
+    "searchHint": "اضغط '/' للبحث"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "general": "عام",
+    "appearance": "المظهر",
+    "language": "اللغة",
+    "theme": {
+      "title": "السمة",
+      "light": "فاتح",
+      "dark": "داكن",
+      "system": "النظام"
+    },
+    "performance": "الأداء",
+    "powerSaving": "توفير الطاقة",
+    "notifications": "الإشعارات",
+    "about": "حول التطبيق",
+    "content": {
+      "title": "المحتوى",
+      "offlineMode": "وضع عدم الاتصال",
+      "clearCache": "مسح ذاكرة التخزين المؤقت",
+      "updateContent": "التحقق من تحديثات المحتوى",
+      "cachedResources": "الموارد المخزنة مؤقتًا",
+      "totalCached": "إجمالي المخزن",
+      "items": "عناصر",
+      "clearingCache": "جارٍ مسح ذاكرة التخزين المؤقت...",
+      "checkingUpdates": "جارٍ التحقق من التحديثات...",
+      "cacheError": "خطأ في الحصول على معلومات ذاكرة التخزين المؤقت",
+      "cacheNotSupported": "ذاكرة التخزين المؤقت غير مدعومة في هذا المتصفح"
+    }
+  },
+  "accessibility": {
+    "title": "إمكانية الوصول",
+    "textSize": "حجم النص",
+    "contrast": "التباين",
+    "screenReader": "قارئ الشاشة",
+    "keyboardNavigation": "التنقل بلوحة المفاتيح",
+    "fontSize": {
+      "title": "حجم الخط",
+      "description": "ضبط حجم النص في جميع أنحاء التطبيق",
+      "small": "صغير",
+      "medium": "متوسط",
+      "large": "كبير",
+      "xlarge": "كبير جدًا"
+    },
+    "dyslexicFont": {
+      "title": "خط مناسب لعسر القراءة",
+      "description": "يستخدم خط OpenDyslexic لتحسين قابلية القراءة للمستخدمين الذين يعانون من عسر القراءة"
+    },
+    "highContrast": {
+      "title": "وضع التباين العالي",
+      "description": "يعزز الرؤية بتباين ألوان أقوى وحدود أكثر وضوحًا"
+    },
+    "status": {
+      "on": "مفعّل",
+      "off": "معطّل"
+    },
+    "resetSettings": "إعادة ضبط إعدادات إمكانية الوصول"
+  },
+  "progress": {
+    "title": "تتبع التقدم",
+    "completed": "مكتمل",
+    "markComplete": "وضع علامة اكتمال",
+    "resetProgress": "إعادة ضبط التقدم",
+    "resetConfirm": "هل أنت متأكد من رغبتك في إعادة ضبط كل التقدم؟ لا يمكن التراجع عن هذا الإجراء.",
+    "progressSummary": "لقد أكملت {{completed}} من {{total}} أقسام ({{percentage}}%)."
+  },
+  "offline": {
+    "title": "وضع عدم الاتصال",
+    "description": "أنت تعرض حاليًا محتوى مخزنًا مؤقتًا في وضع عدم الاتصال.",
+    "reconnect": "محاولة إعادة الاتصال"
+  },
+  "common": {
+    "ok": "موافق",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "loading": "جارِ التحميل...",
+    "close": "إغلاق",
+    "back": "رجوع",
+    "next": "التالي",
+    "search": "بحث",
+    "settings": "الإعدادات",
+    "success": "نجاح",
+    "error": "خطأ",
+    "warning": "تحذير",
+    "info": "معلومات",
+    "enabled": "مفعّل",
+    "disabled": "معطّل",
+    "on": "تشغيل",
+    "off": "إيقاف"
+  },
+  "direction": "rtl",
+  "errors": {
+    "unknown": "حدث خطأ غير معروف",
+    "notFound": "لم يتم العثور على الصفحة",
+    "offline": "أنت غير متصل بالإنترنت",
+    "serverError": "حدث خطأ في الخادم",
+    "retry": "إعادة المحاولة"
+  },
+  "library": {
+    "all": "جميع الألعاب",
+    "recent": "الألعاب الأخيرة",
+    "favorites": "المفضلة",
+    "installed": "المثبتة",
+    "collections": "المجموعات",
+    "noGames": "لا توجد ألعاب"
+  },
+  "store": {
+    "featured": "المميز",
+    "categories": "الفئات",
+    "deals": "العروض",
+    "wishlist": "قائمة الرغبات",
+    "cart": "سلة التسوق"
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "editProfile": "تعديل الملف الشخصي",
+    "friends": "الأصدقاء",
+    "achievements": "الإنجازات",
+    "games": "الألعاب",
+    "badges": "الشارات",
+    "activity": "النشاط"
+  }
+} 

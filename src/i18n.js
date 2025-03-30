@@ -1,5 +1,6 @@
 /**
- * Internationalization (i18n) support for Steam Deck DUB Edition
+ * Enhanced Internationalization (i18n) support for Steam Deck DUB Edition
+ * Includes RTL language support and improved language management
  */
 
 class I18n {
@@ -8,6 +9,22 @@ class I18n {
     this.currentLocale = 'en';
     this.fallbackLocale = 'en';
     this.initialized = false;
+    this.supportedLocales = [
+      { code: 'en', name: 'English', nativeName: 'English', direction: 'ltr' },
+      { code: 'es', name: 'Spanish', nativeName: 'Español', direction: 'ltr' },
+      { code: 'ar', name: 'Arabic', nativeName: 'العربية', direction: 'rtl' },
+      { code: 'he', name: 'Hebrew', nativeName: 'עברית', direction: 'rtl' }
+    ];
+    // Expose supported locales publicly
+    this.getSupportedLocales = this.getSupportedLocales.bind(this);
+  }
+
+  /**
+   * Get all supported locales
+   * @returns {Array} Array of supported locale objects
+   */
+  getSupportedLocales() {
+    return this.supportedLocales;
   }
 
   /**
@@ -25,7 +42,12 @@ class I18n {
       } else {
         // Detect browser locale
         const browserLocale = navigator.language || 'en';
-        this.currentLocale = browserLocale.split('-')[0]; // Use primary language code
+        const primaryLanguage = browserLocale.split('-')[0]; // Use primary language code
+        
+        // Check if the detected locale is supported
+        const isSupported = this.supportedLocales.some(locale => locale.code === primaryLanguage);
+        this.currentLocale = isSupported ? primaryLanguage : this.fallbackLocale;
+        
         // Save detected locale
         localStorage.setItem('locale', this.currentLocale);
       }
@@ -33,9 +55,8 @@ class I18n {
       // Load translations for current locale
       await this.loadTranslations(this.currentLocale);
       
-      // Add locale class to body for CSS styling
-      document.documentElement.setAttribute('lang', this.currentLocale);
-      document.body.classList.add(`locale-${this.currentLocale}`);
+      // Apply locale to document
+      this.applyLocaleToDocument(this.currentLocale);
       
       console.info(`I18n initialized with locale: ${this.currentLocale}`);
       
@@ -43,8 +64,9 @@ class I18n {
     } catch (error) {
       console.error('Error initializing i18n:', error);
       // Fallback to English if there's an error
-      this.currentLocale = 'en';
+      this.currentLocale = this.fallbackLocale;
       await this.loadTranslations(this.currentLocale);
+      this.applyLocaleToDocument(this.currentLocale);
     }
     
     return this.translations;
@@ -57,8 +79,13 @@ class I18n {
    */
   async loadTranslations(locale) {
     try {
+      // Check if translations are already loaded
+      if (this.translations[locale]) {
+        return;
+      }
+      
       // Fetch translations from file
-      const response = await fetch(`/locales/${locale}.json`);
+      const response = await fetch(`/src/locales/${locale}.json`);
       
       if (!response.ok) {
         throw new Error(`Failed to load translations for ${locale}`);
@@ -79,12 +106,58 @@ class I18n {
   }
 
   /**
+   * Apply locale settings to document (language, direction, classes)
+   * @param {string} locale - The locale code to apply
+   * @private
+   */
+  applyLocaleToDocument(locale) {
+    // Set document language
+    document.documentElement.setAttribute('lang', locale);
+    
+    // Get locale information
+    const localeInfo = this.supportedLocales.find(l => l.code === locale) || 
+                       { code: locale, direction: 'ltr' };
+                       
+    // Get direction from translations if available, fallback to locale info
+    const direction = this.translations[locale]?.direction || localeInfo.direction || 'ltr';
+    
+    // Set document direction
+    document.documentElement.setAttribute('dir', direction);
+    
+    // Update body classes
+    document.body.classList.forEach(className => {
+      if (className.startsWith('locale-') || className.startsWith('dir-')) {
+        document.body.classList.remove(className);
+      }
+    });
+    
+    // Add locale and direction classes
+    document.body.classList.add(`locale-${locale}`);
+    document.body.classList.add(`dir-${direction}`);
+    
+    // Add RTL/LTR specific classes to help with CSS targeting
+    if (direction === 'rtl') {
+      document.body.classList.add('is-rtl');
+      document.body.classList.remove('is-ltr');
+    } else {
+      document.body.classList.add('is-ltr');
+      document.body.classList.remove('is-rtl');
+    }
+  }
+
+  /**
    * Set the active locale and load its translations
    * @param {string} locale - The locale code to set (e.g., 'en')
    * @returns {Promise<boolean>} Success status
    */
   async setLocale(locale) {
     try {
+      // Validate locale
+      if (!this.supportedLocales.some(l => l.code === locale)) {
+        console.warn(`Locale ${locale} is not supported, falling back to ${this.fallbackLocale}`);
+        locale = this.fallbackLocale;
+      }
+      
       // Load translations if not already loaded
       if (!this.translations[locale]) {
         await this.loadTranslations(locale);
@@ -96,19 +169,15 @@ class I18n {
       // Save user preference to localStorage
       localStorage.setItem('locale', locale);
       
-      // Update lang attribute and body class
-      document.documentElement.setAttribute('lang', locale);
-      
-      document.body.classList.forEach(className => {
-        if (className.startsWith('locale-')) {
-          document.body.classList.remove(className);
-        }
-      });
-      document.body.classList.add(`locale-${locale}`);
+      // Apply locale settings to document
+      this.applyLocaleToDocument(locale);
       
       // Trigger a UI update event
       document.dispatchEvent(new CustomEvent('locale-changed', { 
-        detail: { locale } 
+        detail: { 
+          locale,
+          direction: this.getDirection()
+        } 
       }));
       
       return true;
@@ -119,11 +188,36 @@ class I18n {
   }
 
   /**
+   * Get current text direction (rtl or ltr)
+   * @returns {string} 'rtl' or 'ltr'
+   */
+  getDirection() {
+    return this.translations[this.currentLocale]?.direction || 'ltr';
+  }
+
+  /**
+   * Check if current locale is RTL
+   * @returns {boolean} True if the current locale is RTL
+   */
+  isRTL() {
+    return this.getDirection() === 'rtl';
+  }
+
+  /**
    * Get current locale code
    * @returns {string} The current locale code
    */
   getCurrentLocale() {
     return this.currentLocale;
+  }
+
+  /**
+   * Get current locale information
+   * @returns {Object} Object with locale information
+   */
+  getCurrentLocaleInfo() {
+    return this.supportedLocales.find(l => l.code === this.currentLocale) || 
+           { code: this.currentLocale, name: this.currentLocale, direction: this.getDirection() };
   }
 
   /**
@@ -188,6 +282,49 @@ class I18n {
     return str.replace(/\{\{(\w+)\}\}/g, (match, key) => {
       return replacements[key] !== undefined ? replacements[key] : match;
     });
+  }
+
+  /**
+   * Format a date according to the current locale
+   * @param {Date|string|number} date - The date to format
+   * @param {Object} [options] - Intl.DateTimeFormat options
+   * @returns {string} Formatted date string
+   */
+  formatDate(date, options = {}) {
+    const dateObj = date instanceof Date ? date : new Date(date);
+    const defaultOptions = { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    };
+    
+    try {
+      return new Intl.DateTimeFormat(
+        this.currentLocale, 
+        { ...defaultOptions, ...options }
+      ).format(dateObj);
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return String(date);
+    }
+  }
+
+  /**
+   * Format a number according to the current locale
+   * @param {number} number - The number to format
+   * @param {Object} [options] - Intl.NumberFormat options
+   * @returns {string} Formatted number string
+   */
+  formatNumber(number, options = {}) {
+    try {
+      return new Intl.NumberFormat(
+        this.currentLocale, 
+        options
+      ).format(number);
+    } catch (error) {
+      console.error('Error formatting number:', error);
+      return String(number);
+    }
   }
 }
 

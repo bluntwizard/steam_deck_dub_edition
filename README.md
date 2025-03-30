@@ -79,6 +79,103 @@ SDDE can be installed as a Progressive Web App on desktop and mobile devices, of
 - [Modularization Progress](docs/modularization-progress.md)
 - [Visual Examples](docs/component-visuals.md)
 
+## Internationalization (i18n) and RTL Support
+
+Steam Deck DUB Edition now supports multiple languages and right-to-left (RTL) text direction for languages like Arabic and Hebrew.
+
+### Features
+
+- **Multiple Language Support**: 
+  - English (en)
+  - Spanish (es)
+  - Arabic (ar) - RTL
+  - Hebrew (he) - RTL
+
+- **RTL Layout Support**:
+  - Automatic text direction switching
+  - Mirrored UI elements and layouts
+  - Proper alignment for RTL languages
+
+- **Language Selection Component**:
+  - Easy language switching in the UI
+  - Three variants: dropdown, buttons, and select
+  - Shows native language names
+
+### Implementation Details
+
+#### Locale Files
+
+Each language has its own locale file in the `src/locales` directory:
+- `en.json` - English (default)
+- `es.json` - Spanish
+- `ar.json` - Arabic (RTL)
+- `he.json` - Hebrew (RTL)
+
+Locale files include a `direction` property that defines the text direction for the language:
+
+```json
+{
+  "direction": "rtl",
+  "common": {
+    // translations
+  }
+}
+```
+
+#### RTL CSS Support
+
+RTL-specific styles are defined in `src/assets/css/rtl.css` and are automatically applied when a RTL language is selected. These styles handle:
+
+- Text alignment
+- Layout mirroring
+- Margins and padding
+- Icons and buttons
+- Form elements
+
+#### i18n Module
+
+The enhanced i18n module (`src/i18n.js`) handles:
+
+- Language detection and selection
+- Loading translations
+- RTL/LTR direction management
+- DOM updates based on language
+- Number and date formatting
+
+#### Language Selector Component
+
+A reusable language selector component is available in three variants:
+
+```jsx
+// Dropdown (default)
+<LanguageSelector />
+
+// Buttons
+<LanguageSelector variant="buttons" />
+
+// Select element (mobile-friendly)
+<LanguageSelector variant="select" />
+```
+
+### Adding New Languages
+
+To add a new language:
+
+1. Create a new locale file in `src/locales/` with the language code as filename (e.g., `fr.json` for French)
+2. Set the `direction` property to either "ltr" or "rtl"
+3. Add the language to the supported locales list in `src/i18n.js`
+
+```javascript
+this.supportedLocales = [
+  // Existing languages...
+  { code: 'fr', name: 'French', nativeName: 'Français', direction: 'ltr' }
+];
+```
+
+### Testing RTL Languages
+
+When developing UI components, always test with both LTR and RTL languages to ensure proper layout in both directions.
+
 ## Development
 
 ### Prerequisites

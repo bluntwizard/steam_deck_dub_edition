@@ -254,6 +254,35 @@ class AppInitializer {
   }
 
   /**
+   * Show notification when an app update is available
+   */
+  showUpdateNotification() {
+    if (!this.components.notificationSystem) return;
+    
+    this.components.notificationSystem.info({
+      message: 'A new version is available!',
+      details: 'Refresh to update the application with the latest improvements.',
+      duration: 0, // Persist until dismissed
+      actions: [
+        {
+          text: 'Update Now',
+          onClick: () => window.location.reload()
+        },
+        {
+          text: 'Remind Later',
+          onClick: () => {
+            // Hide current notification but remind again in 30 minutes
+            setTimeout(() => this.showUpdateNotification(), 30 * 60 * 1000);
+          }
+        }
+      ]
+    });
+    
+    // Also log to console
+    console.log('New application version available. Refresh to update.');
+  }
+
+  /**
    * Initialize theme based on user preference
    */
   initThemePreference() {

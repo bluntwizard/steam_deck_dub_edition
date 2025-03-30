@@ -1,0 +1,377 @@
+/**
+ * RTL (Right-to-Left) Support Styles
+ * For Steam Deck DUB Edition
+ */
+
+/* Base RTL adjustments */
+[dir="rtl"] {
+  /* Reverse text alignment */
+  text-align: right;
+  
+  /* Adjust default direction-specific properties */
+  direction: rtl;
+  unicode-bidi: embed;
+}
+
+/* Container direction fixes */
+[dir="rtl"] .flex-row {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .grid {
+  direction: rtl;
+}
+
+/* Margin and padding adjustments */
+[dir="rtl"] .mr-1, [dir="rtl"] .mr-2, [dir="rtl"] .mr-3, [dir="rtl"] .mr-4 {
+  margin-right: 0 !important;
+}
+
+[dir="rtl"] .ml-1 {
+  margin-left: 0 !important;
+  margin-right: 0.25rem !important;
+}
+
+[dir="rtl"] .ml-2 {
+  margin-left: 0 !important;
+  margin-right: 0.5rem !important;
+}
+
+[dir="rtl"] .ml-3 {
+  margin-left: 0 !important;
+  margin-right: 1rem !important;
+}
+
+[dir="rtl"] .ml-4 {
+  margin-left: 0 !important;
+  margin-right: 1.5rem !important;
+}
+
+[dir="rtl"] .mr-1 {
+  margin-right: 0 !important;
+  margin-left: 0.25rem !important;
+}
+
+[dir="rtl"] .mr-2 {
+  margin-right: 0 !important;
+  margin-left: 0.5rem !important;
+}
+
+[dir="rtl"] .mr-3 {
+  margin-right: 0 !important;
+  margin-left: 1rem !important;
+}
+
+[dir="rtl"] .mr-4 {
+  margin-right: 0 !important;
+  margin-left: 1.5rem !important;
+}
+
+/* Border radius adjustments */
+[dir="rtl"] .rounded-l {
+  border-radius: 0 !important;
+  border-top-right-radius: 0.25rem !important;
+  border-bottom-right-radius: 0.25rem !important;
+}
+
+[dir="rtl"] .rounded-r {
+  border-radius: 0 !important;
+  border-top-left-radius: 0.25rem !important;
+  border-bottom-left-radius: 0.25rem !important;
+}
+
+/* Icon adjustments */
+[dir="rtl"] .icon-arrow-right::before {
+  content: "\e901"; /* Use left arrow icon instead */
+  transform: rotate(180deg);
+}
+
+[dir="rtl"] .icon-arrow-left::before {
+  content: "\e900"; /* Use right arrow icon instead */
+  transform: rotate(180deg);
+}
+
+/* Navigation specific adjustments */
+[dir="rtl"] .nav-item .icon {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+[dir="rtl"] .dropdown-menu {
+  left: auto;
+  right: 0;
+  text-align: right;
+}
+
+/* Form elements */
+[dir="rtl"] .form-check-input {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+[dir="rtl"] .form-select {
+  background-position: left 0.75rem center;
+  padding-right: 0.75rem;
+  padding-left: 2rem;
+}
+
+/* Input groups */
+[dir="rtl"] .input-group > .input-group-prepend {
+  margin-right: 0;
+  margin-left: -1px;
+}
+
+[dir="rtl"] .input-group > .input-group-append {
+  margin-left: 0;
+  margin-right: -1px;
+}
+
+[dir="rtl"] .input-group > .form-control:not(:last-child) {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+[dir="rtl"] .input-group > .form-control:not(:first-child) {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* List styles */
+[dir="rtl"] ul, [dir="rtl"] ol {
+  padding-right: 1.5rem;
+  padding-left: 0;
+}
+
+/* Table adjustments */
+[dir="rtl"] th, [dir="rtl"] td {
+  text-align: right;
+}
+
+/* Modal adjustments */
+[dir="rtl"] .modal-header .close {
+  margin: -1rem auto -1rem -1rem;
+}
+
+/* Alert adjustments */
+[dir="rtl"] .alert-dismissible {
+  padding-right: 1.25rem;
+  padding-left: 4rem;
+}
+
+[dir="rtl"] .alert-dismissible .close {
+  left: 0;
+  right: auto;
+}
+
+/* Progress bars */
+[dir="rtl"] .progress-bar {
+  float: right;
+}
+
+/* Accordion */
+[dir="rtl"] .accordion-button::after {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Tooltip & Popover */
+[dir="rtl"] .bs-tooltip-right .arrow,
+[dir="rtl"] .bs-popover-right .arrow {
+  right: auto;
+  left: 0;
+  transform: rotate(180deg);
+}
+
+[dir="rtl"] .bs-tooltip-left .arrow,
+[dir="rtl"] .bs-popover-left .arrow {
+  left: auto;
+  right: 0;
+  transform: rotate(180deg);
+}
+
+/* Fix for checkbox and radio button alignment */
+[dir="rtl"] .form-check {
+  padding-left: 0;
+  padding-right: 1.25rem;
+}
+
+[dir="rtl"] .form-check-input {
+  margin-left: 0;
+  margin-right: -1.25rem;
+}
+
+/* Carousel controls */
+[dir="rtl"] .carousel-control-prev {
+  right: 0;
+  left: auto;
+}
+
+[dir="rtl"] .carousel-control-next {
+  left: 0;
+  right: auto;
+}
+
+[dir="rtl"] .carousel-item-next.carousel-item-left {
+  transform: translateX(100%);
+}
+
+[dir="rtl"] .carousel-item-prev.carousel-item-right {
+  transform: translateX(-100%);
+}
+
+/* Card layouts */
+[dir="rtl"] .card-header-tabs {
+  margin-right: -0.625rem;
+  margin-left: -0.625rem;
+}
+
+/* Pagination */
+[dir="rtl"] .page-item:first-child .page-link {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+[dir="rtl"] .page-item:last-child .page-link {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+/* Text direction utilities */
+.text-start-rtl {
+  text-align: right !important;
+}
+
+.text-end-rtl {
+  text-align: left !important;
+}
+
+/* Float utilities */
+[dir="rtl"] .float-start {
+  float: right !important;
+}
+
+[dir="rtl"] .float-end {
+  float: left !important;
+}
+
+/* Steam Deck DUB Edition specific styles */
+[dir="rtl"] .sidebar {
+  left: auto;
+  right: 0;
+  border-right: none;
+  border-left: 1px solid var(--border-color);
+}
+
+[dir="rtl"] .sidebar-collapsed {
+  left: auto;
+  right: -250px;
+}
+
+[dir="rtl"] .main-content {
+  margin-left: 0;
+  margin-right: 280px;
+}
+
+[dir="rtl"] .main-content.expanded {
+  margin-left: 0;
+  margin-right: 80px;
+}
+
+/* Fix for dropdown menus */
+[dir="rtl"] .dropdown-menu-end {
+  right: auto !important;
+  left: 0 !important;
+}
+
+[dir="rtl"] .dropdown-menu-start {
+  left: auto !important;
+  right: 0 !important;
+}
+
+/* Fix for app switcher */
+[dir="rtl"] .app-switcher .app-icon {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+/* Fix for notifications */
+[dir="rtl"] .notification-item .avatar {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+/* Fix for search bar */
+[dir="rtl"] .search-bar .search-icon {
+  left: auto;
+  right: 1rem;
+}
+
+[dir="rtl"] .search-bar input {
+  padding-left: 1rem;
+  padding-right: 3rem;
+}
+
+/* RTL-specific typography adjustments */
+[dir="rtl"] .arabic-font,
+[dir="rtl"] .hebrew-font {
+  font-family: var(--rtl-font-family, inherit);
+  letter-spacing: 0;
+}
+
+/* Animations for RTL */
+@keyframes slide-in-rtl {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Apply RTL animations */
+[dir="rtl"] .slide-in {
+  animation-name: slide-in-rtl;
+}
+
+[dir="rtl"] .slide-out {
+  animation-name: slide-out-rtl;
+}
+
+/* Medium screens and below */
+@media (max-width: 992px) {
+  [dir="rtl"] .main-content {
+    margin-right: 0;
+  }
+  
+  [dir="rtl"] .sidebar {
+    right: -280px;
+  }
+  
+  [dir="rtl"] .sidebar.show {
+    right: 0;
+  }
+}
+
+/* Small devices */
+@media (max-width: 576px) {
+  [dir="rtl"] .hide-on-rtl-mobile {
+    display: none !important;
+  }
+} 

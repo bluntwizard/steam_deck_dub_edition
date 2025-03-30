@@ -1,0 +1,152 @@
+{
+  "app": {
+    "title": "מהדורת Steam Deck DUB",
+    "subtitle": "מדריך מקיף ל-Steam Deck",
+    "version": "גרסה {{version}}",
+    "description": "אוסף של תוספות ושיפורים למכשיר סטים דק מהקהילה"
+  },
+  "nav": {
+    "home": "ראשי",
+    "guide": "מדריך",
+    "tutorials": "הדרכות",
+    "settings": "הגדרות",
+    "about": "אודות",
+    "store": "חנות",
+    "library": "ספרייה",
+    "community": "קהילה",
+    "profile": "פרופיל"
+  },
+  "search": {
+    "placeholder": "חיפוש...",
+    "noResults": "לא נמצאו תוצאות עבור \"{{query}}\"",
+    "results": "תוצאות עבור \"{{query}}\"",
+    "searchHint": "לחץ '/' לחיפוש"
+  },
+  "settings": {
+    "title": "הגדרות",
+    "general": "כללי",
+    "appearance": "מראה",
+    "theme": {
+      "title": "ערכת נושא",
+      "light": "בהיר",
+      "dark": "כהה",
+      "system": "ברירת מחדל של המערכת"
+    },
+    "language": {
+      "title": "שפה",
+      "selectLanguage": "בחר שפה",
+      "reloadMessage": "שינוי השפה יוחל במלואו לאחר טעינה מחדש של הדף.",
+      "reloadNow": "טען מחדש כעת"
+    },
+    "content": {
+      "title": "תוכן",
+      "offlineMode": "מצב לא מקוון",
+      "clearCache": "נקה מטמון",
+      "updateContent": "בדוק עדכוני תוכן",
+      "cachedResources": "משאבים במטמון",
+      "totalCached": "סך הכל במטמון",
+      "items": "פריטים",
+      "clearingCache": "מנקה מטמון...",
+      "checkingUpdates": "בודק עדכונים...",
+      "cacheError": "שגיאה בקבלת מידע על המטמון",
+      "cacheNotSupported": "אחסון במטמון אינו נתמך בדפדפן זה"
+    },
+    "performance": "ביצועים",
+    "powerSaving": "חיסכון בחשמל",
+    "notifications": "התראות",
+    "about": "אודות"
+  },
+  "accessibility": {
+    "title": "נגישות",
+    "fontSize": {
+      "title": "גודל גופן",
+      "description": "התאם את גודל הטקסט בכל היישום",
+      "small": "קטן",
+      "medium": "בינוני",
+      "large": "גדול",
+      "xlarge": "גדול מאוד"
+    },
+    "dyslexicFont": {
+      "title": "גופן לדיסלקטים",
+      "description": "משתמש בגופן OpenDyslexic לשיפור הקריאה עבור משתמשים עם דיסלקציה"
+    },
+    "highContrast": {
+      "title": "מצב ניגודיות גבוהה",
+      "description": "משפר את הנראות עם ניגודי צבעים חזקים יותר וגבולות מוגדרים יותר"
+    },
+    "status": {
+      "on": "מופעל",
+      "off": "כבוי"
+    },
+    "resetSettings": "אפס הגדרות נגישות",
+    "textSize": "גודל טקסט",
+    "contrast": "ניגודיות",
+    "screenReader": "קורא מסך",
+    "keyboardNavigation": "ניווט במקלדת"
+  },
+  "progress": {
+    "title": "מעקב התקדמות",
+    "completed": "הושלם",
+    "markComplete": "סמן כהושלם",
+    "resetProgress": "אפס התקדמות",
+    "resetConfirm": "האם אתה בטוח שברצונך לאפס את כל ההתקדמות? לא ניתן לבטל פעולה זו.",
+    "progressSummary": "השלמת {{completed}} מתוך {{total}} חלקים ({{percentage}}%)."
+  },
+  "offline": {
+    "title": "מצב לא מקוון",
+    "description": "אתה צופה כעת בתוכן מטמון במצב לא מקוון.",
+    "reconnect": "נסה להתחבר מחדש"
+  },
+  "common": {
+    "ok": "אישור",
+    "cancel": "ביטול",
+    "save": "שמור",
+    "delete": "מחק",
+    "edit": "ערוך",
+    "loading": "טוען...",
+    "close": "סגור",
+    "back": "חזור",
+    "next": "הבא",
+    "search": "חיפוש",
+    "settings": "הגדרות",
+    "success": "הצלחה",
+    "error": "שגיאה",
+    "warning": "אזהרה",
+    "info": "מידע",
+    "enabled": "מופעל",
+    "disabled": "מושבת",
+    "on": "פועל",
+    "off": "כבוי"
+  },
+  "direction": "rtl",
+  "errors": {
+    "unknown": "אירעה שגיאה לא ידועה",
+    "notFound": "הדף לא נמצא",
+    "serverError": "אירעה שגיאת שרת",
+    "retry": "נסה שוב"
+  },
+  "library": {
+    "all": "כל המשחקים",
+    "recent": "משחקים אחרונים",
+    "favorites": "מועדפים",
+    "installed": "מותקנים",
+    "collections": "אוספים",
+    "noGames": "אין משחקים"
+  },
+  "store": {
+    "featured": "מומלצים",
+    "categories": "קטגוריות",
+    "deals": "מבצעים",
+    "wishlist": "רשימת משאלות",
+    "cart": "עגלת קניות"
+  },
+  "profile": {
+    "title": "פרופיל",
+    "editProfile": "ערוך פרופיל",
+    "friends": "חברים",
+    "achievements": "הישגים",
+    "games": "משחקים",
+    "badges": "תגים",
+    "activity": "פעילות"
+  }
+} 
