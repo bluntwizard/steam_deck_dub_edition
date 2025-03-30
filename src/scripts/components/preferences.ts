@@ -574,15 +574,24 @@ function makePreferenceItemsClickable(): void {
   });
 }
 
+type StringPreferences = 'theme' | 'fontSize' | 'lineHeight' | 'codeHeight' | 'contentWidth' | 'codeBlockFontSize';
+type BooleanPreferences = 'syntaxHighlighting' | 'darkCodeBlocks' | 'highContrast' | 'dyslexicFont' | 'reducedMotion' | 'compactSidebar' | 'markVisitedLinks' | 'autoExpandCode' | 'smoothScrolling';
+
 /**
  * Preview a preference change without saving
  */
-function previewPreference(key: keyof UserPreference, value: any): void {
+function previewPreference(key: keyof UserPreference, value: string | boolean): void {
   // Store the previous value for this preference
   const previousValue = userPreferences[key];
   
-  // Update the preference value
-  userPreferences[key] = value;
+  // Type guard to ensure proper assignment
+  if (typeof userPreferences[key] === typeof value) {
+    // Now TypeScript knows the types match
+    (userPreferences as any)[key] = value;
+  } else {
+    console.error(`Type mismatch for preference ${key}. Expected ${typeof userPreferences[key]}, got ${typeof value}`);
+    return;
+  }
   
   // Apply the preference change for preview
   switch (key) {
@@ -590,44 +599,44 @@ function previewPreference(key: keyof UserPreference, value: any): void {
       // Remove all theme classes
       document.body.classList.remove('theme-light', 'theme-dark', 'theme-dracula', 'theme-cyberdeck');
       // Add the new theme class
-      document.body.classList.add(value);
+      document.body.classList.add(value as string);
       break;
       
     case 'fontSize':
       // Remove all font size classes
       document.body.classList.remove('font-size-small', 'font-size-medium', 'font-size-large', 'font-size-x-large');
       // Add the new font size class
-      document.body.classList.add(value);
+      document.body.classList.add(value as string);
       break;
       
     case 'lineHeight':
       // Remove all line height classes
       document.body.classList.remove('line-height-compact', 'line-height-normal', 'line-height-relaxed', 'line-height-spacious');
       // Add the new line height class
-      document.body.classList.add(value);
+      document.body.classList.add(value as string);
       break;
       
     case 'codeHeight':
       // Remove all code height classes
       document.body.classList.remove('code-height-compact', 'code-height-standard', 'code-height-tall', 'code-height-full');
       // Add the new code height class
-      document.body.classList.add(value);
+      document.body.classList.add(value as string);
       break;
       
     case 'codeBlockFontSize':
       // Remove all code font size classes
       document.body.classList.remove('code-font-small', 'code-font-medium', 'code-font-large');
       // Add the new code font size class
-      document.body.classList.add(value);
+      document.body.classList.add(value as string);
       break;
       
     case 'contentWidth':
       // Preview content width change
-      previewContentWidth(value);
+      previewContentWidth(value as string);
       break;
       
     case 'highContrast':
-      if (value) {
+      if (value as boolean) {
         document.body.classList.add('high-contrast');
       } else {
         document.body.classList.remove('high-contrast');
@@ -635,7 +644,7 @@ function previewPreference(key: keyof UserPreference, value: any): void {
       break;
       
     case 'dyslexicFont':
-      if (value) {
+      if (value as boolean) {
         document.body.classList.add('dyslexic-font');
       } else {
         document.body.classList.remove('dyslexic-font');
@@ -643,7 +652,7 @@ function previewPreference(key: keyof UserPreference, value: any): void {
       break;
       
     case 'reducedMotion':
-      if (value) {
+      if (value as boolean) {
         document.body.classList.add('reduced-motion');
       } else {
         document.body.classList.remove('reduced-motion');
@@ -652,11 +661,11 @@ function previewPreference(key: keyof UserPreference, value: any): void {
       
     case 'compactSidebar':
       // Update sidebar compactness
-      updateSidebarCompactness(value);
+      updateSidebarCompactness(value as boolean);
       break;
       
     case 'markVisitedLinks':
-      if (value) {
+      if (value as boolean) {
         document.body.classList.add('mark-visited-links');
       } else {
         document.body.classList.remove('mark-visited-links');
@@ -664,7 +673,7 @@ function previewPreference(key: keyof UserPreference, value: any): void {
       break;
       
     case 'syntaxHighlighting':
-      if (value) {
+      if (value as boolean) {
         document.body.classList.remove('no-syntax-highlighting');
       } else {
         document.body.classList.add('no-syntax-highlighting');
@@ -672,7 +681,7 @@ function previewPreference(key: keyof UserPreference, value: any): void {
       break;
       
     case 'darkCodeBlocks':
-      if (value) {
+      if (value as boolean) {
         document.body.classList.add('dark-code-blocks');
       } else {
         document.body.classList.remove('dark-code-blocks');
@@ -681,11 +690,11 @@ function previewPreference(key: keyof UserPreference, value: any): void {
       
     case 'autoExpandCode':
       // Update code block expansion
-      updateExpandedCodeBlocks(value);
+      updateExpandedCodeBlocks(value as boolean);
       break;
       
     case 'smoothScrolling':
-      if (value) {
+      if (value as boolean) {
         document.body.classList.add('smooth-scrolling');
       } else {
         document.body.classList.remove('smooth-scrolling');
