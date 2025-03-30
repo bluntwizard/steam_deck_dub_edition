@@ -13,6 +13,9 @@
 // export { default as lazyLoader } from './lazy-loader';
 // export { default as search } from './search';
 
+// Import validation functions
+export * from './validation';
+
 /**
  * Debounce function to limit how often a function can be called
  * @param func - The function to debounce
