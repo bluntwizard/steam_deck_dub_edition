@@ -1,15 +1,33 @@
 /**
- * Main application initialization entry point
+ * Main Scripts Index
+ * Steam Deck DUB Edition Guide
+ * 
+ * Imports all JavaScript/TypeScript modules
  */
-import appInit from './app-init';
 
-// Export for direct access
-export default appInit;
+// Core modules
+import './core/ui-improvements.ts';  // Recently migrated
+import './core/main.js';
+import './core/renderer.js';
+import './core/layout.ts';  // Migrated
 
-// Auto-initialize when script is loaded
-document.addEventListener('DOMContentLoaded', () => {
-  appInit.initialize()
-    .catch(error => {
-      console.error('Failed to initialize application:', error);
-    });
-}); 
+// Utility modules
+import './utils/cleanup.js';
+import './utils/layout-utilities.js';
+import './utils/print-helper.js';
+import './utils/debug-helper.js';
+
+// Service modules
+import './services/content-loader.js';
+import './services/search.js';
+import './services/offline.js';
+import './services/pdf-export.js';
+import './services/version-manager.js';
+import './services/progress-tracker.js';
+
+// Component modules
+import './components/preferences.js';
+import './components/navigation.js';
+
+// Initialize app
+console.log('Steam Deck DUB Edition Guide - Initializing...'); 

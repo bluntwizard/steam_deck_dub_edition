@@ -80,7 +80,7 @@ The TypeScript migration will be considered complete when:
 
 | Category               | File Count | Migrated | Progress |
 |------------------------|------------|----------|----------|
-| Core                   | 10         | 5        | 50%      |
+| Core                   | 10         | 7        | 70%      |
 | Components             | 7          | 0        | 0%       |
 | Utils                  | 12         | 6        | 50%      |
 | Services               | 9          | 2        | 22.2%    |
@@ -88,19 +88,18 @@ The TypeScript migration will be considered complete when:
 | API Integration        | 2          | 2        | 100%     |
 | State Management       | 4          | 4        | 100%     |
 | Service Workers        | 1          | 1        | 100%     |
-| Tests                  | 25         | 25       | 100%     |
+| Tests                  | 26         | 26       | 100%     |
 
-**Overall Progress: 67.1%**
+**Overall Progress: 71.0%**
 
 ## Remaining Tasks
 
 We still have several files to migrate:
 
-### Core (5 remaining)
+### Core (3 remaining)
 - main.js
 - electron-main.js
 - renderer.js
-- ui-improvements.js
 - ui-main.js
 
 ### Components (7 remaining)
@@ -140,6 +139,7 @@ We still have several files to migrate:
 - ✅ Create test runner script for TypeScript tests
 - ✅ Migrate component tests to TypeScript
 - ✅ Migrate utility tests to TypeScript
+- ✅ Add Button component TypeScript test
 
 To migrate tests to TypeScript, we've created two scripts:
 
