@@ -24,17 +24,30 @@ Grimoire is best described as a **"Cross-Platform UI Template"** or **"App Toolk
    - Ready-to-deploy formats for multiple platforms:
      - AppImage and .deb for Linux
      - Progressive Web App (PWA) support
-     - Desktop application support
+     - Desktop application support via Electron
+
+## Technology Stack
+
+Grimoire is built on a modern technology stack:
+
+- 🔷 **TypeScript**: For type-safe JavaScript development
+- 📦 **npm**: For package management and build processes
+- ⚡ **Electron**: For cross-platform desktop application deployment
+- 🌐 **Service Workers**: For offline functionality and PWA support
+- 🎨 **CSS Variables**: For theming and consistent styling
+- 🧪 **Jest**: For testing components and utilities
+
+These technologies work together to provide a comprehensive toolkit for building and deploying applications across different platforms.
 
 ## Features
 
-- **Modular Components**: Dialog, PageLoader, NotificationSystem, ErrorHandler, and HelpCenter
-- **Consistent Design**: Unified styling system across all components
-- **Accessibility**: Built with a11y best practices in mind
-- **Progressive Web App**: Offline support and installable on mobile and desktop
-- **TypeScript Integration**: Fully typed components and utilities
-- **Documentation**: Comprehensive guides with visual examples
-- **Testing**: Unit tests and end-to-end testing
+- 🧩 **Modular Components**: Dialog, PageLoader, NotificationSystem, ErrorHandler, and HelpCenter
+- 🎯 **Consistent Design**: Unified styling system across all components
+- ♿ **Accessibility**: Built with a11y best practices in mind
+- 📱 **Progressive Web App**: Offline support and installable on mobile and desktop
+- 📘 **TypeScript Integration**: Fully typed components and utilities
+- 📚 **Documentation**: Comprehensive guides with visual examples
+- 🧪 **Testing**: Unit tests and end-to-end testing
 
 ## Quick Start
 
@@ -88,18 +101,18 @@ And visit `http://localhost:3000/examples/` in your browser.
 
 Grimoire applications can be deployed in multiple formats:
 
-- **Progressive Web App**: Install on any device with a modern browser
-- **Linux AppImage**: Run on any Linux distribution without installation
-- **Debian Package (.deb)**: Native installation for Debian-based systems
-- **Desktop Application**: Native-like experience on Windows, macOS, and Linux
+- 🌐 **Progressive Web App**: Install on any device with a modern browser
+- 🐧 **Linux AppImage**: Run on any Linux distribution without installation
+- 📦 **Debian Package (.deb)**: Native installation for Debian-based systems
+- 🖥️ **Desktop Application**: Native-like experience on Windows, macOS, and Linux
 
 ### PWA Features
 
-- **Offline Access**: Continue using the app without an internet connection
-- **Desktop Installation**: Install on your computer for quick access
-- **Mobile Support**: Use on Android and iOS devices
-- **Automatic Updates**: Receive notifications when new versions are available
-- **Background Sync**: Synchronize data when coming back online
+- 📴 **Offline Access**: Continue using the app without an internet connection
+- 🔽 **Desktop Installation**: Install on your computer for quick access
+- 📱 **Mobile Support**: Use on Android and iOS devices
+- 🔄 **Automatic Updates**: Receive notifications when new versions are available
+- 🔄 **Background Sync**: Synchronize data when coming back online
 
 ## Documentation
 
@@ -212,6 +225,7 @@ When developing UI components, always test with both LTR and RTL languages to en
 
 - Node.js 16.x or higher
 - npm 7.x or higher
+- Electron (installed automatically via npm dependencies)
 
 ### Setup
 
@@ -230,6 +244,50 @@ When developing UI components, always test with both LTR and RTL languages to en
    ```bash
    npm run dev
    ```
+
+### Build System
+
+Grimoire uses npm scripts for various build and development tasks:
+
+```bash
+# Development with hot reloading
+npm run dev
+
+# Build for production
+npm run build
+
+# Run tests
+npm test
+
+# Lint code
+npm run lint
+
+# Build Electron app
+npm run electron:build
+
+# Start Electron app in development mode
+npm run electron:start
+
+# Package as AppImage (Linux)
+npm run package:appimage
+
+# Package as .deb (Debian/Ubuntu)
+npm run package:deb
+
+# Build PWA assets
+npm run build:pwa
+```
+
+### Electron Integration
+
+Grimoire uses Electron for desktop application deployment, providing:
+
+- 🖥️ **Native desktop application experience**
+- 🌐 **Cross-platform compatibility** (Windows, macOS, Linux)
+- 🔌 **Access to native APIs** and file system
+- 🔄 **Seamless updates** via Electron's auto-update mechanism
+
+The Electron configuration is defined in `electron.js` and can be customized for specific application needs.
 
 ### Testing
 
@@ -250,6 +308,34 @@ Most UI libraries (like React or Vue) focus solely on components without address
 3. Built-in deployment solutions for multiple platforms
 
 This makes Grimoire ideal for developers who want to build applications quickly and deploy them across various platforms without the complexity of setting up separate build and packaging systems.
+
+## Customization and Extensibility
+
+Grimoire is designed to be customized and extended to meet specific project requirements:
+
+### UI Customization
+
+- 🎨 **Theming**: Customize colors, fonts, and other design elements through CSS variables
+- 🧩 **Component Variants**: Most components offer variants that can be configured via props
+- 📐 **Layout Templates**: Pre-built layout templates that can be customized or extended
+
+### Framework Integration
+
+While Grimoire works as a standalone solution, it can be integrated with popular frameworks:
+
+- ⚛️ **React**: Import components as React components
+- 🟢 **Vue**: Use with Vue via web components wrapper
+- 🔴 **Angular**: Import as Angular modules
+
+### Extending Functionality
+
+Grimoire can be extended in several ways:
+
+- 🔌 **Custom Components**: Create your own components that follow Grimoire's design patterns
+- 🧰 **Plugins**: Add functionality through the plugin system
+- 🔧 **API Extensions**: Extend core APIs to add custom functionality
+
+See the [Customization Guide](docs/guides/CUSTOMIZATION.md) for detailed instructions.
 
 ## Contributing
 
