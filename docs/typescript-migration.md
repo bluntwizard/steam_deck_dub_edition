@@ -58,7 +58,7 @@ The migration will follow a progressive approach:
 | Setup & Configuration | 4 | 4 | 0 | 0 |
 | Type Definitions | 10 | 10 | 0 | 0 |
 | Utility Functions | 5 | 5 | 0 | 0 |
-| Components | TBD | 0 | 0 | TBD |
+| Components | TBD | 1 | 1 | TBD |
 | API Layer | TBD | 0 | 0 | TBD |
 | State Management | TBD | 0 | 0 | TBD |
 | Testing | TBD | 0 | 0 | TBD |
@@ -120,9 +120,17 @@ The migration will follow a progressive approach:
    - Reading guide implementation
    - Event handling for accessibility changes
 
+## Components Migrated
+
+1. **Button Component** - `src/components/Button/Button.ts`
+   - Base button component with variants
+   - Type-safe props interface
+   - Support for icons and disabled states
+
 ## Next Steps
 
-- [ ] Begin migrating simpler components to TypeScript
+- [x] Begin migrating simpler components to TypeScript
+- [ ] Continue component migration with more complex UI elements
 - [ ] Update build scripts to correctly handle TypeScript compilation
 - [ ] Add TypeScript to the CI/CD pipeline
 
