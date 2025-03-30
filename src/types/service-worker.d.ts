@@ -1,6 +1,6 @@
 /**
  * Service Worker Type Definitions
- * Steam Deck DUB Edition Guide
+ * Grimoire Guide
  */
 
 // Work around missing declaration in lib.dom.d.ts

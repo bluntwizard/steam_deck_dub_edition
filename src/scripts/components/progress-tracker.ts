@@ -1,5 +1,5 @@
 /**
- * Progress Tracker Component for Steam Deck DUB Edition
+ * Progress Tracker Component for Grimoire
  * Handles tracking user progress through tutorials and guides
  */
 

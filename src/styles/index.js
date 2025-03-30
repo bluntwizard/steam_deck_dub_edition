@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * Styles Index
  * 
  * This file imports all CSS files for the application.

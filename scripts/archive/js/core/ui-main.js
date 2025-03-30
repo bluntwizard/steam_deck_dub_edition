@@ -1,5 +1,5 @@
 /**
- * Main UI Controller for Steam Deck DUB Edition
+ * Main UI Controller for Grimoire
  * Consolidates UI functionality from multiple JS files
  */
 

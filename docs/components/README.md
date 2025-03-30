@@ -1,6 +1,6 @@
 # Components Documentation
 
-This directory contains documentation for the components used in the Steam Deck DUB Edition project.
+This directory contains documentation for the components used in the Grimoire project.
 
 ## Contents
 
@@ -8,7 +8,7 @@ This directory contains documentation for the components used in the Steam Deck 
 
 ## Component Architecture
 
-The Steam Deck DUB Edition uses a modular component architecture that prioritizes:
+The Grimoire uses a modular component architecture that prioritizes:
 
 - **Reusability**: Components are designed to be reused throughout the application
 - **Maintainability**: Each component has a single responsibility

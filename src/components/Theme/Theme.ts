@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * Theme Component
  * 
  * Manages theme settings and switching between light and dark themes

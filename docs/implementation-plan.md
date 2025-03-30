@@ -1,4 +1,4 @@
-# Implementation Plan: Steam Deck DUB Edition Improvements
+# Implementation Plan: Grimoire Improvements
 
 ## Phase 1: Quick Fixes (1-2 Weeks)
 

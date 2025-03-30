@@ -1,6 +1,6 @@
 # Testing Guide
 
-This document provides information on how to run and write tests for the Steam Deck DUB Edition project.
+This document provides information on how to run and write tests for the Grimoire project.
 
 ## Running Tests
 

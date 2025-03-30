@@ -1,7 +1,7 @@
-# Code Review Plan for Steam Deck DUB Edition
+# Code Review Plan for Grimoire
 
 ## Overview
-The Steam Deck DUB Edition project consists of 24 CSS files, 36 JavaScript files, and 8 HTML files. The code review will focus on identifying issues not caught by linting tools and improving overall code quality.
+The Grimoire project consists of 24 CSS files, 36 JavaScript files, and 8 HTML files. The code review will focus on identifying issues not caught by linting tools and improving overall code quality.
 
 ## Review Approach
 

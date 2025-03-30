@@ -1,6 +1,6 @@
 /**
  * State Actions
- * Steam Deck DUB Edition
+ * Grimoire
  * 
  * Provides functions to update the application state
  */

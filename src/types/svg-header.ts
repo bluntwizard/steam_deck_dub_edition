@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * SVG Header Type Definitions
  */
 
@@ -15,13 +15,13 @@ export interface SvgHeaderOptions {
 
   /**
    * Text to show if SVG fails to load
-   * @default 'Steam Deck DUB Edition'
+   * @default 'Grimoire'
    */
   fallbackText?: string;
 
   /**
    * Accessibility label for the SVG
-   * @default 'Steam Deck DUB Edition Logo'
+   * @default 'Grimoire Logo'
    */
   ariaLabel?: string;
 

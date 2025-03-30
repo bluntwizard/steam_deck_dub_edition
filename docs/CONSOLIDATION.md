@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document summarizes the consolidation process performed on the Steam Deck DUB Edition project to improve code organization, reduce redundancy, and enhance maintainability.
+This document summarizes the consolidation process performed on the Grimoire project to improve code organization, reduce redundancy, and enhance maintainability.
 
 ## Changes Made
 

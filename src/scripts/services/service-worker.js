@@ -1,5 +1,5 @@
 /**
- * Enhanced Service Worker for Steam Deck DUB Edition Guide
+ * Enhanced Service Worker for Grimoire Guide
  * Provides offline functionality and caching of essential resources
  * with improved PWA capabilities
  */
@@ -245,9 +245,9 @@ self.addEventListener('push', event => {
   const data = event.data.json();
   console.log('[Service Worker] Push received:', data);
   
-  const title = data.title || 'Steam Deck DUB Edition';
+  const title = data.title || 'Grimoire';
   const options = {
-    body: data.body || 'New notification from SDDE',
+    body: data.body || 'New notification from Grimoire',
     icon: data.icon || '/icons/icon-192x192.png',
     badge: '/icons/badge-icon.png',
     data: data.data || {},

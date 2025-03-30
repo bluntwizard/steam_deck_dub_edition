@@ -1,6 +1,6 @@
 /**
  * Components Index
- * Steam Deck DUB Edition
+ * Grimoire
  */
 
 export { default as codeBlocks } from './code-blocks.js';

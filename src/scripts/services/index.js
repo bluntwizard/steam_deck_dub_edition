@@ -1,6 +1,6 @@
 /**
  * Services Index
- * Steam Deck DUB Edition
+ * Grimoire
  */
 
 export { default as contentLoader } from './content-loader.js';

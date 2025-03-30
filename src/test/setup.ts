@@ -1,6 +1,6 @@
 /**
  * Jest Setup File
- * Steam Deck DUB Edition Guide
+ * Grimoire Guide
  * 
  * This file is run before each test file.
  */

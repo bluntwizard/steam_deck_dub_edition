@@ -1,6 +1,6 @@
 # Performance Optimizations
 
-This document outlines the performance optimizations implemented in Steam Deck DUB Edition to ensure a smooth, responsive user experience across various devices.
+This document outlines the performance optimizations implemented in Grimoire to ensure a smooth, responsive user experience across various devices.
 
 ## Performance Monitoring
 

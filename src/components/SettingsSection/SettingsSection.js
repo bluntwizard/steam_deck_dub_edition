@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * SettingsSection Component
  * 
  * A component for creating and managing settings sections with configurable options

@@ -1,5 +1,5 @@
 /**
- * PDF Export functionality for the SDDE Guide
+ * PDF Export functionality for the Grimoire Guide
  * Allows users to generate and download a complete PDF of the guide
  */
 
@@ -673,7 +673,7 @@ async function createCoverPage(pdf: JsPDF): Promise<void> {
   // Add title
   pdf.setFontSize(28);
   pdf.setTextColor(0, 0, 0);
-  pdf.text('Steam Deck DUB Edition Guide', 105, 70, { align: 'center' });
+  pdf.text('Grimoire Guide', 105, 70, { align: 'center' });
   
   // Add logo if available
   const logo = document.querySelector('.logo img, .site-logo') as HTMLImageElement;

@@ -1,11 +1,11 @@
 /**
- * End-to-end tests for SDDE component interactions
+ * End-to-end tests for Grimoire component interactions
  * This tests how components work together in realistic scenarios
  */
 
 const { chromium } = require('playwright');
 
-describe('SDDE Component Interactions', () => {
+describe('Grimoire Component Interactions', () => {
   let browser;
   let page;
 
@@ -117,11 +117,11 @@ describe('SDDE Component Interactions', () => {
     // Use a custom test endpoint that simulates an API call
     await page.evaluate(() => {
       window.testIntegration = async () => {
-        const pageLoader = new SDDE.PageLoader({
+        const pageLoader = new Grimoire.PageLoader({
           container: document.body
         });
         
-        const errorHandler = new SDDE.ErrorHandler({
+        const errorHandler = new Grimoire.ErrorHandler({
           showNotifications: true,
           displayMode: 'modal'
         });

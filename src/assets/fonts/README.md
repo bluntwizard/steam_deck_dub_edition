@@ -1,4 +1,4 @@
-# Font Collection for Steam Deck DUB Edition
+# Font Collection for Grimoire
 
 This directory contains locally-hosted fonts for the guide to reduce dependency on Google Fonts and ensure offline functionality.
 

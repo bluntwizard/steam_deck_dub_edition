@@ -1,5 +1,5 @@
 /**
- * Core application types for Steam Deck DUB Edition
+ * Core application types for Grimoire
  */
 
 // User profile types

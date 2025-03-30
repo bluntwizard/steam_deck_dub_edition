@@ -1,5 +1,5 @@
 /**
- * Enhanced Internationalization (i18n) support for Steam Deck DUB Edition
+ * Enhanced Internationalization (i18n) support for Grimoire
  * Includes RTL language support and improved language management
  */
 

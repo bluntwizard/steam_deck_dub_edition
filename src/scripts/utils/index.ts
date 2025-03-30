@@ -1,6 +1,6 @@
 /**
  * Utility Functions Index
- * Steam Deck DUB Edition
+ * Grimoire
  */
 
 // Import other utility modules - we'll uncomment these as we convert them to TypeScript

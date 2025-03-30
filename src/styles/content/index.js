@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * Content Styles Index
  * 
  * This file imports all content-specific CSS files.

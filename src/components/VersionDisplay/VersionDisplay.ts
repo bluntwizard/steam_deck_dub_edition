@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * VersionDisplay Component
  * 
  * Displays version information for the application with expandable details.

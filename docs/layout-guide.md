@@ -1,6 +1,6 @@
-# SDDE Layout System Guide
+# Grimoire Layout System Guide
 
-This document explains how to use the unified layout system in the Steam Deck DUB Edition guide.
+This document explains how to use the unified layout system in the Grimoire guide.
 
 ## Core Concepts
 

@@ -1,5 +1,5 @@
 /**
- * PDF Export functionality for the SDDE Guide
+ * PDF Export functionality for the Grimoire Guide
  * Allows users to generate and download a complete PDF of the guide
  */
 
@@ -343,11 +343,11 @@ async function generatePdf(options, dialog) {
     
     // Set PDF metadata
     pdf.setProperties({
-      title: 'Steam Deck DUB Edition Guide',
+      title: 'Grimoire Guide',
       subject: 'A comprehensive guide for Steam Deck optimization',
-      author: 'SDDE Guide Team',
+      author: 'Grimoire Guide Team',
       keywords: 'Steam Deck, guide, gaming, optimization',
-      creator: 'SDDE Guide PDF Export'
+      creator: 'Grimoire Guide PDF Export'
     });
     
     // Calculate scaling factor based on quality setting
@@ -552,7 +552,7 @@ function createCoverPage() {
   
   // Add cover page content
   coverPage.innerHTML = `
-    <h1 style="font-size: 40px; margin-bottom: 20px; color: #000000; font-family: 'Georgia', serif;">Steam Deck DUB Edition</h1>
+    <h1 style="font-size: 40px; margin-bottom: 20px; color: #000000; font-family: 'Georgia', serif;">Grimoire</h1>
     <h2 style="font-size: 30px; margin-bottom: 40px; color: #444444; font-family: 'Georgia', serif;">Complete Guide</h2>
     
     <div style="margin: 40px 0; width: 100px; border-top: 3px solid #000000;"></div>

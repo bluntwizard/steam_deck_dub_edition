@@ -1,5 +1,5 @@
 /**
- * Utility functions for Steam Deck DUB Edition
+ * Utility functions for Grimoire
  */
 
 /**

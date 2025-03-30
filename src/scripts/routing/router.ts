@@ -1,6 +1,6 @@
 /**
  * Router Module
- * Steam Deck DUB Edition
+ * Grimoire
  * 
  * Handles client-side routing for single-page application navigation
  */
@@ -128,7 +128,7 @@ export class Router {
       defaultRouteId: 'home',
       useHistoryApi: true,
       updatePageTitle: true,
-      baseTitle: 'Steam Deck DUB Edition',
+      baseTitle: 'Grimoire',
       loading: {
         showSpinner: true,
         message: 'Loading content...',

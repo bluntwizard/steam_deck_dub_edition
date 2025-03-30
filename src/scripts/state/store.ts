@@ -1,6 +1,6 @@
 /**
  * Application State Store
- * Steam Deck DUB Edition
+ * Grimoire
  * 
  * Provides centralized state management for the application
  */

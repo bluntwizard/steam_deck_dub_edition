@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * VersionDisplay Component - Entry Point
  */
 

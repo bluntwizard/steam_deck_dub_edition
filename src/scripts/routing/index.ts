@@ -1,6 +1,6 @@
 /**
  * Routing Module Index
- * Steam Deck DUB Edition
+ * Grimoire
  * 
  * Exports the router, routes, and related types
  */

@@ -1,5 +1,5 @@
 /**
- * Accessibility Settings Component for Steam Deck DUB Edition
+ * Accessibility Settings Component for Grimoire
  * Provides UI and logic for managing accessibility preferences
  */
 

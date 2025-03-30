@@ -1,5 +1,5 @@
 /**
- * app-init.ts - Main application initialization for the Steam Deck DUB Edition application.
+ * app-init.ts - Main application initialization for the Grimoire application.
  * Coordinates the initialization of modular components and manages their interactions.
  */
 
@@ -100,7 +100,7 @@ class AppInitializer {
       return;
     }
 
-    console.log('Initializing Steam Deck DUB Edition application...');
+    console.log('Initializing Grimoire application...');
     
     try {
       // Initialize NotificationSystem first for early feedback
@@ -131,7 +131,7 @@ class AppInitializer {
       // Show welcome notification
       if (this.components.notificationSystem) {
         this.components.notificationSystem.success({
-          message: 'Steam Deck DUB Edition initialized successfully',
+          message: 'Grimoire initialized successfully',
           duration: 3000
         });
       }
@@ -236,14 +236,14 @@ class AppInitializer {
     console.log('Initializing HelpCenter');
     
     const options: HelpCenterOptions = {
-      title: 'Steam Deck DUB Edition Help',
+      title: 'Grimoire Help',
       buttonPosition: 'bottom-right',
       defaultTopic: 'getting-started',
       topics: [
         {
           id: 'getting-started',
           title: 'Getting Started',
-          content: 'Welcome to Steam Deck DUB Edition! This guide will help you get started with using the application...'
+          content: 'Welcome to Grimoire! This guide will help you get started with using the application...'
         },
         {
           id: 'navigation',

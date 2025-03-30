@@ -1,5 +1,5 @@
 /**
- * Search functionality for Steam Deck DUB Edition Guide
+ * Search functionality for Grimoire Guide
  * Provides real-time content searching with highlighted results
  */
 

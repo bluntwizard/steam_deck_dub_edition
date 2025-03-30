@@ -1,6 +1,6 @@
 /**
  * App Initialization Router Integration
- * Steam Deck DUB Edition
+ * Grimoire
  * 
  * Links the app initialization module with the new Router implementation
  */
@@ -16,7 +16,7 @@ export function initializeRouter(contentContainer: HTMLElement): any {
   // Create router with application configuration
   const router = createRouter({
     contentContainer,
-    baseTitle: 'Steam Deck DUB Edition',
+    baseTitle: 'Grimoire',
     defaultRouteId: 'home',
     useHistoryApi: true,
     updatePageTitle: true,

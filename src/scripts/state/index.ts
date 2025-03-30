@@ -1,6 +1,6 @@
 /**
  * State Management Index
- * Steam Deck DUB Edition
+ * Grimoire
  * 
  * Exports the store and its types for use throughout the application
  */

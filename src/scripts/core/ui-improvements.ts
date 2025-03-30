@@ -2,7 +2,7 @@
  * UI Improvements Module
  * 
  * Provides various UI enhancements and interactions
- * Steam Deck DUB Edition Guide
+ * Grimoire Guide
  */
 
 import KeyboardShortcuts from '../../components/KeyboardShortcuts/KeyboardShortcuts';

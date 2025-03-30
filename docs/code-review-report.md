@@ -1,8 +1,8 @@
-# Code Review Report: Steam Deck DUB Edition
+# Code Review Report: Grimoire
 
 ## Executive Summary
 
-The Steam Deck DUB Edition codebase consists of well-organized components with a clear separation of concerns. However, there are several areas for improvement in terms of maintainability, performance, and code organization. This report outlines our findings from reviewing the CSS, JavaScript, and HTML code, along with recommendations for addressing the identified issues.
+The Grimoire codebase consists of well-organized components with a clear separation of concerns. However, there are several areas for improvement in terms of maintainability, performance, and code organization. This report outlines our findings from reviewing the CSS, JavaScript, and HTML code, along with recommendations for addressing the identified issues.
 
 ## Architecture and Structure
 
@@ -119,4 +119,4 @@ The Steam Deck DUB Edition codebase consists of well-organized components with a
 
 ## Conclusion
 
-The Steam Deck DUB Edition codebase provides a solid foundation but would benefit from standardization, modularization, and performance optimizations. By addressing the issues identified in this review, the codebase can become more maintainable, performant, and accessible. 
+The Grimoire codebase provides a solid foundation but would benefit from standardization, modularization, and performance optimizations. By addressing the issues identified in this review, the codebase can become more maintainable, performant, and accessible. 

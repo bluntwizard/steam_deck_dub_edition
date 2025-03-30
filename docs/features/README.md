@@ -1,6 +1,6 @@
 # Features Documentation
 
-This directory contains documentation for the key features of the Steam Deck DUB Edition project.
+This directory contains documentation for the key features of the Grimoire project.
 
 ## Available Documentation
 

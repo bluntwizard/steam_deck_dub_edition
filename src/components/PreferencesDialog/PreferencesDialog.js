@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * PreferencesDialog Component
  * 
  * A dialog component for managing user preferences with tabbed interface

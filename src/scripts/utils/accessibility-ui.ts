@@ -1,9 +1,9 @@
 /**
- * Accessibility UI component for Steam Deck DUB Edition
+ * Accessibility UI component for Grimoire
  * Provides user interface elements for controlling accessibility features
  * 
  * @module AccessibilityUI
- * @author Steam Deck DUB Edition Team
+ * @author Grimoire Team
  * @version 1.0.0
  */
 

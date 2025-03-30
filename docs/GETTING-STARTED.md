@@ -1,6 +1,6 @@
-# Getting Started with Steam Deck DUB Edition
+# Getting Started with Grimoire
 
-This guide will help you set up your development environment and get started with the Steam Deck DUB Edition project.
+This guide will help you set up your development environment and get started with the Grimoire project.
 
 ## Prerequisites
 

@@ -1,6 +1,6 @@
 /**
  * Core Index
- * Steam Deck DUB Edition
+ * Grimoire
  */
 
 export { default as appInitialization } from './app-initialization.js';

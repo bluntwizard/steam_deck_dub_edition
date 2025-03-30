@@ -1,6 +1,6 @@
 /**
  * API Client Implementation
- * Steam Deck DUB Edition Guide
+ * Grimoire Guide
  * 
  * A central utility for making HTTP requests with advanced caching capabilities.
  */

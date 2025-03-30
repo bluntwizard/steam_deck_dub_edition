@@ -1,6 +1,6 @@
 # Documentation Reorganization - Next Steps
 
-We've started reorganizing the documentation for the Steam Deck DUB Edition project to improve its structure, readability, and maintainability. Here are the next steps to complete the reorganization.
+We've started reorganizing the documentation for the Grimoire project to improve its structure, readability, and maintainability. Here are the next steps to complete the reorganization.
 
 ## Completed So Far
 

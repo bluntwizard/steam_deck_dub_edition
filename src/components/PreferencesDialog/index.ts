@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * PreferencesDialog Component - Entry Point
  */
 

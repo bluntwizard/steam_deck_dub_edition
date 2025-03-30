@@ -1,8 +1,8 @@
 # CSS Coding Guidelines and Maintenance
-Steam Deck DUB Edition
+Grimoire
 
 ## Overview
-This document provides guidelines for writing and maintaining CSS code in the Steam Deck DUB Edition project. Following these guidelines will help ensure code consistency, readability, and maintainability.
+This document provides guidelines for writing and maintaining CSS code in the Grimoire project. Following these guidelines will help ensure code consistency, readability, and maintainability.
 
 ## File Structure
 CSS files are organized as follows:

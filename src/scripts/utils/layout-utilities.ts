@@ -1,5 +1,5 @@
 /**
- * Layout Utilities for SDDE Guide
+ * Layout Utilities for Grimoire Guide
  * Helper functions for managing page layouts
  */
 

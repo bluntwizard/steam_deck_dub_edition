@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * Error Handling Utility Functions
  */
 
@@ -138,23 +138,30 @@ export function toAppError(error: unknown, defaultMessage = 'An unknown error oc
   }
 
   if (error instanceof Error) {
-    return new AppError(error.message, ErrorType.UNEXPECTED, {}, error);
+    return new AppError(
+      error.message,
+      ErrorType.UNEXPECTED,
+      {},
+      error
+    );
   }
 
   // Handle string errors
   if (typeof error === 'string') {
-    return new AppError(error, ErrorType.UNEXPECTED, {}, error as Error);
+    return new AppError(
+      error,
+      ErrorType.UNEXPECTED,
+      {}
+    );
   }
 
-  // Handle objects with a message property
-  if (error && typeof error === 'object' && 'message' in error && typeof error.message === 'string') {
-    return new AppError(error.message, ErrorType.UNEXPECTED, {}, error as Error);
-  }
-
-  // Default fallback
-  return new AppError(defaultMessage, ErrorType.UNEXPECTED, {
-    originalValue: error
-  });
+  return new AppError(
+    typeof error === 'string' ? error : 'An unexpected error occurred',
+    ErrorType.UNEXPECTED,
+    {
+      originalValue: error
+    }
+  );
 }
 
 /**

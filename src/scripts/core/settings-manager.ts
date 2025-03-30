@@ -1,6 +1,6 @@
 /**
  * Settings Manager Component
- * Steam Deck DUB Edition
+ * Grimoire
  * 
  * Handles settings tab navigation and integration with accessibility features
  */

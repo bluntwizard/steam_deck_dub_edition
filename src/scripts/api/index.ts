@@ -1,6 +1,6 @@
 /**
  * API Module - Index
- * Steam Deck DUB Edition Guide
+ * Grimoire Guide
  * 
  * This module provides a central API client for making HTTP requests with advanced caching.
  */

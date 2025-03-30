@@ -1,6 +1,6 @@
-# Contributing to Steam Deck DUB Edition
+# Contributing to Grimoire
 
-Thank you for your interest in contributing to the Steam Deck DUB Edition project! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to the Grimoire project! This document provides guidelines and instructions for contributing.
 
 ## Code of Conduct
 
@@ -120,4 +120,4 @@ Contributors will be acknowledged in:
 - Release notes
 - Project documentation
 
-Thank you for contributing to the Steam Deck DUB Edition project! 
+Thank you for contributing to the Grimoire project! 

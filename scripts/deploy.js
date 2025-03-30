@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Deployment script for Steam Deck DUB Edition
+ * Deployment script for Grimoire
  * 
  * This script handles the deployment process to different environments:
  * - Staging: For testing before production
@@ -19,15 +19,15 @@ const package = require('../package.json');
 // Configuration
 const config = {
   staging: {
-    host: process.env.STAGING_HOST || 'staging.steamdeckdubedition.com',
+    host: process.env.STAGING_HOST || 'staging.grimoiredubedition.com',
     user: process.env.STAGING_USER || 'deploy',
-    path: process.env.STAGING_PATH || '/var/www/staging.steamdeckdubedition.com',
+    path: process.env.STAGING_PATH || '/var/www/staging.grimoiredubedition.com',
     sourcePath: 'dist',
   },
   production: {
-    host: process.env.PRODUCTION_HOST || 'steamdeckdubedition.com',
+    host: process.env.PRODUCTION_HOST || 'grimoiredubedition.com',
     user: process.env.PRODUCTION_USER || 'deploy',
-    path: process.env.PRODUCTION_PATH || '/var/www/steamdeckdubedition.com',
+    path: process.env.PRODUCTION_PATH || '/var/www/grimoiredubedition.com',
     sourcePath: 'dist',
   }
 };

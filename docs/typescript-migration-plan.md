@@ -1,6 +1,6 @@
 # TypeScript Migration Plan - Remaining Work
 
-This document outlines the plan for completing the TypeScript migration for the Steam Deck DUB Edition project. We've made significant progress, but there are still several components that need to be migrated.
+This document outlines the plan for completing the TypeScript migration for the Grimoire project. We've made significant progress, but there are still several components that need to be migrated.
 
 ## Overview
 

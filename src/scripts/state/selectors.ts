@@ -1,6 +1,6 @@
 /**
  * State Selectors
- * Steam Deck DUB Edition
+ * Grimoire
  * 
  * Provides functions to select data from the store
  */

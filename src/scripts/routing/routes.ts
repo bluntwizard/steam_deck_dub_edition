@@ -1,6 +1,6 @@
 /**
  * Routes Configuration
- * Steam Deck DUB Edition
+ * Grimoire
  * 
  * Defines all available routes in the application
  */

@@ -1,5 +1,5 @@
 /**
- * App Initialization for Steam Deck DUB Edition
+ * App Initialization for Grimoire
  * Integrates all components and initializes them appropriately
  */
 

@@ -3,9 +3,23 @@ import * as path from 'path';
 import * as fs from 'fs';
 // Need to use require for electron-store as it may not have proper TypeScript definitions
 const Store = require('electron-store');
-// Import the update handler
+
+// Define interfaces for update handler
+interface UpdateInfo {
+  status: string;
+  version?: string;
+  message?: string;
+}
+
+// Import the update handler with proper types
 // Note: May need to adjust this path based on actual project structure
-import * as updateHandler from '../../main/update-handler';
+interface UpdateHandler {
+  checkForUpdates(): Promise<UpdateInfo>;
+  getCurrentVersion(): string;
+}
+
+// Import with proper types but use require to avoid path issues
+const updateHandler: UpdateHandler = require('../../main/update-handler');
 
 // Define interfaces for cache management
 interface CacheEntry<T> {
@@ -78,7 +92,7 @@ function createWindow(): void {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
-    title: 'Steam Deck DUB Edition',
+    title: 'Grimoire',
     icon: path.join(__dirname, 'assets/icon.png'),
     webPreferences: {
       nodeIntegration: true,
@@ -200,10 +214,10 @@ ipcMain.on('app-command', (event, command: string, ...args: any[]): void => {
     
     case 'check-for-updates':
       updateHandler.checkForUpdates()
-        .then(updateInfo => {
+        .then((updateInfo: UpdateInfo) => {
           event.reply('update-status', updateInfo);
         })
-        .catch(error => {
+        .catch((error: Error) => {
           console.error('Update check failed:', error);
           event.reply('update-status', { status: 'error', message: error.message });
         });
@@ -223,7 +237,7 @@ ipcMain.on('app-command', (event, command: string, ...args: any[]): void => {
 });
 
 // Add IPC handlers for updates
-ipcMain.handle('check-for-updates', (): Promise<any> => {
+ipcMain.handle('check-for-updates', (): Promise<UpdateInfo> => {
   return updateHandler.checkForUpdates();
 });
 

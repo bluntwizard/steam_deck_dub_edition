@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * HelpCenter Component
  */
 
@@ -639,10 +639,10 @@ class HelpCenter {
             <div class="${styles.accordion}" data-faq-id="faq-1">
               <div class="${styles.accordionHeader}" aria-expanded="false">
                 <span class="${styles.accordionIcon}"></span>
-                <h4>What is Steam Deck DUB Edition?</h4>
+                <h4>What is Grimoire?</h4>
               </div>
               <div class="${styles.accordionContent}" aria-hidden="true">
-                <p>Steam Deck DUB Edition is a comprehensive guide and collection of optimizations to enhance your Steam Deck experience. It includes performance tweaks, battery life improvements, and quality-of-life enhancements.</p>
+                <p>Grimoire is a comprehensive guide and collection of optimizations to enhance your Steam Deck experience. It includes performance tweaks, battery life improvements, and quality-of-life enhancements.</p>
               </div>
             </div>
             
@@ -680,8 +680,8 @@ class HelpCenter {
         faqs: [
           {
             id: 'faq-1',
-            question: 'What is Steam Deck DUB Edition?',
-            answer: 'Steam Deck DUB Edition is a comprehensive guide and collection of optimizations to enhance your Steam Deck experience. It includes performance tweaks, battery life improvements, and quality-of-life enhancements.'
+            question: 'What is Grimoire?',
+            answer: 'Grimoire is a comprehensive guide and collection of optimizations to enhance your Steam Deck experience. It includes performance tweaks, battery life improvements, and quality-of-life enhancements.'
           },
           {
             id: 'faq-2',
@@ -791,13 +791,13 @@ class HelpCenter {
           <div class="${styles.contactMethod}">
             <h4>Discord Community</h4>
             <p>Join our Discord server to chat with other users and get real-time help:</p>
-            <a href="https://discord.gg/steamdeckdub" target="_blank" rel="noopener noreferrer">Steam Deck DUB Discord</a>
+            <a href="https://discord.gg/grimoiredub" target="_blank" rel="noopener noreferrer">Steam Deck DUB Discord</a>
           </div>
           
           <div class="${styles.contactMethod}">
             <h4>Email Support</h4>
             <p>For private inquiries, you can email our support team:</p>
-            <a href="mailto:support@steamdeckdub.com">support@steamdeckdub.com</a>
+            <a href="mailto:support@grimoiredub.com">support@grimoiredub.com</a>
           </div>
         `
       }

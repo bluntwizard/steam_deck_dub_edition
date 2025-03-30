@@ -149,7 +149,7 @@ function initializeCodeBlocks() {
 }
 
 /**
- * UI Improvements for Steam Deck DUB Edition Guide
+ * UI Improvements for Grimoire Guide
  * Enhances user experience with additional interactive features
  */
 

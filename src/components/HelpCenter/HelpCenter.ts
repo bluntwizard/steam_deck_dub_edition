@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * HelpCenter Component
  */
 
@@ -674,12 +674,12 @@ class HelpCenter implements HelpCenterInterface {
         id: 'getting-started',
         title: 'Getting Started',
         icon: '🚀',
-        description: 'Learn the basics of the Steam Deck DUB Edition.',
+        description: 'Learn the basics of the Grimoire.',
         keywords: ['start', 'begin', 'tutorial', 'introduction', 'basics'],
         faqs: [
           {
-            question: 'What is Steam Deck DUB Edition?',
-            answer: 'Steam Deck DUB Edition is a custom web interface for your Steam Deck that provides enhanced features, performance optimizations, and a better gaming experience.',
+            question: 'What is Grimoire?',
+            answer: 'Grimoire is a custom web interface for your Steam Deck that provides enhanced features, performance optimizations, and a better gaming experience.',
             expanded: true
           },
           {
@@ -696,7 +696,7 @@ class HelpCenter implements HelpCenterInterface {
         id: 'features',
         title: 'Key Features',
         icon: '✨',
-        description: 'Discover what makes Steam Deck DUB Edition special.',
+        description: 'Discover what makes Grimoire special.',
         keywords: ['features', 'capabilities', 'functions', 'benefits'],
         faqs: [
           {

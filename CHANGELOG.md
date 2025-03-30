@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the Steam Deck DUB Edition project will be documented in this file.
+All notable changes to the Grimoire project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2023-07-15
 
 ### Added
-- Initial release of Steam Deck DUB Edition
+- Initial release of Grimoire
 - Modular component system with Dialog, PageLoader, NotificationSystem, ErrorHandler, and HelpCenter
 - Component showcase and demo pages
 - Comprehensive documentation

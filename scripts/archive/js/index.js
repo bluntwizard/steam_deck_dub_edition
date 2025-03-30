@@ -1,5 +1,5 @@
 /**
- * JavaScript entry point for Steam Deck DUB Edition
+ * JavaScript entry point for Grimoire
  */
 
 // Import core functionality

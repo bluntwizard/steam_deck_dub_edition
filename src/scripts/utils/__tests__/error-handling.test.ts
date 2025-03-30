@@ -1,6 +1,6 @@
 /**
  * Error handling utilities tests
- * Steam Deck DUB Edition
+ * Grimoire
  */
 
 import {

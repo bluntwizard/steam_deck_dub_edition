@@ -1,6 +1,6 @@
-# SDDE Components
+# Grimoire Components
 
-A comprehensive UI component library for Steam Deck DUB Edition, providing accessible, modular, and themeable interface components.
+A comprehensive UI component library for Grimoire, providing accessible, modular, and themeable interface components.
 
 ## Installation
 
@@ -51,11 +51,11 @@ dialog.on('button-click', (e) => {
 
 ## Documentation
 
-For complete documentation, see the [Component Documentation](https://github.com/steamdeckdubedition/sdde-components/blob/main/docs/components.md).
+For complete documentation, see the [Component Documentation](https://github.com/grimoiredubedition/sdde-components/blob/main/docs/components.md).
 
 ## Examples
 
-Check out the [Component Showcase](https://github.com/steamdeckdubedition/sdde-components/blob/main/examples) for interactive examples of all components.
+Check out the [Component Showcase](https://github.com/grimoiredubedition/sdde-components/blob/main/examples) for interactive examples of all components.
 
 ## Features
 

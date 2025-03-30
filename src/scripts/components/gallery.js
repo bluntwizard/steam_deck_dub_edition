@@ -1,9 +1,9 @@
 /**
- * Gallery Component for Steam Deck DUB Edition
+ * Gallery Component for Grimoire
  * Handles image galleries with lightbox functionality
  * 
  * @module Gallery
- * @author Steam Deck DUB Edition Team
+ * @author Grimoire Team
  * @version 1.0.0
  */
 

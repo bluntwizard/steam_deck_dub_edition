@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * Dialog Component
  * 
  * Provides a reusable modal dialog component

@@ -1,10 +1,30 @@
-# Steam Deck DUB Edition (SDDE)
+# Grimoire
 
-A modernized UI component library and toolkit for Steam Deck and general desktop applications.
+A cross-platform UI toolkit and application template system for building modern, deployable applications.
 
 ## Overview
 
-The Steam Deck DUB Edition (SDDE) is a project aimed at creating a modern, modular UI component system for desktop applications, with a focus on the Steam Deck platform. It provides reusable components for building consistent user interfaces with improved accessibility and customization.
+Grimoire is a comprehensive toolkit for rapidly developing and deploying cross-platform applications. It bridges the gap between development and deployment by providing a complete solution that includes UI components, project scaffolding, and packaging options for multiple platforms.
+
+## What is Grimoire?
+
+Grimoire is best described as a **"Cross-Platform UI Template"** or **"App Toolkit"** that offers:
+
+1. **UI Library/Toolkit**
+   - Reusable TypeScript components with consistent styling
+   - Theming system with light/dark mode and custom color schemes
+   - Accessibility features built-in to all components
+
+2. **App Scaffold**
+   - Pre-configured project structure ready for customization
+   - TypeScript integration for enhanced development experience
+   - Build tools already configured and optimized
+
+3. **Cross-Platform Deployment**
+   - Ready-to-deploy formats for multiple platforms:
+     - AppImage and .deb for Linux
+     - Progressive Web App (PWA) support
+     - Desktop application support
 
 ## Features
 
@@ -12,23 +32,25 @@ The Steam Deck DUB Edition (SDDE) is a project aimed at creating a modern, modul
 - **Consistent Design**: Unified styling system across all components
 - **Accessibility**: Built with a11y best practices in mind
 - **Progressive Web App**: Offline support and installable on mobile and desktop
+- **TypeScript Integration**: Fully typed components and utilities
 - **Documentation**: Comprehensive guides with visual examples
 - **Testing**: Unit tests and end-to-end testing
 
 ## Quick Start
 
-Check our [Developer Quickstart Guide](docs/developer-quickstart.md) for detailed instructions on using the components in your project.
+Check our [Getting Started Guide](docs/GETTING-STARTED.md) for detailed instructions 
+on using Grimoire in your project.
 
 ### Installation
 
 ```bash
-npm install @sdde/components
+npm install @grimoire/toolkit
 ```
 
 ### Basic Usage
 
 ```javascript
-import { Dialog, NotificationSystem, PageLoader } from '@sdde/components';
+import { Dialog, NotificationSystem, PageLoader } from '@grimoire/toolkit';
 
 // Initialize a notification system
 const notifications = new NotificationSystem({
@@ -62,9 +84,16 @@ npm run dev
 
 And visit `http://localhost:3000/examples/` in your browser.
 
-## Progressive Web App Features
+## Cross-Platform Features
 
-SDDE can be installed as a Progressive Web App on desktop and mobile devices, offering:
+Grimoire applications can be deployed in multiple formats:
+
+- **Progressive Web App**: Install on any device with a modern browser
+- **Linux AppImage**: Run on any Linux distribution without installation
+- **Debian Package (.deb)**: Native installation for Debian-based systems
+- **Desktop Application**: Native-like experience on Windows, macOS, and Linux
+
+### PWA Features
 
 - **Offline Access**: Continue using the app without an internet connection
 - **Desktop Installation**: Install on your computer for quick access
@@ -74,14 +103,14 @@ SDDE can be installed as a Progressive Web App on desktop and mobile devices, of
 
 ## Documentation
 
-- [Component API Documentation](docs/components.md)
-- [Developer Quickstart Guide](docs/developer-quickstart.md)
-- [Modularization Progress](docs/modularization-progress.md)
-- [Visual Examples](docs/component-visuals.md)
+- [Component API Documentation](docs/components/COMPONENT-CATALOG.md)
+- [Getting Started Guide](docs/GETTING-STARTED.md)
+- [Architecture Overview](docs/ARCHITECTURE.md)
+- [TypeScript Implementation](docs/features/TYPESCRIPT.md)
 
 ## Internationalization (i18n) and RTL Support
 
-Steam Deck DUB Edition now supports multiple languages and right-to-left (RTL) text direction for languages like Arabic and Hebrew.
+Grimoire fully supports multiple languages and right-to-left (RTL) text direction for languages like Arabic and Hebrew.
 
 ### Features
 
@@ -124,7 +153,8 @@ Locale files include a `direction` property that defines the text direction for 
 
 #### RTL CSS Support
 
-RTL-specific styles are defined in `src/assets/css/rtl.css` and are automatically applied when a RTL language is selected. These styles handle:
+RTL-specific styles are defined in `src/assets/css/rtl.css` and are automatically applied when 
+a RTL language is selected. These styles handle:
 
 - Text alignment
 - Layout mirroring
@@ -134,7 +164,7 @@ RTL-specific styles are defined in `src/assets/css/rtl.css` and are automaticall
 
 #### i18n Module
 
-The enhanced i18n module (`src/i18n.js`) handles:
+The enhanced i18n module (`src/i18n.ts`) handles:
 
 - Language detection and selection
 - Loading translations
@@ -163,9 +193,9 @@ To add a new language:
 
 1. Create a new locale file in `src/locales/` with the language code as filename (e.g., `fr.json` for French)
 2. Set the `direction` property to either "ltr" or "rtl"
-3. Add the language to the supported locales list in `src/i18n.js`
+3. Add the language to the supported locales list in `src/i18n.ts`
 
-```javascript
+```typescript
 this.supportedLocales = [
   // Existing languages...
   { code: 'fr', name: 'French', nativeName: 'Français', direction: 'ltr' }
@@ -180,15 +210,15 @@ When developing UI components, always test with both LTR and RTL languages to en
 
 ### Prerequisites
 
-- Node.js 14.x or higher
+- Node.js 16.x or higher
 - npm 7.x or higher
 
 ### Setup
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-org/steam-deck-dub-edition.git
-   cd steam-deck-dub-edition
+   git clone https://github.com/your-org/grimoire.git
+   cd grimoire
    ```
 
 2. Install dependencies:
@@ -211,9 +241,19 @@ npm test
 npm run test:e2e
 ```
 
+## Why Grimoire?
+
+Most UI libraries (like React or Vue) focus solely on components without addressing deployment. Frameworks (like Angular or Next.js) provide structure but lack cross-platform packaging solutions. Grimoire bridges this gap by offering:
+
+1. A comprehensive UI component library
+2. Ready-to-use project structure and scaffolding
+3. Built-in deployment solutions for multiple platforms
+
+This makes Grimoire ideal for developers who want to build applications quickly and deploy them across various platforms without the complexity of setting up separate build and packaging systems.
+
 ## Contributing
 
-Contributions are welcome! Please check the [contribution guidelines](CONTRIBUTING.md) before submitting pull requests.
+Contributions are welcome! Please check the [contribution guidelines](docs/CONTRIBUTING.md) before submitting pull requests.
 
 ## License
 

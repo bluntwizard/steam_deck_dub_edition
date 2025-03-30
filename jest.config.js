@@ -1,5 +1,5 @@
 /**
- * Jest Configuration for Steam Deck DUB Edition
+ * Jest Configuration for Grimoire
  * Configured to support TypeScript tests
  */
 

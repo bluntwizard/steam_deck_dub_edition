@@ -1,5 +1,5 @@
 /**
- * User Preferences Manager for SDDE Guide
+ * User Preferences Manager for Grimoire Guide
  * Handles user preferences including theme, accessibility, and display options
  */
 

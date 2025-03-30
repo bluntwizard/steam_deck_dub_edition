@@ -1,7 +1,7 @@
 /**
- * Layout Management for SDDE Guide
+ * Layout Management for Grimoire Guide
  * Handles sidebar toggling, content resizing, and responsive behavior
- * Steam Deck DUB Edition Guide
+ * Grimoire Guide
  */
 
 /**

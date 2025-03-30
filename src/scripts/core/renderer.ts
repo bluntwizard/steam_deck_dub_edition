@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * Renderer - UI rendering and interaction handling
  */
 

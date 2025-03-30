@@ -4,7 +4,7 @@
 
 declare module '../i18n.js' {
   /**
-   * Internationalization module for Steam Deck DUB Edition
+   * Internationalization module for Grimoire
    */
   interface I18n {
     /**

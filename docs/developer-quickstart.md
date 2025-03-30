@@ -1,12 +1,12 @@
-# SDDE Components: Developer Quickstart Guide
+# Grimoire Components: Developer Quickstart Guide
 
-This guide provides a quick introduction to using the SDDE Components library in your projects.
+This guide provides a quick introduction to using the Grimoire Components library in your projects.
 
 ## Installation
 
 ### NPM
 ```bash
-npm install @sdde/components
+npm install @grimoire/components
 ```
 
 ### Direct Include
@@ -22,10 +22,10 @@ Alternatively, include the CSS and JS files directly in your HTML:
 
 ```javascript
 // Import the components (if using modules)
-import { Dialog, NotificationSystem, PageLoader, ErrorHandler, HelpCenter } from '@sdde/components';
+import { Dialog, NotificationSystem, PageLoader, ErrorHandler, HelpCenter } from '@grimoire/components';
 
-// Or access via the SDDE namespace if using direct include
-// const { Dialog, NotificationSystem, PageLoader, ErrorHandler, HelpCenter } = SDDE;
+// Or access via the Grimoire namespace if using direct include
+// const { Dialog, NotificationSystem, PageLoader, ErrorHandler, HelpCenter } = Grimoire;
 
 // Initialize components
 const notificationSystem = new NotificationSystem({
@@ -217,10 +217,10 @@ loadData();
 
 ## Testing Components
 
-The SDDE Components library is designed to be easily testable. Here's a simple example using Jest:
+The Grimoire Components library is designed to be easily testable. Here's a simple example using Jest:
 
 ```javascript
-import { Dialog } from '@sdde/components';
+import { Dialog } from '@grimoire/components';
 
 describe('Dialog component', () => {
   let dialog;
@@ -264,7 +264,7 @@ For more detailed configuration options and advanced usage, refer to the full [c
 
 ## Browser Compatibility
 
-SDDE Components are compatible with:
+Grimoire Components are compatible with:
 - Chrome (latest 2 versions)
 - Firefox (latest 2 versions)
 - Safari (latest 2 versions)

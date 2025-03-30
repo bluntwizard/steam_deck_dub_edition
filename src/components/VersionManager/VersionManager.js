@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * VersionManager Component
  * 
  * Manages version tracking, changelog display, and update notifications

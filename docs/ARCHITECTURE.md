@@ -1,10 +1,10 @@
-# Steam Deck DUB Edition Architecture
+# Grimoire Architecture
 
-This document provides an overview of the Steam Deck DUB Edition architecture, including component interactions and design patterns.
+This document provides an overview of the Grimoire architecture, including component interactions and design patterns.
 
 ## System Overview
 
-The Steam Deck DUB Edition is a web-based documentation and guide application with offline support, designed to provide information about the Steam Deck hardware and software. The application is built with a modular architecture that emphasizes maintainability, performance, and accessibility.
+The Grimoire is a web-based documentation and guide application with offline support, designed to provide information about the Steam Deck hardware and software. The application is built with a modular architecture that emphasizes maintainability, performance, and accessibility.
 
 ## Core Architecture
 

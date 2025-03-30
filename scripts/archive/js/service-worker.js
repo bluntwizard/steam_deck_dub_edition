@@ -1,5 +1,5 @@
 /**
- * Service Worker for Steam Deck DUB Edition Guide
+ * Service Worker for Grimoire Guide
  * Provides offline functionality and caching of essential resources
  */
 

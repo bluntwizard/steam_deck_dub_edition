@@ -1,6 +1,6 @@
 /**
  * Offline Manager Service
- * Handles offline functionality for the SDDE Guide, including:
+ * Handles offline functionality for the Grimoire Guide, including:
  * - Service worker registration and updates
  * - Cache management for offline content
  * - UI for showing offline status

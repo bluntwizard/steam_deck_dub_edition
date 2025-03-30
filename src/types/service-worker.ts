@@ -1,6 +1,6 @@
 /**
  * TypeScript definitions for service worker functionality
- * Steam Deck DUB Edition Guide
+ * Grimoire Guide
  */
 
 // Service Worker specific event types 

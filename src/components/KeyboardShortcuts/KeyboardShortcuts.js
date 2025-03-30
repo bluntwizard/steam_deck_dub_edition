@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * KeyboardShortcuts Component
  * 
  * Provides a reusable keyboard shortcuts dialog component

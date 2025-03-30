@@ -1,6 +1,6 @@
-# Steam Deck DUB Edition Documentation
+# Grimoire Documentation
 
-Welcome to the Steam Deck DUB Edition documentation. This repository contains comprehensive documentation and guides to help you navigate and contribute to the project.
+Welcome to the Grimoire documentation. This repository contains comprehensive documentation and guides to help you navigate and contribute to the project.
 
 ## Getting Started
 
@@ -44,7 +44,7 @@ The documentation is organized as follows:
 
 ## Documentation Maintenance
 
-This documentation is maintained by the Steam Deck DUB Edition team. If you find any issues or have suggestions for improvements, please create an issue or submit a pull request.
+This documentation is maintained by the Grimoire team. If you find any issues or have suggestions for improvements, please create an issue or submit a pull request.
 
 When updating documentation:
 

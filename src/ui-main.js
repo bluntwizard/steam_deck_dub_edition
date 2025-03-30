@@ -1,9 +1,9 @@
 /**
- * Main UI Controller for Steam Deck DUB Edition
+ * Main UI Controller for Grimoire
  * Initializes and coordinates all UI components
  * 
  * @module ui-main
- * @author Steam Deck DUB Edition Team
+ * @author Grimoire Team
  * @version 1.0.0
  */
 
@@ -45,7 +45,7 @@ async function loadComponent(modulePath) {
  * @returns {void}
  */
 function initializeApp() {
-  console.log('Initializing Steam Deck DUB Edition UI...');
+  console.log('Initializing Grimoire UI...');
   
   // Add skip links for keyboard accessibility
   addSkipLinks();

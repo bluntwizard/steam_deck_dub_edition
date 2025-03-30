@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * Icon Preparation Script
  * 
  * This script prepares icon files for all platforms (Windows, macOS, Linux)

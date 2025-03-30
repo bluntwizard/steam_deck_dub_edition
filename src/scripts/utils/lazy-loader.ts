@@ -1,5 +1,5 @@
 /**
- * Lazy Loading Module for Steam Deck DUB Edition
+ * Lazy Loading Module for Grimoire
  * Handles dynamic loading of content sections
  */
 

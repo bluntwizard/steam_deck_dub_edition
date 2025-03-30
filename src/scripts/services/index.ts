@@ -1,6 +1,6 @@
 /**
  * Services Index - TypeScript Version
- * Steam Deck DUB Edition
+ * Grimoire
  * 
  * Note: We still reference .js files until they are migrated to TypeScript
  */

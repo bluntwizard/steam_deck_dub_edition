@@ -1,6 +1,6 @@
 # Coding Standards
 
-This document outlines the coding standards and best practices for the Steam Deck DUB Edition project.
+This document outlines the coding standards and best practices for the Grimoire project.
 
 ## General Guidelines
 

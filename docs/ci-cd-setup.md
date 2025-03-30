@@ -1,6 +1,6 @@
 # CI/CD Pipeline Documentation
 
-This document describes the continuous integration and continuous deployment (CI/CD) pipeline for the Steam Deck DUB Edition project.
+This document describes the continuous integration and continuous deployment (CI/CD) pipeline for the Grimoire project.
 
 ## Overview
 
@@ -50,8 +50,8 @@ Our CI/CD pipeline automates testing, building, and deployment processes, ensuri
 - Staging deployments happen automatically when merging to `main`
 - Production deployments happen when creating a release tag
 - Access the deployed applications at:
-  - Staging: `https://staging.steamdeckdubedition.com`
-  - Production: `https://steamdeckdubedition.com`
+  - Staging: `https://staging.grimoiredubedition.com`
+  - Production: `https://grimoiredubedition.com`
 
 ### Release Management
 

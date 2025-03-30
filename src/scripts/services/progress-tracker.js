@@ -1,5 +1,5 @@
 /**
- * Progress Tracker for Steam Deck DUB Edition Guide
+ * Progress Tracker for Grimoire Guide
  * Allows users to mark sections as completed and track overall progress
  */
 

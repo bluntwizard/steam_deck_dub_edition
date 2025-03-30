@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SDDE Components Example</title>
+    <title>Grimoire Components Example</title>
     <link rel="stylesheet" href="../dist/sdde-components.css">
     <style>
         body {
@@ -37,7 +37,7 @@
     </style>
 </head>
 <body>
-    <h1>SDDE Components Example</h1>
+    <h1>Grimoire Components Example</h1>
     
     <div class="demo-section">
         <h2>Dialog Component</h2>
@@ -74,27 +74,27 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize components
-            const notificationSystem = new SDDE.NotificationSystem({
+            const notificationSystem = new Grimoire.NotificationSystem({
                 position: 'top-right'
             });
             
-            const errorHandler = new SDDE.ErrorHandler({
+            const errorHandler = new Grimoire.ErrorHandler({
                 showNotifications: true,
                 notificationSystem: notificationSystem
             });
             
-            const pageLoader = new SDDE.PageLoader({
+            const pageLoader = new Grimoire.PageLoader({
                 container: document.body
             });
             
-            const helpCenter = new SDDE.HelpCenter({
+            const helpCenter = new Grimoire.HelpCenter({
                 container: document.body,
                 helpContentUrl: './help-content/'
             });
             
             // Dialog examples
             document.getElementById('openDialog').addEventListener('click', () => {
-                const dialog = new SDDE.Dialog({
+                const dialog = new Grimoire.Dialog({
                     title: 'Example Dialog',
                     content: 'This is a simple dialog example.',
                     buttons: [
@@ -105,7 +105,7 @@
             });
             
             document.getElementById('openConfirmDialog').addEventListener('click', () => {
-                const dialog = new SDDE.Dialog({
+                const dialog = new Grimoire.Dialog({
                     title: 'Confirm Action',
                     content: 'Are you sure you want to proceed?',
                     buttons: [

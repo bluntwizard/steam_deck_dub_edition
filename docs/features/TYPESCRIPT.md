@@ -1,10 +1,10 @@
 # TypeScript Implementation
 
-This document provides details about the TypeScript implementation in the Steam Deck DUB Edition project, including migration status, type definitions, and best practices.
+This document provides details about the TypeScript implementation in the Grimoire project, including migration status, type definitions, and best practices.
 
 ## Overview
 
-The Steam Deck DUB Edition project has been fully migrated to TypeScript to enhance code quality, maintainability, and developer experience. TypeScript provides static typing which helps catch errors at compile time rather than runtime.
+The Grimoire project has been fully migrated to TypeScript to enhance code quality, maintainability, and developer experience. TypeScript provides static typing which helps catch errors at compile time rather than runtime.
 
 ## Migration Status
 

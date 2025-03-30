@@ -1,6 +1,6 @@
 /**
  * API Client Type Definitions
- * Steam Deck DUB Edition Guide
+ * Grimoire Guide
  */
 
 /**

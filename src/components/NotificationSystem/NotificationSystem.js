@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * NotificationSystem Component
  * 
  * Provides a centralized system for displaying notifications throughout the application.

@@ -1,7 +1,7 @@
 /**
  * Font Loader Script
  * Handles font loading and accessibility preferences
- * Steam Deck DUB Edition Guide
+ * Grimoire Guide
  */
 
 /**

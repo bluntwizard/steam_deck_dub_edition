@@ -1,5 +1,5 @@
 /**
- * Content Loader for SDDE Guide
+ * Content Loader for Grimoire Guide
  * Loads HTML fragments into the main content area
  */
 

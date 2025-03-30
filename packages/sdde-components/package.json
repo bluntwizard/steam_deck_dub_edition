@@ -1,7 +1,7 @@
 {
   "name": "sdde-components",
   "version": "0.1.0",
-  "description": "Steam Deck DUB Edition UI Component Library",
+  "description": "Grimoire UI Component Library",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -25,7 +25,7 @@
     "accessibility",
     "modular"
   ],
-  "author": "Steam Deck DUB Edition Team",
+  "author": "Grimoire Team",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -56,10 +56,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/steamdeckdubedition/sdde-components"
+    "url": "https://github.com/grimoiredubedition/sdde-components"
   },
   "bugs": {
-    "url": "https://github.com/steamdeckdubedition/sdde-components/issues"
+    "url": "https://github.com/grimoiredubedition/sdde-components/issues"
   },
-  "homepage": "https://github.com/steamdeckdubedition/sdde-components#readme"
+  "homepage": "https://github.com/grimoiredubedition/sdde-components#readme"
 } 

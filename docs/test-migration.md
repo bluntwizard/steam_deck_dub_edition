@@ -1,6 +1,6 @@
 # Test Migration to TypeScript
 
-This document outlines the process and tools used to migrate tests from JavaScript to TypeScript in the Steam Deck DUB Edition project.
+This document outlines the process and tools used to migrate tests from JavaScript to TypeScript in the Grimoire project.
 
 ## Overview
 

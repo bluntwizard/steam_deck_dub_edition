@@ -1,6 +1,6 @@
 # Modularization Progress
 
-This document tracks the progress of modularizing the Steam Deck DUB Edition codebase.
+This document tracks the progress of modularizing the Grimoire codebase.
 
 ## Component Status
 

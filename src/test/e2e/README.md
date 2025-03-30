@@ -1,6 +1,6 @@
 # End-to-End Tests for Component Interactions
 
-This directory contains end-to-end tests for component interactions in the Steam Deck DUB Edition application. These tests focus on how components work together rather than testing components in isolation.
+This directory contains end-to-end tests for component interactions in the Grimoire application. These tests focus on how components work together rather than testing components in isolation.
 
 ## Test Structure
 

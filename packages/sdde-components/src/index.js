@@ -1,5 +1,5 @@
 /**
- * SDDE Components Library
+ * Grimoire Components Library
  * 
  * This file exports all components from the library.
  * 

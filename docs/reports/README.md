@@ -1,6 +1,6 @@
 # Project Reports
 
-This directory contains reports and progress tracking documents for the Steam Deck DUB Edition project.
+This directory contains reports and progress tracking documents for the Grimoire project.
 
 ## Available Reports
 

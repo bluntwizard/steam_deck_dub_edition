@@ -1,9 +1,9 @@
 /**
- * Search Component for Steam Deck DUB Edition
+ * Search Component for Grimoire
  * Provides search functionality across documentation
  * 
  * @module Search
- * @author Steam Deck DUB Edition Team
+ * @author Grimoire Team
  * @version 1.0.0
  */
 

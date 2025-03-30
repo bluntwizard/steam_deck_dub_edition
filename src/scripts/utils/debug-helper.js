@@ -1,5 +1,5 @@
 /**
- * Debug Helper for SDDE Guide
+ * Debug Helper for Grimoire Guide
  * Provides tools for diagnosing layout and rendering issues
  */
 

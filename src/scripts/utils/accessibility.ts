@@ -1,5 +1,5 @@
 /**
- * Accessibility manager for Steam Deck DUB Edition
+ * Accessibility manager for Grimoire
  * Handles accessibility features like dyslexic font, high contrast mode, and other settings
  * to make the application more accessible to all users.
  */

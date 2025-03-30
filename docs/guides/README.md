@@ -1,6 +1,6 @@
 # Development Guides
 
-This directory contains development guidelines and best practices for the Steam Deck DUB Edition project.
+This directory contains development guidelines and best practices for the Grimoire project.
 
 ## Available Guides
 

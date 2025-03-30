@@ -1,6 +1,6 @@
-# Contributing to Steam Deck DUB Edition
+# Contributing to Grimoire
 
-Thank you for your interest in contributing to the Steam Deck DUB Edition project! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to the Grimoire project! This document provides guidelines and instructions for contributing.
 
 ## Code of Conduct
 
@@ -117,4 +117,4 @@ All new features or bug fixes should include appropriate tests:
 
 ## License
 
-By contributing to the Steam Deck DUB Edition, you agree that your contributions will be licensed under the project's [MIT License](LICENSE). 
+By contributing to the Grimoire, you agree that your contributions will be licensed under the project's [MIT License](LICENSE). 

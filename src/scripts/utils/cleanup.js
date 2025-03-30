@@ -1,5 +1,5 @@
 /**
- * SDDE Guide Cleanup Script
+ * Grimoire Guide Cleanup Script
  * Removes legacy elements and ensures clean DOM structure
  */
 
@@ -18,7 +18,7 @@
  * Remove legacy elements from the DOM
  */
 function cleanupLegacyElements() {
-  console.log('Running SDDE cleanup...');
+  console.log('Running Grimoire cleanup...');
   
   // Legacy header elements to remove
   const legacySelectors = [

@@ -1,5 +1,5 @@
 /**
- * Settings Component for Steam Deck DUB Edition
+ * Settings Component for Grimoire
  * Provides a unified interface for managing user preferences
  */
 

@@ -1,5 +1,5 @@
 /**
- * Offline functionality manager for the SDDE Guide
+ * Offline functionality manager for the Grimoire Guide
  * Handles offline detection and related UI interactions
  */
 

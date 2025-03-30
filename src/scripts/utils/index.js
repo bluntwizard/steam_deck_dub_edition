@@ -1,6 +1,6 @@
 /**
  * Utility Functions Index
- * Steam Deck DUB Edition
+ * Grimoire
  */
 
 export { default as debugHelper } from './debug-helper.js';

@@ -1,5 +1,5 @@
 /**
- * Search Component for Steam Deck DUB Edition
+ * Search Component for Grimoire
  * Provides search functionality across documentation
  */
 

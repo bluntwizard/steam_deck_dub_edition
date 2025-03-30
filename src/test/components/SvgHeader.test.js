@@ -77,8 +77,8 @@ describe('SvgHeader', () => {
       const svgHeader = new SvgHeader();
       
       expect(svgHeader.options.svgPath).toBe('sdde.svg');
-      expect(svgHeader.options.fallbackText).toBe('Steam Deck DUB Edition');
-      expect(svgHeader.options.ariaLabel).toBe('Steam Deck DUB Edition Logo');
+      expect(svgHeader.options.fallbackText).toBe('Grimoire');
+      expect(svgHeader.options.ariaLabel).toBe('Grimoire Logo');
       expect(svgHeader.options.container).toBe(document.body);
       expect(svgHeader.options.cssPath).toBe('svg-header-styles.css');
       expect(svgHeader.options.cssVariables).toContain('--color-main');
@@ -124,7 +124,7 @@ describe('SvgHeader', () => {
       expect(svgHeader.svgContainer.data).toBe('sdde.svg');
       expect(svgHeader.svgContainer.type).toBe('image/svg+xml');
       expect(svgHeader.svgContainer.classList.contains('header-svg')).toBe(true);
-      expect(svgHeader.svgContainer.getAttribute('aria-label')).toBe('Steam Deck DUB Edition Logo');
+      expect(svgHeader.svgContainer.getAttribute('aria-label')).toBe('Grimoire Logo');
     });
     
     test('should create a fallback element with correct content', () => {
@@ -132,7 +132,7 @@ describe('SvgHeader', () => {
       
       const fallback = svgHeader.headerContainer.querySelector('.svg-fallback');
       expect(fallback).not.toBeNull();
-      expect(fallback.innerHTML).toContain('Steam Deck DUB Edition');
+      expect(fallback.innerHTML).toContain('Grimoire');
     });
   });
   

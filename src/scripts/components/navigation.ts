@@ -1,5 +1,5 @@
 /**
- * Navigation component for Steam Deck DUB Edition
+ * Navigation component for Grimoire
  */
 
 import { debounce } from '../utils/index.js';

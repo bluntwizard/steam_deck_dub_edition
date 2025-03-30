@@ -1,5 +1,5 @@
 /**
- * Version Display Component for Steam Deck DUB Edition
+ * Version Display Component for Grimoire
  * Shows the current application version in the UI
  */
 

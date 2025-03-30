@@ -158,7 +158,7 @@ This document outlines the key differences between the legacy `index.html` file 
 - Example:
   ```javascript
   const helpCenter = new HelpCenter({
-    title: 'Steam Deck DUB Edition Help',
+    title: 'Grimoire Help',
     buttonPosition: 'bottom-right',
     defaultTopic: 'getting-started',
     topics: [

@@ -1,6 +1,6 @@
 # Component Documentation
 
-This document provides an overview of the modular component structure used in the Steam Deck DUB Edition project.
+This document provides an overview of the modular component structure used in the Grimoire project.
 
 ## Component Architecture
 
@@ -546,9 +546,9 @@ The component creates the following HTML structure:
 
 ```html
 <div class="headerContainer header-container svg-loading">
-  <object data="sdde.svg" type="image/svg+xml" class="headerSvg header-svg" aria-label="Steam Deck DUB Edition Logo">
+  <object data="sdde.svg" type="image/svg+xml" class="headerSvg header-svg" aria-label="Grimoire Logo">
     <div class="svgFallback svg-fallback">
-      <h2>Steam Deck DUB Edition</h2>
+      <h2>Grimoire</h2>
     </div>
   </object>
 </div>
@@ -558,8 +558,8 @@ The component creates the following HTML structure:
 
 - `constructor(options)` - Creates a new SvgHeader instance with the following options:
   - `svgPath` - Path to the SVG file (default: 'sdde.svg')
-  - `fallbackText` - Text to show if SVG fails to load (default: 'Steam Deck DUB Edition')
-  - `ariaLabel` - Accessibility label for the SVG (default: 'Steam Deck DUB Edition Logo')
+  - `fallbackText` - Text to show if SVG fails to load (default: 'Grimoire')
+  - `ariaLabel` - Accessibility label for the SVG (default: 'Grimoire Logo')
   - `container` - Container element to append the header to (default: document.body)
   - `cssPath` - Path to external CSS for the SVG (default: 'svg-header-styles.css')
   - `cssVariables` - CSS variables to pass to the SVG (default: common theme variables)

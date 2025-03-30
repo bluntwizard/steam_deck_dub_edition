@@ -1,5 +1,5 @@
 /**
- * Sidebar component for Steam Deck DUB Edition
+ * Sidebar component for Grimoire
  */
 
 import { debounce } from '../utils';

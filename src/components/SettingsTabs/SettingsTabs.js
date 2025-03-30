@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * SettingsTabs Component
  * 
  * A component for managing tabbed interfaces in settings panels

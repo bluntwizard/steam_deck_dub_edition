@@ -1,7 +1,7 @@
 /**
  * Settings Manager Component
  * Handles settings tab navigation and integration with accessibility features
- * For Steam Deck DUB Edition
+ * For Grimoire
  */
 
 import i18n from '../i18n.js';

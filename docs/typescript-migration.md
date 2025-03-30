@@ -1,6 +1,6 @@
 # TypeScript Migration Plan
 
-This document outlines the plan for migrating the Steam Deck DUB Edition codebase from JavaScript to TypeScript. The migration will be done incrementally, focusing on one component or module at a time to minimize disruption to the development workflow.
+This document outlines the plan for migrating the Grimoire codebase from JavaScript to TypeScript. The migration will be done incrementally, focusing on one component or module at a time to minimize disruption to the development workflow.
 
 ## Benefits of TypeScript
 
@@ -148,7 +148,7 @@ The service worker migration required special attention to the following aspects
 
 ## Conclusion
 
-The TypeScript migration for the Steam Deck DUB Edition codebase is now complete! All components, utility functions, and service modules have been successfully migrated. The project now benefits from enhanced type safety, better IDE support, and improved maintainability.
+The TypeScript migration for the Grimoire codebase is now complete! All components, utility functions, and service modules have been successfully migrated. The project now benefits from enhanced type safety, better IDE support, and improved maintainability.
 
 Special attention was given to:
 - Creating comprehensive type definitions for all modules

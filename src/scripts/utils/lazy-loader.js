@@ -1,9 +1,9 @@
 /**
- * Lazy Loading Module for Steam Deck DUB Edition
+ * Lazy Loading Module for Grimoire
  * Handles dynamic loading of content sections
  * 
  * @module LazyLoader
- * @author Steam Deck DUB Edition Team
+ * @author Grimoire Team
  * @version 1.0.0
  */
 

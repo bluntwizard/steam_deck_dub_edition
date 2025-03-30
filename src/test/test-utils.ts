@@ -1,6 +1,6 @@
 /**
  * Test Utilities
- * Steam Deck DUB Edition Guide
+ * Grimoire Guide
  * 
  * Helper functions for testing components and utilities
  */

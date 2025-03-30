@@ -1,6 +1,6 @@
 /**
  * Core Index
- * Steam Deck DUB Edition
+ * Grimoire
  */
 
 // Import from TypeScript files when available

@@ -1,5 +1,5 @@
 /**
- * Steam Deck DUB Edition
+ * Grimoire
  * SvgHeader Component
  * 
  * A component for managing SVG headers with proper styling and fallback support
@@ -35,8 +35,8 @@ export class SvgHeader {
   constructor(options: SvgHeaderOptions = {}) {
     this.options = {
       svgPath: options.svgPath || 'sdde.svg',
-      fallbackText: options.fallbackText || 'Steam Deck DUB Edition',
-      ariaLabel: options.ariaLabel || 'Steam Deck DUB Edition Logo',
+      fallbackText: options.fallbackText || 'Grimoire',
+      ariaLabel: options.ariaLabel || 'Grimoire Logo',
       container: options.container || document.body,
       cssPath: options.cssPath || 'svg-header-styles.css',
       cssVariables: options.cssVariables || [

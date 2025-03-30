@@ -1,6 +1,6 @@
 # Component Visual Documentation
 
-This document provides visual examples for all modular components in the Steam Deck DUB Edition project.
+This document provides visual examples for all modular components in the Grimoire project.
 
 ## How to Create and Add Visual Examples
 

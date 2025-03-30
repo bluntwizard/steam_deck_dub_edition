@@ -1,6 +1,6 @@
 # Component Showcase
 
-This directory contains a showcase/demo page for the Steam Deck DUB Edition modularized components.
+This directory contains a showcase/demo page for the Grimoire modularized components.
 
 ## Purpose
 

@@ -9,12 +9,12 @@ test.describe('Component Showcase', () => {
 
   test('should load properly in all browsers', async ({ page }) => {
     // Check that the page title is correct
-    await expect(page).toHaveTitle('Steam Deck DUB Edition - Component Showcase');
+    await expect(page).toHaveTitle('Grimoire - Component Showcase');
     
     // Verify the header is present
     const header = page.locator('header h1');
     await expect(header).toBeVisible();
-    await expect(header).toHaveText('Steam Deck DUB Edition - Component Showcase');
+    await expect(header).toHaveText('Grimoire - Component Showcase');
     
     // Check that all component sections are present
     const componentSections = page.locator('.component-section');

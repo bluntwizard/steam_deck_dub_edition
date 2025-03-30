@@ -1,6 +1,6 @@
 /**
  * Main Scripts Index
- * Steam Deck DUB Edition Guide
+ * Grimoire Guide
  * 
  * Imports all JavaScript/TypeScript modules
  */
@@ -30,4 +30,4 @@ import './components/preferences.js';
 import './components/navigation.js';
 
 // Initialize app
-console.log('Steam Deck DUB Edition Guide - Initializing...'); 
+console.log('Grimoire Guide - Initializing...'); 

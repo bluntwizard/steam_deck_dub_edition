@@ -1,6 +1,6 @@
 /**
  * Button Component Types
- * Steam Deck DUB Edition Guide
+ * Grimoire Guide
  */
 
 /**

@@ -4,7 +4,7 @@ This document provides guidance for migrating from the legacy implementation to 
 
 ## Overview
 
-The Steam Deck DUB Edition codebase has undergone a significant architectural upgrade, moving from a monolithic structure to a component-based modular architecture. This guide will help you understand the changes and how to adopt them in your projects.
+The Grimoire codebase has undergone a significant architectural upgrade, moving from a monolithic structure to a component-based modular architecture. This guide will help you understand the changes and how to adopt them in your projects.
 
 ## File Changes
 

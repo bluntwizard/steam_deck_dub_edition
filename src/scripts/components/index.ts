@@ -1,6 +1,6 @@
 /**
  * Components Index
- * Steam Deck DUB Edition
+ * Grimoire
  */
 
 // Import from TypeScript files for the components we've migrated
