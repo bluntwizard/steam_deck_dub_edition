@@ -20,8 +20,8 @@ This document outlines the plan and progress for migrating the Steam Deck DUB Ed
      - ✅ PageLoader component
      - ✅ ErrorHandler component
      - ✅ NotificationSystem component
+     - ✅ Dialog component
    - ⬜ Convert complex UI components
-     - ⬜ Dialog component
      - ⬜ HelpCenter component
    - ⬜ Update component tests
 
@@ -60,12 +60,12 @@ This document outlines the plan and progress for migrating the Steam Deck DUB Ed
 
 | Category | Completed | Total | Progress |
 |----------|-----------|-------|----------|
-| Components | 4 | 10 | 40% |
+| Components | 5 | 10 | 50% |
 | Utilities | 5 | 5 | 100% |
 | Core Logic | 0 | 3 | 0% |
 | Build System | 2 | 3 | 67% |
 | CI/CD | 0 | 3 | 0% |
-| **Overall** | **11** | **24** | **46%** |
+| **Overall** | **12** | **24** | **50%** |
 
 ## Migration Guidelines
 
