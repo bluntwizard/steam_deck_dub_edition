@@ -58,7 +58,7 @@ The migration will follow a progressive approach:
 | Setup & Configuration | 4 | 4 | 0 | 0 |
 | Type Definitions | 10 | 10 | 0 | 0 |
 | Utility Functions | 5 | 5 | 0 | 0 |
-| Components | TBD | 3 | 0 | TBD |
+| Components | TBD | 4 | 0 | TBD |
 | API Layer | TBD | 0 | 0 | TBD |
 | State Management | TBD | 0 | 0 | TBD |
 | Testing | TBD | 0 | 0 | TBD |
@@ -136,6 +136,12 @@ The migration will follow a progressive approach:
    - Multi-variant language selection interface (dropdown, buttons, select)
    - Internationalization integration with the i18n system
    - RTL language support with appropriate document direction handling
+
+4. **ErrorHandler Component** - `src/components/ErrorHandler/ErrorHandler.tsx`
+   - Centralized error handling and notification system
+   - Type-safe error boundaries for React components
+   - Support for multiple notification types (toast, modal, inline)
+   - Advanced error categorization and customization
 
 ## Additional Migrations
 
