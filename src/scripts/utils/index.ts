@@ -16,6 +16,9 @@
 // Import validation functions
 export * from './validation';
 
+// Import error handling functions
+export * from './error-handling';
+
 /**
  * Debounce function to limit how often a function can be called
  * @param func - The function to debounce
