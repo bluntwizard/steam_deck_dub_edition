@@ -1,1 +1,76 @@
- 
+/**
+ * Steam Deck DUB Edition
+ * VersionDisplay Component Styles
+ */
+
+.versionDisplay {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  border-radius: 4px;
+  background-color: var(--background-secondary, #34353e);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+  color: var(--text-secondary, #d9d9ef);
+  font-size: 0.85rem;
+  font-family: var(--font-family-mono, monospace);
+  max-width: 300px;
+}
+
+.expanded {
+  background-color: var(--background-hover, #3d3f4b);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.versionHeader {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.versionIcon {
+  height: 16px;
+  width: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.versionNumber {
+  font-weight: 600;
+  color: var(--primary-color, #bd93f9);
+}
+
+.versionDetails {
+  margin-top: 0.5rem;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.expanded .versionDetails {
+  height: auto;
+  opacity: 1;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-color, #44475a);
+}
+
+.detailItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.detailLabel {
+  color: var(--text-secondary, #d9d9ef);
+  font-weight: 500;
+}
+
+.detailValue {
+  color: var(--accent-color, #ff79c6);
+  font-weight: 400;
+} 
