@@ -25,7 +25,7 @@ The migration will follow a progressive approach:
    - Create type definitions for API responses and requests
    - Define utility types and common patterns
 
-3. **Utility Function Migration** 🔄
+3. **Utility Function Migration** ✅
    - Convert utility functions from `.js` to `.ts`
    - Add appropriate type signatures
    - Ensure type safety for all parameters and return values
@@ -57,7 +57,7 @@ The migration will follow a progressive approach:
 |----------|-------------|-----------|-------------|-------------|
 | Setup & Configuration | 4 | 4 | 0 | 0 |
 | Type Definitions | 10 | 10 | 0 | 0 |
-| Utility Functions | 5 | 3 | 0 | 2 |
+| Utility Functions | 5 | 5 | 0 | 0 |
 | Components | TBD | 0 | 0 | TBD |
 | API Layer | TBD | 0 | 0 | TBD |
 | State Management | TBD | 0 | 0 | TBD |
@@ -108,11 +108,23 @@ The migration will follow a progressive approach:
    - Virtual scrolling
    - Smooth transitions
 
+4. **Core Utilities** - `src/scripts/utils/index.ts`
+   - Debounce and throttle functions
+   - Date formatting
+   - Element visibility detection
+   - LocalStorage utilities
+
+5. **Accessibility Manager** - `src/scripts/utils/accessibility.ts`
+   - User preference management
+   - Accessibility features (high contrast, font size, etc.)
+   - Reading guide implementation
+   - Event handling for accessibility changes
+
 ## Next Steps
 
-- [ ] Continue migrating utility functions to TypeScript
 - [ ] Begin migrating simpler components to TypeScript
 - [ ] Update build scripts to correctly handle TypeScript compilation
+- [ ] Add TypeScript to the CI/CD pipeline
 
 ## Best Practices
 
