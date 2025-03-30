@@ -81,7 +81,7 @@ The TypeScript migration will be considered complete when:
 | Category               | File Count | Migrated | Progress |
 |------------------------|------------|----------|----------|
 | Core                   | 10         | 10       | 100%     |
-| Components             | 7          | 2        | 28.6%    |
+| Components             | 7          | 3        | 42.9%    |
 | Utils                  | 12         | 6        | 50%      |
 | Services               | 9          | 2        | 22.2%    |
 | Router                 | 3          | 3        | 100%     |
@@ -90,7 +90,7 @@ The TypeScript migration will be considered complete when:
 | Service Workers        | 1          | 1        | 100%     |
 | Tests                  | 26         | 26       | 100%     |
 
-**Overall Progress: 79.2%**
+**Overall Progress: 80.6%**
 
 ## Remaining Tasks
 
@@ -99,9 +99,9 @@ We still have several files to migrate:
 ### Core (0 remaining)
 ✅ All core files have been migrated to TypeScript!
 
-### Components (5 remaining)
+### Components (4 remaining)
 - ✅ preferences.js
-- navigation.js
+- ✅ navigation.js
 - sidebar.js
 - index.js
 - version-display.js
